@@ -365,3 +365,5 @@ body.home .scrolldown span{
   body.home .content.lowered{ padding-top:8vh; }
   body.home .scrolldown{ bottom:9vh; }
 }
+/* Mobile-only collage: never show on desktop */
+.m-collage{ display:none; }

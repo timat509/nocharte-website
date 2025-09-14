@@ -4,28 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>NOCHARTE — Gallery</title>
 
+  <!-- Fonts & CSS -->
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="gallery.css" />
-  <link rel="stylesheet" href="/mobile/responsive.css?v=9">
-<script src="/mobile/mobile.js?v=3" defer></script>
+  <link rel="stylesheet" href="/style.css?v=13" />
+  <link rel="stylesheet" href="/gallery.css?v=1" />
+  <link rel="stylesheet" href="/mobile/responsive.css?v=12" />
 
+  <!-- Mobile/nav JS (one time) -->
+  <script src="/mobile/mobile.js?v=4" defer></script>
 </head>
 
 <body class="page-gallery">
-  <!-- Header -->
+  <!-- HEADER (one) -->
   <header class="nav">
-    <a class="logo" href="index.html" aria-label="NOCHARTE Home">
-      <img src="assets/web/logohome.png" alt="NOCHARTE">
+    <a class="logo" href="/index.html" aria-label="NOCHARTE Home">
+      <img src="/assets/web/logohome.png" alt="NOCHARTE">
     </a>
+
+    <!-- Hamburger -->
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Fallback inline links -->
     <nav class="links" role="navigation">
-      <a href="index.html" data-nav="home">Home</a>
-      <a href="gallery.html" data-nav="gallery" aria-current="page">Gallery</a>
-      <a href="about.html" data-nav="about">About</a>
-      <a href="contact.html" data-nav="contact">Contact</a>
+      <a href="/index.html"  data-nav="home">Home</a>
+      <a href="/gallery.html" data-nav="gallery">Gallery</a>
+      <a href="/about.html"   data-nav="about">About</a>
+      <a href="/contact.html" data-nav="contact">Contact</a>
     </nav>
   </header>
 
@@ -67,23 +76,30 @@
     </footer>
   </main>
 
+  <!-- Popup menu (same across pages) -->
+  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+    <div class="nav-pop__overlay" data-close></div>
+    <div class="nav-pop__sheet" role="document">
+      <button class="nav-pop__close" type="button" aria-label="Close menu" data-close>
+        <span></span><span></span>
+      </button>
+      <nav class="nav-pop__nav" aria-label="Main">
+        <a href="/index.html">Home</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/about.html">About Us</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Page JS -->
   <script>
-  // Exactly two albums
+  // Data (two albums)
   const ALBUMS = [
-    {
-      slug: "luna-19-07-25",
-      title: "Luna — 19 Jul 2025",
-      date: "Jul 19, 2025",
-      count: "7",
-      cover: "assets/albums/luna-19-07-25/cover.png"
-    },
-    {
-      slug: "summer-23-08-25",
-      title: "Summer — 23 Aug 2025",
-      date: "Aug 23, 2025",
-      count: "52",
-      cover: "assets/albums/summer-23-08-25/cover.jpeg"
-    }
+    { slug:"luna-19-07-25",   title:"Luna — 19 Jul 2025",   date:"Jul 19, 2025", count:"7",
+      cover:"/assets/albums/luna-19-07-25/cover.png" },
+    { slug:"summer-23-08-25", title:"Summer — 23 Aug 2025", date:"Aug 23, 2025", count:"52",
+      cover:"/assets/albums/summer-23-08-25/cover.jpeg" }
   ];
 
   const stage = document.getElementById('stage');
@@ -101,13 +117,13 @@
     s.style.width = s.style.height = (Math.random()*3+1) + 'px';
   });
 
-  // Build cards as proper anchors
   let index = 0;
+
   function render(){
     stage.innerHTML = ALBUMS.map(a => `
       <a class="card"
          role="option"
-         href="album.html?album=${encodeURIComponent(a.slug)}"
+         href="/album.html?album=${encodeURIComponent(a.slug)}"
          data-slug="${a.slug}"
          data-title="${a.title}"
          aria-label="Open ${a.title}">
@@ -124,7 +140,7 @@
     if (!cards.length) return;
 
     const cardW = cards[0]?.offsetWidth || 300;
-    const spacing = cardW * 0.78;         // tighter gap
+    const spacing = cardW * 0.78;
     const depthStep = 140;
 
     cards.forEach((card, i) => {
@@ -142,7 +158,7 @@
     const active = ALBUMS[index];
     albumTitle.textContent = active.title;
     albumDate.textContent  = `${active.date} • ${active.count} photos`;
-    openAlbum.href = `album.html?album=${encodeURIComponent(active.slug)}`;
+    openAlbum.href = `/album.html?album=${encodeURIComponent(active.slug)}`;
 
     arrowL.classList.toggle('is-disabled', index === 0);
     arrowR.classList.toggle('is-disabled', index === ALBUMS.length - 1);
@@ -151,41 +167,32 @@
   function prev(){ if(index>0){ index--; positionCards(); } }
   function next(){ if(index<ALBUMS.length-1){ index++; positionCards(); } }
 
-  // --- Drag-to-swipe without stealing clicks
+  // Drag-to-swipe
   let downX = null, isDragging = false;
-
-  stage.addEventListener('pointerdown', e => {
-    downX = e.clientX;
-    isDragging = false;
-  });
-
+  stage.addEventListener('pointerdown', e => { downX = e.clientX; isDragging = false; });
   stage.addEventListener('pointermove', e => {
     if (downX == null) return;
     const dx = e.clientX - downX;
-    if (!isDragging && Math.abs(dx) > 12) isDragging = true;       // start drag after small threshold
-    if (isDragging && Math.abs(dx) > 40) {                          // navigate once per chunk
-      (dx > 0 ? prev() : next());
-      downX = e.clientX;
-    }
+    if (!isDragging && Math.abs(dx) > 12) isDragging = true;
+    if (isDragging && Math.abs(dx) > 40) { (dx > 0 ? prev() : next()); downX = e.clientX; }
   });
-
   stage.addEventListener('pointerup',   () => { downX = null; isDragging = false; });
   stage.addEventListener('pointerleave',() => { downX = null; isDragging = false; });
 
-  // Force navigation on card click (and keep skip-intro)
+  // Click → navigate (keep skip-intro)
   function addCardClickHandlers(){
     stage.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', (ev) => {
-        if (isDragging) { ev.preventDefault(); return; } // it was a swipe
+        if (isDragging) { ev.preventDefault(); return; }
         ev.preventDefault();
         const url = new URL(card.href, location.href);
-        url.searchParams.set('skip-intro', '1');
+        url.searchParams.set('skip-intro','1');
         location.assign(url.href);
       });
     });
   }
 
-  // Arrow keys
+  // Buttons + keys
   arrowL.addEventListener('click', prev);
   arrowR.addEventListener('click', next);
   window.addEventListener('keydown', (e) => {
@@ -193,35 +200,38 @@
     if (e.key === 'ArrowRight') next();
   });
 
-  // Mark current nav + global skip-intro
-  (function(){
+  // Mark current link both in header and popup
+  (function markCurrentEverywhere(){
     try{
-      const path = (location.pathname.replace(/\/+$/, '') || '/gallery.html').toLowerCase();
-      document.querySelectorAll('.links a').forEach(a => {
-        const url = new URL(a.getAttribute('href'), location.origin);
-        const p = url.pathname.replace(/\/+$/, '').toLowerCase();
-        if (p === path) a.setAttribute('aria-current', 'page');
+      const here = (location.pathname.replace(/\/+$/, '') || '/gallery.html').toLowerCase();
+      const mark = (scope) => scope && scope.querySelectorAll('a[href]').forEach(a=>{
+        const p = new URL(a.getAttribute('href'), location.origin)
+                    .pathname.replace(/\/+$/, '').toLowerCase();
+        if (p === here) a.setAttribute('aria-current','page');
       });
+      mark(document.querySelector('.links'));
+      mark(document.getElementById('nav-pop'));
     }catch(e){}
-    document.addEventListener('click', function (e) {
-      const a = e.target.closest('a[href]');
-      if (!a) return;
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      if (a.target === '_blank') return;
-      const href = a.getAttribute('href') || '';
-      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
-      const url = new URL(href, location.href);
-      if (url.origin !== location.origin) return;
-      e.preventDefault();
-      url.searchParams.set('skip-intro', '1');
-      location.assign(url.href);
-    }, { capture: true });
   })();
+
+  // Global internal-link handler to add skip-intro=1
+  document.addEventListener('click', function (e) {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.target === '_blank') return;
+    const href = a.getAttribute('href') || '';
+    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+    const url = new URL(href, location.href);
+    if (url.origin !== location.origin) return;
+    e.preventDefault();
+    url.searchParams.set('skip-intro','1');
+    location.assign(url.href);
+  }, { capture: true });
 
   // Init
   window.addEventListener('load', render);
   window.addEventListener('resize', positionCards);
-</script>
-<script src="/mobile/mobile.js?v=3" defer></script>
+  </script>
 </body>
 </html>

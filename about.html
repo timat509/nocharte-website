@@ -3,31 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>NOCHARTE — About</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Global styles (header, base, etc.) -->
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="/mobile/responsive.css?v=9">
+  <!-- Global styles -->
+  <link rel="stylesheet" href="/style.css?v=13" />
+  <link rel="stylesheet" href="/mobile/responsive.css?v=12" />
   <!-- Page-scoped styles -->
-  <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="/about.css?v=1" />
+
+  <!-- Mobile / nav JS (one time) -->
+  <script src="/mobile/mobile.js?v=4" defer></script>
 </head>
 
 <body class="page-about">
-  <!-- SHARED HEADER (same on every page) -->
+  <!-- HEADER -->
   <header class="nav">
-    <a class="logo" href="index.html" aria-label="NOCHARTE Home">
-      <img src="assets/web/logohome.png" alt="NOCHARTE">
+    <a class="logo" href="/index.html" aria-label="NOCHARTE Home">
+      <img src="/assets/web/logohome.png" alt="NOCHARTE">
     </a>
+
+    <!-- Hamburger -->
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Fallback inline links -->
     <nav class="links" role="navigation">
-      <a href="index.html" data-nav="home">Home</a>
-      <a href="gallery.html" data-nav="gallery">Gallery</a>
-      <a href="about.html" data-nav="about" aria-current="page">About</a>
-      <a href="contact.html" data-nav="contact">Contact</a>
+      <a href="/index.html"  data-nav="home">Home</a>
+      <a href="/gallery.html" data-nav="gallery">Gallery</a>
+      <a href="/about.html"   data-nav="about" aria-current="page">About</a>
+      <a href="/contact.html" data-nav="contact">Contact</a>
     </nav>
   </header>
 
@@ -42,7 +52,7 @@
       </div>
 
       <aside class="media">
-        <img class="cams cutout" src="assets/web/aboutcamera.png" alt="NOCHARTE cameras" />
+        <img class="cams cutout" src="/assets/web/aboutcamera.png" alt="NOCHARTE cameras" />
       </aside>
 
       <p class="tagline">BORN ON THE DANCEFLOOR · BUILT TO BE REMEMBERED.</p>
@@ -74,7 +84,7 @@
     <section id="story" class="section wrap story anchor-target">
       <div class="story-grid">
         <figure class="story-media">
-          <img src="assets/albums/luna-19-07-25/photos/luna1.png" alt="Crowd on a club night captured by NOCHARTE">
+          <img src="/assets/albums/luna-19-07-25/photos/luna1.png" alt="Crowd on a club night captured by NOCHARTE">
         </figure>
         <div class="story-copy">
           <h2 class="sec-title right"><span class="title-hit">OUR STORY</span></h2>
@@ -104,29 +114,54 @@
       </div>
     </section>
   </main>
+
+  <!-- POPUP MENU -->
+  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+    <div class="nav-pop__overlay" data-close></div>
+    <div class="nav-pop__sheet" role="document">
+      <button class="nav-pop__close" type="button" aria-label="Close menu" data-close>
+        <span></span><span></span>
+      </button>
+      <nav class="nav-pop__nav" aria-label="Main">
+        <a href="/index.html">Home</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/about.html">About Us</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Small helpers -->
   <script>
-(function () {
-  document.addEventListener('click', function (e) {
-    const a = e.target.closest('a[href]');
-    if (!a) return;
+    // Add ?skip-intro=1 to internal links
+    (function () {
+      document.addEventListener('click', function (e) {
+        const a = e.target.closest('a[href]');
+        if (!a) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (a.target === '_blank') return;
+        const href = a.getAttribute('href') || '';
+        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+        const url = new URL(href, location.href);
+        if (url.origin !== location.origin) return;
+        e.preventDefault();
+        url.searchParams.set('skip-intro', '1');
+        location.assign(url.href);
+      }, { capture: true });
+    })();
 
-    // ignore modified clicks / new-tab / non-HTTP links
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    if (a.target === '_blank') return;
-
-    const href = a.getAttribute('href') || '';
-    if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
-
-    const url = new URL(href, location.href);
-    if (url.origin !== location.origin) return; // external
-
-    // Internal nav → add one-time flag and navigate
-    e.preventDefault();
-    url.searchParams.set('skip-intro', '1');
-    location.assign(url.href);
-  }, { capture: true });
-})();
-</script>
-<script src="/mobile/mobile.js?v=3" defer></script>
+    // Mark current link in header + popup
+    (function(){
+      try{
+        const here = (location.pathname.replace(/\/+$/, '') || '/about.html').toLowerCase();
+        const mark = scope => scope && scope.querySelectorAll('a[href]').forEach(a=>{
+          const p = new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/, '').toLowerCase();
+          if (p === here) a.setAttribute('aria-current','page');
+        });
+        mark(document.querySelector('.links'));
+        mark(document.getElementById('nav-pop'));
+      }catch(e){}
+    })();
+  </script>
 </body>
 </html>
