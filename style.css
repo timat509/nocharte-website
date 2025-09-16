@@ -367,3 +367,81 @@ body.home .scrolldown span{
 }
 /* Mobile-only collage: never show on desktop */
 .m-collage{ display:none; }
+
+/* =========================================
+   MOBILE — 2-up Recent Events that FIT
+========================================= */
+@media (max-width: 820px){
+  /* Give the grid back the lost width (kill the 8vw padding) */
+  .home .featured__inner{
+    width: 100%;
+    max-width: none;
+    padding: 0 12px !important;              /* small, fixed gutters */
+    margin: 0 auto;
+  }
+
+  /* Force side-by-side and tighten gaps */
+  .home .featured .grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 12px !important;
+    align-items: stretch;
+  }
+
+  /* Card polish */
+  .home .featured .card{
+    border-radius: 14px;
+    overflow: hidden;
+    background: #101015;
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,.30);
+  }
+
+  /* Bigger-looking thumbs without overflow */
+  .home .featured .art{ aspect-ratio: 4 / 3; background:#0f0f0f; }
+  .home .featured .art img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* Compact text to avoid wrapping */
+  .home .featured .meta{ padding: 8px 10px 10px; }
+  .home .featured .meta strong{
+    font-size: 13px; line-height: 1.2;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .home .featured .meta span{
+    font-size: 11px; opacity:.75;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* Full-width CTA under grid */
+  .home .featured .more{ margin-top: 14px; }
+  .home .featured .more .btn,
+  .home .featured .more .btn--outline{
+    display:block; width:100%; text-align:center;
+    padding:14px 18px; border-radius:999px; font-weight:700;
+  }
+}
+/* Place AFTER your current block */
+@media (max-width: 820px){
+  /* Move the section up (desktop centers vertically) */
+  .home .featured{ align-items:flex-start; padding-top: 8px; }
+
+  /* Safe-area gutters (notch) */
+  .home .featured__inner{
+    padding-left: max(12px, env(safe-area-inset-left)) !important;
+    padding-right: max(12px, env(safe-area-inset-right)) !important;
+  }
+
+  /* Slightly tighter heading spacing */
+  .home .featured__head h2{ margin-top: 8px; }
+  .home .featured__head p{ margin-bottom: 14px; }
+}
+
+/* Ultra-small phones (<= 390px) */
+@media (max-width: 390px){
+  .home .featured__inner{ padding-left: max(8px, env(safe-area-inset-left)) !important;
+                          padding-right: max(8px, env(safe-area-inset-right)) !important; }
+  .home .featured .grid{ gap: 10px !important; }
+  .home .featured .meta{ padding: 7px 9px 9px; }
+  .home .featured .meta strong{ font-size: 12.5px; }
+  .home .featured .meta span{ font-size: 10.5px; }
+}

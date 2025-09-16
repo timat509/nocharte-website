@@ -45,7 +45,7 @@
     transition: transform .2s ease, opacity .2s ease;
   }
 
-  /* Fallback legacy slide-down (kept but not used if popup exists) */
+  /* Fallback legacy slide-down (only if popup fails) */
   .links{
     position: fixed; inset: var(--mobile-header-h) 0 0 0;
     display: flex; flex-direction: column; gap: 6px;
@@ -110,7 +110,6 @@
     word-break: keep-all;
   }
 }
-/* Per-word handles */
 @media (max-width:820px){
   .headline .w-we      { --t: 10vh; --r:  5vw; }
   .headline .w-frame   { --t: 20vh; --r: 15vw; }
@@ -130,10 +129,8 @@
     box-shadow:0 16px 40px rgba(0,0,0,.58);
     filter:saturate(1.02) contrast(1.02);
   }
-  /* Left stack */
-  .m-collage .c1{ aspect-ratio: 3 / 4; width: clamp(110px,36vw,180px); top:10vh; left:0;   z-index:1; }
-  .m-collage .c2{ aspect-ratio: 4 / 3; width: clamp(120px,38vw,200px); top: 6vh; left:10vw; z-index:2; }
-  /* Right stack */
+  .m-collage .c1{ aspect-ratio: 3 / 4; width: clamp(110px,36vw,180px); top:10vh; left:0; }
+  .m-collage .c2{ aspect-ratio: 4 / 3; width: clamp(120px,38vw,200px); top: 6vh; left:10vw; }
   .m-collage .c4{ aspect-ratio: 4 / 3; width: clamp(140px,48vw,260px); top:40vh; right:-15vw; object-position:50% 42%; }
   .m-collage .c5{ aspect-ratio: 3 / 4; width: clamp(120px,30vw,180px); bottom:-35vh; right:-15vw; }
 }
@@ -178,10 +175,10 @@
 }
 
 /* =========================
-   CTA raise + gradient-outline pill
+   CTA + gradient-outline pill
 ========================= */
 @media (max-width: 820px){
-  body.home { --cta-raise: 120px; }  /* tweak 80–140 */
+  body.home { --cta-raise: 120px; }
 
   body.home .cta{
     position: fixed; left: 6vw; right: 6vw;
@@ -197,7 +194,7 @@
     padding: 14px 20px; border-radius: 28px;
     background: transparent; color: #f4e9ff;
     font-weight: 700; letter-spacing: .02em;
-    box-shadow: none; border: none; overflow: hidden;
+    overflow: hidden;
     backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   }
   body.home .btn::before{
@@ -214,157 +211,173 @@
   }
   body.home .btn:hover::after,
   body.home .btn:focus-visible::after{ opacity: 1; }
-  body.home .btn:focus-visible{ outline: 2px solid rgba(212,3,224,.45); outline-offset: 3px; }
-  body.home .btn:active{ transform: translateY(1px); }
-}
-@supports not (-webkit-mask-composite: xor){
-  @media (max-width:820px){
-    body.home .btn{ border: 2px solid rgba(212,3,224,.5); background: rgba(255,255,255,.02); }
-    body.home .btn::before{ display:none; }
-  }
-}
-@media (max-width:820px) and (max-height:800px){
-  body.home { --cta-raise: 140px; }
 }
 
 /* =========================
-   Full-screen popup menu (phones)
-   — fully hides close "X" when not open
+   MOBILE — Popup menu (award-y)
 ========================= */
-@media (max-width:820px){
-  /* When [hidden] is present, remove the block entirely */
+@media (max-width: 820px){
+  /* Remove from DOM when hidden */
   #nav-pop[hidden]{ display:none !important; }
 
-  /* Closed by default: render nothing & block taps */
-  #nav-pop { pointer-events: none; }
-  #nav-pop .nav-pop__overlay,
-  #nav-pop .nav-pop__sheet,
-  #nav-pop .nav-pop__close { display: none; }
-
-  /* Open state: show & allow interaction */
-  #nav-pop.is-open { pointer-events: auto; }
-  #nav-pop.is-open .nav-pop__overlay { display: block; }
-  #nav-pop.is-open .nav-pop__sheet   { display: grid;  }
-  #nav-pop.is-open .nav-pop__close   { display: grid;  }
-
-  .nav-pop{
-    position: fixed; inset: 0; z-index: 1200;
+  /* Base container */
+  #nav-pop{
+    --menu-size: clamp(28px, 7.2vw, 46px);
+    --gap: clamp(14px, 3.2vh, 26px);
+    --uline-h: 3px;
+    --accent-a: #a855f7;
+    --accent-b: #7c3aed;
+    position: fixed; inset: 0; z-index: 20000;
+    pointer-events: none;
   }
+
+  /* Only visible when open */
+  .nav-pop__overlay,
+  .nav-pop__sheet,
+  .nav-pop__close{ display: none; }
+  #nav-pop.is-open{ pointer-events: auto; }
+  #nav-pop.is-open .nav-pop__overlay,
+  #nav-pop.is-open .nav-pop__sheet,
+  #nav-pop.is-open .nav-pop__close{ display: block; }
+
+  /* Overlay */
   .nav-pop__overlay{
     position: absolute; inset: 0;
-    background: rgba(0,0,0,.66);
-    -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
-    opacity: 0; transition: opacity .18s ease;
+    background:
+      radial-gradient(120% 140% at 50% 35%,
+        rgba(6,6,10,0.00) 0%,
+        rgba(6,6,10,0.30) 40%,
+        rgba(6,6,10,0.55) 100%),
+      rgba(10,10,14,.38);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+            backdrop-filter: blur(14px) saturate(120%);
+    opacity: 0; transition: opacity .25s ease;
   }
+  #nav-pop.is-open .nav-pop__overlay{ opacity: 1; }
+
+  /* Full-viewport sheet centered */
   .nav-pop__sheet{
-    position: absolute;
-    inset: env(safe-area-inset-top) 0 env(safe-area-inset-bottom) 0;
-    background: transparent; border: 0; box-shadow: none;
-    transform: translateY(6px); opacity: 0;
-    display: grid; place-items: center; padding: 0;
-    transition: transform .18s ease, opacity .18s ease;
+    position: fixed; inset: 0;
+    display: grid; place-items: center;
+    padding: 0 6vw;
+    transform: translateY(8px); opacity: 0;
+    transition: transform .25s ease, opacity .25s ease;
   }
-  .nav-pop.is-open .nav-pop__overlay{ opacity: 1; }
-  .nav-pop.is-open .nav-pop__sheet{ transform: none; opacity: 1; }
+  #nav-pop.is-open .nav-pop__sheet{ transform: none; opacity: 1; }
 
-  .nav-pop__nav{
-    display: grid; gap: clamp(14px, 3.2vh, 24px);
-    text-align: center; padding: 0 6vw;
-  }
-  .nav-pop__nav a{
-    font: 800 clamp(28px, 8.2vw, 56px)/1.05 Inter, system-ui, sans-serif;
-    letter-spacing: .02em; color: #fff; text-transform: uppercase;
-    position: relative; padding: .05em .2em;
-    transition: transform .18s ease, opacity .18s ease;
-    opacity: .98; text-decoration: none;
-  }
-  /* gradient underline; current page shows underline only */
-  .nav-pop__nav a::after{
-    content:""; position:absolute; left:8%; right:8%; bottom:-.12em; height:3px;
-    background: linear-gradient(90deg,#a855f7,#d403e0,#7c3aed);
-    transform: scaleX(0); transform-origin: left; transition: transform .22s ease;
-    border-radius: 3px;
-  }
-  .nav-pop__nav a:hover::after,
-  .nav-pop__nav a:focus-visible::after{ transform: scaleX(1); }
-  .nav-pop__nav a[aria-current="page"]::after{ transform: scaleX(1); }
-  .nav-pop__nav a:active{ transform: scale(.985); }
-
+  /* Close button */
   .nav-pop__close{
     position: fixed;
     top: max(12px, calc(env(safe-area-inset-top) + 8px));
     right: max(12px, calc(env(safe-area-inset-right) + 8px));
-    width: 40px; height: 40px; border-radius: 12px;
+    width: 44px; height: 44px; border-radius: 14px;
     border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.06);
-    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    background: rgba(255,255,255,.08);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+            backdrop-filter: blur(10px) saturate(120%);
     display: grid; place-items: center;
   }
-  .nav-pop__close span{ position:absolute; width:18px; height:2px; background:#fff; border-radius:2px; }
+  .nav-pop__close span{ position:absolute; width:18px; height:2px; border-radius:2px; background:#fff; }
   .nav-pop__close span:first-child{ transform: rotate(45deg); }
-  .nav-pop__close span:last-child{  transform: rotate(-45deg); }
+  .nav-pop__close span:last-child { transform: rotate(-45deg); }
 
-  /* entry animation (stagger) */
-  .nav-pop__nav a{ animation: popFade .28s cubic-bezier(.2,.75,.2,1) both; }
-  .nav-pop.is-open .nav-pop__nav a:nth-child(1){ animation-delay:.02s; }
-  .nav-pop.is-open .nav-pop__nav a:nth-child(2){ animation-delay:.08s; }
-  .nav-pop.is-open .nav-pop__nav a:nth-child(3){ animation-delay:.14s; }
-  .nav-pop.is-open .nav-pop__nav a:nth-child(4){ animation-delay:.20s; }
+  /* Centered column of links */
+  .nav-pop__nav{
+    width: min(520px, 92%);
+    margin: 0 auto;
+    display: grid; gap: var(--gap);
+    justify-items: center; text-align: center;
+  }
 
-  @keyframes popFade{
-    from{ transform: translateY(10px); opacity: 0; }
-    to{   transform: none;             opacity: 1; }
+  /* Links with tight gradient underline that fits the word */
+  .nav-pop__nav a{
+    position: relative;
+    display: inline-block;                /* width == text */
+    padding: .06em .16em .28em;
+    color: #fff; opacity: .98; text-decoration: none;
+    font: 800 var(--menu-size)/1.12 Inter, system-ui, sans-serif;
+    letter-spacing: .01em;
+    text-shadow: 0 6px 18px rgba(0,0,0,.45);
+
+    /* kill iOS tap pink/blue */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    transition: transform .16s ease, opacity .16s ease;
+  }
+  .nav-pop__nav a:active{ transform: scale(.985); }
+
+  .nav-pop__nav a::after{
+    content:"";
+    position:absolute;
+    left:.16em; right:.16em;              /* hug the word edges */
+    bottom:-.24em; height: var(--uline-h);
+    border-radius: 3px;
+    background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .22s ease;
+    pointer-events:none;
+  }
+
+  /* Show underline for current page + hover/focus */
+  .nav-pop__nav a[aria-current="page"]::after,
+  .nav-pop__nav a:hover::after,
+  .nav-pop__nav a:focus-visible::after{
+    transform: scaleX(1);
+  }
+
+  /* No UA focus background */
+  .nav-pop__nav a:focus,
+  .nav-pop__nav a:active{
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+
+  /* Prevent text selection/callout */
+  #nav-pop, #nav-pop *{
+    -webkit-user-select: none; user-select: none;
+    -webkit-touch-callout: none;
   }
 
   @media (prefers-reduced-motion: reduce){
-    .nav-pop__overlay, .nav-pop__sheet, .nav-pop__nav a{ transition:none; animation:none; }
+    .nav-pop__overlay, .nav-pop__sheet, .nav-pop__nav a,
+    .nav-pop__nav a::after{ transition: none !important; }
   }
 }
 
-/* === Vision/Mission (phones) — smaller image + inline pills === */
+/* Tiny phones */
+@media (max-width: 390px){
+  #nav-pop{ --menu-size: clamp(26px, 6.9vw, 40px); --gap: clamp(12px, 3vh, 22px); }
+}
+
+/* Keep header & popup above all */
 @media (max-width: 820px){
-  .vm-section .vm-art{
-    width: 100%; aspect-ratio: 16 / 10; max-height: 42vh;
-    object-fit: cover; border-radius: 24px; margin: 12px 0 18px;
-  }
-  .vm-section .vm-copy p{
-    font-size: clamp(16px, 4.4vw, 19px); line-height: 1.55;
-  }
-  .vm-pill{
-    display: inline-flex; align-items: center;
-    padding: 6px 12px; border-radius: 999px;
-    border: 1px solid rgba(255,255,255,.16);
-    background: rgba(255,255,255,.04);
-    white-space: nowrap; font-size: 13px;
-    margin: 10px 8px 0 0;
-  }
-  @media (max-width: 390px){
-    .vm-pill{ padding: 5px 10px; font-size: 12px; }
-  }
+  .nav{ z-index: 10000; }
+  .nav-toggle{ position: relative; z-index: 10001; }
+  #nav-pop{ z-index: 20000; }
 }
 
-/* ===== Most Recent (phones) ===== */
-/* Base mobile: single column on tiny screens */
+/* =========================
+   MOBILE — Home: Most Recent grid
+========================= */
 @media (max-width: 820px){
   .featured{ padding: 24px 0 16px; }
-  .featured__inner{ width: 92%; margin: 0 auto; }
+  .featured__inner{ width: 94%; margin: 0 auto; }
 
   .featured__head h2{
-    font: 800 clamp(20px, 6vw, 24px)/1.06 Inter,system-ui,sans-serif;
-    margin: 0 0 6px;
+    font: 800 clamp(20px, 5.6vw, 26px)/1.08 Inter,system-ui,sans-serif;
+    margin: 0 0 4px;
   }
   .featured__head p{
-    margin: 0 0 10px; opacity: .82;
-    font-size: clamp(12px, 3.3vw, 13px);
+    margin: 0 0 10px; opacity: .84;
+    font-size: clamp(11px, 3.1vw, 12px);
   }
 
   .featured .grid{
     display: grid;
-    grid-template-columns: 1fr;   /* default: one card per row */
+    grid-template-columns: 1fr;
     gap: 12px;
   }
-
   .featured .grid .card{
     border-radius: 14px; overflow: hidden;
     background: rgba(255,255,255,.04);
@@ -375,135 +388,340 @@
   .featured .grid .card .art img{ width:100%; height:100%; object-fit:cover; display:block; }
   .featured .grid .card .meta{ padding: 10px 12px; }
   .featured .grid .card .meta strong{
-    font-size: clamp(12px, 3.8vw, 14px); line-height: 1.15; margin: 0 0 2px;
+    font-size: clamp(12px, 3.6vw, 14px); line-height: 1.15; margin: 0 0 2px;
   }
   .featured .grid .card .meta span{
-    font-size: clamp(10px, 3.2vw, 12px); opacity:.85;
+    font-size: clamp(10px, 3.1vw, 12px); opacity:.85;
   }
 
   .featured .more{ margin-top: 14px; }
   .featured .more .btn{ width:100%; padding:12px 18px; font-size:.98rem; border-radius:26px; }
 }
-
-/* Phones ≥380px wide: two cards side-by-side */
 @media (min-width: 380px) and (max-width: 820px){
-  .featured .grid{
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-  }
-  .featured .grid .card .meta{ padding: 9px 10px; }
-  .featured .grid .card .meta strong{ font-size: clamp(12px, 3.6vw, 14px); }
-  .featured .grid .card .meta span{   font-size: clamp(10px, 3.1vw, 11.5px); }
+  .featured .grid{ grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .featured .grid .card .art{ aspect-ratio: 5 / 4; }
 }
-
-/* Ultra-narrow (≤360px): force single column */
 @media (max-width: 360px){
   .featured .grid{ grid-template-columns: 1fr; }
 }
-/* ==== Most Recent (phones) — tuned for real devices ==== */
+
+/* =========================
+   ABOUT — MOBILE (<=820px)
+========================= */
 @media (max-width: 820px){
-  /* a touch wider container on phones */
-  .featured__inner{ width: 94%; margin: 0 auto; }
+  .page-about{
+    --title-scale: 1.12;
+    --title-gap: clamp(-48px, -6.8vw, -24px);
+    --safe-right: clamp(96px, 28vw, 180px);
+    --cam-size:  clamp(240px, 50vw, 360px);
+    --cam-top:   16vh;
+    --cam-right: -10vw;
+  }
 
-  /* slightly smaller heading/subtitle */
-  .featured__head h2{
-    font: 800 clamp(20px, 5.6vw, 26px)/1.08 Inter,system-ui,sans-serif;
-    margin: 0 0 4px;
+  .page-about .hero{
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: calc(100dvh - var(--mobile-header-h, 64px));
+    padding-top: calc(var(--mobile-header-h, 60px) + var(--mobile-gap, 12px) + 10px);
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: calc(var(--safe-right) + max(16px, env(safe-area-inset-right)));
   }
-  .featured__head p{
-    font-size: clamp(11px, 3.1vw, 12px);
-    margin: 0 0 10px;
-    opacity: .84;
+
+  .page-about .media{ position: absolute !important; inset: 0 !important; z-index:0 !important; pointer-events:none !important; }
+  .page-about .media .cams{
+    position: absolute !important;
+    right: var(--cam-right) !important;
+    top: var(--cam-top) !important;
+    width: var(--cam-size) !important;
+    height: auto !important; max-width: none !important;
+    object-fit: contain !important; transform: none !important;
   }
+
+  .page-about .title-row-1,
+  .page-about .title-row-2,
+  .page-about .tagline,
+  .page-about .cta-col{ position: relative; z-index: 2; }
+
+  .page-about .who,
+  .page-about .we,
+  .page-about .are,
+  .page-about .qmark{
+    font-size: calc(clamp(56px, 24vw, 132px) * var(--title-scale));
+    line-height: .88; letter-spacing: .005em; text-wrap: balance;
+  }
+  .page-about .title-row-1{ margin-bottom: 0 !important; }
+  .page-about .title-row-2{ margin-top: var(--title-gap) !important; }
+
+  .page-about .tagline{ letter-spacing: .16em; margin-top: clamp(6px, 1.4vh, 12px); max-width: 60ch; }
+  .page-about .cta-col{ gap: 14px; margin-top: 10px; }
+  .page-about .cta .dot{ width: 50px; height: 50px; }
 }
 
-/* Use 2-up grid on most phones, with compact cards */
-@media (min-width: 380px) and (max-width: 820px){
-  .featured .grid{
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 10px;                            /* tighter gutter */
+/* Tiny iPhones */
+@media (max-width: 430px){
+  .page-about{
+    --title-scale: 1.18;
+    --title-gap: clamp(-54px, -9vw, -28px);
+    --safe-right: clamp(100px, 32vw, 180px);
+    --cam-size:  clamp(240px, 52vw, 340px);
+    --cam-top:   18vh;
+    --cam-right: -30vw;
+  }
+}
+/* === Popup menu — hard-center the list on phones (Safari-safe) === */
+@media (max-width: 820px){
+  /* Full-viewport sheet and true vertical centering */
+  #nav-pop .nav-pop__sheet{
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    /* stable viewport units (order matters for fallbacks) */
+    height: 100vh;     /* fallback */
+    height: 100svh;    /* small viewport (iOS address bar visible) */
+    height: 100dvh;    /* dynamic viewport (latest) */
+
+    padding: max(14px, env(safe-area-inset-top)) 6vw
+             max(18px, env(safe-area-inset-bottom)) 6vw;
+    transform: none !important;  /* nuke any previous shifts */
   }
 
-  .featured .grid .card{
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.10);
-    background: rgba(255,255,255,.035);
-    box-shadow: 0 8px 20px rgba(0,0,0,.34);
+  /* Center the column itself */
+  #nav-pop .nav-pop__nav{
+    margin: 0 auto;
+    display: grid !important;
+    gap: clamp(16px, 3vh, 28px);
+    justify-items: center !important;
+    text-align: center !important;
+    transform: none !important;
+  }
+}
+/* === Popup menu — hard-center the list on phones (Safari-safe) === */
+@media (max-width: 820px){
+  /* Full-viewport sheet and true vertical centering */
+  #nav-pop .nav-pop__sheet{
+    position: fixed !important;
+    inset: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    /* stable viewport units (order matters for fallbacks) */
+    height: 100vh;     /* fallback */
+    height: 100svh;    /* small viewport (iOS address bar visible) */
+    height: 100dvh;    /* dynamic viewport (latest) */
+
+    padding: max(14px, env(safe-area-inset-top)) 6vw
+             max(18px, env(safe-area-inset-bottom)) 6vw;
+    transform: none !important;  /* nuke any previous shifts */
   }
 
-  /* shorter image so the pair fits comfortably */
-  .featured .grid .card .art{ aspect-ratio: 5 / 4; }  /* was 4/3 */
+  /* Center the column itself */
+  #nav-pop .nav-pop__nav{
+    margin: 0 auto;
+    display: grid !important;
+    gap: clamp(16px, 3vh, 28px);
+    justify-items: center !important;
+    text-align: center !important;
+    transform: none !important;
+  }
+}
+/* === FINAL OVERRIDE — dead-center the popup list on iOS === */
+@media (max-width: 820px){
+  #nav-pop .nav-pop__sheet{
+    position: fixed !important;
+    inset: 0 !important;
 
-  .featured .grid .card .meta{
-    padding: 8px 10px;                    /* compact strip */
-    background: rgba(0,0,0,.28);
-    -webkit-backdrop-filter: blur(6px);
-            backdrop-filter: blur(6px);
-  }
-  .featured .grid .card .meta strong{
-    font-size: 13px;                      /* tighter text */
-    line-height: 1.15;
-    margin: 0 0 2px;
-  }
-  .featured .grid .card .meta span{
-    font-size: 11px;
-    opacity: .85;
+    /* full, stable viewport height */
+    min-height: 100vh;
+    min-height: 100svh;
+    min-height: 100dvh;
+
+    display: grid !important;
+    place-items: center !important;      /* vertical + horizontal center */
+    padding: 0 max(6vw, env(safe-area-inset-right))
+             0 max(6vw, env(safe-area-inset-left)) !important;
+
+    transform: none !important;
+    translate: 0 !important;
   }
 
-  /* button spacing */
-  .featured .more{ margin-top: 14px; }
+  #nav-pop .nav-pop__nav{
+    margin: 0 !important;
+    display: grid !important;
+    justify-items: center !important;
+    text-align: center !important;
+    gap: clamp(16px, 3vh, 28px) !important;
+
+    /* kill any stray motion from earlier rules */
+    transform: none !important;
+    translate: 0 !important;
+  }
+
+  /* keep links tidy + no tap highlight */
+  #nav-pop .nav-pop__nav a{
+    margin: 0 !important;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    background: transparent !important;
+  }
+  #nav-pop .nav-pop__nav a:focus,
+  #nav-pop .nav-pop__nav a:active{
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+/* === REALLY FINAL: hard-center the popup list on phones (Safari-proof) === */
+@media (max-width: 820px){
+  /* full-viewport layer */
+  #nav-pop .nav-pop__sheet{
+    position: fixed !important;
+    inset: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+  }
+
+  /* center the column absolutely in the viewport */
+  #nav-pop .nav-pop__nav{
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    translate: -50% -50% !important;   /* Safari 17+ */
+    margin: 0 !important;
+
+    width: min(520px, 92%) !important;
+    display: grid !important;
+    gap: clamp(16px, 3vh, 28px) !important;
+    justify-items: center !important;
+    text-align: center !important;
+  }
+
+  /* keep links clean, no tap flash */
+  #nav-pop .nav-pop__nav a{
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+    background: transparent !important;
+  }
+  #nav-pop .nav-pop__nav a:focus,
+  #nav-pop .nav-pop__nav a:active{
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+}
+/* === POPUP: one true center, iOS-safe (final override) === */
+@media (max-width: 820px){
+  /* Full viewport sheet, no transforms */
+  #nav-pop .nav-pop__sheet{
+    position: fixed !important;
+    inset: 0 !important;
+    display: grid !important;
+    align-content: center !important;   /* vertical center */
+    justify-items: center !important;   /* horizontal center for children */
+    min-height: 100dvh !important;      /* stable viewport height */
+    padding: calc(env(safe-area-inset-top) + 8px) 6vw
+             calc(env(safe-area-inset-bottom) + 8px) 6vw !important;
+    transform: none !important;
+  }
+
+  /* Centered column; no position/fixed/translate tricks */
+  #nav-pop .nav-pop__nav{
+    width: min(520px, 92%) !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    gap: clamp(16px, 3vh, 28px) !important;
+    text-align: center !important;
+    justify-items: center !important;
+    transform: none !important;
+  }
+
+  /* Keep the close button pinned in the top-right */
+  #nav-pop .nav-pop__close{
+    position: fixed !important;
+    top: calc(env(safe-area-inset-top) + 10px) !important;
+    right: calc(env(safe-area-inset-right) + 10px) !important;
+  }
+}
+/* Z-order sanity so the button is always on top */
+@media (max-width:820px){
+  #nav-pop{ position:fixed; inset:0; z-index:20000; }
+  #nav-pop .nav-pop__overlay{ z-index:0; }
+  #nav-pop .nav-pop__sheet  { z-index:1; }
+
+  /* Close button: fixed to the real top-right, not the sheet */
+  .nav-pop__close{
+    position: fixed;
+    top: calc(env(safe-area-inset-top) + 12px);
+    right: calc(env(safe-area-inset-right) + 12px);
+    width: 44px; height: 44px; border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.08);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+            backdrop-filter: blur(10px) saturate(120%);
+    display: grid; place-items: center;
+    z-index: 3;                /* above sheet & overlay */
+    pointer-events: auto;
+  }
+  #nav-pop[hidden] .nav-pop__close{ display:none; } /* hide when dialog hidden */
+  .nav-pop__close span{ position:absolute; width:18px; height:2px; border-radius:2px; background:#fff; }
+  .nav-pop__close span:first-child{ transform: rotate(45deg); }
+  .nav-pop__close span:last-child { transform: rotate(-45deg); }
+
+  /* Kill iOS tap highlight everywhere in popup (keeps things clean) */
+  #nav-pop, #nav-pop *{ -webkit-tap-highlight-color: transparent; }
+}/* === Popup: true center + pinned close (final overrides) === */
+@media (max-width:820px){
+  #nav-pop{ position:fixed; inset:0; z-index:20000; pointer-events:none; }
+  #nav-pop.is-open{ pointer-events:auto; }
+
+  .nav-pop__sheet{
+    position:fixed !important; inset:0 !important;
+    display:grid !important; place-items:center !important;
+    min-height:100dvh !important;
+    padding: calc(env(safe-area-inset-top) + 8px) 6vw
+             calc(env(safe-area-inset-bottom) + 8px) 6vw !important;
+    transform:none !important;
+  }
+
+  .nav-pop__nav{
+    width:min(520px,92%) !important;
+    margin:0 auto !important;
+    display:grid !important;
+    gap:clamp(16px,3vh,28px) !important;
+    text-align:center !important;
+    justify-items:center !important;
+    transform:none !important;
+  }
+
+  /* Close button is fixed to the viewport, never the sheet */
+  .nav-pop__close{
+    position:fixed !important;
+    top: calc(env(safe-area-inset-top) + 10px) !important;
+    right: calc(env(safe-area-inset-right) + 10px) !important;
+    width:44px; height:44px; border-radius:14px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+            backdrop-filter: blur(10px) saturate(120%);
+    display:grid; place-items:center;
+    z-index:30000 !important;   /* above overlay + sheet */
+  }
+  .nav-pop__close span{ position:absolute; width:18px; height:2px; border-radius:2px; background:#fff; }
+  .nav-pop__close span:first-child{ transform:rotate(45deg); }
+  .nav-pop__close span:last-child{  transform:rotate(-45deg); }
+
+  /* Clean taps */
+  #nav-pop, #nav-pop *{ -webkit-tap-highlight-color:transparent; }
+  .nav-pop__nav a:focus, .nav-pop__nav a:active{
+    outline:0 !important; box-shadow:none !important; background:transparent !important;
+  }
+}
+/* Remove the top-right close (X) on phones */
+@media (max-width:820px){
+  #nav-pop .nav-pop__close { display: none !important; }
 }
 
-/* Ultra-narrow screens: keep single column for safety */
-@media (max-width: 360px){
-  .featured .grid{ grid-template-columns: 1fr !important; }
-}
-/* ==== Most Recent (phones) — snug two-up fit ==== */
 
-/* iPhone-ish widths: 380–430px */
-@media (min-width:380px) and (max-width:430px){
-  .featured__inner{ width:94%; margin:0 auto; }
-
-  .featured .grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:8px;                           /* tighter gutter */
-    align-items:stretch;
-  }
-
-  .featured .grid .card{
-    display:flex; flex-direction:column;
-    border-radius:10px;
-    border:1px solid rgba(255,255,255,.10);
-    background:rgba(255,255,255,.035);
-    box-shadow:0 8px 20px rgba(0,0,0,.34);
-  }
-
-  /* shorter cover so two cards fit comfortably */
-  .featured .grid .card .art{ aspect-ratio: 5 / 4; }
-
-  .featured .grid .card .meta{
-    padding:8px 8px;
-    background:rgba(0,0,0,.28);
-    -webkit-backdrop-filter:blur(6px);
-            backdrop-filter:blur(6px);
-  }
-
-  /* compact title + clamp to 2 lines */
-  .featured .grid .card .meta strong{
-    font-size:12.5px; line-height:1.1;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-    overflow:hidden;
-    margin:0 0 2px;
-  }
-  .featured .grid .card .meta span{ font-size:10.5px; opacity:.85; }
-
-  /* button spacing */
-  .featured .more{ margin-top:12px; }
-  .featured .more .btn{ padding:11px 16px; font-size:.95rem; border-radius:26px; }
-}
-
-/* Ultra-narrow screens keep single column */
-@media (max-width:379.98px){
-  .featured .grid{ grid-template-columns:1fr; gap:12px; }
-}
