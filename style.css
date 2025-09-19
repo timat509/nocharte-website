@@ -805,3 +805,72 @@ body.home .scrolldown span{
 @media (max-width: 820px){
   body.home .scrolldown{ display:none !important; }
 }
+/* Desktop only: hide the mobile N to avoid double N + layout push */
+@media (min-width: 821px){
+  body.home .hero-right { display: none !important; }
+}
+/* ===== Desktop Hero CTA ===== */
+@media (min-width: 821px){
+  /* hide the mobile-only CTA on desktop */
+  .cta-hero{ display:none !important; }
+
+  /* layout container under the hero text */
+  .hero .content .cta-row{ margin-top: 28px; }
+
+  /* pretty pill button */
+  .cta-desktop{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:14px 24px; border-radius:999px; font-weight:800;
+    color:#fff; text-decoration:none; line-height:1;
+
+    border:2px solid transparent;
+    background:
+      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+      linear-gradient(90deg,#d400ff,#7400ff) border-box;
+    box-shadow:0 12px 28px rgba(116,0,255,.35);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cta-desktop:hover{
+    transform: translateY(-1px);
+    box-shadow:0 18px 42px rgba(116,0,255,.50);
+  }
+  .cta-desktop:active{ transform: translateY(0) scale(.98); }
+  .cta-desktop:focus-visible{
+    outline:none;
+    box-shadow:0 0 0 3px rgba(212,0,255,.6), 0 0 0 6px rgba(255,255,255,.18);
+  }
+}/* Hidden by default so it won't show on mobile */
+.cta-desktop{ display:none; }
+
+/* Desktop: pretty pill button under the headline */
+@media (min-width: 821px){
+  .cta-desktop{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top: clamp(22px, 3.5vh, 56px);
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-weight: 800;
+    text-decoration: none;
+    color: #fff;
+
+    /* gradient ring around a dark pill */
+    border: 2px solid transparent;
+    background:
+      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+      linear-gradient(90deg,#d400ff,#7400ff) border-box;
+    box-shadow: 0 12px 28px rgba(116,0,255,.35);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .cta-desktop:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 18px 42px rgba(116,0,255,.5);
+  }
+  .cta-desktop:active{ transform: translateY(0) scale(.98); }
+  .cta-desktop:focus-visible{
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(212,0,255,.6), 0 0 0 6px rgba(255,255,255,.18);
+  }
+}
+
