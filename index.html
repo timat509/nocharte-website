@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#000000" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>NOCHARTE</title>
 
-  <!-- Redirect FIRST visit to intro.html -->
+  <!-- First-visit redirect to intro (relative so it works on project sites) -->
   <script>
     (function () {
       try {
@@ -15,89 +15,127 @@
         const skip   = url.searchParams.get('skip-intro') === '1';
         const played = sessionStorage.getItem('nocharte_intro_played') === '1';
         if (!skip && !played) {
-          location.replace('/intro.html');
+          location.replace('intro.html');
         } else if (skip) {
           url.searchParams.delete('skip-intro');
           history.replaceState(null, '', url);
         }
-      } catch (e) {}
+      } catch(e){}
     })();
   </script>
 
-  <!-- Fonts & global styles -->
+  <!-- Fonts & CSS (relative paths) -->
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=13" />
-  <link rel="stylesheet" href="/mobile/responsive.css?v=12" />
-
-  <!-- Mobile nav / tweaks -->
-  <script src="/mobile/mobile.js?v=4" defer></script>
+  <link rel="stylesheet" href="style.css?v=final-hero" />
+  <link rel="stylesheet" href="mobile/responsive.css?v=final-hero" />
+  <script src="mobile/mobile.js?v=final-hero" defer></script>
 </head>
 
-<body class="home logo-top">
-  <!-- HEADER -->
-  <header class="nav">
-    <a class="logo" href="/index.html" aria-label="NOCHARTE Home">
-      <img src="/assets/web/logohome.png" alt="NOCHARTE" />
+<body class="home">
+
+  <!-- ======= HEADER ======= -->
+  <header class="nav" role="banner">
+    <a class="logo" href="index.html" aria-label="NOCHARTE Home">
+      <img src="assets/web/logohome.png" alt="NOCHARTE" />
     </a>
 
-    <!-- Mobile hamburger -->
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
-    <!-- Legacy slide menu (fallback; popup handles mobile) -->
-    <nav class="links" role="navigation">
-      <a href="/index.html" data-nav="home">Home</a>
-      <a href="/gallery.html" data-nav="gallery">Gallery</a>
-      <a href="/about.html" data-nav="about">About</a>
-      <a href="/contact.html" data-nav="contact">Contact</a>
+    <nav class="links" role="navigation" aria-label="Main">
+      <a href="index.html"   data-nav="home">Home</a>
+      <a href="gallery.html" data-nav="gallery">Gallery</a>
+      <a href="about.html"   data-nav="about">About Us</a>
+      <a href="contact.html" data-nav="contact">Contact</a>
     </nav>
   </header>
 
-  <!-- PAGE CONTENT -->
+  <!-- ======= POPUP MENU (mobile) ======= -->
+  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+    <div class="nav-pop__overlay" data-close></div>
+
+    <button class="nav-pop__close" aria-label="Close menu" data-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="nav-pop__sheet" role="document">
+      <nav class="nav-pop__nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ======= PAGE CONTENT ======= -->
   <div class="scroller">
-    <!-- HERO -->
-    <main class="hero snap" id="scene">
-      <div class="layer bg" data-depth="0.10" aria-hidden="true"></div>
-      <div class="layer vignette" data-depth="0.14" aria-hidden="true"></div>
-      <div class="layer hero-particles" data-depth="0.18" aria-hidden="true">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
+
+    <!-- =========================
+         HERO
+    ========================== -->
+    <section class="hero bg snap" id="home-hero">
+
+      <!-- Decorative stars -->
+      <div class="hero-particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span>
       </div>
 
-      <div class="layer logo-holder" data-depth="0.22" aria-hidden="true">
-        <img id="homeLogo" class="home-logo" src="/assets/web/logohome.png" alt="NOCHARTE" />
+      <!-- Right: Big N (desktop) -->
+      <div class="layer logo-holder" aria-hidden="true">
+        <img class="home-logo" src="assets/web/logohome.png" alt="" />
       </div>
 
-      <!-- Hero copy -->
-      <section class="content layer lowered" data-depth="0.30">
+      <!-- Mobile-only N -->
+      <div class="hero-right" aria-hidden="true">
+        <img class="n-stack n-mark" src="assets/web/logohome.png" alt="">
+      </div>
+
+      <!-- Left: Headline -->
+      <div class="content lowered">
         <div class="headline">
-          <span class="hword w-we">WE</span>
-          <span class="hword framed w-frame">FRAME</span>
-          <span class="hword ind-1 w-the">THE</span>
-          <span class="hword gradient w-feeling">FEELING</span>
+          <span class="hword">WE</span>
+          <span class="hword framed">FRAME</span>
+          <span class="hword ind-1">THE</span>
+          <span class="hword gradient">FEELING</span>
         </div>
 
-        <!-- Mobile collage (phones only) -->
-        <div class="layer m-collage" aria-hidden="true">
-          <img class="c1" src="assets/albums/summer-23-08-25/photos/IMG_0073.jpeg" alt="">
-          <img class="c2" src="assets/albums/summer-23-08-25/photos/IMG_0160.jpeg" alt="">
-          <img class="c4" src="assets/albums/summer-23-08-25/photos/IMG_0107.jpeg" alt="">
-          <img class="c5" src="assets/albums/summer-23-08-25/photos/IMG_0086.jpeg" alt="">
+        <p class="kicker">EVENT PHOTOGRAPHY</p>
+
+        <!-- Mobile-only slider -->
+        <div class="hero-slider" aria-label="Featured photos">
+          <div class="hero-slider__track">
+            <img src="assets/albums/summer-23-08-25/photos/IMG_0052.jpeg" alt="Club crowd wide">
+            <img src="assets/albums/summer-23-08-25/photos/IMG_0130.jpeg" alt="DJ booth">
+            <img src="assets/albums/luna-19-07-25/photos/luna5.JPG" alt="Dance floor lights">
+            <img src="assets/albums/summer-23-08-25/photos/IMG_0179.jpeg" alt="Friends cheering">
+            <img src="assets/albums/summer-23-08-25/photos/IMG_0024.jpeg" alt="Neon portrait">
+          </div>
+          <div class="hero-slider__dots" role="tablist" aria-hidden="true">
+            <button class="is-active"></button><button></button><button></button><button></button><button></button>
+          </div>
         </div>
 
-        <div class="cta">
-          <p class="kicker">EVENT PHOTOGRAPHY</p>
-          <a href="gallery.html" class="btn" data-nav="gallery" aria-label="Open Gallery">View Gallery</a>
-        </div>
-      </section>
+        <!-- Scroll cue (desktop) -->
+        <div class="scrolldown" aria-hidden="true"><span></span></div>
+      </div>
 
-      <div class="scrolldown" aria-hidden="true"><span></span></div>
-    </main>
+      <!-- Mobile-only bottom CTA -->
+      <a href="gallery.html" class="cta-hero" aria-label="Open Gallery">View Gallery</a>
 
-    <!-- VISION / MISSION -->
+    </section>
+
+    <!-- =========================
+         VISION / MISSION
+    ========================== -->
     <section id="about" class="vm-section snap">
       <div class="container">
+
         <div class="vm-row">
           <div class="vm-media"><div class="vm-art"></div></div>
           <div class="vm-copy">
@@ -119,20 +157,25 @@
             <p class="vm-text">
               We capture the energy, style, and emotion of every event. Our mission: create visuals
               people trust to relive and share their best moments.
-              <span class="vm-pill">Speed</span>
+            </p>
+            <div class="vm-pills">
               <span class="vm-pill">Precision</span>
               <span class="vm-pill">Trust</span>
-            </p>
+              <span class="vm-pill">Speed</span>
+            </div>
           </div>
           <div class="vm-media"><div class="vm-art"></div></div>
         </div>
+
       </div>
     </section>
 
-    <!-- FEATURED (Recent) -->
+    <!-- =========================
+         FEATURED (Most Recent)
+    ========================== -->
     <section id="featured" class="featured snap">
       <div class="brand-lock" aria-hidden="true">
-        <img src="/assets/web/logohome.png" alt="" />
+        <img src="assets/web/logohome.png" alt="" />
         <span>NOCHARTE</span>
       </div>
 
@@ -145,117 +188,69 @@
         <div class="grid" id="recent-albums"></div>
 
         <div class="more">
-          <a class="btn btn--outline" href="/gallery.html">Open Full Gallery</a>
+          <a class="btn btn--outline" href="gallery.html">Open Full Gallery</a>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- JS -->
+  <!-- ======= Floating CTA (mobile only via CSS) ======= -->
+  <a href="gallery.html" class="btn btn--solid cta-float" aria-label="Open Gallery">View Gallery</a>
+
+  <!-- ======= JS helpers ======= -->
   <script>
-    // Reveal headline words
-    function runHeroReveal() {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const words = document.querySelectorAll(".headline .hword");
-      if (window.gsap) {
-        gsap.from(words, { y: 40, autoAlpha: 0, stagger: 0.12, duration: 0.9, ease: "power3.out" });
-      }
-    }
-    window.addEventListener("load", runHeroReveal);
-
-    // Simple parallax — disabled on small screens / reduced motion
-    (function parallax() {
-      if (matchMedia('(max-width: 820px)').matches ||
-          matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-      const scene = document.getElementById("scene");
-      if (!scene) return;
-      const layers = [...scene.querySelectorAll(".layer")];
-      let cy = innerHeight / 2, my = 0;
-
-      function apply() {
-        const sy = scrollY || pageYOffset;
-        layers.forEach((el) => {
-          const d = parseFloat(el.dataset.depth || 0);
-          const y = sy * d * -0.25;
-          const yTilt = my * d * 8;
-          el.style.transform = `translate3d(0px, ${y + yTilt}px, 0)`;
-        });
-      }
-      addEventListener("mousemove", (e) => { my = (e.clientY - cy) / cy; apply(); }, { passive: true });
-      ["scroll", "load", "resize"].forEach((ev) =>
-        addEventListener(ev, () => { cy = innerHeight / 2; apply(); }, { passive: true })
-      );
+    // Current-page marker (works on project sites too)
+    (function () {
+      const norm = (href) => {
+        const u = new URL(href, location.href);
+        let last = u.pathname.replace(/\/+$/,'').split('/').pop() || 'index.html';
+        return last.toLowerCase();
+      };
+      const here = norm(location.href);
+      document.querySelectorAll('.links a[href], #nav-pop a[href]').forEach(a => {
+        if (norm(a.href) === here) a.setAttribute('aria-current','page');
+      });
     })();
 
-    // Mark current nav link (fallback for legacy .links)
-    (function(){
-      try{
-        const path = (location.pathname.replace(/\/+$/, '') || '/index.html').toLowerCase();
-        document.querySelectorAll('.links a').forEach(a => {
-          const url = new URL(a.getAttribute('href'), location.origin);
-          const p = url.pathname.replace(/\/+$/, '').toLowerCase();
-          if (p === path || (p.endsWith('index.html') && (path === '' || path === '/'))) {
-            a.setAttribute('aria-current', 'page');
-          }
-        });
-      }catch(e){}
+    // Keep ?skip-intro=1 on internal navs
+    (function () {
+      document.addEventListener('click', function (e) {
+        const a = e.target.closest('a[href]');
+        if (!a) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+        if (a.target === '_blank') return;
+        const href = a.getAttribute('href') || '';
+        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+        const url = new URL(href, location.href);
+        if (url.origin !== location.origin) return;
+        e.preventDefault();
+        url.searchParams.set('skip-intro', '1');
+        location.assign(url.href);
+      }, { capture: true });
+    })();
+
+    // Fill "Most Recent Events"
+    (function fillRecent(){
+      const grid = document.getElementById('recent-albums');
+      if (!grid) return;
+
+      const albums = [
+        { slug:"luna-19-07-25",   title:"Luna — 19 Jul 2025",   date:"Jul 19, 2025", count:"7",
+          cover:"assets/albums/luna-19-07-25/cover.png" },
+        { slug:"summer-23-08-25", title:"Summer — 23 Aug 2025", date:"Aug 23, 2025", count:"52",
+          cover:"assets/albums/summer-23-08-25/cover.jpeg" }
+      ];
+
+      grid.innerHTML = albums.map(a => `
+        <a class="card" href="album.html?album=${encodeURIComponent(a.slug)}">
+          <div class="art"><img src="${a.cover}" alt="${a.title}" loading="lazy" decoding="async"></div>
+          <div class="meta">
+            <strong>${a.title}</strong>
+            <span>${a.date} • ${a.count} photos</span>
+          </div>
+        </a>
+      `).join('');
     })();
   </script>
-
-  <!-- Recent Albums (REAL DATA) -->
-  <script>
-  (function(){
-    const albums = [
-      {
-        title: "Summer La Gloria — 23 Aug 2025",
-        dateISO: "2025-08-23",
-        photos: 52,
-        cover: "/assets/albums/summer-23-08-25/cover.jpeg",
-        url:   "/album.html?slug=summer-23-08-25"
-      },
-      {
-        title: "Luna — 19 Jul 2025",
-        dateISO: "2025-07-19",
-        photos: 7,
-        cover: "/assets/albums/luna-19-07-25/cover.png",
-        url:   "/album.html?slug=luna-19-07-25"
-      }
-    ];
-
-    const grid = document.getElementById('recent-albums');
-    if (!grid) return;
-
-    grid.innerHTML = "";
-    const recent = albums.sort((a,b)=> new Date(b.dateISO)-new Date(a.dateISO)).slice(0,3);
-    if (recent.length === 2) grid.classList.add('two');
-
-    grid.innerHTML = recent.map(a => `
-      <a class="card" href="${a.url}" aria-label="Open ${a.title}">
-        <div class="art"><img src="${a.cover}" alt="${a.title}" loading="lazy"></div>
-        <div class="meta">
-          <strong>${a.title.split(' — ')[0]}</strong>
-          <span>${new Date(a.dateISO).toLocaleString('en-US',{month:'short',year:'numeric'})} • ${a.photos} photos</span>
-        </div>
-      </a>
-    `).join('');
-  })();
-  </script>
-
-  <!-- Popup menu block (appears when hamburger is tapped) -->
-  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
-    <div class="nav-pop__overlay" data-close></div>
-    <div class="nav-pop__sheet" role="document">
-      <button class="nav-pop__close" aria-label="Close menu" data-close>
-        <span></span><span></span>
-      </button>
-      <nav class="nav-pop__nav" aria-label="Main">
-        <a href="/index.html">Home</a>
-        <a href="/gallery.html">Gallery</a>
-        <a href="/about.html">About</a>
-        <a href="/contact.html">Contact</a>
-      </nav>
-    </div>
-  </div>
 </body>
 </html>

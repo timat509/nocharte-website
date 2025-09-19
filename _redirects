@@ -80,3 +80,7 @@
   .nav-toggle{ display: none; }
   .links{ display: flex !important; position: static; background: none; padding: 0; gap: 28px; }
 }
+/*.css
+  Cache-Control: no-store
+/mobile/*
+  Cache-Control: no-store

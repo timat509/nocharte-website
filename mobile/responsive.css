@@ -1,727 +1,453 @@
 /* =========================================================
    NOCHARTE — Mobile / Tablet (<= 820px)
-   Desktop rules live in /style.css
+   Load AFTER style.css
+   (Clean, de-duplicated — no N positioning styles)
 ========================================================= */
-
-:root{
-  --mobile-header-h: 60px;  /* sticky header height */
-  --mobile-gap: 12px;       /* space below header */
-}
-
-/* =========================
-   Sticky header + hamburger
-========================= */
 @media (max-width: 820px){
+
+  /* ---------- Mobile tokens ---------- */
+  :root{
+    --mobile-header-h: 64px;
+    --mobile-pad-x: 16px;
+    --logo-h: 48px;
+
+    /* Title / slider spacing */
+    --hero-title-offset: clamp(24px, 12vh, 140px);
+    --hero-slider-max-h: 260px;
+    --hero-slider-mt: 14px;
+    --hero-slider-mb: 12px;
+    --hero-slider-nudge-x: 10px;
+
+    /* CTA position (raise/lower to taste) */
+    --cta-hero-lift: 150px;
+  }
+
+  /* ---------- Header ---------- */
   .nav{
     position: sticky; top: 0; z-index: 1000;
     height: var(--mobile-header-h);
-    padding: 0 16px;
-    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--mobile-pad-x);
+    display:flex; align-items:center; justify-content:space-between;
     background: rgba(0,0,0,.6);
-    -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
   }
   @supports (padding: max(0px)){
     .nav{
-      padding-left:  max(16px, env(safe-area-inset-left));
-      padding-right: max(16px, env(safe-area-inset-right));
+      padding-left:  max(var(--mobile-pad-x), env(safe-area-inset-left));
+      padding-right: max(var(--mobile-pad-x), env(safe-area-inset-right));
+    }
+  }
+  .links{ display:none !important; }
+  .logo img{ height: var(--logo-h); width:auto; }
+  html,body{ overflow-x:hidden; }
+
+  /* ---------- Hero wrapper ---------- */
+  body.home .hero{
+    position: relative;
+    min-height: calc(100dvh - var(--mobile-header-h));
+    padding: 12px var(--mobile-pad-x) 128px; /* room for CTA */
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .hero__inner{ display:flex; flex-direction:column; gap:10px; }
+
+  /* ---------- Title stack ---------- */
+  .hero-left{
+    order:2;
+    max-width:92%;
+    margin-top: var(--hero-title-offset);
+  }
+  .hero-title{ margin:0; line-height:.90; text-rendering:optimizeLegibility; }
+  .hero-title .t{
+    display:block; text-transform:uppercase; font-weight:800; letter-spacing:.01em;
+    font-size: clamp(40px, 14.2vw, 74px);
+  }
+  .hero-title .t-the{ margin-left: 2vw; }
+  .hero-title .t-frame{ padding:0 !important; border:0 !important; box-shadow:none !important; }
+  .hero-title .t-feel{
+    font-size: clamp(58px, 18vw, 98px);
+    letter-spacing:.008em;
+    background: linear-gradient(180deg,#d400ff,#7b00ff);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+  }
+  .hero-kicker{ margin-top:10px; font-size:.9rem; letter-spacing:.08em; opacity:.85; }
+
+  /* ---------- Slider ---------- */
+  .hero-slider{
+    display:block; position:relative;
+    width:min(92%, 640px); margin-inline:auto;
+    aspect-ratio:16/9; max-height: var(--hero-slider-max-h);
+    margin-top: var(--hero-slider-mt); margin-bottom: var(--hero-slider-mb);
+    transform: translateX(var(--hero-slider-nudge-x));
+    border-radius:16px; overflow:hidden;
+    box-shadow: 0 14px 38px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+    background:#0a0a0a;
+  }
+  .hero-slider__track{
+    display:flex; width:100%; height:100%;
+    will-change: transform; transition: transform .45s ease;
+    touch-action: pan-y;
+  }
+  .hero-slider__track img{
+    flex:0 0 100%; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    user-select:none; -webkit-user-drag:none;
+  }
+  .hero-slider__dots{
+    position:absolute; left:50%; bottom:8px; transform:translateX(-50%);
+    display:flex; gap:8px; z-index:2;
+  }
+  .hero-slider__dots button{
+    width:6px; height:6px; border-radius:50%;
+    background:#fff; opacity:.35; border:none;
+  }
+  .hero-slider__dots button.is-active{ opacity:.95; }
+
+  /* Lift the mobile hero photo a bit (<=820px) */
+@media (max-width: 820px){
+  :root{
+    /* ↓ tweak these numbers to taste */
+    --hero-slider-mt: -12px;  /* was ~14px; negative = move up */
+    --hero-slider-mb: 30px;   /* add a little room below */
+  }
+}
+
+
+  /* ---------- Mobile hero CTA (new) ---------- */
+  /* Hide any legacy floating CTA on phones */
+  .cta-float{ display:none !important; }
+
+  /* Pretty bottom button inside the hero */
+  .cta-hero{
+    position: absolute;
+    left: 50%;
+    bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--cta-hero-lift));
+    transform: translateX(-50%);
+    z-index: 20;
+
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 14px 22px; min-width: min(92%, 620px);
+    border-radius: 999px; font-weight: 800; line-height: 1; color: #fff;
+
+    border: 2px solid transparent;
+    background:
+      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+      linear-gradient(90deg, #d400ff, #7400ff) border-box;
+    box-shadow: 0 14px 32px rgba(116,0,255,.40);
+    text-align:center;
+  }
+  .cta-hero:active{ transform: translateX(-50%) scale(.985); }
+
+  /* ---------- Featured / Cards ---------- */
+  .featured__inner{ padding: 0 var(--mobile-pad-x); }
+  .featured__head h2{ font-size: clamp(22px, 6.2vw, 32px); }
+  .featured__head p{ font-size:.95rem; }
+  .grid{ grid-template-columns:1fr; gap:16px; }
+  .card{ border-radius:14px; }
+  .meta{ padding:12px 14px; }
+
+  /* ---------- Vision / Mission ---------- */
+  .vm-section{ padding:40px 0; }
+  .vm-section .container{ width:100%; padding:0 var(--mobile-pad-x); }
+  .vm-row{ gap:18px; padding-block:22px; }
+  .vm-title{ font-size: clamp(1.25rem, 5.4vw, 1.6rem); }
+  .vm-text{ font-size:1rem; line-height:1.6; }
+  .vm-art{ aspect-ratio:16/10; border-radius:18px; }
+  .vm-row--reverse .vm-art{ max-width:none; aspect-ratio:16/10; margin-inline:0; }
+
+  /* ---------- Utilities ---------- */
+  .anchor-target{ scroll-margin-top: calc(var(--mobile-header-h) + 10px); }
+
+  /* Narrow phones */
+  @media (max-width: 375px){
+    .hero-title .t{      font-size: clamp(36px, 13.4vw, 66px); }
+    .hero-title .t-feel{ font-size: clamp(52px, 17vw, 90px); }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .hero-slider__track{ transition: none !important; }
+  }
+
+  /* Landscape tweak for CTA */
+  @media (orientation: landscape){
+    .cta-hero{
+      bottom: calc(max(10px, env(safe-area-inset-bottom)) + 56px) !important;
+      transform: translateX(-50%) scale(.94);
     }
   }
 
-  .nav .logo{ display: none; }
-
-  .nav-toggle{
-    display: inline-flex; width: 42px; height: 42px;
-    align-items: center; justify-content: center;
-    flex-direction: column; gap: 6px;
-    border: 0; background: transparent; padding: 0; cursor: pointer;
-    margin-left: auto;
+  /* Very short screens */
+  @media (max-height: 640px){
+    .cta-hero{
+      bottom: calc(max(10px, env(safe-area-inset-bottom)) + 80px) !important;
+    }
   }
-  @supports (padding: max(0px)){
-    .nav-toggle{ margin-right: max(0px, env(safe-area-inset-right)); }
+}
+/* Mobile: hide the desktop N layer */
+@media (max-width: 120px){
+  body.home .logo-holder { display:none !important; }    /* hides the big N + rays */
+  /* safety, in case the other markup exists */
+  body.home .hero-right { display:none !important; }
+}
+/* Mobile: centered N */
+@media (max-width: 500px){
+  /* knobs you can tweak */
+  :root{
+    --n-size: clamp(0px, 0vw, 0px); /* width of the N */
+    --n-lift: 60px;                      /* ↑ raise N (increase to move up) */
+    --n-gap-below: -200px;               /* space under N before the title (negative pulls title up) */
+  }
+
+  /* bring back the N on mobile */
+  body.home .hero-right{
+    order: 0;
+    display: flex !important;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 0 var(--n-gap-below);
+    transform: translateY(calc(-1 * var(--n-lift)));
+  }
+
+  /* no rays on mobile; keep the mark responsive */
+  body.home .hero-right .ray{ display:none !important; }
+  body.home .hero-right .n-stack{ width: var(--n-size); }
+  body.home .hero-right .n-mark{ width: 100%; height: auto; display: block; }
+}
+@media (max-width: 820px){
+  /* hide the desktop layer on phones */
+  body.home .logo-holder{ display:none !important; }
+}
+/* Make ONLY the N smaller on phones/tablets (<=820px) */
+@media (max-width: 820px){
+  :root{
+    /* tweak these numbers to taste */
+    --n-size-mobile: clamp(120px, 44vw, 180px);
+  }
+
+  /* If you added the mobile N markup (.hero-right) */
+  body.home .hero-right .n-stack,
+  body.home .hero-right .n-mark{
+    width: var(--n-size-mobile) !important;
+    height: auto !important;
+  }
+
+  /* If the desktop N image is still visible on mobile, cap it too */
+  body.home .logo-holder .home-logo{
+    width: var(--n-size-mobile) !important;
+    height: auto !important;
+  }
+}
+/* ===== Mobile: make hero titles bigger (<=820px) ===== */
+@media (max-width: 820px){
+  /* knobs you can tweak */
+  :root{
+    --hero-size-regular: clamp(48px, 14.5vw, 96px);   /* WE / FRAME / THE */
+    --hero-size-feel:    clamp(64px, 20vw, 128px);    /* FEELING (bigger)  */
+  }
+
+  /* base lines + spacing */
+  body.home .headline{
+    line-height: .92;
+    margin-top: clamp(18px, 6vh, 60px);
+  }
+
+  /* WE / FRAME / THE */
+  body.home .headline .hword{
+    font-size: var(--hero-size-regular);
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+
+  /* the indented "THE" stays slightly tucked in */
+  body.home .headline .ind-1{ margin-left: 3vw; }
+
+  /* FEELING — larger & keeps the gradient */
+  body.home .headline .hword.gradient{
+    font-size: var(--hero-size-feel);
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* small nudge so the kicker still breathes */
+  body.home .kicker{ margin-top: 8px; }
+}
+/* Mobile: make the hero photo a touch smaller & tidy the spacing */
+@media (max-width: 820px){
+  :root{
+    --hero-slider-max-h: 200px;   /* was 260px */
+  }
+  .hero-slider{
+    width: min(88%, 560px);       /* was 92% */
+    margin-top: 6px;              /* a bit tighter above */
+    margin-bottom: 14px;          /* room before the CTA */
+    border-radius: 14px;
+  }
+}
+/* === Mobile: make hero photo smaller & a bit wider ======================= */
+@media (max-width: 820px){
+  /* Wider in the row, but lower height (cinematic crop) */
+  .hero-slider{
+    width: min(96%, 620px);     /* was ~92–88% → a bit wider */
+    aspect-ratio: 21 / 9;       /* was 16/9 → shorter/tighter vertically */
+    max-height: 180px;          /* hard cap so it never grows too tall */
+    margin-top: 8px;            /* snug up under the headline */
+    margin-bottom: 14px;        /* keep a little space before the CTA */
+    border-radius: 14px;
+  }
+
+  /* keep images filling the new crop nicely */
+  .hero-slider__track img{
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* Optional: ultra-narrow phones get a touch shorter still */
+@media (max-width: 380px){
+  .hero-slider{
+    aspect-ratio: 22 / 9;
+    max-height: 168px;
+  }
+}
+/* Mobile: center the hero photo and match CTA width */
+@media (max-width: 820px){
+  :root{
+    --hero-slider-nudge-x: 0px;         /* kill the right-shift */
+  }
+  .hero-slider{
+    width: min(92%, 620px);             /* same width as the CTA */
+    margin-inline: auto;                /* true center */
+    transform: none !important;         /* override any leftover nudges */
+  }
+  .hero-slider__track img{
+    object-fit: cover;
+    object-position: center;            /* keep subject centered in crop */
+  }
+}
+/* ========== MOBILE NAV: hamburger + full-screen overlay ========== */
+@media (max-width: 820px){
+  /* Hamburger button */
+  .nav-toggle{
+    -webkit-tap-highlight-color: transparent;
+    width:44px; height:44px; margin-left:auto;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:transparent; border:0; color:#fff; position:relative;
   }
   .nav-toggle span{
-    width: 24px; height: 2px; background: #fff; border-radius: 2px;
-    transition: transform .2s ease, opacity .2s ease;
+    position:absolute; left:11px; right:11px; height:2px;
+    background:#fff; border-radius:2px;
+    transition:transform .35s ease, opacity .25s ease;
+  }
+  .nav-toggle span:nth-child(1){ top:14px; }
+  .nav-toggle span:nth-child(2){ top:21px; }
+  .nav-toggle span:nth-child(3){ top:28px; }
+
+  /* morph to “X” when open */
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){
+    opacity:0;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){
+    transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Fallback legacy slide-down (only if popup fails) */
-  .links{
-    position: fixed; inset: var(--mobile-header-h) 0 0 0;
-    display: flex; flex-direction: column; gap: 6px;
-    padding: 16px; background: rgba(0,0,0,.96);
-    opacity: 0; transform: translateY(-6px);
-    pointer-events: none; transition: opacity .2s, transform .2s;
-  }
-  .links a{ padding: 14px 8px; font: 700 20px/1.2 Inter, system-ui, sans-serif; letter-spacing: .02em; }
-  .nav.open .links{ opacity: 1; transform: none; pointer-events: auto; }
-  .nav.open .nav-toggle[aria-expanded="true"] span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
-  .nav.open .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity: 0; }
-  .nav.open .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
-
-  body.menu-open{ overflow: hidden; }
-}
-
-/* =========================
-   Home hero (phones)
-========================= */
-@media (max-width: 820px){
-  body.home .hero{
-    min-height: calc(100dvh - var(--mobile-header-h));
-    padding-top: calc(var(--mobile-header-h) + var(--mobile-gap));
-    padding-bottom: 120px;
-  }
-  #scene .content{ transform: none !important; will-change: auto; }
-
-  body.home .content{
-    position: relative;
-    padding-left: 6vw; padding-right: 6vw;
-    gap: .18em;
-  }
-
-  /* Big “N” */
-  body.home{ --n-top: -4.5vh; }
-  body.home .logo-holder{
-    position:absolute; top:var(--n-top); left:0; right:0;
-    display:flex; justify-content:center; padding:0;
-    z-index:4; pointer-events:none;
-  }
-  body.home .home-logo{
-    width: clamp(150px, 33vw, 240px); height:auto;
-    filter: drop-shadow(0 10px 28px rgba(0,0,0,.45));
-  }
-
-  /* Headline — ladder layout */
-  body.home .headline{
-    position:absolute; inset:0; z-index:5; pointer-events:none; line-height:.94;
-  }
-  body.home .headline .hword{
-    position:absolute; right: var(--r, 6vw); top: var(--t, 24vh);
-    display:block; text-align:right; line-height:.94; pointer-events:auto;
-    font-size: clamp(36px, 12vw, 88px);
-  }
-  .headline .hword.framed{
-    --corner:.22em; --stroke:.030em; --offset:.016em;
-    padding:.002em .05em;
-  }
-  .headline .hword.gradient{
-    font-size: clamp(46px, 16vw, 106px);
-    filter: drop-shadow(0 18px 42px rgba(116,0,255,.32));
-    word-break: keep-all;
-  }
-}
-@media (max-width:820px){
-  .headline .w-we      { --t: 10vh; --r:  5vw; }
-  .headline .w-frame   { --t: 20vh; --r: 15vw; }
-  .headline .w-the     { --t: 30vh; --r: 40vw; }
-  .headline .w-feeling { --t: 40vh; --r: 38.5vw; }
-}
-
-/* =========================
-   Collage (phones)
-========================= */
-@media (max-width: 820px){
-  .m-rotator{ display:none !important; }
-  .m-collage{ position:absolute; inset:0; z-index:1; pointer-events:none; display:block; }
-  .m-collage img{
-    position:absolute; object-fit:cover; aspect-ratio:1/1;
-    border-radius:16px; border:1px solid rgba(255,255,255,.12);
-    box-shadow:0 16px 40px rgba(0,0,0,.58);
-    filter:saturate(1.02) contrast(1.02);
-  }
-  .m-collage .c1{ aspect-ratio: 3 / 4; width: clamp(110px,36vw,180px); top:10vh; left:0; }
-  .m-collage .c2{ aspect-ratio: 4 / 3; width: clamp(120px,38vw,200px); top: 6vh; left:10vw; }
-  .m-collage .c4{ aspect-ratio: 4 / 3; width: clamp(140px,48vw,260px); top:40vh; right:-15vw; object-position:50% 42%; }
-  .m-collage .c5{ aspect-ratio: 3 / 4; width: clamp(120px,30vw,180px); bottom:-35vh; right:-15vw; }
-}
-
-/* =========================
-   Featured + Vision/Mission (phones)
-========================= */
-@media (max-width: 820px){
-  .featured__inner{ padding: 0 5vw; }
-  .grid{ grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; }
-  .art{ aspect-ratio: 4 / 3; }
-  .meta{ padding: 12px; }
-
-  .vm-section{ padding: 40px 0; }
-  .vm-section .container{ width: 92%; }
-  .vm-row, .vm-row--reverse{ grid-template-columns: 1fr; gap: 18px; padding-block: 18px; }
-  .vm-row--reverse .vm-copy, .vm-row--reverse .vm-media{ order: 0; }
-  .vm-art{ max-width: 100%; margin-inline: 0; aspect-ratio: 4 / 3; }
-}
-
-/* =========================
-   Subpages wrap
-========================= */
-@media (max-width: 820px){
-  .page-gallery .wrap,
-  .page-about   .wrap,
-  .page-contact .wrap,
-  .page-album   .wrap{
-    width: 92%;
-    padding-top: calc(var(--mobile-header-h) + var(--mobile-gap));
-  }
-  .page-album .grid img{ height: 220px; object-fit: cover; }
-}
-
-/* =========================
-   Tiny phones (<= 390px)
-========================= */
-@media (max-width: 390px){
-  body.home .headline .hword{ font-size: clamp(34px, 13.6vw, 80px); }
-  .links a{ font-size: 17px; }
-  body.compact-mobile.home .logo-holder{ display: none; }
-}
-
-/* =========================
-   CTA + gradient-outline pill
-========================= */
-@media (max-width: 820px){
-  body.home { --cta-raise: 120px; }
-
-  body.home .cta{
-    position: fixed; left: 6vw; right: 6vw;
-    bottom: calc(max(14px, env(safe-area-inset-bottom)) + var(--cta-raise));
-    z-index: 60;
-  }
-  body.home .hero{ padding-bottom: calc(120px + var(--cta-raise)); }
-
-  body.home .btn{
-    position: relative;
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 100%;
-    padding: 14px 20px; border-radius: 28px;
-    background: transparent; color: #f4e9ff;
-    font-weight: 700; letter-spacing: .02em;
-    overflow: hidden;
-    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  }
-  body.home .btn::before{
-    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px;
-    background: linear-gradient(90deg, #a855f7, #d403e0, #7c3aed);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor; mask-composite: exclude;
-  }
-  body.home .btn::after{
-    content: ""; position: absolute; inset: 0; border-radius: inherit;
-    background: radial-gradient(120% 120% at 50% 0%,
-                 rgba(212,3,224,.16), rgba(124,58,237,.10) 40%, transparent 70%);
-    opacity: 0; transition: opacity .25s ease; pointer-events: none;
-  }
-  body.home .btn:hover::after,
-  body.home .btn:focus-visible::after{ opacity: 1; }
-}
-
-/* =========================
-   MOBILE — Popup menu (award-y)
-========================= */
-@media (max-width: 820px){
-  /* Remove from DOM when hidden */
-  #nav-pop[hidden]{ display:none !important; }
-
-  /* Base container */
+  /* Full-screen overlay container */
+  #nav-pop[hidden]{ display:none; }
   #nav-pop{
-    --menu-size: clamp(28px, 7.2vw, 46px);
-    --gap: clamp(14px, 3.2vh, 26px);
-    --uline-h: 3px;
-    --accent-a: #a855f7;
-    --accent-b: #7c3aed;
-    position: fixed; inset: 0; z-index: 20000;
-    pointer-events: none;
-  }
-
-  /* Only visible when open */
-  .nav-pop__overlay,
-  .nav-pop__sheet,
-  .nav-pop__close{ display: none; }
-  #nav-pop.is-open{ pointer-events: auto; }
-  #nav-pop.is-open .nav-pop__overlay,
-  #nav-pop.is-open .nav-pop__sheet,
-  #nav-pop.is-open .nav-pop__close{ display: block; }
-
-  /* Overlay */
-  .nav-pop__overlay{
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(120% 140% at 50% 35%,
-        rgba(6,6,10,0.00) 0%,
-        rgba(6,6,10,0.30) 40%,
-        rgba(6,6,10,0.55) 100%),
-      rgba(10,10,14,.38);
-    -webkit-backdrop-filter: blur(14px) saturate(120%);
-            backdrop-filter: blur(14px) saturate(120%);
-    opacity: 0; transition: opacity .25s ease;
-  }
-  #nav-pop.is-open .nav-pop__overlay{ opacity: 1; }
-
-  /* Full-viewport sheet centered */
-  .nav-pop__sheet{
-    position: fixed; inset: 0;
-    display: grid; place-items: center;
-    padding: 0 6vw;
-    transform: translateY(8px); opacity: 0;
-    transition: transform .25s ease, opacity .25s ease;
-  }
-  #nav-pop.is-open .nav-pop__sheet{ transform: none; opacity: 1; }
-
-  /* Close button */
-  .nav-pop__close{
-    position: fixed;
-    top: max(12px, calc(env(safe-area-inset-top) + 8px));
-    right: max(12px, calc(env(safe-area-inset-right) + 8px));
-    width: 44px; height: 44px; border-radius: 14px;
-    border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.08);
-    -webkit-backdrop-filter: blur(10px) saturate(120%);
-            backdrop-filter: blur(10px) saturate(120%);
-    display: grid; place-items: center;
-  }
-  .nav-pop__close span{ position:absolute; width:18px; height:2px; border-radius:2px; background:#fff; }
-  .nav-pop__close span:first-child{ transform: rotate(45deg); }
-  .nav-pop__close span:last-child { transform: rotate(-45deg); }
-
-  /* Centered column of links */
-  .nav-pop__nav{
-    width: min(520px, 92%);
-    margin: 0 auto;
-    display: grid; gap: var(--gap);
-    justify-items: center; text-align: center;
-  }
-
-  /* Links with tight gradient underline that fits the word */
-  .nav-pop__nav a{
-    position: relative;
-    display: inline-block;                /* width == text */
-    padding: .06em .16em .28em;
-    color: #fff; opacity: .98; text-decoration: none;
-    font: 800 var(--menu-size)/1.12 Inter, system-ui, sans-serif;
-    letter-spacing: .01em;
-    text-shadow: 0 6px 18px rgba(0,0,0,.45);
-
-    /* kill iOS tap pink/blue */
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-    transition: transform .16s ease, opacity .16s ease;
-  }
-  .nav-pop__nav a:active{ transform: scale(.985); }
-
-  .nav-pop__nav a::after{
-    content:"";
-    position:absolute;
-    left:.16em; right:.16em;              /* hug the word edges */
-    bottom:-.24em; height: var(--uline-h);
-    border-radius: 3px;
-    background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .22s ease;
-    pointer-events:none;
-  }
-
-  /* Show underline for current page + hover/focus */
-  .nav-pop__nav a[aria-current="page"]::after,
-  .nav-pop__nav a:hover::after,
-  .nav-pop__nav a:focus-visible::after{
-    transform: scaleX(1);
-  }
-
-  /* No UA focus background */
-  .nav-pop__nav a:focus,
-  .nav-pop__nav a:active{
-    box-shadow: none !important;
-    background: transparent !important;
-  }
-
-  /* Prevent text selection/callout */
-  #nav-pop, #nav-pop *{
-    -webkit-user-select: none; user-select: none;
-    -webkit-touch-callout: none;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .nav-pop__overlay, .nav-pop__sheet, .nav-pop__nav a,
-    .nav-pop__nav a::after{ transition: none !important; }
-  }
-}
-
-/* Tiny phones */
-@media (max-width: 390px){
-  #nav-pop{ --menu-size: clamp(26px, 6.9vw, 40px); --gap: clamp(12px, 3vh, 22px); }
-}
-
-/* Keep header & popup above all */
-@media (max-width: 820px){
-  .nav{ z-index: 10000; }
-  .nav-toggle{ position: relative; z-index: 10001; }
-  #nav-pop{ z-index: 20000; }
-}
-
-/* =========================
-   MOBILE — Home: Most Recent grid
-========================= */
-@media (max-width: 820px){
-  .featured{ padding: 24px 0 16px; }
-  .featured__inner{ width: 94%; margin: 0 auto; }
-
-  .featured__head h2{
-    font: 800 clamp(20px, 5.6vw, 26px)/1.08 Inter,system-ui,sans-serif;
-    margin: 0 0 4px;
-  }
-  .featured__head p{
-    margin: 0 0 10px; opacity: .84;
-    font-size: clamp(11px, 3.1vw, 12px);
-  }
-
-  .featured .grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .featured .grid .card{
-    border-radius: 14px; overflow: hidden;
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 10px 24px rgba(0,0,0,.38);
-  }
-  .featured .grid .card .art{ aspect-ratio: 4 / 3; }
-  .featured .grid .card .art img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .featured .grid .card .meta{ padding: 10px 12px; }
-  .featured .grid .card .meta strong{
-    font-size: clamp(12px, 3.6vw, 14px); line-height: 1.15; margin: 0 0 2px;
-  }
-  .featured .grid .card .meta span{
-    font-size: clamp(10px, 3.1vw, 12px); opacity:.85;
-  }
-
-  .featured .more{ margin-top: 14px; }
-  .featured .more .btn{ width:100%; padding:12px 18px; font-size:.98rem; border-radius:26px; }
-}
-@media (min-width: 380px) and (max-width: 820px){
-  .featured .grid{ grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .featured .grid .card .art{ aspect-ratio: 5 / 4; }
-}
-@media (max-width: 360px){
-  .featured .grid{ grid-template-columns: 1fr; }
-}
-
-/* =========================
-   ABOUT — MOBILE (<=820px)
-========================= */
-@media (max-width: 820px){
-  .page-about{
-    --title-scale: 1.12;
-    --title-gap: clamp(-48px, -6.8vw, -24px);
-    --safe-right: clamp(96px, 28vw, 180px);
-    --cam-size:  clamp(240px, 50vw, 360px);
-    --cam-top:   16vh;
-    --cam-right: -10vw;
-  }
-
-  .page-about .hero{
-    position: relative; isolation: isolate; overflow: hidden;
-    min-height: calc(100dvh - var(--mobile-header-h, 64px));
-    padding-top: calc(var(--mobile-header-h, 60px) + var(--mobile-gap, 12px) + 10px);
-    padding-left: max(16px, env(safe-area-inset-left));
-    padding-right: calc(var(--safe-right) + max(16px, env(safe-area-inset-right)));
-  }
-
-  .page-about .media{ position: absolute !important; inset: 0 !important; z-index:0 !important; pointer-events:none !important; }
-  .page-about .media .cams{
-    position: absolute !important;
-    right: var(--cam-right) !important;
-    top: var(--cam-top) !important;
-    width: var(--cam-size) !important;
-    height: auto !important; max-width: none !important;
-    object-fit: contain !important; transform: none !important;
-  }
-
-  .page-about .title-row-1,
-  .page-about .title-row-2,
-  .page-about .tagline,
-  .page-about .cta-col{ position: relative; z-index: 2; }
-
-  .page-about .who,
-  .page-about .we,
-  .page-about .are,
-  .page-about .qmark{
-    font-size: calc(clamp(56px, 24vw, 132px) * var(--title-scale));
-    line-height: .88; letter-spacing: .005em; text-wrap: balance;
-  }
-  .page-about .title-row-1{ margin-bottom: 0 !important; }
-  .page-about .title-row-2{ margin-top: var(--title-gap) !important; }
-
-  .page-about .tagline{ letter-spacing: .16em; margin-top: clamp(6px, 1.4vh, 12px); max-width: 60ch; }
-  .page-about .cta-col{ gap: 14px; margin-top: 10px; }
-  .page-about .cta .dot{ width: 50px; height: 50px; }
-}
-
-/* Tiny iPhones */
-@media (max-width: 430px){
-  .page-about{
-    --title-scale: 1.18;
-    --title-gap: clamp(-54px, -9vw, -28px);
-    --safe-right: clamp(100px, 32vw, 180px);
-    --cam-size:  clamp(240px, 52vw, 340px);
-    --cam-top:   18vh;
-    --cam-right: -30vw;
-  }
-}
-/* === Popup menu — hard-center the list on phones (Safari-safe) === */
-@media (max-width: 820px){
-  /* Full-viewport sheet and true vertical centering */
-  #nav-pop .nav-pop__sheet{
-    position: fixed !important;
-    inset: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    /* stable viewport units (order matters for fallbacks) */
-    height: 100vh;     /* fallback */
-    height: 100svh;    /* small viewport (iOS address bar visible) */
-    height: 100dvh;    /* dynamic viewport (latest) */
-
-    padding: max(14px, env(safe-area-inset-top)) 6vw
-             max(18px, env(safe-area-inset-bottom)) 6vw;
-    transform: none !important;  /* nuke any previous shifts */
-  }
-
-  /* Center the column itself */
-  #nav-pop .nav-pop__nav{
-    margin: 0 auto;
-    display: grid !important;
-    gap: clamp(16px, 3vh, 28px);
-    justify-items: center !important;
-    text-align: center !important;
-    transform: none !important;
-  }
-}
-/* === Popup menu — hard-center the list on phones (Safari-safe) === */
-@media (max-width: 820px){
-  /* Full-viewport sheet and true vertical centering */
-  #nav-pop .nav-pop__sheet{
-    position: fixed !important;
-    inset: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    /* stable viewport units (order matters for fallbacks) */
-    height: 100vh;     /* fallback */
-    height: 100svh;    /* small viewport (iOS address bar visible) */
-    height: 100dvh;    /* dynamic viewport (latest) */
-
-    padding: max(14px, env(safe-area-inset-top)) 6vw
-             max(18px, env(safe-area-inset-bottom)) 6vw;
-    transform: none !important;  /* nuke any previous shifts */
-  }
-
-  /* Center the column itself */
-  #nav-pop .nav-pop__nav{
-    margin: 0 auto;
-    display: grid !important;
-    gap: clamp(16px, 3vh, 28px);
-    justify-items: center !important;
-    text-align: center !important;
-    transform: none !important;
-  }
-}
-/* === FINAL OVERRIDE — dead-center the popup list on iOS === */
-@media (max-width: 820px){
-  #nav-pop .nav-pop__sheet{
-    position: fixed !important;
-    inset: 0 !important;
-
-    /* full, stable viewport height */
-    min-height: 100vh;
-    min-height: 100svh;
-    min-height: 100dvh;
-
-    display: grid !important;
-    place-items: center !important;      /* vertical + horizontal center */
-    padding: 0 max(6vw, env(safe-area-inset-right))
-             0 max(6vw, env(safe-area-inset-left)) !important;
-
-    transform: none !important;
-    translate: 0 !important;
-  }
-
-  #nav-pop .nav-pop__nav{
-    margin: 0 !important;
-    display: grid !important;
-    justify-items: center !important;
-    text-align: center !important;
-    gap: clamp(16px, 3vh, 28px) !important;
-
-    /* kill any stray motion from earlier rules */
-    transform: none !important;
-    translate: 0 !important;
-  }
-
-  /* keep links tidy + no tap highlight */
-  #nav-pop .nav-pop__nav a{
-    margin: 0 !important;
-    -webkit-tap-highlight-color: transparent !important;
-    outline: none !important;
-    background: transparent !important;
-  }
-  #nav-pop .nav-pop__nav a:focus,
-  #nav-pop .nav-pop__nav a:active{
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-  }
-}
-/* === REALLY FINAL: hard-center the popup list on phones (Safari-proof) === */
-@media (max-width: 820px){
-  /* full-viewport layer */
-  #nav-pop .nav-pop__sheet{
-    position: fixed !important;
-    inset: 0 !important;
-    padding: 0 !important;
-    transform: none !important;
-  }
-
-  /* center the column absolutely in the viewport */
-  #nav-pop .nav-pop__nav{
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    translate: -50% -50% !important;   /* Safari 17+ */
-    margin: 0 !important;
-
-    width: min(520px, 92%) !important;
-    display: grid !important;
-    gap: clamp(16px, 3vh, 28px) !important;
-    justify-items: center !important;
-    text-align: center !important;
-  }
-
-  /* keep links clean, no tap flash */
-  #nav-pop .nav-pop__nav a{
-    -webkit-tap-highlight-color: transparent !important;
-    outline: none !important;
-    background: transparent !important;
-  }
-  #nav-pop .nav-pop__nav a:focus,
-  #nav-pop .nav-pop__nav a:active{
-    outline: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-  }
-}
-/* === POPUP: one true center, iOS-safe (final override) === */
-@media (max-width: 820px){
-  /* Full viewport sheet, no transforms */
-  #nav-pop .nav-pop__sheet{
-    position: fixed !important;
-    inset: 0 !important;
-    display: grid !important;
-    align-content: center !important;   /* vertical center */
-    justify-items: center !important;   /* horizontal center for children */
-    min-height: 100dvh !important;      /* stable viewport height */
-    padding: calc(env(safe-area-inset-top) + 8px) 6vw
-             calc(env(safe-area-inset-bottom) + 8px) 6vw !important;
-    transform: none !important;
-  }
-
-  /* Centered column; no position/fixed/translate tricks */
-  #nav-pop .nav-pop__nav{
-    width: min(520px, 92%) !important;
-    margin: 0 auto !important;
-    display: grid !important;
-    gap: clamp(16px, 3vh, 28px) !important;
-    text-align: center !important;
-    justify-items: center !important;
-    transform: none !important;
-  }
-
-  /* Keep the close button pinned in the top-right */
-  #nav-pop .nav-pop__close{
-    position: fixed !important;
-    top: calc(env(safe-area-inset-top) + 10px) !important;
-    right: calc(env(safe-area-inset-right) + 10px) !important;
-  }
-}
-/* Z-order sanity so the button is always on top */
-@media (max-width:820px){
-  #nav-pop{ position:fixed; inset:0; z-index:20000; }
-  #nav-pop .nav-pop__overlay{ z-index:0; }
-  #nav-pop .nav-pop__sheet  { z-index:1; }
-
-  /* Close button: fixed to the real top-right, not the sheet */
-  .nav-pop__close{
-    position: fixed;
-    top: calc(env(safe-area-inset-top) + 12px);
-    right: calc(env(safe-area-inset-right) + 12px);
-    width: 44px; height: 44px; border-radius: 14px;
-    border: 1px solid rgba(255,255,255,.18);
-    background: rgba(255,255,255,.08);
-    -webkit-backdrop-filter: blur(10px) saturate(120%);
-            backdrop-filter: blur(10px) saturate(120%);
-    display: grid; place-items: center;
-    z-index: 3;                /* above sheet & overlay */
-    pointer-events: auto;
-  }
-  #nav-pop[hidden] .nav-pop__close{ display:none; } /* hide when dialog hidden */
-  .nav-pop__close span{ position:absolute; width:18px; height:2px; border-radius:2px; background:#fff; }
-  .nav-pop__close span:first-child{ transform: rotate(45deg); }
-  .nav-pop__close span:last-child { transform: rotate(-45deg); }
-
-  /* Kill iOS tap highlight everywhere in popup (keeps things clean) */
-  #nav-pop, #nav-pop *{ -webkit-tap-highlight-color: transparent; }
-}/* === Popup: true center + pinned close (final overrides) === */
-@media (max-width:820px){
-  #nav-pop{ position:fixed; inset:0; z-index:20000; pointer-events:none; }
-  #nav-pop.is-open{ pointer-events:auto; }
-
-  .nav-pop__sheet{
-    position:fixed !important; inset:0 !important;
-    display:grid !important; place-items:center !important;
-    min-height:100dvh !important;
-    padding: calc(env(safe-area-inset-top) + 8px) 6vw
-             calc(env(safe-area-inset-bottom) + 8px) 6vw !important;
-    transform:none !important;
-  }
-
-  .nav-pop__nav{
-    width:min(520px,92%) !important;
-    margin:0 auto !important;
-    display:grid !important;
-    gap:clamp(16px,3vh,28px) !important;
-    text-align:center !important;
-    justify-items:center !important;
-    transform:none !important;
-  }
-
-  /* Close button is fixed to the viewport, never the sheet */
-  .nav-pop__close{
-    position:fixed !important;
-    top: calc(env(safe-area-inset-top) + 10px) !important;
-    right: calc(env(safe-area-inset-right) + 10px) !important;
-    width:44px; height:44px; border-radius:14px;
-    border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.08);
-    -webkit-backdrop-filter: blur(10px) saturate(120%);
-            backdrop-filter: blur(10px) saturate(120%);
+    position:fixed; inset:0; z-index:20000;
     display:grid; place-items:center;
-    z-index:30000 !important;   /* above overlay + sheet */
+    opacity:0; pointer-events:none; transition:opacity .28s ease;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(116,0,255,.35), transparent 60%),
+      rgba(0,0,0,.72);
+    -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
   }
-  .nav-pop__close span{ position:absolute; width:18px; height:2px; border-radius:2px; background:#fff; }
-  .nav-pop__close span:first-child{ transform:rotate(45deg); }
-  .nav-pop__close span:last-child{  transform:rotate(-45deg); }
+  #nav-pop.is-open{ opacity:1; pointer-events:auto; }
 
-  /* Clean taps */
-  #nav-pop, #nav-pop *{ -webkit-tap-highlight-color:transparent; }
-  .nav-pop__nav a:focus, .nav-pop__nav a:active{
-    outline:0 !important; box-shadow:none !important; background:transparent !important;
+  /* Click-away overlay still works (fills the screen) */
+  #nav-pop .nav-pop__overlay{ position:absolute; inset:0; }
+
+  /* Big centered menu */
+  #nav-pop .nav-pop__sheet{ 
+    position:relative;
+    width:min(92%, 760px);
+    margin:auto;
+    background:transparent; border:0; box-shadow:none;
+  }
+
+  /* optional top "N" decoration using your logo */
+  #nav-pop .nav-pop__sheet::before{
+    content:""; display:block; margin:0 auto 18px;
+    width:54px; height:54px;
+    background:url("/assets/web/logohome.png") center/contain no-repeat;
+    filter: drop-shadow(0 12px 40px rgba(116,0,255,.35));
+  }
+
+  /* The actual links */
+  #nav-pop .nav-pop__nav{
+    display:flex; flex-direction:column; align-items:center;
+    gap:18px; padding:6px 0;
+  }
+  #nav-pop .nav-pop__nav a{
+    text-transform:uppercase;
+    font-weight:800;
+    letter-spacing:.04em;
+    font-size: clamp(28px, 7vw, 56px);
+    color:#fff;
+    text-shadow:0 10px 28px rgba(0,0,0,.55);
+  }
+  /* default: no ring */
+#nav-pop .nav-pop__nav a:focus,
+#nav-pop .nav-pop__nav a:focus-visible{
+  outline: none !important;
+}
+
+/* show ring only when user is navigating with keyboard */
+.kbd-nav #nav-pop .nav-pop__nav a:focus-visible{
+  outline: 2px solid #b06bff;
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+
+  /* Hide the little close X button (hamburger acts as the close) */
+  #nav-pop .nav-pop__close{ display:none; }
+
+  /* Prevent page scroll when menu open */
+  .no-scroll{ overflow:hidden; }
+}
+/* Full-screen menu: gradient underline for the current page */
+#nav-pop .nav-pop__nav{
+  text-align: center;
+}
+
+#nav-pop .nav-pop__nav a{
+  position: relative;
+  display: inline-block;           /* shrink to text width */
+  padding-bottom: 12px;            /* room for the underline */
+}
+
+/* Active page underline */
+#nav-pop .nav-pop__nav a[aria-current="page"]::after{
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 5px;                    /* how far below the text */
+  transform: translateX(-50%);
+  width: 78%;                      /* length of the line under the word */
+  height: 3px;                     /* thin line */
+  border-radius: 999px;
+  background: linear-gradient(90deg,#d400ff,#7400ff);
+  box-shadow: 0 0 12px rgba(116,0,255,.35); /* soft glow */
+}
+
+/* Optional: slightly thicker on very small screens */
+@media (max-width: 360px){
+  #nav-pop .nav-pop__nav a[aria-current="page"]::after{
+    height: 3.5px;
   }
 }
-/* Remove the top-right close (X) on phones */
-@media (max-width:820px){
-  #nav-pop .nav-pop__close { display: none !important; }
-}
-
-
