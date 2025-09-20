@@ -507,32 +507,13 @@ body.home .scrolldown span{
   .hero-slider{ display: none !important; }
 }
 
-/* Desktop scroll cue */
-@media (min-width: 821px){
-  .mouse-cue{
-    position: absolute; left: 50%; bottom: 6vh; transform: translateX(-50%);
-    width: 32px; height: 48px; border: 2px solid rgba(255,255,255,.9);
-    border-radius: 24px; display: grid; place-items: center; pointer-events: none; z-index: 20;
-  }
-  .mouse-cue i{ width: 6px; height: 10px; border-radius: 3px; background: #fff; opacity: .95; animation: cueDot 1.4s ease-in-out infinite; }
-  @keyframes cueDot{ 0%{ transform:translateY(-6px); opacity:.25; } 50%{ transform:translateY(6px); opacity:1; } 100%{ transform:translateY(-6px); opacity:.25; } }
-}
 
 /* Hide the mouse cue on mobile */
 @media (max-width: 820px){
   .mouse-cue{ display: none !important; }
 }
 
-/* Desktop: bottom-center scroll cue fixed */
-@media (min-width: 821px){
-  .mouse-cue{
-    position: fixed; left: 50%; bottom: 6vh; transform: translateX(-50%);
-    width: 32px; height: 48px; border: 2px solid rgba(255,255,255,.9);
-    border-radius: 24px; display: grid; place-items: center; pointer-events: none; z-index: 50;
-  }
-  .mouse-cue i{ width: 6px; height: 10px; border-radius: 3px; background: #fff; opacity:.95; animation: cueDot 1.4s ease-in-out infinite; }
-  @keyframes cueDot{ 0%{ transform:translateY(-6px); opacity:.25; } 50%{ transform:translateY(6px); opacity:1; } 100%{ transform:translateY(-6px); opacity:.25; } }
-}
+
 
 /* Mobile: hide the scrolldown */
 @media (max-width: 820px){
@@ -718,4 +699,26 @@ body.home .scrolldown span{
 
   /* Optional: nudge even tighter if you want */
   /* .vm-section + #featured-recent{ margin-top: -12px; } */
+}
+/* Bottom–center scroll cue (desktop) */
+@media (min-width: 821px){
+  body.home .scrolldown{
+    position: fixed !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: max(6vh, calc(env(safe-area-inset-bottom) + 24px)) !important;
+    width: 32px; height: 48px; border-radius: 24px;
+    border: 2px solid rgba(255,255,255,.9);
+    display: grid; place-items: center;
+    pointer-events: none; z-index: 1000;
+  }
+  body.home .scrolldown span{
+    width: 6px; height: 10px; border-radius: 3px;
+    background: #fff; opacity: .95; animation: dot 1.4s ease-in-out infinite;
+  }
+}
+
+/* Hide on mobile */
+@media (max-width: 820px){
+  body.home .scrolldown{ display: none !important; }
 }
