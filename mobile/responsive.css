@@ -196,7 +196,7 @@
   /* knobs you can tweak */
   :root{
     --n-size: clamp(0px, 0vw, 0px); /* width of the N */
-    --n-lift: 60px;                      /* ↑ raise N (increase to move up) */
+    --n-lift: 45px;                      /* ↑ raise N (increase to move up) */
     --n-gap-below: -200px;               /* space under N before the title (negative pulls title up) */
   }
 
@@ -249,8 +249,8 @@
 
   /* base lines + spacing */
   body.home .headline{
-    line-height: .92;
-    margin-top: clamp(18px, 6vh, 60px);
+    line-height: .95;
+    margin-top: clamp(18px, 9vh, 60px);
   }
 
   /* WE / FRAME / THE */
@@ -449,5 +449,639 @@
 @media (max-width: 360px){
   #nav-pop .nav-pop__nav a[aria-current="page"]::after{
     height: 3.5px;
+  }
+}
+/* === Mobile-only "View Gallery" pill (matches screenshot) === */
+@media (max-width: 820px){
+  /* tighten the gap under the slider */
+  .hero-slider{ margin-bottom: 10px; }
+
+  .cta-hero{
+    /* layout */
+    display:block;
+    width:min(90%, 360px);
+    margin: 0px auto 0px;
+    padding: 14px 26px;
+    text-align:center;
+    border-radius:999px;
+    position:relative;
+    z-index:0;
+
+    /* type */
+    font-weight:800;
+    font-size: clamp(16px, 4.4vw, 18px);
+    letter-spacing:.01em;
+    color:#fff;
+
+    /* gradient ring + dark center */
+    --ring: linear-gradient(90deg,#d400ff,#7400ff);
+    background:
+      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+      var(--ring) border-box;
+    border: 3px solid transparent;
+
+    /* glow */
+    box-shadow:
+      0 16px 36px rgba(20, 0, 255, 0.252),
+      0 6px 16px rgba(0,0,0,.55);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  /* soft outer glow */
+  .cta-hero::before{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border-radius:inherit;
+    background: radial-gradient(80% 80% at 50% 50%,
+               rgba(116,0,255,.35), rgba(116,0,255,0) 60%);
+    filter: blur(10px);
+    z-index:-1;
+    pointer-events:none;
+  }
+
+  .cta-hero:hover{
+    transform: translateY(-1px);
+    box-shadow:
+      0 20px 44px rgba(115, 0, 255, 0),
+      0 8px 20px rgba(0,0,0,.6);
+  }
+  .cta-hero:active{ transform: translateY(0); }
+  .cta-hero:focus-visible{
+    outline:none;
+    box-shadow: 0 0 0 3px rgba(212, 0, 255, 0), 0 0 0 6px rgba(255,255,255,.15);
+  }
+}
+
+/* never show this one on desktop */
+@media (min-width: 821px){
+  .cta-hero{ display:none !important; }
+}
+/* MOBILE — final placement for the View Gallery CTA in the hero */
+@media (max-width: 820px){
+  /* give the hero room for the button */
+  .home #home-hero{
+    position: relative !important;
+    padding-bottom: 0px !important;   /* adjust if you need more/less space */
+  }
+
+  /* pin the CTA centered near the bottom */
+  .home #home-hero .cta-hero{
+    position: absolute !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: calc(env(safe-area-inset-bottom,0px) + -100px) !important; /* lower/higher -> change 28 */
+    margin: 0 !important;
+    width: min(92%, 360px);
+    z-index: 40;                         /* stay above the slider */
+  }
+}
+
+/* desktop still hidden */
+@media (min-width: 821px){
+  .cta-hero{ display:none !important; }
+}
+/* MOBILE: clean stacked layout for Vision/Mission */
+@media (max-width: 820px){
+  .vm-section{
+    padding: clamp(32px, 8vw, 48px) 0;
+  }
+
+  .vm-section .container{
+    width: min(680px, 92%);
+    margin-inline: auto;
+  }
+
+  /* Stack image then text for both rows */
+  .vm-row,
+  .vm-row--reverse{
+    display: block;                          /* one column */
+    padding-block: clamp(16px, 4vw, 28px);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .vm-row:last-child{ border-bottom: 0; }
+
+  /* Image */
+  .vm-media{ margin: 0 0 14px 0; }
+  .vm-art{
+    width: 100%;
+    aspect-ratio: 4 / 3;                     /* balanced photo height */
+    border-radius: 18px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,.40),
+                0 0 0 1px rgba(255,255,255,.06) inset;
+  }
+  /* Super-narrow phones: go portrait to avoid a giant image */
+  @media (max-width: 360px){
+    .vm-art{ aspect-ratio: 3 / 4; }
+  }
+
+  /* Text */
+  .eyebrow{
+    margin-top: 2px;
+    font-size: 12px;
+    letter-spacing: .16em;
+    color: var(--vm-muted);
+  }
+  .vm-title{
+    margin: 6px 0 10px;
+    font-size: clamp(22px, 5.6vw, 28px);
+    font-weight: 800;
+    letter-spacing: .01em;
+    color:#fff;
+  }
+  .vm-text{
+    max-width: 40ch;
+    font-size: clamp(14px, 4.2vw, 16px);
+    line-height: 1.65;
+    color: var(--vm-muted);
+  }
+
+  /* Pills line (if present) */
+  .vm-pills{
+    margin-top: 0px;
+    display: flex; gap: 10px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 20px;
+  }
+  .vm-pills::-webkit-scrollbar{ display: none; }
+}
+/* Mobile: remove hero slider, keep headline + CTA tight */
+@media (max-width: 820px){
+  .hero-slider{ display:none !important; }
+
+  /* tighten the space where the slider used to be */
+  .cta-hero{
+    position: static !important;
+    margin: clamp(16px, 3vh, 28px) auto 16px !important;
+    width: min(92%, 360px);
+  }
+}
+/* MOBILE ONLY */
+@media (max-width: 820px){
+  /* Let next section slide under the hero edge a bit */
+  body.home .hero{
+    overflow: visible;                 /* so the peek isn't clipped */
+    padding-bottom: 10px;              /* tighten space under CTA */
+  }
+  .vm-section{
+    margin-top: -220px;                 /* ← adjust: -10 … -24px */
+    padding-top: calc(10px + 14px);    /* keep internal spacing even */
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+  }
+}
+/* === MOBILE: 2-up centered Recent Events, override global .grid === */
+@media (max-width: 820px){
+  /* kill the global .grid behavior inside Featured on mobile */
+  .home .featured .grid{
+    grid-template-columns: unset !important;
+    width: auto !important;
+  }
+
+  /* shrink-wrap the albums grid and center it */
+  #recent-albums{
+    display: grid !important;
+    grid-template-columns: repeat(2, min(44vw, 170px)) !important; /* 2-up */
+    gap: 12px !important;
+    width: max-content !important;      /* shrink to its columns */
+    margin: 10px auto 18px !important;  /* center the block */
+    justify-content: center !important; /* safety */
+  }
+
+  /* make the cards a bit smaller to fit nicely */
+  #recent-albums .card{
+    width: min(44vw, 170px) !important;
+    border-radius: 14px !important;
+  }
+  #recent-albums .art{ aspect-ratio: 4 / 3 !important; }
+  #recent-albums .meta{ padding: 10px 12px !important; }
+  #recent-albums .meta strong{ font-size: 13px !important; line-height: 1.25; }
+  #recent-albums .meta span{ font-size: 11px !important; }
+
+  /* center the section and button too */
+  #featured-recent{ text-align: center !important; }
+  #featured-recent .featured__head h2,
+  #featured-recent .featured__head p{ text-align: center !important; }
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline{
+    display: block !important;
+    width: min(94%, 420px) !important;
+    margin: 12px auto 0 !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+
+  /* ultra-narrow phones: fall back to 1-up */
+  @media (max-width: 360px){
+    #recent-albums{
+      grid-template-columns: 1fr !important;
+      width: 92% !important;
+    }
+    #recent-albums .card{ width: 100% !important; }
+  }
+}
+/* === MOBILE: center the 2-up Recent Events grid === */
+@media (max-width: 820px){
+
+  /* remove side padding that can bias the grid */
+  #featured-recent .featured__inner{
+    padding-left: max(12px, env(safe-area-inset-left)) !important;
+    padding-right: max(12px, env(safe-area-inset-right)) !important;
+    text-align: center !important;
+  }
+
+  /* two equal columns, centered in the container */
+  #recent-albums{
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+
+    /* center the grid and the items */
+    place-content: center !important;     /* = align-content + justify-content */
+    justify-items: center !important;     /* centers each card in its cell */
+    width: 100% !important;               /* stop shrink-wrap weirdness */
+  }
+
+  /* make cards fit their cell and cap size */
+  #recent-albums .card{
+    width: 100% !important;
+    max-width: 180px !important;
+    border-radius: 14px !important;
+  }
+  #recent-albums .art{ aspect-ratio: 4 / 3 !important; }
+
+  /* CTA centered */
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline{
+    display: block !important;
+    width: min(94%, 420px) !important;
+    margin: 12px auto 0 !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+
+  /* ultra-narrow phones: fall back to 1-up */
+  @media (max-width: 360px){
+    #recent-albums{ grid-template-columns: 1fr !important; }
+    #recent-albums .card{ max-width: 420px !important; }
+  }
+}
+
+/* ===== MOBILE (<=820px): center + allow up to 3 cards ===== */
+@media (max-width: 820px){
+  /* knobs */
+  :root{
+    --re-card: 168px;   /* target card width */
+    --re-gap: 14px;     /* space between cards */
+  }
+
+  /* Center the section and cap width to 3 cards max */
+  #featured-recent .featured__inner{
+    width: min(94vw, calc(3 * var(--re-card) + 2 * var(--re-gap))) !important;
+    margin: 0 auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center !important;
+  }
+
+  /* Grid that auto-fits 2 → 3 columns depending on space */
+  #recent-albums{
+    display: grid !important;
+    gap: var(--re-gap) !important;
+    /* each track can shrink on small phones but never exceed --re-card */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(44vw, var(--re-card)), 1fr)
+    ) !important;
+    justify-content: center !important;   /* center when fewer tracks */
+    margin: 12px auto 18px !important;
+  }
+
+  /* Cards fill their track and stay centered */
+  #recent-albums .card{
+    width: 100% !important;
+    max-width: var(--re-card) !important;
+    justify-self: center !important;
+    border-radius: 14px !important;
+  }
+
+  /* CTA centered under the grid */
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline{
+    display: block !important;
+    width: min(94vw, calc(3 * var(--re-card) + 2 * var(--re-gap))) !important;
+    margin: 16px auto 0 !important;
+    text-align: center !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+}
+/* ===== MOBILE (<=820px): center + size "Most Recent Events" ===== */
+@media (max-width:820px){
+
+  /* kill desktop container padding on phones */
+  #featured-recent,
+  #featured-recent .featured__inner{
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  /* nuke any global grid columns that leak through */
+  #featured-recent .grid{
+    grid-template-columns: unset !important;
+  }
+
+  /* our mobile grid: 2 cards centered (auto grows to 3 on wide phones) */
+  #recent-albums{
+    display: grid !important;
+    gap: 14px !important;
+    justify-content: center !important;
+    justify-items: center !important;
+    width: auto !important;
+    max-width: 94vw !important;
+    margin: 12px auto 18px !important;
+    grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
+  }
+
+  /* allow a 3rd card when there’s room (e.g., large phones) */
+  @media (min-width:560px) and (max-width:820px){
+    #recent-albums{
+      grid-template-columns: repeat(3, minmax(150px, 1fr)) !important;
+      max-width: 560px !important;
+    }
+  }
+
+  /* card sizing */
+  #recent-albums .card{
+    width: 100% !important;
+    max-width: 180px !important;   /* tweak 160–190 to taste */
+    border-radius: 14px !important;
+    justify-self: center !important;
+  }
+  #recent-albums .art{ aspect-ratio: 4/3 !important; }
+
+  /* center + size the CTA button */
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline{
+    display: block !important;
+    width: min(94vw, 560px) !important;   /* matches 3-card max width */
+    margin: 16px auto 0 !important;
+    text-align: center !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+}
+/* ===== MOBILE (<=820px): rebuild Featured cleanly ===== */
+@media (max-width:820px){
+
+  /* container: centered, no extra desktop padding */
+  #featured-recent{
+    width: min(680px, 94vw);
+    margin: 0 auto;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+  }
+
+  /* grid: 2-up by default, centered */
+  #recent-albums{
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    align-items: stretch;
+  }
+
+  /* bump to 3-up on wider phones */
+  @media (min-width:560px){
+    #recent-albums{
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+
+  /* card sizing/feel */
+  #recent-albums .card{
+    border-radius: 16px !important;
+    overflow: hidden;
+    background: #101015;
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 8px 24px rgba(0,0,0,.30);
+  }
+  #recent-albums .art{ aspect-ratio: 4 / 3 !important; }
+  #recent-albums .meta{ padding: 10px 12px !important; }
+  #recent-albums .meta strong{
+    font-size: 14px !important; line-height: 1.2;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  #recent-albums .meta span{
+    font-size: 12px !important; opacity: .75;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* CTA under the grid */
+  #featured-recent .more{ margin-top: 14px !important; }
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline{
+    display: block !important;
+    width: 100% !important;
+    max-width: 560px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    padding: 14px 18px !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+}
+/* ===== MOBILE (<=820px): center Recent + button ===== */
+@media (max-width:820px){
+
+  /* kill asymmetrical desktop padding so centering works */
+  #featured-recent,
+  .featured__inner{
+    width: min(680px, 94vw) !important;
+    margin: 0 auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* center heading + subheading */
+  #featured-recent .featured__head,
+  .featured .featured__head{
+    text-align: center !important;
+  }
+  #featured-recent .featured__head h2,
+  #featured-recent .featured__head p,
+  .featured .featured__head h2,
+  .featured .featured__head p{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  /* center the CTA and give it a fixed max width */
+  #featured-recent .more,
+  .featured .more{
+    display: flex !important;
+    justify-content: center !important;
+  }
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline,
+  .featured .more .btn,
+  .featured .more .btn--outline{
+    width: min(420px, 92vw) !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+}
+/* ===== MOBILE (<=820px): center Recent + button ===== */
+@media (max-width:820px){
+
+  /* kill asymmetrical desktop padding so centering works */
+  #featured-recent,
+  .featured__inner{
+    width: min(680px, 94vw) !important;
+    margin: 0 auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* center heading + subheading */
+  #featured-recent .featured__head,
+  .featured .featured__head{
+    text-align: center !important;
+  }
+  #featured-recent .featured__head h2,
+  #featured-recent .featured__head p,
+  .featured .featured__head h2,
+  .featured .featured__head p{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+
+  /* center the CTA and give it a fixed max width */
+  #featured-recent .more,
+  .featured .more{
+    display: flex !important;
+    justify-content: center !important;
+  }
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline,
+  .featured .more .btn,
+  .featured .more .btn--outline{
+    width: min(420px, 92vw) !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+}
+/* ===== Featured (<=820px) — center + 2-up grid ===== */
+@media (max-width:820px){
+
+  /* Center the container and remove side padding */
+  #featured-recent .featured__inner,
+  .featured__inner{
+    width: min(680px, 94vw) !important;
+    margin: 0 auto !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    text-align: center !important;
+  }
+
+  /* Center the title + subhead */
+  #featured-recent .featured__head h2,
+  #featured-recent .featured__head p,
+  .featured__head h2,
+  .featured__head p{
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Cards grid — 2 across on mobile */
+  #recent-albums,
+  .featured .grid{
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
+    gap: 14px !important;
+    justify-content: center !important;   /* center the columns block */
+    justify-items: center !important;     /* center each card in its track */
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+
+  /* Card sizing */
+  #recent-albums .card,
+  .featured .grid .card{
+    width: min(44vw, 180px) !important;
+    border-radius: 16px !important;
+  }
+  #recent-albums .art,
+  .featured .grid .art{
+    aspect-ratio: 4 / 3 !important;
+  }
+
+  /* Center the CTA */
+  #featured-recent .more,
+  .featured .more{
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 16px !important;
+  }
+  #featured-recent .more .btn,
+  #featured-recent .more .btn--outline,
+  .featured .more .btn,
+  .featured .more .btn--outline{
+    width: min(420px, 92vw) !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    border-radius: 999px !important;
+    font-weight: 800 !important;
+  }
+
+  /* Tiny phones: fall back to 1-up */
+  @media (max-width:380px){
+    #recent-albums,
+    .featured .grid{
+      grid-template-columns: 1fr !important;
+    }
+    #recent-albums .card,
+    .featured .grid .card{
+      width: min(92vw, 360px) !important;
+    }
+  }
+
+  /* Big phones / small tablets: allow 3-up */
+  @media (min-width:600px){
+    #recent-albums,
+    .featured .grid{
+      grid-template-columns: repeat(3, minmax(160px, 1fr)) !important;
+    }
+    #recent-albums .card,
+    .featured .grid .card{
+      width: auto !important;
+    }
+  }
+}
+/* Mobile: add space below the gallery button */
+@media (max-width: 820px){
+  /* push the button up from the bottom edge (iOS home bar safe too) */
+  #featured-cta{
+    /* top | left/right | bottom */
+    margin: clamp(14px, 3.5vh, 24px) auto calc(env(safe-area-inset-bottom) + 56px) !important;
+  }
+
+  /* optional: extra padding on the section in case you add more elements later */
+  #featured-recent{
+    padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
   }
 }

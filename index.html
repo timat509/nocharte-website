@@ -123,6 +123,8 @@
           </div>
         </div>
 
+        <a href="gallery.html" class="cta-hero" aria-label="Open Gallery">View Gallery</a>
+
         <!-- Scroll cue (desktop) -->
         <div class="scrolldown" aria-hidden="true"><span></span></div>
       </div>
@@ -170,28 +172,27 @@
     </section>
 
     <!-- =========================
-         FEATURED (Most Recent)
-    ========================== -->
-    <section id="featured" class="featured snap">
-      <div class="brand-lock" aria-hidden="true">
-        <img src="assets/web/logohome.png" alt="" />
-        <span>NOCHARTE</span>
-      </div>
+     Most Recent Events
+========================== -->
+<section id="featured-recent" class="featured">
+  <div class="featured__inner">
+    <div class="featured__head">
+      <h2>Most Recent Events</h2>
+      <p>Recent nights captured by NOCHARTE</p>
+    </div>
 
-      <div class="featured__inner" id="featured-recent">
-        <div class="featured__head">
-          <h2>Most Recent Events</h2>
-          <p>Recent nights captured by NOCHARTE</p>
-        </div>
+    <!-- Grid gets injected here by JS -->
+    <div id="recent-albums"></div>
 
-        <div class="grid" id="recent-albums"></div>
-
-        <div class="more">
-          <a class="btn btn--outline" href="gallery.html">Open Full Gallery</a>
-        </div>
-      </div>
-    </section>
+    <!-- Centered CTA lives OUTSIDE the grid -->
+    <div id="featured-cta">
+      <a href="gallery.html" class="btn-gallery" aria-label="Open full gallery">
+        <span>Open Full Gallery</span>
+      </a>
+    </div>
   </div>
+</section>
+
 
   <!-- ======= Floating CTA (mobile only via CSS) ======= -->
   <a href="gallery.html" class="btn btn--solid cta-float" aria-label="Open Gallery">View Gallery</a>
