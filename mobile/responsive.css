@@ -1095,3 +1095,26 @@
     bottom: max(14px, calc(env(safe-area-inset-bottom) + 10px));
   }
 }
+/* ===== Gallery (mobile) — reduce space under sticky header ===== */
+@media (max-width: 820px){
+  /* give var(--mobile-gap) a small fallback so calc() never explodes */
+  :root{ --mobile-gap: 8px; }
+
+  /* main fix: smaller offset for gallery content */
+  body.page-gallery .wrap{
+    padding-top: calc(var(--mobile-header-h) + -30px) !important;
+  }
+}
+/* CONTACT — tighten space under the sticky header (mobile only) */
+@media (max-width: 820px){
+  /* Option A: set a page-scoped gap variable (cleanest) */
+  body.page-contact{ --mobile-gap: -18px; }  /* tweak: -8 … -30 */
+
+  /* Option B: hard override (use this if A doesn’t win for some reason) */
+  body.page-contact .wrap{
+    padding-top: calc(var(--mobile-header-h) + -18px) !important;
+  }
+
+  /* Safety: kill any first-child top margin the section might add */
+  body.page-contact main > :first-child{ margin-top: 0 !important; }
+}
