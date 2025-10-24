@@ -1,4 +1,4 @@
-window.NOCH_ALBUMS = [
+window.ALBUMS = [
   {
     slug: "luna-19-07-25",
     title: "Luna — 19 Jul 2025",
@@ -16,5 +16,12 @@ window.NOCH_ALBUMS = [
     count: 142,
     cover: "assets/albums/summer-23-08-25/cover.jpeg",
     href: "album.html?slug=summer-23-08-25"
-  }
+  },
+  {
+  slug: "after_walk-13-09-25",
+  title: "After Walk — 13 Sep 2025",
+  cover: "assets/albums/after_walk-13-09-25/cover.jpeg",
+  date: "Sep 13, 2025",
+  count: 99 
+}
 ];

@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Favicons -->
+<link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
+
+<!-- Open Graph (link previews) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nocharte.com/">
+<meta property="og:site_name" content="NOCHARTE">
+<meta property="og:title" content="NOCHARTE — We Frame the Feeling">
+<meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
+<meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+<meta property="og:image:width" content="1250">
+<meta property="og:image:height" content="1250">
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
+<meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
+<meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
@@ -202,10 +223,18 @@
       metaEl.textContent  = `${files.length} photos`;
 
       gridEl.innerHTML = files.map((f,i) => `
-        <figure data-idx="${i}" role="button" tabindex="0" style="cursor:zoom-in">
-          <img loading="lazy" decoding="async" src="${f.src}" alt="${escapeHtml(f.alt)}">
-        </figure>
-      `).join('');
+  <figure class="photo-card" data-idx="${i}" role="button" tabindex="0" style="cursor:zoom-in; position:relative;">
+   <img loading="lazy" decoding="async" crossorigin="anonymous" src="${f.src}" alt="${escapeHtml(f.alt)}">
+    <button class="download-btn" onclick="event.stopPropagation(); downloadImage('${f.src}')" aria-label="Download photo">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+    <polyline points="7 10 12 15 17 10"/>
+    <line x1="12" y1="15" x2="12" y2="3"/>
+  </svg>
+</button>
+  </figure>
+`).join('');
+
 
       const figures = Array.from(gridEl.querySelectorAll('figure[data-idx]'));
       figures.forEach(fig => {
@@ -332,5 +361,55 @@
       }, { capture: true });
     })();
   </script>
+<script>
+async function downloadImage(imgSrc) {
+  const logoSrc = '/assets/web/logo.png'; // path to your watermark logo
+  const img = await loadImage(imgSrc);
+  const logo = await loadImage(logoSrc);
+
+  // Create canvas same size as image
+  const canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext('2d');
+
+  // Draw main image
+  ctx.drawImage(img, 0, 0);
+
+// --- Adaptive watermark size ---
+const aspectRatio = img.width / img.height;
+let logoWidth;
+
+// Smaller watermark for very wide photos
+if (aspectRatio > 1.4) {
+  logoWidth = img.width * 0.12;  // landscape → smaller
+} else if (aspectRatio < 0.9) {
+  logoWidth = img.width * 0.22;  // portrait → slightly bigger
+} else {
+  logoWidth = img.width * 0.18;  // square-ish → normal
+}
+
+const logoHeight = logo.height * (logoWidth / logo.width);
+ctx.globalAlpha = 0.6;
+ctx.drawImage(logo, img.width - logoWidth - 20, img.height - logoHeight - 20, logoWidth, logoHeight);
+ctx.globalAlpha = 1.0;
+
+  // Convert to downloadable image
+  const link = document.createElement('a');
+  link.download = 'nocharte-photo.jpg';
+  link.href = canvas.toDataURL('image/jpeg', 0.95);
+  link.click();
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous'; // Needed if files are hosted on another domain
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+</script>
 </body>
 </html>

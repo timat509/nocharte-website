@@ -1118,3 +1118,27 @@
   /* Safety: kill any first-child top margin the section might add */
   body.page-contact main > :first-child{ margin-top: 0 !important; }
 }
+@media (max-width: 820px) {
+  .social-icon {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    z-index: 2000;
+  }
+
+  .social-icon img {
+    width: 22px;
+    height: 22px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-icon:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .nav .logo {
+    margin-left: 50px;
+  }
+}

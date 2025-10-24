@@ -231,5 +231,44 @@
     }, { capture: true });
   })();
   </script>
+  <script>
+async function downloadImage(imgSrc) {
+  const logoSrc = '/assets/websitelogo/nocharte-watermark.png'; // path to your watermark logo
+  const img = await loadImage(imgSrc);
+  const logo = await loadImage(logoSrc);
+
+  // Create canvas same size as image
+  const canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext('2d');
+
+  // Draw main image
+  ctx.drawImage(img, 0, 0);
+
+  // Draw watermark logo bottom-right
+  const logoWidth = img.width * 0.2; // adjust % size of watermark
+  const logoHeight = logo.height * (logoWidth / logo.width);
+  ctx.globalAlpha = 0.6;
+  ctx.drawImage(logo, img.width - logoWidth - 20, img.height - logoHeight - 20, logoWidth, logoHeight);
+  ctx.globalAlpha = 1.0;
+
+  // Convert to downloadable image
+  const link = document.createElement('a');
+  link.download = 'nocharte-photo.jpg';
+  link.href = canvas.toDataURL('image/jpeg', 0.95);
+  link.click();
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous'; // Needed if files are hosted on another domain
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+</script>
 </body>
 </html>

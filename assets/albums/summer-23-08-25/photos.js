@@ -1,25 +1,54 @@
-/* assets/albums/summer-23-08-25/photos.js */
-(function () {
-  const albumId = "summer-23-08-25";
-  const base = "/assets/albums/summer-23-08-25/photos"; // absolute path
-
-  const files = [
-    "IMG_0014.jpeg","IMG_0018.jpeg","IMG_0019.jpeg","IMG_0024.jpeg","IMG_0025.jpeg",
-    "IMG_0030.jpeg","IMG_0032.jpeg","IMG_0036.jpeg","IMG_0040.jpeg","IMG_0050.jpeg",
-    "IMG_0052.jpeg","IMG_0064.jpeg","IMG_0065.jpeg","IMG_0068.jpeg","IMG_0073.jpeg",
-    "IMG_0076.jpeg","IMG_0084.jpeg","IMG_0086.jpeg","IMG_0090.jpeg","IMG_0091.jpeg",
-    "IMG_0101.jpeg","IMG_0106.jpeg","IMG_0107.jpeg","IMG_0109.jpeg","IMG_0120.jpeg",
-    "IMG_0125.jpeg","IMG_0126.jpeg","IMG_0127.jpeg","IMG_0128.jpeg","IMG_0129.jpeg",
-    "IMG_0130.jpeg","IMG_0131.jpeg","IMG_0132.jpeg","IMG_0133.jpeg","IMG_0134.jpeg",
-    "IMG_0136.jpeg","IMG_0138.jpeg","IMG_0141.jpeg","IMG_0142.jpeg","IMG_0143.jpeg",
-    "IMG_0144.jpeg","IMG_0149.jpeg","IMG_0155.jpeg","IMG_0158.jpeg","IMG_0159.jpeg",
-    "IMG_0160.jpeg","IMG_0162.jpeg","IMG_0168.jpeg","IMG_0177.jpeg","IMG_0179.jpeg",
-    "IMG_0186.jpeg","IMG_0192.jpeg",
-  ];
-
-  window.NOCH_PHOTOS = window.NOCH_PHOTOS || {};
-  window.NOCH_PHOTOS[albumId] = files.map(f => ({
-    src: `${base}/${f}`,
-    alt: f.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " "),
-  }));
-})();
+window.PHOTOS = [
+  "IMG_0014.jpeg",
+  "IMG_0018.jpeg",
+  "IMG_0019.jpeg",
+  "IMG_0024.jpeg",
+  "IMG_0025.jpeg",
+  "IMG_0030.jpeg",
+  "IMG_0032.jpeg",
+  "IMG_0036.jpeg",
+  "IMG_0040.jpeg",
+  "IMG_0050.jpeg",
+  "IMG_0052.jpeg",
+  "IMG_0064.jpeg",
+  "IMG_0065.jpeg",
+  "IMG_0068.jpeg",
+  "IMG_0073.jpeg",
+  "IMG_0076.jpeg",
+  "IMG_0084.jpeg",
+  "IMG_0086.jpeg",
+  "IMG_0090.jpeg",
+  "IMG_0091.jpeg",
+  "IMG_0101.jpeg",
+  "IMG_0106.jpeg",
+  "IMG_0107.jpeg",
+  "IMG_0109.jpeg",
+  "IMG_0120.jpeg",
+  "IMG_0125.jpeg",
+  "IMG_0126.jpeg",
+  "IMG_0127.jpeg",
+  "IMG_0128.jpeg",
+  "IMG_0129.jpeg",
+  "IMG_0130.jpeg",
+  "IMG_0131.jpeg",
+  "IMG_0132.jpeg",
+  "IMG_0133.jpeg",
+  "IMG_0134.jpeg",
+  "IMG_0136.jpeg",
+  "IMG_0138.jpeg",
+  "IMG_0141.jpeg",
+  "IMG_0142.jpeg",
+  "IMG_0143.jpeg",
+  "IMG_0144.jpeg",
+  "IMG_0149.jpeg",
+  "IMG_0155.jpeg",
+  "IMG_0158.jpeg",
+  "IMG_0159.jpeg",
+  "IMG_0160.jpeg",
+  "IMG_0162.jpeg",
+  "IMG_0168.jpeg",
+  "IMG_0177.jpeg",
+  "IMG_0179.jpeg",
+  "IMG_0186.jpeg",
+  "IMG_0192.jpeg"
+];

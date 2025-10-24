@@ -10,3 +10,25 @@
     margin-top: 0;
   }
 }
+.download-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.download-btn:hover {
+  background: rgba(255,255,255,0.9);
+  color: #000;
+  transform: scale(1.05);
+}

@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
   <!-- Favicons -->
-<link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
-<link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
-<link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
+  <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
 
-<!-- Open Graph (link previews) -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nocharte.com/">
-<meta property="og:site_name" content="NOCHARTE">
-<meta property="og:title" content="NOCHARTE — We Frame the Feeling">
-<meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
-<meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
-<meta property="og:image:width" content="1250">
-<meta property="og:image:height" content="1250">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nocharte.com/">
+  <meta property="og:site_name" content="NOCHARTE">
+  <meta property="og:title" content="NOCHARTE — We Frame the Feeling">
+  <meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
+  <meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <meta property="og:image:width" content="1250">
+  <meta property="og:image:height" content="1250">
 
-<!-- Twitter card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
-<meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
-<meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
+  <meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
+  <meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -28,16 +28,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>NOCHARTE</title>
 
-  <!-- First-visit redirect to intro (relative so it works on project sites) -->
+  <!-- Redirect to intro on first visit -->
   <script>
     (function () {
       try {
         const url = new URL(location.href);
-        const skip   = url.searchParams.get('skip-intro') === '1';
+        const skip = url.searchParams.get('skip-intro') === '1';
         const played = sessionStorage.getItem('nocharte_intro_played') === '1';
-        if (!skip && !played) {
-          location.replace('intro.html');
-        } else if (skip) {
+        if (!skip && !played) location.replace('intro.html');
+        else if (skip) {
           url.searchParams.delete('skip-intro');
           history.replaceState(null, '', url);
         }
@@ -45,7 +44,7 @@
     })();
   </script>
 
-  <!-- Fonts & CSS (relative paths) -->
+  <!-- Fonts & CSS -->
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
   <link rel="stylesheet" href="style.css?v=final-hero" />
   <link rel="stylesheet" href="mobile/responsive.css?v=final-hero" />
@@ -56,32 +55,36 @@
 
   <!-- ======= HEADER ======= -->
   <header class="nav" role="banner">
-    <a class="logo" href="index.html" aria-label="NOCHARTE Home">
-      <img src="assets/web/logohome.png" alt="NOCHARTE" />
-    </a>
+  <a class="logo" href="index.html" aria-label="NOCHARTE Home">
+    <img src="assets/web/logohome.png" alt="NOCHARTE" />
+  </a>
 
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+  <a href="https://www.instagram.com/nocharte_entertainment/"
+     target="_blank" rel="noopener"
+     class="social-icon" aria-label="Instagram">
+    <img src="assets/web/instagram.svg" alt="Instagram" />
+  </a>
 
-    <nav class="links" role="navigation" aria-label="Main">
-      <a href="index.html"   data-nav="home">Home</a>
-      <a href="gallery.html" data-nav="gallery">Gallery</a>
-      <a href="about.html"   data-nav="about">About</a>
-      <a href="contact.html" data-nav="contact">Contact</a>
-    </nav>
-  </header>
+  <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 
-  <!-- ======= POPUP MENU (mobile) ======= -->
+  <nav class="links" role="navigation" aria-label="Main">
+    <a href="index.html" data-nav="home">Home</a>
+    <a href="gallery.html" data-nav="gallery">Gallery</a>
+    <a href="about.html" data-nav="about">About</a>
+    <a href="contact.html" data-nav="contact">Contact</a>
+  </nav>
+</header>
+
+  <!-- ======= MOBILE POPUP MENU ======= -->
   <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
     <div class="nav-pop__overlay" data-close></div>
-
     <button class="nav-pop__close" aria-label="Close menu" data-close>
       <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
         <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
-
     <div class="nav-pop__sheet" role="document">
       <nav class="nav-pop__nav" aria-label="Main">
         <a href="index.html">Home</a>
@@ -95,30 +98,22 @@
   <!-- ======= PAGE CONTENT ======= -->
   <div class="scroller">
 
-
-    <!-- =========================
-         HERO
-    ========================== -->
+    <!-- ========================= HERO ========================== -->
     <section class="hero bg snap" id="home-hero">
-
-      <!-- Decorative stars -->
       <div class="hero-particles" aria-hidden="true">
         <span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span>
         <span></span><span></span>
       </div>
 
-      <!-- Right: Big N (desktop) -->
       <div class="layer logo-holder" aria-hidden="true">
         <img class="home-logo" src="assets/web/logohome.png" alt="" />
       </div>
 
-      <!-- Mobile-only N -->
       <div class="hero-right" aria-hidden="true">
         <img class="n-stack n-mark" src="assets/web/logohome.png" alt="">
       </div>
 
-      <!-- Left: Headline -->
       <div class="content lowered">
         <div class="headline">
           <span class="hword">WE</span>
@@ -126,38 +121,16 @@
           <span class="hword ind-1">THE</span>
           <span class="hword gradient">FEELING</span>
         </div>
-
         <p class="kicker">EVENT PHOTOGRAPHY</p>
-<a href="gallery.html" class="cta-desktop">View Gallery</a>
-
-        <!-- Mobile-only slider -->
-        <div class="hero-slider" aria-label="Featured photos">
-          <div class="hero-slider__track">
-            <img src="assets/albums/summer-23-08-25/photos/IMG_0052.jpeg" alt="Club crowd wide">
-            <img src="assets/albums/summer-23-08-25/photos/IMG_0130.jpeg" alt="DJ booth">
-            <img src="assets/albums/luna-19-07-25/photos/luna5.JPG" alt="Dance floor lights">
-            <img src="assets/albums/summer-23-08-25/photos/IMG_0179.jpeg" alt="Friends cheering">
-            <img src="assets/albums/summer-23-08-25/photos/IMG_0024.jpeg" alt="Neon portrait">
-          </div>
-          <div class="hero-slider__dots" role="tablist" aria-hidden="true">
-            <button class="is-active"></button><button></button><button></button><button></button><button></button>
-          </div>
-        </div>
-
+        <a href="gallery.html" class="cta-desktop">View Gallery</a>
         <a href="gallery.html" class="cta-hero" aria-label="Open Gallery">View Gallery</a>
-
-        <!-- Scroll cue (desktop) -->
         <div class="scrolldown" aria-hidden="true"><span></span></div>
       </div>
-
     </section>
 
-    <!-- =========================
-         VISION / MISSION
-    ========================== -->
+    <!-- ========================= VISION / MISSION ========================== -->
     <section id="about" class="vm-section snap">
       <div class="container">
-
         <div class="vm-row">
           <div class="vm-media"><div class="vm-art"></div></div>
           <div class="vm-copy">
@@ -188,52 +161,45 @@
           </div>
           <div class="vm-media"><div class="vm-art"></div></div>
         </div>
-
       </div>
     </section>
 
-    <!-- =========================
-     Most Recent Events
-========================== -->
-<section id="featured-recent" class="featured">
-  <div class="featured__inner">
-    <div class="featured__head">
-      <h2>Most Recent Events</h2>
-      <p>Recent nights captured by NOCHARTE</p>
-    </div>
-
-    <!-- Grid gets injected here by JS -->
-    <div id="recent-albums"></div>
-
-    <!-- Centered CTA lives OUTSIDE the grid -->
-    <div id="featured-cta">
-      <a href="gallery.html" class="btn-gallery" aria-label="Open full gallery">
-        <span>Open Full Gallery</span>
-      </a>
-    </div>
+    <!-- ========================= MOST RECENT EVENTS ========================== -->
+    <section id="featured-recent" class="featured">
+      <div class="featured__inner">
+        <div class="featured__head">
+          <h2>Most Recent Events</h2>
+          <p>Recent nights captured by NOCHARTE</p>
+        </div>
+        <div id="recent-albums"></div>
+        <div id="featured-cta">
+          <a href="gallery.html" class="btn-gallery" aria-label="Open full gallery">
+            <span>Open Full Gallery</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
-</section>
 
-
-  <!-- ======= Floating CTA (mobile only via CSS) ======= -->
+  <!-- ======= Floating CTA (mobile only) ======= -->
   <a href="gallery.html" class="btn btn--solid cta-float" aria-label="Open Gallery">View Gallery</a>
 
-  <!-- ======= JS helpers ======= -->
+  <!-- ======= NAV + DYNAMIC RECENT ALBUMS ======= -->
   <script>
-    // Current-page marker (works on project sites too)
+    // Highlight current nav link
     (function () {
       const norm = (href) => {
         const u = new URL(href, location.href);
-        let last = u.pathname.replace(/\/+$/,'').split('/').pop() || 'index.html';
+        let last = u.pathname.replace(/\/+$/, '').split('/').pop() || 'index.html';
         return last.toLowerCase();
       };
       const here = norm(location.href);
       document.querySelectorAll('.links a[href], #nav-pop a[href]').forEach(a => {
-        if (norm(a.href) === here) a.setAttribute('aria-current','page');
+        if (norm(a.href) === here) a.setAttribute('aria-current', 'page');
       });
     })();
 
-    // Keep ?skip-intro=1 on internal navs
+    // Keep ?skip-intro=1 for internal navigation
     (function () {
       document.addEventListener('click', function (e) {
         const a = e.target.closest('a[href]');
@@ -249,29 +215,47 @@
         location.assign(url.href);
       }, { capture: true });
     })();
+  </script>
 
-    // Fill "Most Recent Events"
-    (function fillRecent(){
-      const grid = document.getElementById('recent-albums');
-      if (!grid) return;
+  <!-- ======= Dynamic Recent Albums ======= -->
+  <script src="assets/albums/albums.js"></script>
+  <script>
+    (function(){
+      const container = document.getElementById('recent-albums');
+      if (!container || !window.ALBUMS) return;
 
-      const albums = [
-        { slug:"luna-19-07-25",   title:"Luna — 19 Jul 2025",   date:"Jul 19, 2025", count:"7",
-          cover:"assets/albums/luna-19-07-25/cover.png" },
-        { slug:"summer-23-08-25", title:"Summer — 23 Aug 2025", date:"Aug 23, 2025", count:"52",
-          cover:"assets/albums/summer-23-08-25/cover.jpeg" }
-      ];
+      // Sort by newest date
+      const sorted = window.ALBUMS.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-      grid.innerHTML = albums.map(a => `
-        <a class="card" href="album.html?album=${encodeURIComponent(a.slug)}">
-          <div class="art"><img src="${a.cover}" alt="${a.title}" loading="lazy" decoding="async"></div>
+      // Show 2 on mobile, 3 on desktop
+      const isMobile = window.innerWidth <= 820;
+      const recent = sorted.slice(0, isMobile ? 2 : 3);
+
+      container.innerHTML = recent.map(a => `
+        <a href="album.html?album=${a.slug}" class="recent-card">
+          <img src="${a.cover}" alt="${a.title}" loading="lazy">
           <div class="meta">
-            <strong>${a.title}</strong>
-            <span>${a.date} • ${a.count} photos</span>
+            <h3>${a.title}</h3>
+            <p>${a.date} • ${a.count} photos</p>
           </div>
         </a>
       `).join('');
     })();
   </script>
+  <script>
+  // Replace logo with IG icon only on home page
+  (function() {
+    const path = window.location.pathname.split('/').pop().toLowerCase();
+    const isHome = path === '' || path === 'index.html';
+    const logo = document.querySelector('.logo img');
+
+    if (isHome && logo) {
+      logo.src = 'assets/web/instagram.svg';
+      logo.style.width = '28px';
+      logo.style.height = '28px';
+      logo.style.filter = 'invert(1)';
+    }
+  })();
+</script>
 </body>
 </html>
