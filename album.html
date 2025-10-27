@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
   <!-- Favicons -->
-<link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
-<link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
-<link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
+  <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
 
-<!-- Open Graph (link previews) -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nocharte.com/">
-<meta property="og:site_name" content="NOCHARTE">
-<meta property="og:title" content="NOCHARTE — We Frame the Feeling">
-<meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
-<meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
-<meta property="og:image:width" content="1250">
-<meta property="og:image:height" content="1250">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nocharte.com/">
+  <meta property="og:site_name" content="NOCHARTE">
+  <meta property="og:title" content="NOCHARTE — We Frame the Feeling">
+  <meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
+  <meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <meta property="og:image:width" content="1250">
+  <meta property="og:image:height" content="1250">
 
-<!-- Twitter card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
-<meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
-<meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
+  <meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
+  <meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,81 +30,32 @@
 
   <!-- Skip intro when coming from internal pages -->
   <script>
-    (function(){
-      try {
-        localStorage.setItem('nocharte_intro_seen','1');
-        sessionStorage.setItem('nocharte_intro_played','1');
-      } catch(e){}
-    })();
+    (function(){try{
+      localStorage.setItem('nocharte_intro_seen','1');
+      sessionStorage.setItem('nocharte_intro_played','1');
+    }catch(e){}})();
   </script>
 
   <!-- Fonts & global CSS -->
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css?v=2025-09-16-2" />
-  <link rel="stylesheet" href="/album.css">
+  <link rel="stylesheet" href="/album.css?v=fix-grid-2" />
   <link rel="stylesheet" href="/mobile/responsive.css?v=2025-09-16-2" />
   <script src="/mobile/mobile.js?v=2025-09-16-2" defer></script>
 
-  <!-- Per-page desktop gap control -->
-  <link rel="stylesheet" href="/album.css" />
-
+  <!-- Page-specific spacing override (tweak +56px as needed) -->
   <style>
-    /* --- Page styles (keep top padding off; album.css sets it on desktop) --- */
-    body.page-album { background:#000; color:#f5f5f7; }
-    .wrap {
-      width:min(1200px,92%);
-      margin:0 auto;
-      padding: 0 0 clamp(28px,5vw,44px) 0; /* no top padding here */
+    @media (min-width:821px){
+      :root{ --album-top-gap: calc(var(--nav-h) + 56px); }
+      .page-album .wrap{ padding-top: var(--album-top-gap) !important; }
     }
-
-    .album-head{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
-      margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,.08); padding-bottom:12px;
+    @media (max-width:820px){
+      .page-album .wrap{
+        padding-top: calc(var(--mobile-header-h) + 16px) !important;
+      }
     }
-    .album-title{ font-size:clamp(22px,4vw,34px); font-weight:800; letter-spacing:.02em; color:#fff }
-    .album-meta{ opacity:.8 }
-    .grid{ display:grid; gap:14px; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
-    .grid figure{ margin:0; overflow:hidden; border-radius:12px; background:#0d0d0f; border:1px solid rgba(255,255,255,.06); cursor:zoom-in; }
-    .grid img{ width:100%; height:280px; object-fit:cover; display:block; background:#0b0b0b; }
-    .empty { padding:40px 0; opacity:.8 }
-    .back {
-      display:inline-block; margin-right:auto; padding:10px 14px;
-      border:1px solid rgba(255,255,255,.2); border-radius:999px;
-      text-decoration:none; font-weight:700; color:#f5f5f7
-    }
-    .back:hover{ background:#fff; color:#000 }
-    @media (max-width:640px){
-      .album-head{ flex-direction:column; align-items:flex-start }
-      .grid img{ height:220px; }
-    }
-
-    /* --- Lightbox --- */
-    .lb{
-      position:fixed; inset:0; background:rgba(0,0,0,.92);
-      display:flex; align-items:center; justify-content:center;
-      opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:9999;
-    }
-    .lb.open{ opacity:1; pointer-events:auto; }
-    .lb-inner{ position:relative; width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:40px; box-sizing:border-box; }
-    .lb-img{ max-width:96vw; max-height:86vh; width:auto; height:auto; border-radius:12px; box-shadow:0 10px 40px rgba(0,0,0,.6); background:#0b0b0b; }
-    .lb-cap{ position:fixed; left:0; right:0; bottom:20px; text-align:center; font-size:.95rem; opacity:.85; padding:0 20px; }
-    .lb-btn{
-      position:fixed; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.06); color:#fff;
-      display:grid; place-items:center; cursor:pointer; user-select:none;
-    }
-    .lb-prev{ left:16px; }
-    .lb-next{ right:16px; }
-    .lb-close{
-      position:fixed; top:16px; right:16px; width:40px; height:40px; border-radius:999px;
-      border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.08); color:#fff;
-      font-size:20px; line-height:0; display:grid; place-items:center; cursor:pointer;
-    }
-    .lb-btn:focus, .lb-close:focus{ outline:2px solid #fff3; outline-offset:2px; }
-    @media (max-width:640px){
-      .lb-inner{ padding:20px; }
-      .lb-img{ max-width:100vw; max-height:80vh; }
-    }
+    /* tiny safeguard: hide obviously broken img nodes */
+    img:where([src=""],[src="#"],[src="null"],[src="undefined"]){ display:none !important; }
   </style>
 </head>
 <body class="page-album">
@@ -114,12 +65,10 @@
       <img src="/assets/web/logohome.png" alt="NOCHARTE" />
     </a>
 
-    <!-- Mobile hamburger -->
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
 
-    <!-- Fallback inline links -->
     <nav class="links" role="navigation" aria-label="Main">
       <a href="/index.html"  data-nav="home">Home</a>
       <a href="/gallery.html" data-nav="gallery">Gallery</a>
@@ -127,27 +76,6 @@
       <a href="/contact.html" data-nav="contact">Contact</a>
     </nav>
   </header>
-
-  <!-- POPUP MENU -->
-  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
-    <div class="nav-pop__overlay" data-close></div>
-
-    <!-- Close (X) -->
-    <button class="nav-pop__close" aria-label="Close menu" data-close>
-      <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
-        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-
-    <div class="nav-pop__sheet" role="document">
-      <nav class="nav-pop__nav" aria-label="Main">
-        <a href="/index.html">Home</a>
-        <a href="/gallery.html">Gallery</a>
-        <a href="/about.html">About</a>
-        <a href="/contact.html">Contact</a>
-      </nav>
-    </div>
-  </div>
 
   <main class="wrap">
     <div class="album-head">
@@ -162,7 +90,7 @@
     <p id="emptyMsg" class="empty" style="display:none">No photos found for this album.</p>
   </main>
 
-  <!-- Lightbox overlay -->
+  <!-- Lightbox -->
   <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
     <div class="lb-inner">
       <img id="lb-img" class="lb-img" alt="" />
@@ -173,7 +101,7 @@
     <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
   </div>
 
-  <!-- Album loader + Lightbox logic -->
+  <!-- Album loader + Lightbox -->
   <script>
   (function(){
     const params = new URLSearchParams(location.search);
@@ -185,15 +113,17 @@
     if (!slug){ titleEl.textContent='Album not specified'; emptyEl.style.display='block'; return; }
 
     const base = `/assets/albums/${slug}`;
-    let files = [];
+    let files = [];   // [{src, alt}]
     let current = 0;
 
+    // Load the per-album list
     const s = document.createElement('script');
     s.src = `${base}/photos.js`;
     s.onload = render;
     s.onerror = () => { titleEl.textContent='Album not found'; emptyEl.style.display='block'; };
     document.head.appendChild(s);
 
+    // Helpers
     function normalize(list){
       return (list || []).map(item => {
         if (typeof item === 'string') return { src: item, alt: '' };
@@ -209,50 +139,94 @@
         return { src: finalSrc, alt };
       });
     }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+    function probe(src, timeout=7000){
+      return new Promise(res=>{
+        const t = setTimeout(()=>res(false), timeout);
+        const im = new Image();
+        im.onload = ()=>{ clearTimeout(t); res(true); };
+        im.onerror = ()=>{ clearTimeout(t); res(false); };
+        im.src = src;
+      });
+    }
 
-    function render(){
+    // Main render
+    async function render(){
       let raw = [];
       if (Array.isArray(window.PHOTOS)) raw = window.PHOTOS;
       else if (Array.isArray(window.photos)) raw = window.photos;
       else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) raw = window.NOCH_PHOTOS[slug];
 
-      files = normalize(raw);
-      if (!files.length){ titleEl.textContent = slugToTitle(slug); emptyEl.style.display='block'; return; }
+      // absolute URLs
+      const all = normalize(raw);
+
+      // Keep only images that actually load (skip deleted/missing)
+      const ok = await Promise.all(all.map(f => probe(f.src)));
+      files = all.filter((_,i)=>ok[i]);
+
+      if (!files.length){
+        titleEl.textContent = slugToTitle(slug);
+        metaEl.textContent  = '0 photos';
+        emptyEl.style.display='block';
+        return;
+      }
 
       titleEl.textContent = slugToTitle(slug);
       metaEl.textContent  = `${files.length} photos`;
 
       gridEl.innerHTML = files.map((f,i) => `
-  <figure class="photo-card" data-idx="${i}" role="button" tabindex="0" style="cursor:zoom-in; position:relative;">
-   <img loading="lazy" decoding="async" crossorigin="anonymous" src="${f.src}" alt="${escapeHtml(f.alt)}">
-    <button class="download-btn" onclick="event.stopPropagation(); downloadImage('${f.src}')" aria-label="Download photo">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-    <polyline points="7 10 12 15 17 10"/>
-    <line x1="12" y1="15" x2="12" y2="3"/>
-  </svg>
-</button>
-  </figure>
-`).join('');
+        <figure class="photo-card" data-idx="${i}" role="button" tabindex="0" style="position:relative; cursor:zoom-in;">
+          <img loading="lazy" decoding="async" crossorigin="anonymous" src="${f.src}" alt="${escapeHtml(f.alt)}">
+          <button class="download-btn" onclick="event.stopPropagation(); downloadImage('${f.src}')" aria-label="Download photo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </button>
+        </figure>
+      `).join('');
 
+      // Remove tiles that later error (and keep lightbox indexes in sync)
+      gridEl.querySelectorAll('figure[data-idx]').forEach(fig=>{
+        const idx = Number(fig.dataset.idx);
+        const img = fig.querySelector('img');
 
-      const figures = Array.from(gridEl.querySelectorAll('figure[data-idx]'));
-      figures.forEach(fig => {
-        const idx = Number(fig.dataset.idx || 0);
-        fig.addEventListener('click', () => openLightbox(idx));
-        fig.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(idx); }
+        img.addEventListener('error', ()=>{
+          const i = Number(fig.dataset.idx);
+          files.splice(i,1);
+          fig.remove();
+          reindex();
+          if (lb.classList.contains('open')){
+            if (!files.length) closeLightbox();
+            else show(clamp(current, 0, files.length-1));
+          }
+        });
+
+        fig.addEventListener('click', ()=>openLightbox(idx));
+        fig.addEventListener('keydown', e=>{
+          if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(Number(fig.dataset.idx)); }
         });
       });
     }
 
-    /* ---------- Lightbox ---------- */
-    const lb   = document.getElementById('lightbox');
-    const lbImg= document.getElementById('lb-img');
-    const lbCap= document.getElementById('lb-cap');
+    function reindex(){
+      gridEl.querySelectorAll('figure[data-idx]').forEach((fig,i)=>{ fig.dataset.idx = i; });
+      metaEl.textContent = `${files.length} photos`;
+      current = clamp(current, 0, Math.max(0, files.length-1));
+    }
+
+    // ---------- Lightbox ----------
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbCap = document.getElementById('lb-cap');
     const btnPrev = document.getElementById('lb-prev');
     const btnNext = document.getElementById('lb-next');
     const btnClose= document.getElementById('lb-close');
+
+    function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
 
     function openLightbox(i){
       if (!files.length) return;
@@ -269,19 +243,20 @@
       removeEvents();
     }
     function show(i){
+      if (!files.length) return;
       current = clamp(i, 0, files.length-1);
       const f = files[current];
       lbImg.src = f.src;
       lbImg.alt = f.alt || '';
       lbCap.textContent = f.alt || '';
-      preload(getNextIdx(+1));
-      preload(getNextIdx(-1));
+
+      // prefetch neighbors
+      const n1 = (current + 1) % files.length;
+      const n2 = (current - 1 + files.length) % files.length;
+      [n1,n2].forEach(k => { const im = new Image(); im.src = files[k].src; });
     }
-    function next(){ show(getNextIdx(+1)); }
-    function prev(){ show(getNextIdx(-1)); }
-    function getNextIdx(dir){ return (current + dir + files.length) % files.length; }
-    function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-    function preload(i){ const img = new Image(); if (files[i]) img.src = files[i].src; }
+    function next(){ if (files.length) show((current + 1) % files.length); }
+    function prev(){ if (files.length) show((current - 1 + files.length) % files.length); }
 
     function onKey(e){
       if (!lb.classList.contains('open')) return;
@@ -289,51 +264,70 @@
       else if (e.key === 'ArrowRight') next();
       else if (e.key === 'ArrowLeft')  prev();
     }
-    let touchX = null, touchY = null;
-    function onTouchStart(e){ const t = e.touches[0]; touchX=t.clientX; touchY=t.clientY; }
-    function onTouchEnd(e){
-      if (touchX === null) return;
-      const t = e.changedTouches[0];
-      const dx = t.clientX - touchX;
-      const dy = t.clientY - touchY;
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { dx > 0 ? prev() : next(); }
-      touchX = touchY = null;
-    }
     function onBackdrop(e){
-      const withinControls = e.target.closest('.lb-img, .lb-btn, .lb-close');
-      if (!withinControls) closeLightbox();
+      if (!e.target.closest('.lb-img, .lb-btn, .lb-close')) closeLightbox();
     }
     function addEvents(){
       document.addEventListener('keydown', onKey);
       lb.addEventListener('click', onBackdrop);
-      lb.addEventListener('touchstart', onTouchStart, {passive:true});
-      lb.addEventListener('touchend', onTouchEnd, {passive:true});
     }
     function removeEvents(){
       document.removeEventListener('keydown', onKey);
       lb.removeEventListener('click', onBackdrop);
-      lb.removeEventListener('touchstart', onTouchStart);
-      lb.removeEventListener('touchend', onTouchEnd);
     }
-
     btnPrev.addEventListener('click', prev);
     btnNext.addEventListener('click', next);
     btnClose.addEventListener('click', closeLightbox);
 
-    /* ---------- Utils ---------- */
+    // Title helper
     function slugToTitle(s){
       const parts = s.split('-'); const words=[], nums=[];
       for(const p of parts){ (/^\d+$/.test(p)?nums:words).push(p); }
       const name = words.map(w=>w[0].toUpperCase()+w.slice(1)).join(' ');
       return name + (nums.length ? ' — ' + nums.join(' ') : '');
     }
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
   })();
   </script>
 
-  <!-- Mark current link + make internal navs carry ?skip-intro=1 -->
+  <!-- Watermark download -->
+  <script>
+  async function downloadImage(imgSrc) {
+    const logoSrc = '/assets/web/logo.png';
+    const img = await loadImage(imgSrc);
+    const logo = await loadImage(logoSrc);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+
+    ctx.drawImage(img, 0, 0);
+
+    const aspect = img.width / img.height;
+    let logoWidth = aspect > 1.4 ? img.width*0.12 : aspect < 0.9 ? img.width*0.22 : img.width*0.18;
+
+    const logoHeight = logo.height * (logoWidth / logo.width);
+    ctx.globalAlpha = 0.6;
+    ctx.drawImage(logo, img.width - logoWidth - 20, img.height - logoHeight - 20, logoWidth, logoHeight);
+    ctx.globalAlpha = 1;
+
+    const link = document.createElement('a');
+    link.download = 'nocharte-photo.jpg';
+    link.href = canvas.toDataURL('image/jpeg', 0.95);
+    link.click();
+  }
+  function loadImage(src){
+    return new Promise((res, rej)=>{
+      const i = new Image();
+      i.crossOrigin = 'anonymous';
+      i.onload = ()=>res(i);
+      i.onerror = rej;
+      i.src = src;
+    });
+  }
+  </script>
+
+  <!-- Mark current link + carry ?skip-intro=1 -->
   <script>
     (function(){
       try{
@@ -345,7 +339,6 @@
         mark(document.querySelector('.links'));
         mark(document.getElementById('nav-pop'));
       }catch(e){}
-
       document.addEventListener('click', function (e) {
         const a = e.target.closest('a[href]');
         if (!a) return;
@@ -361,55 +354,5 @@
       }, { capture: true });
     })();
   </script>
-<script>
-async function downloadImage(imgSrc) {
-  const logoSrc = '/assets/web/logo.png'; // path to your watermark logo
-  const img = await loadImage(imgSrc);
-  const logo = await loadImage(logoSrc);
-
-  // Create canvas same size as image
-  const canvas = document.createElement('canvas');
-  canvas.width = img.width;
-  canvas.height = img.height;
-  const ctx = canvas.getContext('2d');
-
-  // Draw main image
-  ctx.drawImage(img, 0, 0);
-
-// --- Adaptive watermark size ---
-const aspectRatio = img.width / img.height;
-let logoWidth;
-
-// Smaller watermark for very wide photos
-if (aspectRatio > 1.4) {
-  logoWidth = img.width * 0.12;  // landscape → smaller
-} else if (aspectRatio < 0.9) {
-  logoWidth = img.width * 0.22;  // portrait → slightly bigger
-} else {
-  logoWidth = img.width * 0.18;  // square-ish → normal
-}
-
-const logoHeight = logo.height * (logoWidth / logo.width);
-ctx.globalAlpha = 0.6;
-ctx.drawImage(logo, img.width - logoWidth - 20, img.height - logoHeight - 20, logoWidth, logoHeight);
-ctx.globalAlpha = 1.0;
-
-  // Convert to downloadable image
-  const link = document.createElement('a');
-  link.download = 'nocharte-photo.jpg';
-  link.href = canvas.toDataURL('image/jpeg', 0.95);
-  link.click();
-}
-
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous'; // Needed if files are hosted on another domain
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
-  });
-}
-</script>
 </body>
 </html>
