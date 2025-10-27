@@ -780,3 +780,13 @@ body.home .scrolldown span{
     margin-right: 0 !important;
   }
 }
+/* Home page (desktop only): hide header logo, keep IG at far left */
+@media (min-width: 821px){
+  body.home header.nav .logo{
+    display: none !important;
+  }
+  /* make sure the IG icon sits at the left edge nicely */
+  body.home header.nav .social-icon{
+    margin-right: auto;   /* pushes the nav links to the right */
+  }
+}

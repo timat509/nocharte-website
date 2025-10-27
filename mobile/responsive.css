@@ -1139,6 +1139,45 @@
   }
 
   .nav .logo {
-    margin-left: 50px;
+    margin-left: 0px;
+  }
+}
+
+/* ===== Mobile pop menu fix (album + all subpages) ===== */
+@media (max-width: 820px){
+  /* Keep the popover above the sticky header */
+  #nav-pop{
+    position: fixed;
+    inset: 0;
+    z-index: 100000;                 /* higher than header/nav */
+    display: grid;
+    place-items: center;
+    background: rgba(0,0,0,.55);
+    -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+  }
+  #nav-pop[hidden]{ display:none !important; }
+
+  /* Sheet and layout */
+  #nav-pop .nav-pop__sheet{
+    width: min(520px, 86vw);
+    margin: 0 auto;
+    background: transparent;
+  }
+  #nav-pop .nav-pop__nav{
+    display: grid;
+    gap: 22px;
+    justify-items: center;
+  }
+
+  /* Close (X) button */
+  #nav-pop .nav-pop__close{
+    position: fixed;
+    right: 18px; top: 14px;
+    width: 40px; height: 40px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.25);
+    color: #fff;
   }
 }

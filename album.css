@@ -138,3 +138,32 @@ img[src=""], img:not([src]){ display:none !important; }
     padding-top: calc(var(--mobile-header-h) + 16px) !important;
   }
 }
+/* ===== Album grid: force multiple columns on mobile ===== */
+
+/* Small phones (≤ 480px): 2 per row */
+@media (max-width: 480px){
+  .page-album .grid{
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+  .page-album .grid figure{ width: 100% !important; }
+  .page-album .grid img{
+    width: 100% !important;
+    height: 180px !important;   /* tweak if you want taller/shorter thumbs */
+    object-fit: cover !important;
+    display: block !important;
+  }
+}
+
+/* Large phones / small tablets (481–820px): 3 per row (bump to 4 if you prefer) */
+@media (min-width: 481px) and (max-width: 820px){
+  .page-album .grid{
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important; /* change to 4 for 4-up */
+    gap: 12px !important;
+  }
+  .page-album .grid img{
+    height: 200px !important;
+  }
+}

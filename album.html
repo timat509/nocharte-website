@@ -90,6 +90,44 @@
     <p id="emptyMsg" class="empty" style="display:none">No photos found for this album.</p>
   </main>
 
+  <!-- POPUP MENU (required for the mobile menu to work) -->
+<div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+  <div class="nav-pop__overlay" data-close></div>
+
+  <!-- Close (X) -->
+  <button class="nav-pop__close" aria-label="Close menu" data-close>
+    <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <div class="nav-pop__sheet" role="document">
+    <nav class="nav-pop__nav" aria-label="Main">
+      <a href="/index.html">Home</a>
+      <a href="/gallery.html">Gallery</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </div>
+</div>
+
+<script>
+// Underline "Gallery" when we're on /album.html
+(function () {
+  const isAlbum = /\/album\.html(?:$|[?#])/.test(location.pathname + location.search);
+  if (!isAlbum) return;
+
+  // Header links (desktop)
+  document.querySelectorAll('.links a[data-nav="gallery"], .links a[href$="/gallery.html"]')
+    .forEach(a => { a.setAttribute('aria-current', 'page'); a.classList.add('active'); });
+
+  // Popup menu links (mobile)
+  document.querySelectorAll('#nav-pop a[data-nav="gallery"], #nav-pop a[href$="/gallery.html"]')
+    .forEach(a => { a.setAttribute('aria-current', 'page'); a.classList.add('active'); });
+})();
+</script>
+
+
   <!-- Lightbox -->
   <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
     <div class="lb-inner">

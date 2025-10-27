@@ -242,20 +242,5 @@
       `).join('');
     })();
   </script>
-  <script>
-  // Replace logo with IG icon only on home page
-  (function() {
-    const path = window.location.pathname.split('/').pop().toLowerCase();
-    const isHome = path === '' || path === 'index.html';
-    const logo = document.querySelector('.logo img');
-
-    if (isHome && logo) {
-      logo.src = 'assets/web/instagram.svg';
-      logo.style.width = '28px';
-      logo.style.height = '28px';
-      logo.style.filter = 'invert(1)';
-    }
-  })();
-</script>
 </body>
 </html>
