@@ -239,7 +239,7 @@ body.home .scrolldown span{
 }
 .vm-row--reverse .vm-art{
   max-width:420px; aspect-ratio:10/16; margin-inline:auto;
-  background:url("assets/web/mission.jpeg") center/cover no-repeat;
+  background:url("assets/web/mission.png") center/cover no-repeat;
 }
 
 .eyebrow{ display:inline-block; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--vm-muted); margin-bottom:8px; }

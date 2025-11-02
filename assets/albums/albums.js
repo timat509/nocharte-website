@@ -23,5 +23,12 @@ window.ALBUMS = [
   cover: "assets/albums/after_walk-13-09-25/cover.jpeg",
   date: "Sep 13, 2025",
   count: 99 
-}
+},
+{
+    slug: "aj_amazonia-31-10-25",
+    title: "A&J Amazonia - 31 Oct 2025",
+    cover: "/assets/albums/aj_amazonia-31-10-25/cover.png",
+     date: "Oct 31, 2025",
+    count: 82
+  },
 ];
