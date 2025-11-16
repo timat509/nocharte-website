@@ -1,349 +1,262 @@
 /* =========================================================
    NOCHARTE — Mobile / Tablet (<= 820px)
-   Load AFTER style.css
-   (Clean, de-duplicated — no N positioning styles)
+   Loaded AFTER style.css
 ========================================================= */
+
 @media (max-width: 820px){
 
-  /* ---------- Mobile tokens ---------- */
   :root{
     --mobile-header-h: 64px;
     --mobile-pad-x: 16px;
-    --logo-h: 48px;
+    --logo-h: 44px;
 
-    /* Title / slider spacing */
-    --hero-title-offset: clamp(24px, 12vh, 140px);
-    --hero-slider-max-h: 260px;
-    --hero-slider-mt: 14px;
-    --hero-slider-mb: 12px;
-    --hero-slider-nudge-x: 10px;
+    --hero-slider-max-h: 200px;
+    --hero-gap-top: clamp(4px, 10vh, 10px);
 
-    /* CTA position (raise/lower to taste) */
-    --cta-hero-lift: 150px;
+    --mobile-gap: 8px; /* subpages offset */
   }
 
-  /* ---------- Header ---------- */
+  /* ---------- HEADER ---------- */
+
   .nav{
-    position: sticky; top: 0; z-index: 1000;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     height: var(--mobile-header-h);
     padding: 0 var(--mobile-pad-x);
-    display:flex; align-items:center; justify-content:space-between;
-    background: rgba(0,0,0,.6);
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background: rgba(0,0,0,.7);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255,255,255,.06);
   }
+
   @supports (padding: max(0px)){
     .nav{
       padding-left:  max(var(--mobile-pad-x), env(safe-area-inset-left));
       padding-right: max(var(--mobile-pad-x), env(safe-area-inset-right));
     }
   }
-  .links{ display:none !important; }
-  .logo img{ height: var(--logo-h); width:auto; }
-  html,body{ overflow-x:hidden; }
 
-  /* ---------- Hero wrapper ---------- */
+  .links{ display:none !important; }
+
+  .logo img{
+    height: var(--logo-h);
+    width: auto;
+  }
+
+  html, body{
+    overflow-x:hidden;
+  }
+
+  /* Instagram icon pinned left */
+  .social-icon{
+    position:absolute;
+    left: max(14px, env(safe-area-inset-left));
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1100;
+  }
+
+  .social-icon img{
+    width: 22px;
+    height: 22px;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .social-icon:hover img{
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  /* ---------- HOME HERO ---------- */
+
   body.home .hero{
     position: relative;
     min-height: calc(100dvh - var(--mobile-header-h));
-    padding: 12px var(--mobile-pad-x) 128px; /* room for CTA */
-    display:flex; flex-direction:column; gap:10px;
-  }
-  .hero__inner{ display:flex; flex-direction:column; gap:10px; }
-
-  /* ---------- Title stack ---------- */
-  .hero-left{
-    order:2;
-    max-width:92%;
-    margin-top: var(--hero-title-offset);
-  }
-  .hero-title{ margin:0; line-height:.90; text-rendering:optimizeLegibility; }
-  .hero-title .t{
-    display:block; text-transform:uppercase; font-weight:800; letter-spacing:.01em;
-    font-size: clamp(40px, 14.2vw, 74px);
-  }
-  .hero-title .t-the{ margin-left: 2vw; }
-  .hero-title .t-frame{ padding:0 !important; border:0 !important; box-shadow:none !important; }
-  .hero-title .t-feel{
-    font-size: clamp(58px, 18vw, 98px);
-    letter-spacing:.008em;
-    background: linear-gradient(180deg,#d400ff,#7b00ff);
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent; color:transparent;
-  }
-  .hero-kicker{ margin-top:10px; font-size:.9rem; letter-spacing:.08em; opacity:.85; }
-
-  /* ---------- Slider ---------- */
-  .hero-slider{
-    display:block; position:relative;
-    width:min(92%, 640px); margin-inline:auto;
-    aspect-ratio:16/9; max-height: var(--hero-slider-max-h);
-    margin-top: var(--hero-slider-mt); margin-bottom: var(--hero-slider-mb);
-    transform: translateX(var(--hero-slider-nudge-x));
-    border-radius:16px; overflow:hidden;
-    box-shadow: 0 14px 38px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
-    background:#0a0a0a;
-  }
-  .hero-slider__track{
-    display:flex; width:100%; height:100%;
-    will-change: transform; transition: transform .45s ease;
-    touch-action: pan-y;
-  }
-  .hero-slider__track img{
-    flex:0 0 100%; width:100%; height:100%;
-    object-fit:cover; object-position:center;
-    user-select:none; -webkit-user-drag:none;
-  }
-  .hero-slider__dots{
-    position:absolute; left:50%; bottom:8px; transform:translateX(-50%);
-    display:flex; gap:8px; z-index:2;
-  }
-  .hero-slider__dots button{
-    width:6px; height:6px; border-radius:50%;
-    background:#fff; opacity:.35; border:none;
-  }
-  .hero-slider__dots button.is-active{ opacity:.95; }
-
-  /* Lift the mobile hero photo a bit (<=820px) */
-@media (max-width: 820px){
-  :root{
-    /* ↓ tweak these numbers to taste */
-    --hero-slider-mt: -12px;  /* was ~14px; negative = move up */
-    --hero-slider-mb: 30px;   /* add a little room below */
-  }
-}
-
-
-  /* ---------- Mobile hero CTA (new) ---------- */
-  /* Hide any legacy floating CTA on phones */
-  .cta-float{ display:none !important; }
-
-  /* Pretty bottom button inside the hero */
-  .cta-hero{
-    position: absolute;
-    left: 50%;
-    bottom: calc(max(16px, env(safe-area-inset-bottom)) + var(--cta-hero-lift));
-    transform: translateX(-50%);
-    z-index: 20;
-
-    display: inline-flex; align-items: center; justify-content: center;
-    padding: 14px 22px; min-width: min(92%, 620px);
-    border-radius: 999px; font-weight: 800; line-height: 1; color: #fff;
-
-    border: 2px solid transparent;
-    background:
-      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
-      linear-gradient(90deg, #d400ff, #7400ff) border-box;
-    box-shadow: 0 14px 32px rgba(116,0,255,.40);
-    text-align:center;
-  }
-  .cta-hero:active{ transform: translateX(-50%) scale(.985); }
-
-  /* ---------- Featured / Cards ---------- */
-  .featured__inner{ padding: 0 var(--mobile-pad-x); }
-  .featured__head h2{ font-size: clamp(22px, 6.2vw, 32px); }
-  .featured__head p{ font-size:.95rem; }
-  .grid{ grid-template-columns:1fr; gap:16px; }
-  .card{ border-radius:14px; }
-  .meta{ padding:12px 14px; }
-
-  /* ---------- Vision / Mission ---------- */
-  .vm-section{ padding:40px 0; }
-  .vm-section .container{ width:100%; padding:0 var(--mobile-pad-x); }
-  .vm-row{ gap:18px; padding-block:22px; }
-  .vm-title{ font-size: clamp(1.25rem, 5.4vw, 1.6rem); }
-  .vm-text{ font-size:1rem; line-height:1.6; }
-  .vm-art{ aspect-ratio:16/10; border-radius:18px; }
-  .vm-row--reverse .vm-art{ max-width:none; aspect-ratio:16/10; margin-inline:0; }
-
-  /* ---------- Utilities ---------- */
-  .anchor-target{ scroll-margin-top: calc(var(--mobile-header-h) + 10px); }
-
-  /* Narrow phones */
-  @media (max-width: 375px){
-    .hero-title .t{      font-size: clamp(36px, 13.4vw, 66px); }
-    .hero-title .t-feel{ font-size: clamp(52px, 17vw, 90px); }
+    padding: 12px var(--mobile-pad-x) 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
   }
 
-  /* Reduced motion */
-  @media (prefers-reduced-motion: reduce){
-    .hero-slider__track{ transition: none !important; }
+  /* hide the big desktop N layer on phones */
+  body.home .logo-holder{
+    display: none !important;
   }
 
-  /* Landscape tweak for CTA */
-  @media (orientation: landscape){
-    .cta-hero{
-      bottom: calc(max(10px, env(safe-area-inset-bottom)) + 56px) !important;
-      transform: translateX(-50%) scale(.94);
-    }
+  body.home .content.lowered{
+    padding-top: var(--hero-gap-top);
   }
 
-  /* Very short screens */
-  @media (max-height: 640px){
-    .cta-hero{
-      bottom: calc(max(10px, env(safe-area-inset-bottom)) + 80px) !important;
-    }
-  }
-}
-/* Mobile: hide the desktop N layer */
-@media (max-width: 120px){
-  body.home .logo-holder { display:none !important; }    /* hides the big N + rays */
-  /* safety, in case the other markup exists */
-  body.home .hero-right { display:none !important; }
-}
-/* Mobile: centered N */
-@media (max-width: 500px){
-  /* knobs you can tweak */
-  :root{
-    --n-size: clamp(0px, 0vw, 0px); /* width of the N */
-    --n-lift: 45px;                      /* ↑ raise N (increase to move up) */
-    --n-gap-below: -200px;               /* space under N before the title (negative pulls title up) */
-  }
-
-  /* bring back the N on mobile */
-  body.home .hero-right{
-    order: 0;
-    display: flex !important;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0 0 var(--n-gap-below);
-    transform: translateY(calc(-1 * var(--n-lift)));
-  }
-
-  /* no rays on mobile; keep the mark responsive */
-  body.home .hero-right .ray{ display:none !important; }
-  body.home .hero-right .n-stack{ width: var(--n-size); }
-  body.home .hero-right .n-mark{ width: 100%; height: auto; display: block; }
-}
-@media (max-width: 820px){
-  /* hide the desktop layer on phones */
-  body.home .logo-holder{ display:none !important; }
-}
-/* Make ONLY the N smaller on phones/tablets (<=820px) */
-@media (max-width: 820px){
-  :root{
-    /* tweak these numbers to taste */
-    --n-size-mobile: clamp(120px, 44vw, 180px);
-  }
-
-  /* If you added the mobile N markup (.hero-right) */
-  body.home .hero-right .n-stack,
-  body.home .hero-right .n-mark{
-    width: var(--n-size-mobile) !important;
-    height: auto !important;
-  }
-
-  /* If the desktop N image is still visible on mobile, cap it too */
-  body.home .logo-holder .home-logo{
-    width: var(--n-size-mobile) !important;
-    height: auto !important;
-  }
-}
-/* ===== Mobile: make hero titles bigger (<=820px) ===== */
-@media (max-width: 820px){
-  /* knobs you can tweak */
-  :root{
-    --hero-size-regular: clamp(48px, 14.5vw, 96px);   /* WE / FRAME / THE */
-    --hero-size-feel:    clamp(64px, 20vw, 128px);    /* FEELING (bigger)  */
-  }
-
-  /* base lines + spacing */
   body.home .headline{
     line-height: .95;
-    margin-top: clamp(18px, 9vh, 60px);
   }
 
-  /* WE / FRAME / THE */
   body.home .headline .hword{
-    font-size: var(--hero-size-regular);
+    font-size: clamp(40px, 14vw, 72px);
     font-weight: 800;
     letter-spacing: .02em;
   }
 
-  /* the indented "THE" stays slightly tucked in */
-  body.home .headline .ind-1{ margin-left: 3vw; }
+  body.home .headline .ind-1{
+    margin-left: 3vw;
+  }
 
-  /* FEELING — larger & keeps the gradient */
-  body.home .headline .hword.gradient{
-    font-size: var(--hero-size-feel);
+  body.home .headline .gradient{
+    font-size: clamp(56px, 18vw, 96px);
     -webkit-text-fill-color: transparent;
   }
 
-  /* small nudge so the kicker still breathes */
-  body.home .kicker{ margin-top: 8px; }
-}
-/* Mobile: make the hero photo a touch smaller & tidy the spacing */
-@media (max-width: 820px){
-  :root{
-    --hero-slider-max-h: 200px;   /* was 260px */
-  }
-  .hero-slider{
-    width: min(88%, 560px);       /* was 92% */
-    margin-top: 6px;              /* a bit tighter above */
-    margin-bottom: 14px;          /* room before the CTA */
-    border-radius: 14px;
-  }
-}
-/* === Mobile: make hero photo smaller & a bit wider ======================= */
-@media (max-width: 820px){
-  /* Wider in the row, but lower height (cinematic crop) */
-  .hero-slider{
-    width: min(96%, 620px);     /* was ~92–88% → a bit wider */
-    aspect-ratio: 21 / 9;       /* was 16/9 → shorter/tighter vertically */
-    max-height: 180px;          /* hard cap so it never grows too tall */
-    margin-top: 8px;            /* snug up under the headline */
-    margin-bottom: 14px;        /* keep a little space before the CTA */
-    border-radius: 14px;
+  body.home .kicker{
+    margin-top: 8px;
+    font-size: .85rem;
+    letter-spacing: .08em;
+    opacity: .85;
   }
 
-  /* keep images filling the new crop nicely */
-  .hero-slider__track img{
-    object-fit: cover;
-    object-position: center;
-  }
-}
+  /* mobile hero CTA pill */
+  .cta-desktop{ display:none !important; }
 
-/* Optional: ultra-narrow phones get a touch shorter still */
-@media (max-width: 380px){
-  .hero-slider{
-    aspect-ratio: 22 / 9;
-    max-height: 168px;
+  .cta-hero{
+    display: block;
+    width: min(92%, 360px);
+    margin: 18px auto 0;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-align: center;
+    font-weight: 800;
+    font-size: clamp(15px, 4vw, 17px);
+    color: #fff;
+    border: 3px solid transparent;
+    background:
+      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
+      linear-gradient(90deg,#d400ff,#7400ff) border-box;
+    box-shadow:
+      0 16px 36px rgba(20,0,255,.28),
+      0 6px 16px rgba(0,0,0,.55);
   }
-}
-/* Mobile: center the hero photo and match CTA width */
-@media (max-width: 820px){
-  :root{
-    --hero-slider-nudge-x: 0px;         /* kill the right-shift */
+
+  .cta-hero:active{
+    transform: scale(.97);
   }
-  .hero-slider{
-    width: min(92%, 620px);             /* same width as the CTA */
-    margin-inline: auto;                /* true center */
-    transform: none !important;         /* override any leftover nudges */
+
+  /* hide desktop scroll cue on phones */
+  body.home .scrolldown{
+    display: none !important;
   }
-  .hero-slider__track img{
-    object-fit: cover;
-    object-position: center;            /* keep subject centered in crop */
+
+  /* ---------- VISION / MISSION (STACKED) ---------- */
+
+  .vm-section{
+    padding: clamp(32px, 8vw, 48px) 0;
+    margin-top: 0;  /* no negative overlap */
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
-}
-/* ========== MOBILE NAV: hamburger + full-screen overlay ========== */
-@media (max-width: 820px){
-  /* Hamburger button */
+
+  .vm-section .container{
+    width: min(680px, 92%);
+    margin-inline: auto;
+  }
+
+  .vm-row,
+  .vm-row--reverse{
+    display: block;
+    padding-block: clamp(16px, 4vw, 28px);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+
+  .vm-row:last-child{
+    border-bottom: 0;
+  }
+
+  .vm-media{
+    margin: 0 0 14px 0;
+  }
+
+  .vm-art{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    box-shadow:
+      0 8px 24px rgba(0,0,0,.40),
+      0 0 0 1px rgba(255,255,255,.06) inset;
+  }
+
+  .eyebrow{
+    margin-top: 2px;
+    font-size: 12px;
+    letter-spacing: .16em;
+    color: var(--vm-muted);
+  }
+
+  .vm-title{
+    margin: 6px 0 10px;
+    font-size: clamp(22px, 5.6vw, 28px);
+    font-weight: 800;
+    letter-spacing: .01em;
+    color: #fff;
+  }
+
+  .vm-text{
+    max-width: 40ch;
+    font-size: clamp(14px, 4.2vw, 16px);
+    line-height: 1.65;
+    color: var(--vm-muted);
+  }
+
+  .vm-pills{
+    margin-top: 6px;
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom: 8px;
+  }
+
+  .vm-pills::-webkit-scrollbar{
+    display:none;
+  }
+
+  /* ---------- MOBILE NAV / POPUP MENU ---------- */
+
   .nav-toggle{
     -webkit-tap-highlight-color: transparent;
-    width:44px; height:44px; margin-left:auto;
-    display:inline-flex; align-items:center; justify-content:center;
-    background:transparent; border:0; color:#fff; position:relative;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    position: relative;
+    z-index: 1200;
   }
+
   .nav-toggle span{
-    position:absolute; left:11px; right:11px; height:2px;
-    background:#fff; border-radius:2px;
+    position:absolute;
+    left:11px;
+    right:11px;
+    height:2px;
+    border-radius:2px;
+    background:#fff;
     transition:transform .35s ease, opacity .25s ease;
   }
+
   .nav-toggle span:nth-child(1){ top:14px; }
   .nav-toggle span:nth-child(2){ top:21px; }
   .nav-toggle span:nth-child(3){ top:28px; }
 
-  /* morph to “X” when open */
   .nav-toggle[aria-expanded="true"] span:nth-child(1){
     transform: translateY(7px) rotate(45deg);
   }
@@ -354,830 +267,187 @@
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  /* Full-screen overlay container */
-  #nav-pop[hidden]{ display:none; }
+  #nav-pop[hidden]{ display:none !important; }
+
   #nav-pop{
-    position:fixed; inset:0; z-index:20000;
-    display:grid; place-items:center;
-    opacity:0; pointer-events:none; transition:opacity .28s ease;
+    position:fixed;
+    inset:0;
+    z-index:20000;
+    display:grid;
+    place-items:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .28s ease;
     background:
       radial-gradient(1200px 600px at 50% -10%, rgba(116,0,255,.35), transparent 60%),
       rgba(0,0,0,.72);
     -webkit-backdrop-filter: blur(14px);
             backdrop-filter: blur(14px);
   }
-  #nav-pop.is-open{ opacity:1; pointer-events:auto; }
 
-  /* Click-away overlay still works (fills the screen) */
-  #nav-pop .nav-pop__overlay{ position:absolute; inset:0; }
+  #nav-pop.is-open{
+    opacity:1;
+    pointer-events:auto;
+  }
 
-  /* Big centered menu */
-  #nav-pop .nav-pop__sheet{ 
+  #nav-pop .nav-pop__overlay{
+    position:absolute;
+    inset:0;
+  }
+
+  #nav-pop .nav-pop__sheet{
     position:relative;
     width:min(92%, 760px);
     margin:auto;
-    background:transparent; border:0; box-shadow:none;
+    background:transparent;
+    border:0;
+    box-shadow:none;
   }
 
-  /* optional top "N" decoration using your logo */
   #nav-pop .nav-pop__sheet::before{
-    content:""; display:block; margin:0 auto 18px;
-    width:54px; height:54px;
+    content:"";
+    display:block;
+    margin:0 auto 18px;
+    width:54px;
+    height:54px;
     background:url("/assets/web/logohome.png") center/contain no-repeat;
     filter: drop-shadow(0 12px 40px rgba(116,0,255,.35));
   }
 
-  /* The actual links */
   #nav-pop .nav-pop__nav{
-    display:flex; flex-direction:column; align-items:center;
-    gap:18px; padding:6px 0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    padding:6px 0;
+    text-align:center;
   }
+
   #nav-pop .nav-pop__nav a{
+    position:relative;
+    display:inline-block;
     text-transform:uppercase;
     font-weight:800;
     letter-spacing:.04em;
     font-size: clamp(28px, 7vw, 56px);
     color:#fff;
     text-shadow:0 10px 28px rgba(0,0,0,.55);
+    padding-bottom:12px;
   }
-  /* default: no ring */
-#nav-pop .nav-pop__nav a:focus,
-#nav-pop .nav-pop__nav a:focus-visible{
-  outline: none !important;
-}
 
-/* show ring only when user is navigating with keyboard */
-.kbd-nav #nav-pop .nav-pop__nav a:focus-visible{
-  outline: 2px solid #b06bff;
-  outline-offset: 6px;
-  border-radius: 8px;
-}
-
-
-  /* Hide the little close X button (hamburger acts as the close) */
-  #nav-pop .nav-pop__close{ display:none; }
-
-  /* Prevent page scroll when menu open */
-  .no-scroll{ overflow:hidden; }
-}
-/* Full-screen menu: gradient underline for the current page */
-#nav-pop .nav-pop__nav{
-  text-align: center;
-}
-
-#nav-pop .nav-pop__nav a{
-  position: relative;
-  display: inline-block;           /* shrink to text width */
-  padding-bottom: 12px;            /* room for the underline */
-}
-
-/* Active page underline */
-#nav-pop .nav-pop__nav a[aria-current="page"]::after{
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: 5px;                    /* how far below the text */
-  transform: translateX(-50%);
-  width: 78%;                      /* length of the line under the word */
-  height: 3px;                     /* thin line */
-  border-radius: 999px;
-  background: linear-gradient(90deg,#d400ff,#7400ff);
-  box-shadow: 0 0 12px rgba(116,0,255,.35); /* soft glow */
-}
-
-/* Optional: slightly thicker on very small screens */
-@media (max-width: 360px){
+  /* active page underline */
   #nav-pop .nav-pop__nav a[aria-current="page"]::after{
-    height: 3.5px;
-  }
-}
-/* === Mobile-only "View Gallery" pill (matches screenshot) === */
-@media (max-width: 820px){
-  /* tighten the gap under the slider */
-  .hero-slider{ margin-bottom: 10px; }
-
-  .cta-hero{
-    /* layout */
-    display:block;
-    width:min(90%, 360px);
-    margin: 0px auto 0px;
-    padding: 14px 26px;
-    text-align:center;
-    border-radius:999px;
-    position:relative;
-    z-index:0;
-
-    /* type */
-    font-weight:800;
-    font-size: clamp(16px, 4.4vw, 18px);
-    letter-spacing:.01em;
-    color:#fff;
-
-    /* gradient ring + dark center */
-    --ring: linear-gradient(90deg,#d400ff,#7400ff);
-    background:
-      linear-gradient(#0b0b0b, #0b0b0b) padding-box,
-      var(--ring) border-box;
-    border: 3px solid transparent;
-
-    /* glow */
-    box-shadow:
-      0 16px 36px rgba(20, 0, 255, 0.252),
-      0 6px 16px rgba(0,0,0,.55);
-    transition: transform .15s ease, box-shadow .15s ease;
-  }
-
-  /* soft outer glow */
-  .cta-hero::before{
     content:"";
     position:absolute;
-    inset:-8px;
-    border-radius:inherit;
-    background: radial-gradient(80% 80% at 50% 50%,
-               rgba(116,0,255,.35), rgba(116,0,255,0) 60%);
-    filter: blur(10px);
-    z-index:-1;
-    pointer-events:none;
+    left:50%;
+    bottom:5px;
+    transform:translateX(-50%);
+    width:78%;
+    height:3px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#d400ff,#7400ff);
+    box-shadow:0 0 12px rgba(116,0,255,.35);
   }
 
-  .cta-hero:hover{
-    transform: translateY(-1px);
-    box-shadow:
-      0 20px 44px rgba(115, 0, 255, 0),
-      0 8px 20px rgba(0,0,0,.6);
-  }
-  .cta-hero:active{ transform: translateY(0); }
-  .cta-hero:focus-visible{
-    outline:none;
-    box-shadow: 0 0 0 3px rgba(212, 0, 255, 0), 0 0 0 6px rgba(255,255,255,.15);
-  }
-}
-
-/* never show this one on desktop */
-@media (min-width: 821px){
-  .cta-hero{ display:none !important; }
-}
-/* MOBILE — final placement for the View Gallery CTA in the hero */
-@media (max-width: 820px){
-  /* give the hero room for the button */
-  .home #home-hero{
-    position: relative !important;
-    padding-bottom: 0px !important;   /* adjust if you need more/less space */
-  }
-
-  /* pin the CTA centered near the bottom */
-  .home #home-hero .cta-hero{
-    position: absolute !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    bottom: calc(env(safe-area-inset-bottom,0px) + -100px) !important; /* lower/higher -> change 28 */
-    margin: 0 !important;
-    width: min(92%, 360px);
-    z-index: 40;                         /* stay above the slider */
-  }
-}
-
-/* desktop still hidden */
-@media (min-width: 821px){
-  .cta-hero{ display:none !important; }
-}
-/* MOBILE: clean stacked layout for Vision/Mission */
-@media (max-width: 820px){
-  .vm-section{
-    padding: clamp(32px, 8vw, 48px) 0;
-  }
-
-  .vm-section .container{
-    width: min(680px, 92%);
-    margin-inline: auto;
-  }
-
-  /* Stack image then text for both rows */
-  .vm-row,
-  .vm-row--reverse{
-    display: block;                          /* one column */
-    padding-block: clamp(16px, 4vw, 28px);
-    border-bottom: 1px solid rgba(255,255,255,.07);
-  }
-  .vm-row:last-child{ border-bottom: 0; }
-
-  /* Image */
-  .vm-media{ margin: 0 0 14px 0; }
-  .vm-art{
-    width: 100%;
-    aspect-ratio: 4 / 3;                     /* balanced photo height */
-    border-radius: 18px;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 8px 24px rgba(0,0,0,.40),
-                0 0 0 1px rgba(255,255,255,.06) inset;
-  }
-  /* Super-narrow phones: go portrait to avoid a giant image */
-  @media (max-width: 360px){
-    .vm-art{ aspect-ratio: 3 / 4; }
-  }
-
-  /* Text */
-  .eyebrow{
-    margin-top: 2px;
-    font-size: 12px;
-    letter-spacing: .16em;
-    color: var(--vm-muted);
-  }
-  .vm-title{
-    margin: 6px 0 10px;
-    font-size: clamp(22px, 5.6vw, 28px);
-    font-weight: 800;
-    letter-spacing: .01em;
-    color:#fff;
-  }
-  .vm-text{
-    max-width: 40ch;
-    font-size: clamp(14px, 4.2vw, 16px);
-    line-height: 1.65;
-    color: var(--vm-muted);
-  }
-
-  /* Pills line (if present) */
-  .vm-pills{
-    margin-top: 0px;
-    display: flex; gap: 10px;
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    padding-bottom: 20px;
-  }
-  .vm-pills::-webkit-scrollbar{ display: none; }
-}
-/* Mobile: remove hero slider, keep headline + CTA tight */
-@media (max-width: 820px){
-  .hero-slider{ display:none !important; }
-
-  /* tighten the space where the slider used to be */
-  .cta-hero{
-    position: static !important;
-    margin: clamp(16px, 3vh, 28px) auto 16px !important;
-    width: min(92%, 360px);
-  }
-}
-/* MOBILE ONLY */
-@media (max-width: 820px){
-  /* Let next section slide under the hero edge a bit */
-  body.home .hero{
-    overflow: visible;                 /* so the peek isn't clipped */
-    padding-bottom: 10px;              /* tighten space under CTA */
-  }
-  .vm-section{
-    margin-top: -220px;                 /* ← adjust: -10 … -24px */
-    padding-top: calc(10px + 14px);    /* keep internal spacing even */
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
-  }
-}
-/* === MOBILE: 2-up centered Recent Events, override global .grid === */
-@media (max-width: 820px){
-  /* kill the global .grid behavior inside Featured on mobile */
-  .home .featured .grid{
-    grid-template-columns: unset !important;
-    width: auto !important;
-  }
-
-  /* shrink-wrap the albums grid and center it */
-  #recent-albums{
-    display: grid !important;
-    grid-template-columns: repeat(2, min(44vw, 170px)) !important; /* 2-up */
-    gap: 12px !important;
-    width: max-content !important;      /* shrink to its columns */
-    margin: 10px auto 18px !important;  /* center the block */
-    justify-content: center !important; /* safety */
-  }
-
-  /* make the cards a bit smaller to fit nicely */
-  #recent-albums .card{
-    width: min(44vw, 170px) !important;
-    border-radius: 14px !important;
-  }
-  #recent-albums .art{ aspect-ratio: 4 / 3 !important; }
-  #recent-albums .meta{ padding: 10px 12px !important; }
-  #recent-albums .meta strong{ font-size: 13px !important; line-height: 1.25; }
-  #recent-albums .meta span{ font-size: 11px !important; }
-
-  /* center the section and button too */
-  #featured-recent{ text-align: center !important; }
-  #featured-recent .featured__head h2,
-  #featured-recent .featured__head p{ text-align: center !important; }
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline{
-    display: block !important;
-    width: min(94%, 420px) !important;
-    margin: 12px auto 0 !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-
-  /* ultra-narrow phones: fall back to 1-up */
-  @media (max-width: 360px){
-    #recent-albums{
-      grid-template-columns: 1fr !important;
-      width: 92% !important;
-    }
-    #recent-albums .card{ width: 100% !important; }
-  }
-}
-/* === MOBILE: center the 2-up Recent Events grid === */
-@media (max-width: 820px){
-
-  /* remove side padding that can bias the grid */
-  #featured-recent .featured__inner{
-    padding-left: max(12px, env(safe-area-inset-left)) !important;
-    padding-right: max(12px, env(safe-area-inset-right)) !important;
-    text-align: center !important;
-  }
-
-  /* two equal columns, centered in the container */
-  #recent-albums{
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 14px !important;
-
-    /* center the grid and the items */
-    place-content: center !important;     /* = align-content + justify-content */
-    justify-items: center !important;     /* centers each card in its cell */
-    width: 100% !important;               /* stop shrink-wrap weirdness */
-  }
-
-  /* make cards fit their cell and cap size */
-  #recent-albums .card{
-    width: 100% !important;
-    max-width: 180px !important;
-    border-radius: 14px !important;
-  }
-  #recent-albums .art{ aspect-ratio: 4 / 3 !important; }
-
-  /* CTA centered */
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline{
-    display: block !important;
-    width: min(94%, 420px) !important;
-    margin: 12px auto 0 !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-
-  /* ultra-narrow phones: fall back to 1-up */
-  @media (max-width: 360px){
-    #recent-albums{ grid-template-columns: 1fr !important; }
-    #recent-albums .card{ max-width: 420px !important; }
-  }
-}
-
-/* ===== MOBILE (<=820px): center + allow up to 3 cards ===== */
-@media (max-width: 820px){
-  /* knobs */
-  :root{
-    --re-card: 168px;   /* target card width */
-    --re-gap: 14px;     /* space between cards */
-  }
-
-  /* Center the section and cap width to 3 cards max */
-  #featured-recent .featured__inner{
-    width: min(94vw, calc(3 * var(--re-card) + 2 * var(--re-gap))) !important;
-    margin: 0 auto !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    text-align: center !important;
-  }
-
-  /* Grid that auto-fits 2 → 3 columns depending on space */
-  #recent-albums{
-    display: grid !important;
-    gap: var(--re-gap) !important;
-    /* each track can shrink on small phones but never exceed --re-card */
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(min(44vw, var(--re-card)), 1fr)
-    ) !important;
-    justify-content: center !important;   /* center when fewer tracks */
-    margin: 12px auto 18px !important;
-  }
-
-  /* Cards fill their track and stay centered */
-  #recent-albums .card{
-    width: 100% !important;
-    max-width: var(--re-card) !important;
-    justify-self: center !important;
-    border-radius: 14px !important;
-  }
-
-  /* CTA centered under the grid */
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline{
-    display: block !important;
-    width: min(94vw, calc(3 * var(--re-card) + 2 * var(--re-gap))) !important;
-    margin: 16px auto 0 !important;
-    text-align: center !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-}
-/* ===== MOBILE (<=820px): center + size "Most Recent Events" ===== */
-@media (max-width:820px){
-
-  /* kill desktop container padding on phones */
-  #featured-recent,
-  #featured-recent .featured__inner{
-    width: 100% !important;
-    max-width: none !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-  }
-
-  /* nuke any global grid columns that leak through */
-  #featured-recent .grid{
-    grid-template-columns: unset !important;
-  }
-
-  /* our mobile grid: 2 cards centered (auto grows to 3 on wide phones) */
-  #recent-albums{
-    display: grid !important;
-    gap: 14px !important;
-    justify-content: center !important;
-    justify-items: center !important;
-    width: auto !important;
-    max-width: 94vw !important;
-    margin: 12px auto 18px !important;
-    grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
-  }
-
-  /* allow a 3rd card when there’s room (e.g., large phones) */
-  @media (min-width:560px) and (max-width:820px){
-    #recent-albums{
-      grid-template-columns: repeat(3, minmax(150px, 1fr)) !important;
-      max-width: 560px !important;
-    }
-  }
-
-  /* card sizing */
-  #recent-albums .card{
-    width: 100% !important;
-    max-width: 180px !important;   /* tweak 160–190 to taste */
-    border-radius: 14px !important;
-    justify-self: center !important;
-  }
-  #recent-albums .art{ aspect-ratio: 4/3 !important; }
-
-  /* center + size the CTA button */
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline{
-    display: block !important;
-    width: min(94vw, 560px) !important;   /* matches 3-card max width */
-    margin: 16px auto 0 !important;
-    text-align: center !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-}
-/* ===== MOBILE (<=820px): rebuild Featured cleanly ===== */
-@media (max-width:820px){
-
-  /* container: centered, no extra desktop padding */
-  #featured-recent{
-    width: min(680px, 94vw);
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-    text-align: center;
-  }
-
-  /* grid: 2-up by default, centered */
-  #recent-albums{
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 12px !important;
-    align-items: stretch;
-  }
-
-  /* bump to 3-up on wider phones */
-  @media (min-width:560px){
-    #recent-albums{
-      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    }
-  }
-
-  /* card sizing/feel */
-  #recent-albums .card{
-    border-radius: 16px !important;
-    overflow: hidden;
-    background: #101015;
-    border: 1px solid rgba(255,255,255,.06);
-    box-shadow: 0 8px 24px rgba(0,0,0,.30);
-  }
-  #recent-albums .art{ aspect-ratio: 4 / 3 !important; }
-  #recent-albums .meta{ padding: 10px 12px !important; }
-  #recent-albums .meta strong{
-    font-size: 14px !important; line-height: 1.2;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  #recent-albums .meta span{
-    font-size: 12px !important; opacity: .75;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-
-  /* CTA under the grid */
-  #featured-recent .more{ margin-top: 14px !important; }
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline{
-    display: block !important;
-    width: 100% !important;
-    max-width: 560px !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-    padding: 14px 18px !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-}
-/* ===== MOBILE (<=820px): center Recent + button ===== */
-@media (max-width:820px){
-
-  /* kill asymmetrical desktop padding so centering works */
-  #featured-recent,
-  .featured__inner{
-    width: min(680px, 94vw) !important;
-    margin: 0 auto !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  /* center heading + subheading */
-  #featured-recent .featured__head,
-  .featured .featured__head{
-    text-align: center !important;
-  }
-  #featured-recent .featured__head h2,
-  #featured-recent .featured__head p,
-  .featured .featured__head h2,
-  .featured .featured__head p{
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-  }
-
-  /* center the CTA and give it a fixed max width */
-  #featured-recent .more,
-  .featured .more{
-    display: flex !important;
-    justify-content: center !important;
-  }
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline,
-  .featured .more .btn,
-  .featured .more .btn--outline{
-    width: min(420px, 92vw) !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-}
-/* ===== MOBILE (<=820px): center Recent + button ===== */
-@media (max-width:820px){
-
-  /* kill asymmetrical desktop padding so centering works */
-  #featured-recent,
-  .featured__inner{
-    width: min(680px, 94vw) !important;
-    margin: 0 auto !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  /* center heading + subheading */
-  #featured-recent .featured__head,
-  .featured .featured__head{
-    text-align: center !important;
-  }
-  #featured-recent .featured__head h2,
-  #featured-recent .featured__head p,
-  .featured .featured__head h2,
-  .featured .featured__head p{
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-  }
-
-  /* center the CTA and give it a fixed max width */
-  #featured-recent .more,
-  .featured .more{
-    display: flex !important;
-    justify-content: center !important;
-  }
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline,
-  .featured .more .btn,
-  .featured .more .btn--outline{
-    width: min(420px, 92vw) !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-}
-/* ===== Featured (<=820px) — center + 2-up grid ===== */
-@media (max-width:820px){
-
-  /* Center the container and remove side padding */
-  #featured-recent .featured__inner,
-  .featured__inner{
-    width: min(680px, 94vw) !important;
-    margin: 0 auto !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    text-align: center !important;
-  }
-
-  /* Center the title + subhead */
-  #featured-recent .featured__head h2,
-  #featured-recent .featured__head p,
-  .featured__head h2,
-  .featured__head p{
-    text-align: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Cards grid — 2 across on mobile */
-  #recent-albums,
-  .featured .grid{
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
-    gap: 14px !important;
-    justify-content: center !important;   /* center the columns block */
-    justify-items: center !important;     /* center each card in its track */
-    align-items: stretch !important;
-    width: 100% !important;
-  }
-
-  /* Card sizing */
-  #recent-albums .card,
-  .featured .grid .card{
-    width: min(44vw, 180px) !important;
-    border-radius: 16px !important;
-  }
-  #recent-albums .art,
-  .featured .grid .art{
-    aspect-ratio: 4 / 3 !important;
-  }
-
-  /* Center the CTA */
-  #featured-recent .more,
-  .featured .more{
-    display: flex !important;
-    justify-content: center !important;
-    margin-top: 16px !important;
-  }
-  #featured-recent .more .btn,
-  #featured-recent .more .btn--outline,
-  .featured .more .btn,
-  .featured .more .btn--outline{
-    width: min(420px, 92vw) !important;
-    margin: 0 auto !important;
-    text-align: center !important;
-    border-radius: 999px !important;
-    font-weight: 800 !important;
-  }
-
-  /* Tiny phones: fall back to 1-up */
-  @media (max-width:380px){
-    #recent-albums,
-    .featured .grid{
-      grid-template-columns: 1fr !important;
-    }
-    #recent-albums .card,
-    .featured .grid .card{
-      width: min(92vw, 360px) !important;
-    }
-  }
-
-  /* Big phones / small tablets: allow 3-up */
-  @media (min-width:600px){
-    #recent-albums,
-    .featured .grid{
-      grid-template-columns: repeat(3, minmax(160px, 1fr)) !important;
-    }
-    #recent-albums .card,
-    .featured .grid .card{
-      width: auto !important;
-    }
-  }
-}
-/* Mobile: add space below the gallery button */
-@media (max-width: 820px){
-  /* push the button up from the bottom edge (iOS home bar safe too) */
-  #featured-cta{
-    /* top | left/right | bottom */
-    margin: clamp(14px, 3.5vh, 24px) auto calc(env(safe-area-inset-bottom) + 56px) !important;
-  }
-
-  /* optional: extra padding on the section in case you add more elements later */
-  #featured-recent{
-    padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
-  }
-}
-@media (max-width: 820px){
-  .hero-video{ object-fit: cover !important; object-position: center; }
-  .poster{ background-size: cover !important; background-position: center; }
-
-  /* keep Skip above the iOS home bar */
-  .skip{
-    right: max(14px, env(safe-area-inset-right));
-    bottom: max(14px, calc(env(safe-area-inset-bottom) + 10px));
-  }
-}
-/* ===== Gallery (mobile) — reduce space under sticky header ===== */
-@media (max-width: 820px){
-  /* give var(--mobile-gap) a small fallback so calc() never explodes */
-  :root{ --mobile-gap: 8px; }
-
-  /* main fix: smaller offset for gallery content */
-  body.page-gallery .wrap{
-    padding-top: calc(var(--mobile-header-h) + -30px) !important;
-  }
-}
-/* CONTACT — tighten space under the sticky header (mobile only) */
-@media (max-width: 820px){
-  /* Option A: set a page-scoped gap variable (cleanest) */
-  body.page-contact{ --mobile-gap: -18px; }  /* tweak: -8 … -30 */
-
-  /* Option B: hard override (use this if A doesn’t win for some reason) */
-  body.page-contact .wrap{
-    padding-top: calc(var(--mobile-header-h) + -18px) !important;
-  }
-
-  /* Safety: kill any first-child top margin the section might add */
-  body.page-contact main > :first-child{ margin-top: 0 !important; }
-}
-@media (max-width: 820px) {
-  .social-icon {
-    position: absolute;
-    top: 14px;
-    left: 16px;
-    z-index: 2000;
-  }
-
-  .social-icon img {
-    width: 22px;
-    height: 22px;
-    opacity: 0.9;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .social-icon:hover img {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-
-  .nav .logo {
-    margin-left: 0px;
-  }
-}
-
-/* ===== Mobile pop menu fix (album + all subpages) ===== */
-@media (max-width: 820px){
-  /* Keep the popover above the sticky header */
-  #nav-pop{
-    position: fixed;
-    inset: 0;
-    z-index: 100000;                 /* higher than header/nav */
-    display: grid;
-    place-items: center;
-    background: rgba(0,0,0,.55);
-    -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
-  }
-  #nav-pop[hidden]{ display:none !important; }
-
-  /* Sheet and layout */
-  #nav-pop .nav-pop__sheet{
-    width: min(520px, 86vw);
-    margin: 0 auto;
-    background: transparent;
-  }
-  #nav-pop .nav-pop__nav{
-    display: grid;
-    gap: 22px;
-    justify-items: center;
-  }
-
-  /* Close (X) button */
   #nav-pop .nav-pop__close{
-    position: fixed;
-    right: 18px; top: 14px;
-    width: 40px; height: 40px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.25);
-    color: #fff;
+    display:none;
+  }
+
+  /* ---------- SUBPAGES OFFSET (gallery/about/contact/album) ---------- */
+
+  .page-gallery .wrap,
+  .page-about .wrap,
+  .page-contact .wrap,
+  .page-album .wrap{
+    padding-top: calc(var(--mobile-header-h) + var(--mobile-gap));
+  }
+
+  body.page-contact main > :first-child{
+    margin-top:0;
+  }
+
+  /* intro page video / skip button safe area */
+  .hero-video{
+    object-fit:cover !important;
+    object-position:center;
+  }
+  .poster{
+    background-size:cover !important;
+    background-position:center;
+  }
+  .skip{
+    right:max(14px, env(safe-area-inset-right));
+    bottom:max(14px, calc(env(safe-area-inset-bottom) + 10px));
+  }
+
+  /* ---------- ALBUMS LOOP STRIP ---------- */
+
+  .albums-loop{
+    padding: 3rem 0;
+  }
+
+  .albums-loop__inner{
+    padding: 0 1.5rem;
+  }
+
+  .albums-loop__track{
+    gap: 1.4rem;
+    animation-duration: 35s; /* a bit faster on mobile */
+  }
+
+  .loop-card{
+    width: 210px;
+    border-radius: 16px;
+  }
+
+  .loop-card img{
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .loop-meta{
+    padding: 0.7rem 0.8rem 0.9rem;
+  }
+
+  .loop-title{
+    font-size: 0.9rem;
+  }
+
+  .loop-date{
+    font-size: 0.74rem;
+  }
+}
+
+/* ---------- Extra-narrow phones tweaks ---------- */
+@media (max-width: 380px){
+  body.home .headline .hword{
+    font-size: clamp(36px, 13.4vw, 66px);
+  }
+  body.home .headline .gradient{
+    font-size: clamp(52px, 17vw, 90px);
+  }
+}
+/* Mobile: shrink the big N logo in the hero */
+@media (max-width: 820px){
+  body.home .hero-right{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 14px;              /* tweak spacing above headline */
+  }
+
+  body.home .hero-right .n-stack,
+  body.home .hero-right .n-mark,
+  body.home .logo-holder .home-logo{
+    width: clamp(40px, 40vw, 200px) !important;  /* make it smaller */
+    height: auto !important;
+  }
+}
+/* MOBILE: let hero height shrink so albums sit just below */
+@media (max-width: 820px){
+  body.home .hero{
+    min-height: auto !important;   /* no more forced full-screen */
+    height: auto !important;
+    padding-bottom: 24px !important;  /* small gap under the button */
   }
 }
