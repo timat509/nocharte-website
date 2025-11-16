@@ -119,16 +119,28 @@
   <!-- PAGE JS -->
   <script>
     // ----- Data -----
-    const ALBUMS = [
-      { slug:"luna-19-07-25",   title:"Luna — 19 Jul 2025",   date:"Jul 19, 2025", count:"7",
-        cover:"/assets/albums/luna-19-07-25/cover.png" },
-      { slug:"summer-23-08-25", title:"Summer — 23 Aug 2025", date:"Aug 23, 2025", count:"48",
-        cover:"/assets/albums/summer-23-08-25/cover.jpeg" },
-      { slug:"after_walk-13-09-25", title:"After Walk — 13 Sep 2025", date:"Sep 13, 2025", count:"99",
+    // ----- Data -----
+let ALBUMS = [
+  { slug:"luna-19-07-25",   title:"Luna — 19 Jul 2025",   date:"Jul 19, 2025", count:"7",
+    cover:"/assets/albums/luna-19-07-25/cover.png" },
+
+  { slug:"summer-23-08-25", title:"Summer — 23 Aug 2025", date:"Aug 23, 2025", count:"48",
+    cover:"/assets/albums/summer-23-08-25/cover.jpeg" },
+
+  { slug:"after_walk-13-09-25", title:"After Walk — 13 Sep 2025", date:"Sep 13, 2025", count:"99",
     cover:"/assets/albums/after_walk-13-09-25/cover.jpeg" },
-      {slug: "aj_amazonia-31-10-25", title: "A&J Amazonia — 31 Oct 2025", cover: "/assets/albums/aj_amazonia-31-10-25/cover.png",
-      date: "Oct 31, 2025", count: "82" },
-    ];
+
+  { slug:"aj_amazonia-31-10-25", title:"A&J Amazonia — 31 Oct 2025",
+    date:"Oct 31, 2025", count:"82",
+    cover:"/assets/albums/aj_amazonia-31-10-25/cover.png" },
+
+  { slug:"suenos_tour-15-11-25", title:"SUEÑOS TOUR — 15 Nov 2025",
+    date:"Nov 15, 2025", count:"67",
+    cover:"/assets/albums/suenos_tour-15-11-25/cover.png" },
+];
+
+// Newest first
+ALBUMS.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     const stage      = document.getElementById('stage');
     const albumTitle = document.getElementById('albumTitle');
