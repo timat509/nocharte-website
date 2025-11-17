@@ -36,7 +36,7 @@ window.ALBUMS = [
     href: "album.html?slug=aj_amazonia-31-10-25"
   },
   {
-    slug: "suenos_tour-15-11-25", // <-- no accent, hyphens, matches folder
+    slug: "suenos_tour-15-11-25", 
     title: "SUEÑOS TOUR — 15 Nov 2025",
     date: "2025-11-15",
     category: "Clubs",
