@@ -13,7 +13,7 @@
     --hero-slider-max-h: 200px;
     --hero-gap-top: clamp(4px, 10vh, 10px);
 
-    --mobile-gap: 8px; /* subpages offset */
+    --mobile-gap: -40px; /* subpages offset */
   }
 
   /* ---------- HEADER ---------- */

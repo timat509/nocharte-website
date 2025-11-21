@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XE42Q9T6EF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XE42Q9T6EF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XE42Q9T6EF');
+  </script>
 
-  gtag('config', 'G-XE42Q9T6EF');
-</script>
   <!-- Favicons -->
   <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
   <link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
@@ -44,28 +44,30 @@
         const url = new URL(location.href);
         const skip = url.searchParams.get('skip-intro') === '1';
         const played = sessionStorage.getItem('nocharte_intro_played') === '1';
-        if (!skip && !played) location.replace('intro.html');
-        else if (skip) {
+        if (!skip && !played) {
+          location.replace('intro.html');
+        } else if (skip) {
           url.searchParams.delete('skip-intro');
           history.replaceState(null, '', url);
         }
-      } catch(e){}
+      } catch (e) {}
     })();
   </script>
 
   <!-- Fonts & CSS -->
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=final-hero" />
-  <link rel="stylesheet" href="mobile/responsive.css?v=final-hero" />
+  <link rel="stylesheet" href="style.css?v=clean-mobile" />
+  <!-- keep your mobile.css for nav-pop etc. if needed -->
+  <link rel="stylesheet" href="mobile/responsive.css?v=clean-mobile" />
+
+  <!-- Global mobile JS (menu etc.) -->
   <script src="mobile/mobile.js?v=final-hero" defer></script>
 </head>
 
 <body class="home">
-
   <!-- ======= HEADER ======= -->
   <header class="nav" role="banner">
     <a class="logo" href="index.html" aria-label="NOCHARTE Home">
-      <img src="assets/web/logohome.png" alt="NOCHARTE" />
     </a>
 
     <a href="https://www.instagram.com/nocharte_entertainment/"
@@ -106,7 +108,6 @@
 
   <!-- ======= PAGE CONTENT ======= -->
   <div class="scroller">
-
     <!-- ========================= HERO ========================== -->
     <section class="hero bg snap" id="home-hero">
       <div class="hero-particles" aria-hidden="true">
@@ -116,9 +117,10 @@
       </div>
 
       <div class="layer logo-holder" aria-hidden="true">
-        <img class="home-logo" src="assets/web/logohome.png" alt="" />
+        <img class="home-logo" src="assets/web/logohome.png" alt="">
       </div>
 
+      <!-- mobile N (hidden on desktop) -->
       <div class="hero-right" aria-hidden="true">
         <img class="n-stack n-mark" src="assets/web/logohome.png" alt="">
       </div>
@@ -131,60 +133,80 @@
           <span class="hword gradient">FEELING</span>
         </div>
         <p class="kicker">EVENT PHOTOGRAPHY</p>
+
+        <!-- Desktop & hero CTA -->
         <a href="gallery.html" class="cta-desktop">View Gallery</a>
         <a href="gallery.html" class="cta-hero" aria-label="Open Gallery">View Gallery</a>
+
+        <!-- Scroll cue (desktop only) -->
         <div class="scrolldown" aria-hidden="true"><span></span></div>
       </div>
     </section>
 
-    <!-- ========================= LOOPING ALBUM STRIP ========================== -->
-    <section class="albums-loop" aria-label="All events">
-      <div class="albums-loop__inner">
-        <div class="albums-loop__track" id="albums-loop-track"></div>
+    <!-- ========================= ALBUMS STRIP ========================== -->
+    <section class="albums-strip" aria-label="Latest albums">
+      <header class="albums-strip__header">
+        <h2>Albums</h2>
+        <a href="gallery.html" class="albums-strip__all">All</a>
+      </header>
+
+      <div class="albums-strip__frame">
+        <div class="albums-strip__inner" id="albumsStrip"></div>
       </div>
     </section>
 
     <!-- ========================= VISION / MISSION ========================== -->
     <section id="about" class="vm-section snap">
-      <div class="container">
-        <div class="vm-row">
-          <div class="vm-media"><div class="vm-art"></div></div>
-          <div class="vm-copy">
-            <span class="eyebrow">OUR VISION</span>
-            <h2 class="vm-title">NOCHARTE</h2>
-            <p class="vm-text">
-              NOCHARTE captures the energy and essence of nightlife through bold, artistic photography.
-              We turn fleeting moments into timeless visuals that reflect the rhythm, style, and emotion
-              of every event. Our vision is to redefine nightlife photography into an immersive brand
-              experience people will remember and share.
-            </p>
-          </div>
-        </div>
+  <div class="container">
 
-        <div class="vm-row vm-row--reverse">
-          <div class="vm-copy">
-            <span class="eyebrow">OUR MISSION</span>
-            <h2 class="vm-title">Make Nightlife Unforgettable</h2>
-            <p class="vm-text">
-              We capture the energy, style, and emotion of every event. Our mission: create visuals
-              people trust to relive and share their best moments.
-            </p>
-            <div class="vm-pills">
-              <span class="vm-pill">Precision</span>
-              <span class="vm-pill">Trust</span>
-              <span class="vm-pill">Speed</span>
-            </div>
-          </div>
-          <div class="vm-media"><div class="vm-art"></div></div>
-        </div>
+    <!-- VISION -->
+    <article class="vm-row vm-row--vision">
+      <div class="vm-media">
+        <img src="assets/web/vision.jpeg" alt="NOCHARTE crowd in the club" />
       </div>
-    </section>
+
+      <div class="vm-copy">
+        <span class="eyebrow">OUR VISION</span>
+        <h2 class="vm-title">NOCHARTE</h2>
+
+        <p class="vm-text">
+          NOCHARTE captures the energy and essence of nightlife through bold, artistic photography.
+        </p>
+
+        <p class="vm-text">
+          We turn fleeting moments into timeless visuals that reflect the rhythm, style, and emotion
+          of every event. Our vision is to redefine nightlife photography into an immersive brand
+          experience people will remember and share.
+        </p>
+      </div>
+    </article>
+
+    <!-- MISSION – notice: vm-row--mission (NO vm-row--reverse) -->
+<div class="vm-row vm-row--mission">
+  <div class="vm-copy">
+    <span class="eyebrow">OUR MISSION</span>
+    <h2 class="vm-title">Make Nightlife Unforgettable</h2>
+    <p class="vm-text">
+      We capture the energy, style, and emotion of every event. Our mission: create visuals
+      people trust to relive and share their best moments.
+    </p>
+    <div class="vm-pills">
+      <span class="vm-pill">Precision</span>
+      <span class="vm-pill">Trust</span>
+      <span class="vm-pill">Speed</span>
+    </div>
   </div>
+  <div class="vm-media">
+    <div class="vm-art">
+      <img src="assets/web/mission.png" alt="Nightlife portrait in blue corset">
+    </div>
+  </div>
+</div>
 
-  <!-- ======= Floating CTA (mobile only) ======= -->
-  <a href="gallery.html" class="btn btn--solid cta-float" aria-label="Open Gallery">View Gallery</a>
+  </div>
+</section>
 
-  <!-- ======= NAV & DYNAMIC LOOP ======= -->
+  <!-- ======= NAV / INTRO HELPERS ======= -->
   <script>
     // Highlight current nav link
     (function () {
@@ -206,10 +228,16 @@
         if (!a) return;
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         if (a.target === '_blank') return;
+
         const href = a.getAttribute('href') || '';
-        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+        if (!href || href.startsWith('#') ||
+            href.startsWith('mailto:') ||
+            href.startsWith('tel:') ||
+            href.startsWith('javascript:')) return;
+
         const url = new URL(href, location.href);
         if (url.origin !== location.origin) return;
+
         e.preventDefault();
         url.searchParams.set('skip-intro', '1');
         location.assign(url.href);
@@ -217,32 +245,49 @@
     })();
   </script>
 
-  <!-- ======= Dynamic Loop from ALBUMS ======= -->
+   <!-- ========================= FOOTER ========================== -->
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <!-- Left: logo + tagline -->
+        <div class="site-footer__brand">
+          <img
+            src="assets/web/logohome.png"
+            alt="NOCHARTE"
+            class="site-footer__logo"
+          />
+          <p class="site-footer__tagline">
+            Nightlife &amp; event photography. Born on the dancefloor, built for brands.
+          </p>
+        </div>
+
+        <!-- Middle: quick links -->
+        <nav class="site-footer__nav" aria-label="Footer navigation">
+          <a href="gallery.html">Gallery</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Right: social + meta -->
+        <div class="site-footer__meta">
+          <a
+            href="https://www.instagram.com/nocharte_entertainment/"
+            target="_blank"
+            rel="noopener"
+            class="site-footer__social"
+            aria-label="NOCHARTE Instagram"
+          >
+            <img src="assets/web/instagram.svg" alt="Instagram" />
+          </a>
+          <p class="site-footer__copy">
+            © 2025 NOCHARTE. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div> <!-- end .scroller -->
+
+  <!-- ======= ALBUM DATA + HOME STRIP LOGIC ======= -->
   <script src="assets/albums/albums.js"></script>
-  <script>
-    (function(){
-      if (!window.ALBUMS) return;
-
-      // Sort albums by newest date
-      const sorted = window.ALBUMS.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      const loopTrack = document.getElementById('albums-loop-track');
-      if (!loopTrack) return;
-
-      const makeCards = (albums) => albums.map(a => `
-        <a href="album.html?album=${a.slug}" class="loop-card">
-          <img src="${a.cover}" alt="${a.title}" loading="lazy">
-          <div class="loop-meta">
-            <span class="loop-title">${a.title}</span>
-            <span class="loop-date">${a.date}</span>
-          </div>
-        </a>
-      `).join('');
-
-      // Duplicate list to create seamless loop
-      const cards = makeCards(sorted);
-      loopTrack.innerHTML = cards + cards;
-    })();
-  </script>
+  <script src="assets/web/home-albums-strip.js"></script>
 </body>
 </html>

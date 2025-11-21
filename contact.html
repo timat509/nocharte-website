@@ -2,34 +2,34 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XE42Q9T6EF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XE42Q9T6EF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XE42Q9T6EF');
+  </script>
 
-  gtag('config', 'G-XE42Q9T6EF');
-</script>
   <!-- Favicons -->
-<link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
-<link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
-<link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
+  <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
 
-<!-- Open Graph (link previews) -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://nocharte.com/">
-<meta property="og:site_name" content="NOCHARTE">
-<meta property="og:title" content="NOCHARTE — We Frame the Feeling">
-<meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
-<meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
-<meta property="og:image:width" content="1250">
-<meta property="og:image:height" content="1250">
+  <!-- Open Graph (link previews) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nocharte.com/">
+  <meta property="og:site_name" content="NOCHARTE">
+  <meta property="og:title" content="NOCHARTE — We Frame the Feeling">
+  <meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
+  <meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <meta property="og:image:width" content="1250">
+  <meta property="og:image:height" content="1250">
 
-<!-- Twitter card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
-<meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
-<meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <!-- Twitter card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
+  <meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
+  <meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -117,10 +117,17 @@
         <div class="card-sub">nocharte@gmail.com</div>
         <div class="card-foot">Open email →</div>
       </a>
+
       <a class="card" href="https://instagram.com/nocharte_entertainment" target="_blank" rel="noopener">
         <div class="card-title">Instagram</div>
         <div class="card-sub">@nocharte_entertainment</div>
         <div class="card-foot">DM us →</div>
+      </a>
+
+      <a class="card" href="tel:+18294753799">
+        <div class="card-title">Phone</div>
+        <div class="card-sub">+1 829 475 3799</div>
+        <div class="card-foot">Call us →</div>
       </a>
     </section>
 
@@ -181,7 +188,10 @@
         </div>
 
         <button class="btn" type="submit">Send Request</button>
-        <p class="mailto-fallback">Prefer email? <a href="mailto:nocharte@gmail.com?subject=Booking%20Inquiry%20-%20NOCHARTE">nocharte@gmail.com</a></p>
+        <p class="mailto-fallback">
+          Prefer email?
+          <a href="mailto:nocharte@gmail.com?subject=Booking%20Inquiry%20-%20NOCHARTE">nocharte@gmail.com</a>
+        </p>
         <p id="formStatus" class="status" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -218,31 +228,82 @@
 
   <!-- Page JS -->
   <script>
-    // Booking form validation (lightweight)
+    // Booking form validation + email generation
     (function(){
       const form = document.getElementById('bookingForm');
       const status = document.getElementById('formStatus');
-      if(!form) return;
+      if (!form) return;
 
       form.addEventListener('submit', function(e){
         e.preventDefault();
         status.textContent = '';
-        if (form.website.value) return; // honeypot
 
+        // Honeypot: if filled, it's a bot → do nothing
+        if (form.website && form.website.value) return;
+
+        // Required fields
         const required = ['name','email','message','consent'];
         for (const key of required) {
           const el = form.querySelector(`[name="${key}"]`);
+          if (!el) continue;
+
           if (key === 'consent') {
-            if (!el.checked) { el.focus(); status.textContent = 'Please agree to be contacted.'; return; }
+            if (!el.checked) {
+              el.focus();
+              status.textContent = 'Please agree to be contacted.';
+              return;
+            }
           } else if (!el.value.trim()) {
-            el.focus(); status.textContent = 'Please fill the required fields.'; return;
+            el.focus();
+            status.textContent = 'Please fill the required fields.';
+            return;
           }
         }
+
+        // Email format
         const email = form.email.value.trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.email.focus(); status.textContent = 'Enter a valid email.'; return; }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          form.email.focus();
+          status.textContent = 'Enter a valid email.';
+          return;
+        }
+
+        // Collect data
+        const data = {
+          name:   form.name.value.trim(),
+          email:  email,
+          date:   form.date.value || 'Not specified',
+          budget: form.budget.value || 'Not specified',
+          venue:  (form.venue?.value || '').trim() || 'Not specified',
+          message: form.message.value.trim()
+        };
+
+        // Build email
+        const subject = 'ORDER';
+        const bodyLines = [
+          `Client name: ${data.name}`,
+          `Email: ${data.email}`,
+          `Event date: ${data.date}`,
+          `Budget: ${data.budget}`,
+          `Venue / City: ${data.venue}`,
+          '',
+          'Message:',
+          data.message || '—'
+        ];
+        const body = bodyLines.join('\n');
+
+        const to = 'nocharte@gmail.com';
+
+        const mailtoUrl =
+          `mailto:${encodeURIComponent(to)}` +
+          `?subject=${encodeURIComponent(subject)}` +
+          `&body=${encodeURIComponent(body)}`;
+
+        // Open user's email client
+        window.location.href = mailtoUrl;
 
         form.reset();
-        status.textContent = 'Thanks! Your message has been queued. We’ll reply shortly.';
+        status.textContent = 'Your email app is opening with all details pre-filled.';
       });
     })();
 
@@ -254,15 +315,24 @@
       const phrases = (()=>{ try { return JSON.parse(el.dataset.phrases || '[]'); } catch(_){ return []; } })();
       if(!phrases.length || reduce) return;
       let i = 0;
-      const show = (t)=>{ el.style.opacity=0; el.style.transform='translateY(6px)';
-        setTimeout(()=>{ el.textContent=t; el.style.opacity=1; el.style.transform='translateY(0)'; },220);
+      const show = (t)=>{
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(6px)';
+        setTimeout(()=>{
+          el.textContent = t;
+          el.style.opacity = 1;
+          el.style.transform = 'translateY(0)';
+        },220);
       };
-      setInterval(()=>{ i=(i+1)%phrases.length; show(phrases[i]); },3600);
+      setInterval(()=>{
+        i = (i + 1) % phrases.length;
+        show(phrases[i]);
+      },3600);
     })();
 
     // Mark current link in header + popup, and append skip-intro to internal links
     (function(){
-      try{
+      try {
         const here = (location.pathname.replace(/\/+$/, '') || '/contact.html').toLowerCase();
         const mark = scope => scope && scope.querySelectorAll('a[href]').forEach(a=>{
           const p = new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/, '').toLowerCase();
@@ -270,7 +340,7 @@
         });
         mark(document.querySelector('.links'));
         mark(document.getElementById('nav-pop'));
-      }catch(e){}
+      } catch(e) {}
 
       document.addEventListener('click', function (e) {
         const a = e.target.closest('a[href]');
