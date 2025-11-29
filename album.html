@@ -189,41 +189,29 @@
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
     }
-    function probe(src, timeout=7000){
-      return new Promise(res=>{
-        const t = setTimeout(()=>res(false), timeout);
-        const im = new Image();
-        im.onload = ()=>{ clearTimeout(t); res(true); };
-        im.onerror = ()=>{ clearTimeout(t); res(false); };
-        im.src = src;
-      });
-    }
 
     // Main render
     async function render(){
-      let raw = [];
-      if (Array.isArray(window.PHOTOS)) raw = window.PHOTOS;
-      else if (Array.isArray(window.photos)) raw = window.photos;
-      else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) raw = window.NOCH_PHOTOS[slug];
+  let raw = [];
+  if (Array.isArray(window.PHOTOS)) raw = window.PHOTOS;
+  else if (Array.isArray(window.photos)) raw = window.photos;
+  else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) raw = window.NOCH_PHOTOS[slug];
 
-      // absolute URLs
-      const all = normalize(raw);
+  // Turn filenames into absolute URLs
+  files = normalize(raw);
 
-      // Keep only images that actually load (skip deleted/missing)
-      const ok = await Promise.all(all.map(f => probe(f.src)));
-      files = all.filter((_,i)=>ok[i]);
+  if (!files.length){
+    titleEl.textContent = slugToTitle(slug);
+    metaEl.textContent  = '0 photos';
+    emptyEl.style.display='block';
+    return;
+  }
 
-      if (!files.length){
-        titleEl.textContent = slugToTitle(slug);
-        metaEl.textContent  = '0 photos';
-        emptyEl.style.display='block';
-        return;
-      }
+  titleEl.textContent = slugToTitle(slug);
+  metaEl.textContent  = `${files.length} photos`;
 
-      titleEl.textContent = slugToTitle(slug);
-      metaEl.textContent  = `${files.length} photos`;
+  gridEl.innerHTML = files.map((f,i) => `
 
-      gridEl.innerHTML = files.map((f,i) => `
         <figure class="photo-card" data-idx="${i}" role="button" tabindex="0" style="position:relative; cursor:zoom-in;">
           <img loading="lazy" decoding="async" crossorigin="anonymous" src="${f.src}" alt="${escapeHtml(f.alt)}">
           <button class="download-btn" onclick="event.stopPropagation(); downloadImage('${f.src}')" aria-label="Download photo">
