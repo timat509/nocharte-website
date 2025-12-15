@@ -49,7 +49,7 @@ window.ALBUMS = [
     title: "SANTA'S BLACKLIST — 12 Dec 2025",
     date: "2025-12-12",
     category: "Clubs",
-    count: 121,
+    count: 181,
     cover: "assets/albums/santa_blacklist-12-12-25/cover.png",
     href: "album.html?slug=santa_blacklist-12-12-25"
   }
