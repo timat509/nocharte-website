@@ -14,7 +14,7 @@ window.PHOTOS = [
   "121.png","122.png","123.png","124.png","125.png","126.png","127.png","128.png","129.png","130.png",
   "131.png","132.png","133.png","134.png","135.png","136.png","137.png","138.png","139.png","140.png",
   "141.png","142.png","143.png","144.png","145.png","146.png","147.png","148.png","149.png","150.png",
-  "151.png","152.png","153.png","154.png","155.png","159.png","162.png","163.png","164.png","165.png",
+  "151.png","152.png","153.png","154.png","155.png","156.png" ,"159.png","162.png","163.png","164.png","165.png",
   "166.png","167.png","168.png","169.png","170.png","171.png","172.png","173.png","174.png","175.png",
   "176.png","177.png","178.png","179.png","180.png","181.png"
 ];
