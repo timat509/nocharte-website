@@ -43,5 +43,14 @@ window.ALBUMS = [
     count: 67,
     cover: "assets/albums/suenos_tour-15-11-25/cover.png",
     href: "album.html?slug=suenos_tour-15-11-25"
+  },
+  {
+    slug: "santa_blacklist-12-12-25", 
+    title: "SANTA'S BLACKLIST — 12 Dec 2025",
+    date: "2025-12-12",
+    category: "Clubs",
+    count: 121,
+    cover: "assets/albums/santa_blacklist-12-12-25/cover.png",
+    href: "album.html?slug=santa_blacklist-12-12-25"
   }
 ];
