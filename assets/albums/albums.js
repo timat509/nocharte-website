@@ -49,8 +49,17 @@ window.ALBUMS = [
     title: "SANTA'S BLACKLIST — 12 Dec 2025",
     date: "2025-12-12",
     category: "Clubs",
-    count: 177,
+    count: 147,
     cover: "assets/albums/santa_blacklist-12-12-25/cover.png",
     href: "album.html?slug=santa_blacklist-12-12-25"
+  },
+  {
+    slug: "80s_night-15-01-26", 
+    title: "80's night Bull Dog Pub — 15 Jan 2026",
+    date: "2026-01-15",
+    category: "Clubs",
+    count: 65,
+    cover: "assets/albums/80s_night-15-01-26/cover.png",
+    href: "album.html?slug=80s_night-15-01-26"
   }
 ];
