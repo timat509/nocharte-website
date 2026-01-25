@@ -61,5 +61,14 @@ window.ALBUMS = [
     count: 65,
     cover: "assets/albums/80s_night-15-01-26/cover.png",
     href: "album.html?slug=80s_night-15-01-26"
+  },
+  {
+    slug: "pill_in_ibiza-23-01-26", 
+    title: "Pill In Ibiza — 23 Jan 2026",
+    date: "2026-01-23",
+    category: "Clubs",
+    count: 172,
+    cover: "assets/albums/pill_in_ibiza-23-01-26/cover.jpg",
+    href: "album.html?slug=pill_in_ibiza-23-01-26"
   }
 ];
