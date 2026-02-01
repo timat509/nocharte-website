@@ -70,5 +70,14 @@ window.ALBUMS = [
     count: 172,
     cover: "assets/albums/pill_in_ibiza-23-01-26/cover.jpg",
     href: "album.html?slug=pill_in_ibiza-23-01-26"
+  },
+  {
+    slug: "cielo-30-01-26", 
+    title: "Cielo — 30 Jan 2026",
+    date: "2026-01-30",
+    category: "Clubs",
+    count: 78,
+    cover: "assets/albums/cielo-30-01-26/cover.jpg",
+    href: "album.html?slug=cielo-30-01-26"
   }
 ];
