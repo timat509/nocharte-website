@@ -197,6 +197,21 @@
   else if (Array.isArray(window.photos)) raw = window.photos;
   else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) raw = window.NOCH_PHOTOS[slug];
 
+  const ROW_HEIGHT = window.innerWidth > 1200 ? 260 :
+                   window.innerWidth > 900  ? 220 :
+                   window.innerWidth > 500  ? 180 : 140;
+
+gridEl.querySelectorAll('figure').forEach(fig => {
+  const img = fig.querySelector('img');
+
+  img.addEventListener('load', () => {
+    const ratio = img.naturalWidth / img.naturalHeight;
+
+    img.style.height = `${ROW_HEIGHT}px`;
+    img.style.width  = `${ROW_HEIGHT * ratio}px`;
+  });
+});
+
   // Turn filenames into absolute URLs
   files = normalize(raw);
 
@@ -223,6 +238,27 @@
           </button>
         </figure>
       `).join('');
+      
+// Detect portrait images and apply class (editorial shapes)
+requestAnimationFrame(() => {
+  gridEl.querySelectorAll('figure').forEach(fig => {
+    const img = fig.querySelector('img');
+    if (!img) return;
+
+    // Wait until image has dimensions
+    if (img.complete) {
+      if (img.naturalHeight > img.naturalWidth) {
+        fig.classList.add('portrait');
+      }
+    } else {
+      img.addEventListener('load', () => {
+        if (img.naturalHeight > img.naturalWidth) {
+          fig.classList.add('portrait');
+        }
+      }, { once: true });
+    }
+  });
+});
 
       // Remove tiles that later error (and keep lightbox indexes in sync)
       gridEl.querySelectorAll('figure[data-idx]').forEach(fig=>{
