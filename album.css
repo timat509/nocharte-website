@@ -150,3 +150,77 @@ img:where([src=""],[src="#"],[src="null"],[src="undefined"]),
 img:not([src]){
   display:none !important;
 }
+/* =========================
+   LIGHTBOX OVERLAY (FIX)
+========================= */
+#lightbox.lb{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;            /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.92);
+  padding: 24px;
+}
+
+#lightbox.lb.open{
+  display: flex;            /* show as overlay */
+}
+
+#lightbox .lb-inner{
+  max-width: min(1200px, 100%);
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lightbox .lb-img{
+  max-width: 100%;
+  max-height: calc(100vh - 120px);
+  object-fit: contain;
+  display: block;
+}
+
+#lightbox .lb-btn{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  border: 0;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+#lightbox .lb-prev{ left: 16px; }
+#lightbox .lb-next{ right: 16px; }
+
+#lightbox .lb-close{
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: 0;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+#lightbox .lb-cap{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  text-align: center;
+  color: #fff;
+  opacity: .8;
+  font-size: 14px;
+  pointer-events: none;
+}
