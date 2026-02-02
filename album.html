@@ -139,14 +139,17 @@
 
   <!-- Lightbox -->
   <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
-    <div class="lb-inner">
-      <img id="lb-img" class="lb-img" alt="" />
-    </div>
-    <div id="lb-cap" class="lb-cap"></div>
-    <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
-    <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next (→)">❯</button>
-    <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
+  <div class="lb-backdrop" aria-hidden="true"></div>
+
+  <div class="lb-inner">
+    <img id="lb-img" class="lb-img" alt="" />
   </div>
+
+  <div id="lb-cap" class="lb-cap"></div>
+  <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
+  <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next (→)">❯</button>
+  <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
+</div>
 
   <!-- Album loader + Lightbox -->
   <script>
@@ -320,6 +323,10 @@ function reindex() {
     const btnNext = document.getElementById('lb-next');
     const btnClose= document.getElementById('lb-close');
 
+    btnPrev.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); prev(); });
+btnNext.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); next(); });
+btnClose.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); closeLightbox(); });
+
     function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
 
    function openLightbox(i){
@@ -328,23 +335,19 @@ function reindex() {
   // Prevent browser scroll jump
   const scrollY = window.scrollY;
 
-  // Make sure the click + key listeners are active
-  addEvents();
-
-  // Set the image using your object format
-  const f = files[current];
-  lbImg.src = f.src;
-  lbImg.alt = f.alt || '';
-  lbCap.textContent = f.alt || '';
-
-  // Open
   lb.classList.add('open');
   lb.setAttribute('aria-hidden', 'false');
   document.body.classList.add('lb-open');
+  
 
-  // Force scroll position back
+  addEvents();
+
+  // IMPORTANT: always use show() so next/prev works
+  show(current);
+
   window.scrollTo(0, scrollY);
 }
+
     function show(i){
       if (!files.length) return;
       current = clamp(i, 0, files.length-1);
@@ -376,18 +379,46 @@ function reindex() {
     closeLightbox();
   }
 }
-    function addEvents(){
-      document.addEventListener('keydown', onKey);
-      lb.addEventListener('click', onBackdrop);
-    }
-    function removeEvents(){
-      document.removeEventListener('keydown', onKey);
-      lb.removeEventListener('click', onBackdrop);
-    }
-    btnPrev.addEventListener('click', prev);
-    btnNext.addEventListener('click', next);
-    btnClose.addEventListener('click', closeLightbox);
+    // --- Swipe support (mobile) ---
+let startX = 0, startY = 0;
 
+function onTouchStart(e){
+  if (!lb.classList.contains('open')) return;
+  const t = e.changedTouches[0];
+  startX = t.clientX;
+  startY = t.clientY;
+}
+
+function onTouchEnd(e){
+  if (!lb.classList.contains('open')) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - startX;
+  const dy = t.clientY - startY;
+
+  // horizontal swipe only (ignore vertical)
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2){
+    if (dx < 0) next();  // swipe left => next
+    else prev();         // swipe right => prev
+  }
+}
+
+function addEvents(){
+  document.addEventListener('keydown', onKey);
+  lb.addEventListener('click', onBackdrop);
+
+  // mobile swipe
+  lb.addEventListener('touchstart', onTouchStart, { passive: true });
+  lb.addEventListener('touchend', onTouchEnd, { passive: true });
+}
+
+function removeEvents(){
+  document.removeEventListener('keydown', onKey);
+  lb.removeEventListener('click', onBackdrop);
+
+  // mobile swipe
+  lb.removeEventListener('touchstart', onTouchStart);
+  lb.removeEventListener('touchend', onTouchEnd);
+}
     // Title helper
     function slugToTitle(s){
       const parts = s.split('-'); const words=[], nums=[];
