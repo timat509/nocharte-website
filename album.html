@@ -260,34 +260,57 @@ requestAnimationFrame(() => {
   });
 });
 
-      // Remove tiles that later error (and keep lightbox indexes in sync)
-      gridEl.querySelectorAll('figure[data-idx]').forEach(fig=>{
-        const idx = Number(fig.dataset.idx);
-        const img = fig.querySelector('img');
+// Remove tiles that later error (and keep lightbox indexes in sync)
+gridEl.querySelectorAll('figure[data-idx]').forEach((fig) => {
+  const img = fig.querySelector('img');
 
-        img.addEventListener('error', ()=>{
-          const i = Number(fig.dataset.idx);
-          files.splice(i,1);
-          fig.remove();
-          reindex();
-          if (lb.classList.contains('open')){
-            if (!files.length) closeLightbox();
-            else show(clamp(current, 0, files.length-1));
-          }
-        });
+  img.addEventListener('error', () => {
+    const i = Number(fig.dataset.idx);
 
-        fig.addEventListener('click', ()=>openLightbox(idx));
-        fig.addEventListener('keydown', e=>{
-          if (e.key==='Enter' || e.key===' ') { e.preventDefault(); openLightbox(Number(fig.dataset.idx)); }
-        });
-      });
+    if (!Number.isNaN(i)) files.splice(i, 1);
+    fig.remove();
+    reindex();
+
+    if (lb.classList.contains('open')) {
+      if (!files.length) closeLightbox();
+      else show(clamp(current, 0, files.length - 1));
     }
+  });
 
-    function reindex(){
-      gridEl.querySelectorAll('figure[data-idx]').forEach((fig,i)=>{ fig.dataset.idx = i; });
-      metaEl.textContent = `${files.length} photos`;
-      current = clamp(current, 0, Math.max(0, files.length-1));
+  // Open lightbox (mobile/iOS safe)
+  fig.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation(); // iOS Safari
+    openLightbox(Number(fig.dataset.idx));
+  });
+
+  // Keyboard accessibility
+  fig.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(Number(fig.dataset.idx));
     }
+  });
+});
+
+function closeLightbox() {
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+
+  // restore scroll
+  document.body.classList.remove('lb-open');
+
+  removeEvents();
+}
+
+function reindex() {
+  gridEl.querySelectorAll('figure[data-idx]').forEach((fig, i) => {
+    fig.dataset.idx = String(i);
+  });
+  metaEl.textContent = `${files.length} photos`;
+  current = clamp(current, 0, Math.max(0, files.length - 1));
+}
 
     // ---------- Lightbox ----------
     const lb = document.getElementById('lightbox');
@@ -299,20 +322,29 @@ requestAnimationFrame(() => {
 
     function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
 
-    function openLightbox(i){
-      if (!files.length) return;
-      current = clamp(i, 0, files.length-1);
-      show(current);
-      lb.classList.add('open');
-      lb.setAttribute('aria-hidden','false');
-      btnClose.focus();
-      addEvents();
-    }
-    function closeLightbox(){
-      lb.classList.remove('open');
-      lb.setAttribute('aria-hidden','true');
-      removeEvents();
-    }
+   function openLightbox(i){
+  current = clamp(i, 0, files.length - 1);
+
+  // Prevent browser scroll jump
+  const scrollY = window.scrollY;
+
+  // Make sure the click + key listeners are active
+  addEvents();
+
+  // Set the image using your object format
+  const f = files[current];
+  lbImg.src = f.src;
+  lbImg.alt = f.alt || '';
+  lbCap.textContent = f.alt || '';
+
+  // Open
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lb-open');
+
+  // Force scroll position back
+  window.scrollTo(0, scrollY);
+}
     function show(i){
       if (!files.length) return;
       current = clamp(i, 0, files.length-1);
@@ -336,8 +368,14 @@ requestAnimationFrame(() => {
       else if (e.key === 'ArrowLeft')  prev();
     }
     function onBackdrop(e){
-      if (!e.target.closest('.lb-img, .lb-btn, .lb-close')) closeLightbox();
-    }
+      if (
+    !e.target.closest('#lb-img') &&
+    !e.target.closest('.lb-btn') &&
+    !e.target.closest('.lb-close')
+  ) {
+    closeLightbox();
+  }
+}
     function addEvents(){
       document.addEventListener('keydown', onKey);
       lb.addEventListener('click', onBackdrop);
@@ -357,7 +395,7 @@ requestAnimationFrame(() => {
       const name = words.map(w=>w[0].toUpperCase()+w.slice(1)).join(' ');
       return name + (nums.length ? ' — ' + nums.join(' ') : '');
     }
-  })();
+  }})();
   </script>
 
   <!-- Watermark download -->
