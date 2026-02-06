@@ -146,7 +146,7 @@
 </script>
 
 
-  <!-- Lightbox -->
+
 <!-- Lightbox -->
 <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
   <div class="lb-backdrop" aria-hidden="true"></div>
@@ -176,17 +176,11 @@
     </div>
   </div>
 
+  <div id="lb-swipebar" class="lb-swipebar" aria-hidden="true"></div>
+
   <div id="lb-cap" class="lb-cap"></div>
+
 </div>
-
-
-  <!-- ✅ NAV + CLOSE are back -->
-  <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
-  <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next (→)">❯</button>
-  <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
-</div>
-
-
 
   <!-- Album loader + Lightbox -->
   <script>
@@ -452,6 +446,27 @@ let hiRaw = (Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length)
     const btnClose= document.getElementById('lb-close');
     const lbDownload = document.getElementById('lb-download');
 
+    const swipeBar = document.getElementById('lb-swipebar');
+
+function showSwipeBarOnce(){
+  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (!isTouch) return;
+
+  if (sessionStorage.getItem('nocharte_swipebar_shown') === '1') return;
+  sessionStorage.setItem('nocharte_swipebar_shown', '1');
+
+  if (!swipeBar) return;
+
+  swipeBar.classList.remove('is-hide');
+  swipeBar.classList.add('is-show');
+
+  setTimeout(() => {
+    swipeBar.classList.remove('is-show');
+    swipeBar.classList.add('is-hide');
+  }, 2300);
+}
+
+
     lbDownload.addEventListener('click', (e) => {
   e.preventDefault();
   e.stopPropagation();
@@ -485,7 +500,9 @@ btnClose.addEventListener('click', (e) => {
   lb.classList.add('open');
   lb.setAttribute('aria-hidden', 'false');
   document.body.classList.add('lb-open');
-  
+
+  showSwipeBarOnce();
+
 
   addEvents();
 
