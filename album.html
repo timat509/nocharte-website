@@ -88,7 +88,7 @@
 
   <main class="wrap">
     <div class="album-head">
-      <a class="back" href="/gallery.html">← Back to Gallery</a>
+      <a class="back" href="/gallery.html">Back</a>
       <div>
         <h1 id="albumTitle" class="album-title">Loading…</h1>
         <p id="albumMeta" class="album-meta"></p>
@@ -147,18 +147,46 @@
 
 
   <!-- Lightbox -->
-  <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
+<!-- Lightbox -->
+<div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
   <div class="lb-backdrop" aria-hidden="true"></div>
 
+  <!-- NAV BUTTONS (these bring back the arrows + close) -->
+  <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
+  <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next (→)">❯</button>
+  <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
+
   <div class="lb-inner">
-    <img id="lb-img" class="lb-img" alt="" />
+    <div class="lb-media">
+      <img id="lb-img" class="lb-img" alt="" />
+
+      <!-- DOWNLOAD (your new button stays here) -->
+      <div id="lb-actions" class="lb-actions">
+        <button type="button" id="lb-download" class="lb-download" aria-label="Download photo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Download</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div id="lb-cap" class="lb-cap"></div>
+</div>
+
+
+  <!-- ✅ NAV + CLOSE are back -->
   <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
   <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next (→)">❯</button>
   <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
 </div>
+
+
 
   <!-- Album loader + Lightbox -->
   <script>
@@ -422,6 +450,14 @@ let hiRaw = (Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length)
     const btnPrev = document.getElementById('lb-prev');
     const btnNext = document.getElementById('lb-next');
     const btnClose= document.getElementById('lb-close');
+    const lbDownload = document.getElementById('lb-download');
+
+    lbDownload.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if (files[current]) downloadImage(files[current].src);
+});
+
 
     btnPrev.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); prev(); });
 btnNext.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); next(); });

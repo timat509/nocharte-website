@@ -477,3 +477,284 @@ img:not([src]){
 @media (pointer: coarse){
   #lb-close{ width: 58px; height: 58px; font-size: 24px; }
 }
+
+
+/* Mobile hero header: centered title, back button stays top-left */
+@media (max-width: 820px) {
+  .album-head{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;        /* center everything */
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+
+    /* give room for back button so it doesn't overlap */
+    padding-top: 6px;
+    padding-left: 84px;
+    padding-right: 18px;
+  }
+
+  .album-head .back{
+    position: absolute;
+    left: 18px;
+    top: 6px;
+    margin: 0;
+
+    /* keep it neat on mobile */
+    max-width: 68px;           /* force 2 lines like your screenshot */
+    white-space: normal;
+  }
+
+  #albumTitle{
+    margin: 8px 0 0;
+    width: 100%;
+    max-width: 22ch;           /* makes it feel “designed” */
+    font-size: clamp(28px, 6.2vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  #albumMeta{
+    margin: 0;
+    opacity: .85;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 820px) {
+
+  .album-head{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+
+    /* more breathing room for the hero zone */
+    padding-top: 32px;      /* creates that nice top space */
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  /* put back button in the top-left "empty space" */
+  .album-head .back{
+    position: absolute;
+    left: 18px;
+    top: -44px;            /* <-- move it up into the empty area */
+    margin: 0;
+
+    /* optional: make it a bit smaller so it feels premium */
+    transform: scale(.92);
+    transform-origin: left top;
+  }
+
+  #albumTitle{
+    margin: 0;
+    width: 100%;
+    max-width: 22ch;
+    font-size: clamp(28px, 6.2vw, 40px);
+    line-height: 1.05;
+  }
+
+  #albumMeta{
+    margin: 0;
+    opacity: .85;
+    font-size: 14px;
+  }
+}
+
+.album-head .back{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  white-space: nowrap;      /* prevents "Back" going to next line */
+  line-height: 1;           /* keeps arrow + text aligned */
+  padding: 12px 16px;       /* give it enough width */
+}
+
+.album-head .back::before{
+  content: "←";
+  font-size: 18px;
+  line-height: 1;
+}
+
+.album-head .back{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  white-space: nowrap;
+
+  padding: 14px 22px;      /* more breathing room */
+  border-radius: 999px;
+
+  line-height: 1;          /* keep arrow/text aligned */
+  font-size: 16px;
+  font-weight: 600;
+
+  min-width: 120px;        /* optional: prevents “tight” pills */
+}
+/* ===== Highlights vignette (lux) ===== */
+.highlights-frame{
+  position: relative;
+  overflow: hidden; /* important so vignette follows rounded corners */
+}
+
+/* soft vignette + slight top/bottom focus */
+.highlights-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:3;
+
+  /* 2-layer vignette: edge darkening + gentle vertical fade */
+  background:
+    radial-gradient(120% 100% at 50% 50%,
+      rgba(0,0,0,0) 55%,
+      rgba(0,0,0,0.28) 78%,
+      rgba(0,0,0,0.55) 100%),
+    linear-gradient(to bottom,
+      rgba(0,0,0,0.35) 0%,
+      rgba(0,0,0,0.00) 22%,
+      rgba(0,0,0,0.00) 78%,
+      rgba(0,0,0,0.40) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* keep your dots above the vignette */
+.highlights-frame .hi-dots{
+  position: absolute;
+  z-index: 4;
+}
+/* =========================
+   PREMIUM EDITORIAL GRID
+   ========================= */
+
+/* 1) Slightly increase gap between tiles */
+.page-album .grid{
+  gap: clamp(10px, 2.2vw, 18px);
+}
+
+/* 2) Soft rounding + subtle shadow */
+.page-album .photo-card{
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.02);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,0.45),
+    0 1px 0 rgba(255,255,255,0.04) inset;
+  transform: translateZ(0);
+  transition: transform .18s ease, box-shadow .18s ease, outline-color .18s ease;
+  outline: 1px solid rgba(255,255,255,0.06);
+  outline-offset: -1px;
+}
+
+/* ensure the image follows the radius */
+.page-album .photo-card img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* 3) Hover/press: scale + purple glow outline */
+.page-album .photo-card:hover,
+.page-album .photo-card:focus-within{
+  transform: scale(0.98);
+  outline-color: rgba(170, 76, 255, 0.55); /* NOCHARTE purple vibe */
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.55),
+    0 0 0 2px rgba(170, 76, 255, 0.22);
+}
+
+.page-album .photo-card:active{
+  transform: scale(0.975);
+}
+
+/* 4) Download icon only on hover/press (cleaner) */
+.page-album .download-btn{
+  opacity: 0;
+  transform: translateY(6px) scale(0.98);
+  transition: opacity .18s ease, transform .18s ease, background-color .18s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+/* show on hover / keyboard focus */
+.page-album .photo-card:hover .download-btn,
+.page-album .photo-card:focus-within .download-btn{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* extra “lux” hover on the button itself */
+.page-album .download-btn:hover{
+  background: rgba(0,0,0,0.45);
+  border-color: rgba(170, 76, 255, 0.35);
+  box-shadow: 0 0 0 2px rgba(170, 76, 255, 0.18);
+}
+
+/* Mobile: no hover, so show on press/tap (keeps it clean) */
+@media (hover: none){
+  .page-album .download-btn{ opacity: 0; }
+  .page-album .photo-card:active .download-btn,
+  .page-album .photo-card:focus-within .download-btn{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+/* Lightbox actions under image */
+.lb-actions{
+  display:flex;
+  justify-content:center;
+  padding: 20px
+}
+
+.lb-download{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  cursor:pointer;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+.lb-download:hover{
+  transform: translateY(-1px);
+  border-color: rgba(170, 76, 255, 0.35);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.55), 0 0 0 2px rgba(170, 76, 255, 0.18);
+}
+
+.lb-download:active{
+  transform: translateY(0) scale(0.98);
+}
+
+.lb-download span{
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  font-size: 14px;
+}
+/* Lightbox download placement */
+.lb-media{ position: relative; }
+
+.lb-actions{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -18px; /* make this bigger to go lower (ex: -26px) */
+  z-index: 6;
+}
