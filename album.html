@@ -95,12 +95,21 @@
       </div>
     </div>
 
-     <!-- HIGHLIGHTS (autoplay carousel) -->
-<section id="highlights" class="highlights" aria-label="Highlights" hidden>
-  <div class="highlights-frame">
-    <img id="hi-a" class="hi-img is-on" alt="Album highlight" decoding="async" />
-  <img id="hi-b" class="hi-img" alt="" decoding="async" />
-    <div class="hi-dots" id="hi-dots" aria-hidden="true"></div>
+  <!-- HERO CARD -->
+<section class="album-hero" aria-label="Album highlights">
+  <div class="album-hero__card">
+    <!-- HIGHLIGHTS (autoplay carousel) -->
+    <section id="highlights" class="highlights" aria-label="Highlights" hidden>
+      <div class="highlights-frame">
+        <img id="hi-a" class="hi-img is-on" alt="Album highlight" decoding="async" />
+        <img id="hi-b" class="hi-img" alt="" decoding="async" />
+        <div class="hi-dots" id="hi-dots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <div class="hero-meta">
+      <div class="hero-meta__label"><span>Highlights</span></div>
+    </div>
   </div>
 </section>
 
@@ -347,9 +356,17 @@ let hiRaw = (Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length)
   }
 
   const hi = normalizeHighlights(hiRaw).slice(0,4);
+  
   if (!hi.length) return;
 
   wrap.hidden = false;
+
+  document.body.style.setProperty('--album-bg-url', `url("${hi[0]}")`);
+
+
+  // Use the highlight image as the blurred page background
+document.documentElement.style.setProperty('--album-bg', `url("${hi[0]}")`);
+
 
   // premium "lines" indicators
   dotsEl.innerHTML = hi.map((_,i)=>`<span class="hi-dot" data-i="${i}"></span>`).join('');
@@ -374,6 +391,10 @@ let hiRaw = (Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length)
   function show(i){
     idx = (i + hi.length) % hi.length;
     const nextSrc = hi[idx];
+
+    document.body.style.setProperty('--album-bg-url', `url("${nextSrc}")`);
+    document.documentElement.style.setProperty('--album-bg', `url("${nextSrc}")`);
+
 
     const top = showingA ? a : b;
     const under = showingA ? b : a;
