@@ -266,6 +266,12 @@ async function render(){
 
   files = normalize(raw);
 
+  const isIOSSafari =
+  /iP(hone|od|ad)/.test(navigator.platform) ||
+  (/Mac/.test(navigator.platform) && navigator.maxTouchPoints > 1);
+
+const loadingAttr = isIOSSafari ? "eager" : "lazy";
+
   titleEl.textContent = slugToTitle(slug);
   metaEl.textContent  = `${files.length} photos`;
 
@@ -279,7 +285,7 @@ if (highlightsTried) {
   // Render grid
   gridEl.innerHTML = files.map((f,i) => `
     <figure class="photo-card" data-idx="${i}" role="button" tabindex="0" style="position:relative; cursor:zoom-in;">
-      <img loading="lazy" decoding="async" crossorigin="anonymous" src="${f.src}" alt="${escapeHtml(f.alt)}">
+      <img loading="${loadingAttr}" decoding="async" src="${f.src}" alt="${escapeHtml(f.alt)}">
       <button class="download-btn" onclick="event.stopPropagation(); downloadImage('${f.src}')" aria-label="Download photo">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
