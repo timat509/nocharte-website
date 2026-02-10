@@ -79,5 +79,14 @@ window.ALBUMS = [
     count: 78,
     cover: "assets/albums/cielo-30-01-26/cover.jpg",
     href: "album.html?slug=cielo-30-01-26"
-  }
+  },
+  {
+    slug: "do_not_disturb-07-02-26", 
+    title: "Do Not Disturb — 07 Feb 2026",
+    date: "2026-02-07",
+    category: "Clubs",
+    count: 110,
+    cover: "assets/albums/do_not_disturb-07-02-26/cover.jpg",
+    href: "album.html?slug=do_not_disturb-07-02-26"
+  },
 ];
