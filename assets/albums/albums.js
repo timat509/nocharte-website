@@ -85,7 +85,7 @@ window.ALBUMS = [
     title: "Do Not Disturb — 07 Feb 2026",
     date: "2026-02-07",
     category: "Clubs",
-    count: 110,
+    count: 101,
     cover: "assets/albums/do_not_disturb-07-02-26/cover.jpg",
     href: "album.html?slug=do_not_disturb-07-02-26"
   },
