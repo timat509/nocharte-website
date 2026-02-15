@@ -89,4 +89,13 @@ window.ALBUMS = [
     cover: "assets/albums/do_not_disturb-07-02-26/cover.jpg",
     href: "album.html?slug=do_not_disturb-07-02-26"
   },
+  {
+    slug: "lucia_opening-13-02-26", 
+    title: "Lucia Opening — 13 Feb 2026",
+    date: "2026-02-13",
+    category: "Clubs",
+    count: 174,
+    cover: "assets/albums/lucia_opening-13-02-26/cover.jpg",
+    href: "album.html?slug=lucia_opening-13-02-26"
+  },
 ];
