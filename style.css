@@ -77,13 +77,19 @@ html, body{
   width:auto;
 }
 
+.nav-toggle{
+  display:none;
+}
+
 /* Nav links */
 .links{
   display:flex;
   gap:44px;
   align-items:center;
   font:700 18px/1.2 Inter, system-ui, sans-serif;
+  margin-left:auto;
 }
+
 
 .links a{
   position:relative;
@@ -169,6 +175,39 @@ body.home .hero{
   overflow:hidden;
   contain:layout paint style;
   background:#000;
+}
+
+/* Hero background image */
+body.home .hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:
+    linear-gradient(rgba(0,0,0,.42), rgba(0,0,0,.58)),
+    url("assets/web/home-hero-bg.jpg") center center / cover no-repeat;
+  filter:saturate(105%) contrast(102%);
+  transform:scale(1.02);
+}
+
+/* Fade out to black before albums section */
+body.home .hero::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:32%;
+  z-index:1;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,.18) 18%,
+    rgba(0,0,0,.52) 45%,
+    rgba(0,0,0,.82) 72%,
+    #000 100%
+  );
+  pointer-events:none;
 }
 
 body.home .layer{
@@ -1238,3 +1277,4 @@ body.home .scrolldown span{
     margin-bottom: 8px;        /* was 40px */
   }
 }
+
