@@ -98,4 +98,13 @@ window.ALBUMS = [
     cover: "assets/albums/lucia_opening-13-02-26/cover.jpg",
     href: "album.html?slug=lucia_opening-13-02-26"
   },
+  {
+    slug: "Welit-12-03-26", 
+    title: "We Lit — 12 Mar 2026",
+    date: "2026-03-12",
+    category: "Clubs",
+    count: 100,
+    cover: "assets/albums/welit-12-03-26/cover.jpg",
+    href: "album.html?slug=welit-12-03-26"
+  },
 ];
