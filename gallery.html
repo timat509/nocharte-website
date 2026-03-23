@@ -139,13 +139,21 @@ const ALBUMS = [
   { slug:"suenos_tour-15-11-25", title:"SUEÑOS TOUR — 15 Nov 2025", date:"2025-11-15", count:67, cover:"/assets/albums/suenos_tour-15-11-25/cover.png" },
   { slug:"santa_blacklist-12-12-25", title:"SANTA'S BLACKLIST — 12 Dec 2025", date:"2025-12-12", count:147, cover:"/assets/albums/santa_blacklist-12-12-25/cover.png" },
   { slug:"80s_night-15-01-26", title:"80's Night Bull Dog Pub — 15 Jan 2026", date:"2026-01-15", count:65, cover:"/assets/albums/80s_night-15-01-26/cover.png" },
-  { slug: "pill_in_ibiza-23-01-26", title: "Pill In Ibiza — 23 Jan 2026",date: "2026-01-23",category: "Clubs",count: 172, cover:"assets/albums/pill_in_ibiza-23-01-26/cover.jpg", href:"album.html?slug=pill_in_ibiza-23-01-26"},
-  { slug: "cielo-30-01-26", title: "Cielo — 30 Jan 2026",date: "2026-01-30",category: "Clubs",count: 78,cover: "assets/albums/cielo-30-01-26/cover.jpg",href: "album.html?slug=cielo-30-01-26"},
-  { slug: "do_not_disturb-07-02-26", title: "Do Not Disturb — 07 Feb 2026",date: "2026-02-07", category: "Clubs", count: 101, cover: "assets/albums/do_not_disturb-07-02-26/cover.jpg", href: "album.html?slug=do_not_disturb-07-02-26"},
-  {slug: "lucia_opening-13-02-26", title: "Lucia Opening — 13 Feb 2026",date: "2026-02-13",category: "Clubs",count: 174,cover: "assets/albums/lucia_opening-13-02-26/cover.jpg",href: "album.html?slug=lucia_opening-13-02-26"},
-  {slug: "Welit-12-03-26",title: "We Lit — 12 Mar 2026",date: "2026-03-12", category: "Clubs", count: 100, cover: "assets/albums/welit-12-03-26/cover.jpg", href: "album.html?slug=welit-12-03-26"},
-  {slug: "biblioteca-21-03-26", title: "Biblioteca — 21 Mar 2026",date: "2026-03-21",category: "Clubs",count: 47,cover: "assets/albums/biblioteca-21-03-26/cover.jpg",href: "album.html?slug=biblioteca-21-03-26"},
+  { slug: "pill_in_ibiza-23-01-26", title: "Pill In Ibiza — 23 Jan 2026",date: "2026-01-23",category: "Clubs",count: 172, cover:"/assets/albums/pill_in_ibiza-23-01-26/cover.jpg", href:"album.html?slug=pill_in_ibiza-23-01-26"},
+  { slug: "cielo-30-01-26", title: "Cielo — 30 Jan 2026",date: "2026-01-30",category: "Clubs",count: 78,cover: "/assets/albums/cielo-30-01-26/cover.jpg",href: "album.html?slug=cielo-30-01-26"},
+  { slug: "do_not_disturb-07-02-26", title: "Do Not Disturb — 07 Feb 2026",date: "2026-02-07", category: "Clubs", count: 101, cover: "/assets/albums/do_not_disturb-07-02-26/cover.jpg", href: "album.html?slug=do_not_disturb-07-02-26"},
+  {slug: "lucia_opening-13-02-26", title: "Lucia Opening — 13 Feb 2026",date: "2026-02-13",category: "Clubs",count: 174,cover: "/assets/albums/lucia_opening-13-02-26/cover.jpg",href: "album.html?slug=lucia_opening-13-02-26"},
+  {slug: "Welit-12-03-26",title: "We Lit — 12 Mar 2026",date: "2026-03-12", category: "Clubs", count: 100, cover: "/assets/albums/welit-12-03-26/cover.jpg", href: "album.html?slug=welit-12-03-26"},
+  {slug: "biblioteca-21-03-26", title: "Biblioteca — 21 Mar 2026",date: "2026-03-21",category: "Clubs",count: 47,cover: "/assets/albums/biblioteca-21-03-26/cover.jpg",href: "album.html?slug=biblioteca-21-03-26"},
 ];
+
+function getCoverWebp(coverPath) {
+  return String(coverPath).replace(/\.(jpe?g|png)$/i, '.webp');
+}
+
+function getCoverFallback(coverPath) {
+  return coverPath;
+}
 
 const albums2025 = ALBUMS.filter(a => new Date(a.date).getFullYear() === 2025)
   .sort((a,b)=>new Date(b.date)-new Date(a.date));
@@ -162,7 +170,12 @@ function createCoverflow({ stage, albums, arrowL, arrowR }) {
 
   stage.innerHTML = albums.map(a => `
     <a class="card" href="/album.html?album=${a.slug}">
-      <img src="${a.cover}" loading="lazy">
+      <img
+  src="${getCoverWebp(a.cover)}"
+  loading="lazy"
+  decoding="async"
+  alt="${a.title}"
+  onerror="this.onerror=null; this.src='${getCoverFallback(a.cover)}';">
       <div class="meta">
         <h3>${a.title}</h3>
         <p>${a.date} • ${a.count} photos</p>

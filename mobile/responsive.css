@@ -117,7 +117,7 @@
   z-index:0;
   background:
     linear-gradient(rgba(0,0,0,.40), rgba(0,0,0,.68)),
-    url("/assets/web/resp-home-bg.jpeg") center 22% / cover no-repeat;
+    url("/assets/web/resp-home-bg.webp") center 22% / cover no-repeat;
   filter:saturate(102%) contrast(100%);
   transform:scale(1.02);
 }

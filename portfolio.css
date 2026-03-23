@@ -283,7 +283,7 @@
   z-index:0;
   background:
     linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.74)),
-    url("/assets/web/portfolio-bg.jpg") center center / cover no-repeat;
+    url("/assets/web/portfolio-bg.webp") center center / cover no-repeat;
   filter:saturate(105%) contrast(105%);
   pointer-events:none;
 }
