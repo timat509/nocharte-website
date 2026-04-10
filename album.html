@@ -491,6 +491,8 @@ document.documentElement.style.setProperty('--album-bg', `url("${hi[0]}")`);
     const lb = document.getElementById('lightbox');
     const lbA = document.getElementById('lb-img-a');
 const lbB = document.getElementById('lb-img-b');
+const lbBackdrop = lb.querySelector('.lb-backdrop');
+
 let showingA = true;
     const lbCap = document.getElementById('lb-cap');
     const btnPrev = document.getElementById('lb-prev');
@@ -558,6 +560,7 @@ btnClose.addEventListener('click', (e) => {
 
   addEvents();
 
+
   // IMPORTANT: always use show() so next/prev works
   show(current);
 
@@ -607,13 +610,16 @@ btnClose.addEventListener('click', (e) => {
       else if (e.key === 'ArrowLeft')  prev();
     }
 
-    function onBackdrop(e){
+ function onBackdrop(e){
+  if (!lb.classList.contains('open')) return;
+
   const clickedImage = e.target.closest('#lb-img-a, #lb-img-b');
+  const clickedActions = e.target.closest('#lb-actions');
   const clickedNavBtn = e.target.closest('.lb-btn');
   const clickedClose = e.target.closest('#lb-close');
-  const clickedActions = e.target.closest('#lb-actions');
 
-  if (clickedImage || clickedNavBtn || clickedClose || clickedActions) return;
+  if (clickedImage || clickedActions || clickedNavBtn || clickedClose) return;
+
   closeLightbox();
 }
 
@@ -644,6 +650,7 @@ function onTouchEnd(e){
 function addEvents(){
   document.addEventListener('keydown', onKey);
   lb.addEventListener('click', onBackdrop);
+  if (lbBackdrop) lbBackdrop.addEventListener('click', closeLightbox);
 
   // mobile swipe
   lb.addEventListener('touchstart', onTouchStart, { passive: true });
@@ -653,7 +660,7 @@ function addEvents(){
 function removeEvents(){
   document.removeEventListener('keydown', onKey);
   lb.removeEventListener('click', onBackdrop);
-
+if (lbBackdrop) lbBackdrop.removeEventListener('click', closeLightbox);
   // mobile swipe
   lb.removeEventListener('touchstart', onTouchStart);
   lb.removeEventListener('touchend', onTouchEnd);
