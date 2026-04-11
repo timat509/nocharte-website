@@ -116,4 +116,13 @@ window.ALBUMS = [
     cover: "assets/albums/biblioteca-21-03-26/cover.jpg",
     href: "album.html?slug=biblioteca-21-03-26"
   },
+  {
+    slug: "black_party-09-04-26", 
+    title: "Black Party — 09 Abr 2026",
+    date: "2026-04-09",
+    category: "Clubs",
+    count: 125,
+    cover: "assets/albums/black_party-09-04-26/cover.jpg",
+    href: "album.html?slug=black_party-09-04-26"
+  },
 ];
