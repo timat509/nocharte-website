@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Gallery | NOCHARTE</title>
+
+  <link rel="stylesheet" href="/style.css?v=2025-09-16-2" />
+  <link rel="stylesheet" href="/showroom.css" />
+  <link rel="stylesheet" href="/mobile/responsive.css?v=2025-09-16-2" />
+
+  <script src="/mobile/mobile.js?v=2025-09-16-2" defer></script>
+  <script src="/assets/portfolio/showroom.js" defer></script>
+</head>
+<body class="page-showroom">
+
+  <header class="nav" role="banner">
+    <a class="logo" href="/index.html" aria-label="NOCHARTE Home">
+      <img src="/assets/web/logohome.png" alt="NOCHARTE" />
+    </a>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="links" role="navigation" aria-label="Main">
+      <a href="/index.html" data-nav="home">Home</a>
+      <a href="/gallery.html" data-nav="gallery">Gallery</a>
+      <a href="/portfolio.html" data-nav="portfolio" aria-current="page">Portfolio</a>
+      <a href="/about.html" data-nav="about">About</a>
+      <a href="/contact.html" data-nav="contact">Contact</a>
+    </nav>
+  </header>
+
+  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+    <div class="nav-pop__overlay" data-close></div>
+
+    <button class="nav-pop__close" aria-label="Close menu" data-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+        <path d="M18 6L6 18M6 6l12 12"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="nav-pop__sheet" role="document">
+      <nav class="nav-pop__nav" aria-label="Main">
+        <a href="/index.html">Home</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/portfolio.html" aria-current="page">Portfolio</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="showroom-page">
+
+    <section class="showroom-hero">
+      <div class="showroom-hero__content">
+        <a href="/portfolio.html" class="showroom-back-link">← Back to Portfolio</a>
+        <p class="showroom-eyebrow" id="showroomEyebrow">NOCHARTE PORTFOLIO</p>
+        <h1 id="showroomTitle">Portfolio <span>Gallery</span></h1>
+        <p class="showroom-subtitle" id="showroomSubtitle">
+          Explore a curated visual selection.
+        </p>
+      </div>
+    </section>
+
+    <section class="showroom-intro">
+      <div class="showroom-intro__box">
+        <p id="showroomDescription">
+          This gallery highlights the visual style, atmosphere, and storytelling approach of this portfolio.
+        </p>
+      </div>
+    </section>
+
+    <section class="showroom-grid-section">
+      <div class="showroom-grid" id="showroomGrid">
+        <!-- Images injected by showroom.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <div class="showroom-lightbox" id="showroomLightbox" hidden>
+    <button class="showroom-lightbox__close" id="lightboxClose" aria-label="Close image">×</button>
+    <button class="showroom-lightbox__nav showroom-lightbox__nav--prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+
+    <div class="showroom-lightbox__media-wrap">
+      <img id="lightboxImage" src="" alt="" />
+    </div>
+
+    <button class="showroom-lightbox__nav showroom-lightbox__nav--next" id="lightboxNext" aria-label="Next image">›</button>
+  </div>
+
+</body>
+</html>
