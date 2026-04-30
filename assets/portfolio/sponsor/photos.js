@@ -1,5 +1,10 @@
-window.SHOWROOM_PHOTOS = [
-  "IMG_0001.webp",
-  "IMG_0002.webp",
-  "IMG_0003.webp"
+window.PORTFOLIO_SPONSOR = [
+  "1.webp",
+  "2.webp",
+  "3.webp",
+  "4.webp",
+  "5.webp",
+  "6.webp",
+  "7.webp",
+  "8.webp"
 ];
