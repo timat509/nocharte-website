@@ -14,6 +14,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NOCHARTE — Gallery</title>
 
+  <!-- Skip intro when coming from internal pages -->
+<script>
+  (function(){try{
+    localStorage.setItem('nocharte_intro_seen','1');
+    sessionStorage.setItem('nocharte_intro_played','1');
+  }catch(e){}})();
+</script>
+
   <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
@@ -29,6 +37,8 @@
 
 <body class="page-gallery">
 
+  
+
 <!-- HEADER -->
 <header class="nav" role="banner">
   <a class="logo" href="/index.html" aria-label="NOCHARTE Home">
@@ -42,7 +52,7 @@
 
   <!-- Desktop nav -->
   <nav class="links" role="navigation" aria-label="Main">
-    <a href="index.html" data-nav="home">Home</a>
+    <a href="/index.html?skip-intro=1" data-nav="home">Home</a>
       <a href="gallery.html" data-nav="gallery">Gallery</a>
       <a href="portfolio.html" data-nav="portfolio" >Portfolio</a>
       <a href="about.html" data-nav="about">About</a>
@@ -62,7 +72,7 @@
 
   <div class="nav-pop__sheet" role="document">
     <nav class="nav-pop__nav" aria-label="Main">
-      <a href="/index.html">Home</a>
+      <a href="/index.html?skip-intro=1">Home</a>
       <a href="/gallery.html" aria-current="page">Gallery</a>
       <a href="/portfolio.html">Portfolio</a>
       <a href="/about.html">About</a>
@@ -238,6 +248,40 @@ createCoverflow({
   arrowL: document.querySelector('[data-floor="2025"].left'),
   arrowR: document.querySelector('[data-floor="2025"].right')
 });
+</script>
+
+<!-- Mark current link + carry ?skip-intro=1 -->
+<script>
+  (function(){
+    try{
+      const here = (location.pathname.replace(/\/+$/, '') || '/gallery.html').toLowerCase();
+
+      const mark = scope => scope && scope.querySelectorAll('a[href]').forEach(a=>{
+        const p = new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/, '').toLowerCase();
+        if (p === here) a.setAttribute('aria-current','page');
+      });
+
+      mark(document.querySelector('.links'));
+      mark(document.getElementById('nav-pop'));
+    }catch(e){}
+
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target === '_blank') return;
+
+      const href = a.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+
+      const url = new URL(href, location.href);
+      if (url.origin !== location.origin) return;
+
+      e.preventDefault();
+      url.searchParams.set('skip-intro','1');
+      location.assign(url.href);
+    }, { capture: true });
+  })();
 </script>
 
 </body>

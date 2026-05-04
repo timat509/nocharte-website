@@ -570,3 +570,71 @@
   color: rgba(255,255,255,.58);
 }
 
+/* =========================================================
+   NOCHARTE — DEVICE POLISH LAYER
+   This overrides only spacing, sizes, and layout details.
+   Do not rebuild the whole website here.
+========================================================= */
+
+
+/* =========================================================
+   iPad / tablets
+   821px → 1180px
+========================================================= */
+@media (min-width: 821px) and (max-width: 1180px){
+
+  /* Example:
+  .hero-title{
+    font-size: clamp(5rem, 10vw, 8rem);
+  }
+  */
+
+}
+
+
+/* =========================================================
+   iPad Mini / small tablets
+   601px → 820px
+========================================================= */
+@media (min-width: 601px) and (max-width: 820px){
+
+  /* Example:
+  .hero-title{
+    font-size: clamp(4rem, 11vw, 7rem);
+  }
+  */
+
+}
+
+
+/* =========================================================
+   iPhone Max / Plus
+   431px → 480px
+========================================================= */
+@media (min-width: 431px) and (max-width: 480px){
+
+  /* Small polish for larger iPhones */
+
+}
+
+
+/* =========================================================
+   iPhone normal
+   391px → 430px
+========================================================= */
+@media (min-width: 391px) and (max-width: 430px){
+
+  /* Your current screenshot probably lives here */
+
+}
+
+
+/* =========================================================
+   iPhone Mini / SE
+   0px → 390px
+========================================================= */
+@media (max-width: 390px){
+
+  /* Smaller text, tighter gaps */
+
+}
