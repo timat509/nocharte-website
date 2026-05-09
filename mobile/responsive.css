@@ -1,5 +1,5 @@
 /* =========================================================
-   NOCHARTE — Mobile / Tablet (<= 820px)
+   NOCHARTE — Mobile / Tablet Responsive CSS
    Loaded AFTER style.css
 ========================================================= */
 
@@ -12,7 +12,8 @@
 }
 
 /* =========================================================
-   MOBILE / TABLET
+   MOBILE / TABLET BASE
+   Applies to phones + tablets <= 820px
 ========================================================= */
 @media (max-width: 820px){
 
@@ -25,11 +26,14 @@
     --mobile-gap: 0px;
   }
 
-  html, body{
+  html,
+  body{
     overflow-x:hidden;
   }
 
-  /* ---------- HEADER ---------- */
+  /* =========================================================
+     HEADER
+  ========================================================= */
 
   .nav{
     position: sticky;
@@ -62,7 +66,6 @@
     width: auto;
   }
 
-  /* Home mobile: show brand logo instead of Instagram icon */
   body.home .social-icon{
     position:absolute;
     left:max(14px, env(safe-area-inset-left));
@@ -83,7 +86,6 @@
     filter:drop-shadow(0 6px 18px rgba(0,0,0,.35));
   }
 
-  /* Other pages mobile social icon */
   .social-icon img{
     width:22px;
     height:22px;
@@ -96,7 +98,9 @@
     transform:scale(1.08);
   }
 
-  /* ---------- HOME HERO ---------- */
+  /* =========================================================
+     HOME HERO — MOBILE BASE
+  ========================================================= */
 
   body.home .hero{
     position: relative;
@@ -111,16 +115,16 @@
   }
 
   body.home .hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  background:
-    linear-gradient(rgba(0,0,0,.40), rgba(0,0,0,.68)),
-    url("/assets/web/resp-home-bg.webp") center 22% / cover no-repeat;
-  filter:saturate(102%) contrast(100%);
-  transform:scale(1.02);
-}
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:0;
+    background:
+      linear-gradient(rgba(0,0,0,.40), rgba(0,0,0,.68)),
+      url("/assets/web/resp-home-bg.webp") center 22% / cover no-repeat;
+    filter:saturate(102%) contrast(100%);
+    transform:scale(1.02);
+  }
 
   body.home .hero::after{
     content:"";
@@ -141,10 +145,7 @@
     pointer-events:none;
   }
 
-  body.home .logo-holder{
-    display:none !important;
-  }
-
+  body.home .logo-holder,
   body.home .hero-right{
     display:none !important;
   }
@@ -171,8 +172,8 @@
   }
 
   body.home .content::before{
-  content:none;
-}
+    content:none;
+  }
 
   body.home .content.lowered{
     padding-top:0;
@@ -223,13 +224,14 @@
     color:#fff;
     border:2px solid transparent;
     background:
-    linear-gradient(180deg, rgba(24,24,28,.96), rgba(10,10,12,.96)) padding-box,
-    linear-gradient(90deg,#d400ff,#7400ff) border-box;
-  box-shadow:
-    0 10px 24px rgba(116,0,255,.20),
-    0 0 22px rgba(212,0,255,.14);
-}
+      linear-gradient(180deg, rgba(24,24,28,.96), rgba(10,10,12,.96)) padding-box,
+      linear-gradient(90deg,#d400ff,#7400ff) border-box;
+    box-shadow:
+      0 10px 24px rgba(116,0,255,.20),
+      0 0 22px rgba(212,0,255,.14);
+  }
 
+  
   .cta-hero:active{
     transform:scale(.97);
   }
@@ -238,7 +240,9 @@
     display:none !important;
   }
 
-  /* ---------- MOBILE NAV / POPUP MENU ---------- */
+  /* =========================================================
+     MOBILE NAV POPUP
+  ========================================================= */
 
   .nav-toggle{
     -webkit-tap-highlight-color: transparent;
@@ -360,7 +364,6 @@
     width:78%;
     height:3px;
     border-radius:999px;
-    font-size: clamp(52px, 16vw, 82px);
     background:linear-gradient(90deg,#d400ff,#7400ff);
     box-shadow:0 0 12px rgba(116,0,255,.35);
   }
@@ -369,7 +372,9 @@
     display:none;
   }
 
-  /* ---------- SUBPAGES OFFSET ---------- */
+  /* =========================================================
+     SUBPAGE OFFSET
+  ========================================================= */
 
   .page-gallery .wrap,
   .page-about .wrap,
@@ -383,7 +388,10 @@
     margin-top:0;
   }
 
-  /* intro page video / skip button safe area */
+  /* =========================================================
+     INTRO PAGE VIDEO
+  ========================================================= */
+
   .hero-video{
     object-fit:cover !important;
     object-position:center;
@@ -399,7 +407,9 @@
     bottom:max(14px, calc(env(safe-area-inset-bottom) + 10px));
   }
 
-  /* ---------- ALBUMS STRIP ---------- */
+  /* =========================================================
+     HOME ALBUMS STRIP — MOBILE BASE
+  ========================================================= */
 
   .albums-strip{
     width:100%;
@@ -407,6 +417,10 @@
     padding:0 14px;
     position:relative;
     z-index:3;
+  }
+
+  .albums-strip__header{
+    display:none;
   }
 
   .albums-strip__inner{
@@ -433,7 +447,9 @@
     object-fit:cover;
   }
 
-  /* ---------- VISION / MISSION ---------- */
+  /* =========================================================
+     VISION / MISSION — MOBILE BASE
+  ========================================================= */
 
   .vm-section{
     padding: clamp(32px, 8vw, 48px) 0;
@@ -509,7 +525,104 @@
     display:none;
   }
 
-  /* ---------- ALBUMS LOOP STRIP ---------- */
+  /* =========================================================
+     PARTNERS — MOBILE BASE
+  ========================================================= */
+
+  body.home .partners-heading{
+    text-align:center;
+    margin-top: 0;
+    padding: 20px 20px 18px;
+  }
+
+  body.home .partners-heading__eyebrow{
+    margin:0 0 8px;
+    font-size: 12px;
+    letter-spacing: .22em;
+    opacity:.65;
+  }
+
+  body.home .partners-heading__title{
+    margin:0;
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+  body.home .partners-strip{
+    margin-top:0;
+    padding-top:0;
+  }
+
+  /* =========================================================
+     FOOTER — MOBILE CLEAN / COMPACT
+  ========================================================= */
+
+  .site-footer{
+    margin-top: 0;
+    padding: 26px 22px calc(26px + env(safe-area-inset-bottom));
+    text-align: center;
+  }
+
+  .site-footer__inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .site-footer__brand{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .site-footer__logo{
+    width: 42px;
+    height: auto;
+    margin: 0;
+  }
+
+  .site-footer__tagline{
+    max-width: 26ch;
+    margin: 0 auto;
+    font-size: .9rem;
+    line-height: 1.45;
+    color: rgba(255,255,255,.72);
+  }
+
+  .site-footer__nav{
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    margin-top: 2px;
+  }
+
+  .site-footer__nav a{
+    font-size: .76rem;
+    letter-spacing: .18em;
+    color: rgba(255,255,255,.68);
+  }
+
+  .site-footer__social{
+    display: none;
+  }
+
+  .site-footer__meta{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0;
+  }
+
+  .site-footer__copy{
+    margin:0;
+    font-size:.8rem;
+    color:rgba(255,255,255,.55);
+  }
+
+  /* =========================================================
+     ALBUMS LOOP STRIP
+  ========================================================= */
 
   .albums-loop{
     padding: 3rem 0;
@@ -547,47 +660,22 @@
   }
 }
 
-/* ---------- Extra-narrow phones tweaks ---------- */
-@media (max-width: 380px){
-  body.home .headline .hword{
-    font-size: clamp(36px, 13.4vw, 66px);
-  }
-
-  body.home .headline .gradient{
-    font-size: clamp(52px, 17vw, 90px);
-  }
-
-  body.home .social-icon .icon-mobile-home{
-    width:40px;
-  }
-}
-
-.mobile-strip-label{
-  margin: 0 0 10px 6px;
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.58);
-}
-
 /* =========================================================
-   NOCHARTE — DEVICE POLISH LAYER
-   This overrides only spacing, sizes, and layout details.
-   Do not rebuild the whole website here.
+   DEVICE POLISH LAYER
+   Specific device-family corrections only.
 ========================================================= */
 
 
 /* =========================================================
-   iPad / tablets
+   iPad / large tablets
    821px → 1180px
 ========================================================= */
 @media (min-width: 821px) and (max-width: 1180px){
 
-  /* Example:
-  .hero-title{
-    font-size: clamp(5rem, 10vw, 8rem);
+  body.home .hero{
+    min-height: calc(88svh - var(--mobile-header-h));
+    height: calc(88svh - var(--mobile-header-h));
   }
-  */
 
 }
 
@@ -598,11 +686,18 @@
 ========================================================= */
 @media (min-width: 601px) and (max-width: 820px){
 
-  /* Example:
-  .hero-title{
-    font-size: clamp(4rem, 11vw, 7rem);
+  body.home .hero{
+    min-height: calc(86svh - var(--mobile-header-h));
+    height: calc(86svh - var(--mobile-header-h));
   }
-  */
+
+  body.home .content{
+    margin-top: 120px;
+  }
+
+  .albums-strip{
+    margin: -120px auto 44px;
+  }
 
 }
 
@@ -613,28 +708,497 @@
 ========================================================= */
 @media (min-width: 431px) and (max-width: 480px){
 
-  /* Small polish for larger iPhones */
+  body.home .hero{
+    min-height: calc(92svh - var(--mobile-header-h));
+    height: calc(92svh - var(--mobile-header-h));
+    padding: 8px 22px 24px;
+  }
+
+  body.home .content{
+    margin-top: 38px;
+  }
+
+  body.home .headline .hword{
+    font-size: clamp(90px, 14.5vw, 78px);
+    line-height: .88;
+  }
+
+  body.home .headline .gradient{
+    font-size: clamp(78px, 18.4vw, 104px);
+    line-height: .86;
+  }
+
+  body.home .kicker{
+    margin-top: 10px;
+    font-size: .84rem;
+  }
+
+  body.home .cta-hero{
+    width: 86%;
+    max-width: 370px;
+    align-self: center;
+    margin-top: 14px;
+    padding: 16px 24px;
+    font-size: .98rem;
+    position: relative;
+    z-index: 8;
+  }
+
+  .albums-strip{
+    margin: -140px auto 40px;
+    padding: 0 16px;
+    z-index: 6;
+  }
+
+  .albums-strip__item{
+    flex-basis: 60%;
+  }
+
+  .albums-strip__item img{
+    height: 176px;
+  }
+
+  body.home .vm-section{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row--mission,
+  body.home .vm-row--mission .vm-media,
+  body.home .vm-row--mission .vm-art{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .partners-heading{
+    margin-top: 22px !important;
+    padding-top: 0 !important;
+    padding-bottom: 18px !important;
+  }
 
 }
 
 
 /* =========================================================
-   iPhone normal
+   iPhone Normal / Pro
    391px → 430px
 ========================================================= */
 @media (min-width: 391px) and (max-width: 430px){
 
-  /* Your current screenshot probably lives here */
+  body.home .hero{
+    min-height: calc(92svh - var(--mobile-header-h));
+    height: calc(92svh - var(--mobile-header-h));
+    padding: 8px 20px 22px;
+  }
+
+  body.home .content{
+    margin-top: 25px;
+  }
+
+  body.home .headline .hword{
+    font-size: clamp(75px, 14.2vw, 72px);
+    line-height: .88;
+  }
+
+  body.home .headline .gradient{
+    font-size: clamp(72px, 18.2vw, 94px);
+    line-height: .86;
+  }
+
+  body.home .kicker{
+    margin-top: 10px;
+    font-size: .82rem;
+  }
+
+  body.home .cta-hero{
+    width: 88%;
+    max-width: 340px;
+    align-self: center;
+    margin-top: 12px;
+    padding: 15px 22px;
+    font-size: .96rem;
+    position: relative;
+    z-index: 8;
+  }
+
+  .albums-strip{
+    margin: -140px auto 40px;
+    padding: 0 14px;
+    z-index: 6;
+  }
+
+  .albums-strip__item{
+    flex-basis: 62%;
+  }
+
+  .albums-strip__item img{
+    height: 168px;
+  }
+
+  body.home .vm-section{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-section .container{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row--mission{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row--mission .vm-media,
+  body.home .vm-row--mission .vm-art{
+    margin-bottom: 0 !important;
+  }
+
+  body.home .partners-heading{
+    margin-top: 20px !important;
+    padding-top: 0 !important;
+    padding-bottom: 18px !important;
+  }
+
+  body.home .partners-strip{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
 
 }
 
 
 /* =========================================================
-   iPhone Mini / SE
-   0px → 390px
+   iPhone Mini / Compact Normal
+   376px → 390px
 ========================================================= */
-@media (max-width: 390px){
+@media (min-width: 376px) and (max-width: 390px){
 
-  /* Smaller text, tighter gaps */
+  body.home .hero{
+    min-height: calc(92svh - var(--mobile-header-h));
+    height: calc(92svh - var(--mobile-header-h));
+    padding: 8px 17px 20px;
+  }
+
+  body.home .content{
+    margin-top: 28px;
+  }
+
+  body.home .headline .hword{
+    font-size: clamp(54px, 14vw, 66px);
+    line-height: .88;
+  }
+
+  body.home .headline .gradient{
+    font-size: clamp(66px, 18vw, 86px);
+    line-height: .86;
+  }
+
+  body.home .kicker{
+    margin-top: 8px;
+    font-size: .78rem;
+    letter-spacing: .08em;
+  }
+
+  body.home .cta-hero{
+    width: 88%;
+    max-width: 320px;
+    align-self: center;
+    margin-top: 10px;
+    padding: 14px 20px;
+    font-size: .92rem;
+    position: relative;
+    z-index: 8;
+  }
+
+  .albums-strip{
+    margin: -132px auto 36px;
+    padding: 0 12px;
+    z-index: 6;
+  }
+
+  .albums-strip__inner{
+    gap: 10px;
+  }
+
+  .albums-strip__item{
+    flex-basis: 64%;
+    border-radius: 14px;
+  }
+
+  .albums-strip__item img{
+    height: 156px;
+  }
+
+  body.home .vm-section{
+    padding-top: 28px;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-section .container{
+    width: min(680px, 90%);
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row{
+    padding-block: 18px;
+  }
+
+  body.home .vm-title{
+    font-size: clamp(21px, 5.8vw, 25px);
+  }
+
+  body.home .vm-text{
+    font-size: .9rem;
+    line-height: 1.55;
+  }
+
+  body.home .vm-row--mission{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row--mission .vm-media,
+  body.home .vm-row--mission .vm-art{
+    margin-bottom: 0 !important;
+  }
+
+  body.home .partners-heading{
+    margin-top: 18px !important;
+    padding-top: 0 !important;
+    padding-bottom: 14px !important;
+  }
+
+  body.home .partners-heading__eyebrow{
+    font-size: 11px;
+    letter-spacing: .2em;
+  }
+
+  body.home .partners-heading__title{
+    font-size: 21px;
+  }
+
+  body.home .partners-strip{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .site-footer{
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .site-footer__inner{
+    gap: 13px;
+  }
+
+  .site-footer__logo{
+    width: 38px;
+  }
+
+  .site-footer__tagline{
+    max-width: 24ch;
+    font-size: .84rem;
+    line-height: 1.45;
+  }
+
+  .site-footer__nav{
+    gap: 20px;
+  }
+
+  .site-footer__nav a{
+    font-size: .72rem;
+    letter-spacing: .17em;
+  }
+
+  .site-footer__copy{
+    font-size: .76rem;
+  }
+
+  body.home .social-icon .icon-mobile-home{
+    width: 40px;
+  }
+
+}
+
+
+/* =========================================================
+   iPhone SE / Very Small Phones
+   0px → 375px
+========================================================= */
+@media (max-width: 375px){
+
+  :root{
+    --mobile-header-h: 60px;
+    --mobile-pad-x: 14px;
+    --logo-h: 40px;
+  }
+
+  body.home .hero{
+    min-height: calc(91svh - var(--mobile-header-h));
+    height: calc(91svh - var(--mobile-header-h));
+    padding: 8px 15px 18px;
+  }
+
+  body.home .content{
+    margin-top: 24px;
+  }
+
+  body.home .headline .hword{
+    font-size: clamp(48px, 13.8vw, 60px);
+    line-height: .88;
+  }
+
+  body.home .headline .gradient{
+    font-size: clamp(58px, 17.8vw, 76px);
+    line-height: .86;
+  }
+
+  body.home .kicker{
+    margin-top: 8px;
+    font-size: .74rem;
+    letter-spacing: .08em;
+  }
+
+  body.home .cta-hero{
+    width: 88%;
+    max-width: 300px;
+    align-self: center;
+    margin-top: 9px;
+    padding: 13px 18px;
+    font-size: .88rem;
+    position: relative;
+    z-index: 8;
+  }
+
+  .albums-strip{
+    margin: -124px auto 34px;
+    padding: 0 11px;
+    z-index: 6;
+  }
+
+  .albums-strip__inner{
+    gap: 10px;
+  }
+
+  .albums-strip__item{
+    flex-basis: 66%;
+    border-radius: 14px;
+  }
+
+  .albums-strip__item img{
+    height: 148px;
+  }
+
+  body.home .vm-section{
+    padding-top: 26px;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-section .container{
+    width: min(680px, 90%);
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row{
+    padding-block: 16px;
+  }
+
+  body.home .vm-title{
+    font-size: clamp(20px, 5.8vw, 24px);
+  }
+
+  body.home .vm-text{
+    font-size: .86rem;
+    line-height: 1.52;
+  }
+
+  body.home .vm-row--mission{
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.home .vm-row--mission .vm-media,
+  body.home .vm-row--mission .vm-art{
+    margin-bottom: 0 !important;
+  }
+
+  body.home .partners-heading{
+    margin-top: 16px !important;
+    padding-top: 0 !important;
+    padding-bottom: 14px !important;
+  }
+
+  body.home .partners-heading__eyebrow{
+    font-size: 10px;
+    letter-spacing: .2em;
+  }
+
+  body.home .partners-heading__title{
+    font-size: 20px;
+  }
+
+  body.home .partners-strip{
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .site-footer{
+    padding: 22px 18px calc(22px + env(safe-area-inset-bottom));
+  }
+
+  .site-footer__inner{
+    gap: 12px;
+  }
+
+  .site-footer__logo{
+    width: 36px;
+  }
+
+  .site-footer__tagline{
+    max-width: 24ch;
+    font-size: .82rem;
+    line-height: 1.42;
+  }
+
+  .site-footer__nav{
+    gap: 18px;
+  }
+
+  .site-footer__nav a{
+    font-size: .7rem;
+    letter-spacing: .16em;
+  }
+
+  .site-footer__copy{
+    font-size: .74rem;
+  }
+
+  body.home .social-icon .icon-mobile-home{
+    width: 38px;
+  }
+
+}
+
+/* =========================================================
+   GALLERY — iPhone Max / Plus polish
+   431px → 480px
+========================================================= */
+@media (min-width: 431px) and (max-width: 480px){
+
+  body.page-gallery .year-section,
+  body.page-gallery .gallery-year,
+  body.page-gallery .albums-year{
+    margin-bottom: 18px !important;
+  }
+
+  body.page-gallery .year-title,
+  body.page-gallery h2{
+    margin-bottom: 5px !important;
+  }
 
 }
