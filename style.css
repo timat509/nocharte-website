@@ -569,6 +569,15 @@ body.home .scrolldown span{
   .albums-strip__item img{
     height:210px;
   }
+  .albums-strip__item img{
+  object-fit: cover;
+  object-position: center 35%;
+}
+/* Portrait covers inside homepage strip */
+.albums-strip__item.is-portrait img{
+  object-fit: cover;
+  object-position: center 30%;
+}
 }
 
 /* =========================================================
@@ -1278,3 +1287,101 @@ body.home .scrolldown span{
   }
 }
 
+/* =========================================================
+   VISION — Two Portrait Images
+   Overrides the old single landscape image
+========================================================= */
+
+/* Desktop */
+@media (min-width: 1024px){
+
+  #about .vm-row--vision .vm-media--split{
+    max-width: 520px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  #about .vm-row--vision .vm-media--split img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 24px;
+    display: block;
+    box-shadow:
+      0 16px 42px rgba(0, 0, 0, 0.9),
+      0 0 0 1px rgba(255, 255, 255, 0.06);
+    transform: scale(1);
+    transition: transform 0.4s ease;
+  }
+
+  #about .vm-row--vision:hover .vm-media--split img{
+    transform: scale(1.035);
+  }
+
+  #about .vm-row--vision .vm-media--split img:nth-child(2){
+    margin-top: 28px;
+  }
+}
+
+/* Mobile / tablet */
+@media (max-width: 820px){
+
+  #about .vm-row--vision .vm-media--split{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  #about .vm-row--vision .vm-media--split img{
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    box-shadow: 0 12px 30px rgba(0,0,0,.75);
+  }
+
+  #about .vm-row--vision .vm-media--split img:nth-child(2){
+    margin-top: 18px;
+  }
+}
+
+/* Very small phones: keep both images side by side but tighter */
+@media (max-width: 375px){
+
+  #about .vm-row--vision .vm-media--split{
+    gap: 9px;
+  }
+
+  #about .vm-row--vision .vm-media--split img{
+    border-radius: 15px;
+  }
+
+  #about .vm-row--vision .vm-media--split img:nth-child(2){
+    margin-top: 14px;
+  }
+}
+
+/* =========================================================
+   VISION — Align portrait images on same level
+========================================================= */
+
+#about .vm-row--vision .vm-media--split{
+  align-items: start;
+}
+
+#about .vm-row--vision .vm-media--split img:nth-child(2){
+  margin-top: 0 !important;
+}
+/* =========================================================
+   HOME ALBUM STRIP — Better image cropping
+========================================================= */
+
+.albums-strip__item img{
+  object-fit: cover;
+  object-position: center 35%;
+}
