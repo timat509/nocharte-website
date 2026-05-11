@@ -47,11 +47,20 @@
 }
 
 .page-about .who{
-  background: linear-gradient(180deg, var(--mag), var(--vio));
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent; color: transparent;
-  filter: drop-shadow(0 18px 40px rgba(116,0,255,.30));
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #f3e5ff 34%,
+    #c985ff 62%,
+    #7d00ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 18px 48px rgba(125,0,255,.30));
 }
+
 .page-about .we,
 .page-about .are,
 .page-about .qmark{ color: #fff; }

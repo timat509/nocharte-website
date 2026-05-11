@@ -1,6 +1,5 @@
 /* =========================================================
    PORTFOLIO — Clean uniform portfolio layout
-   Updated tighter spacing + alternating titles
 ========================================================= */
 
 .page-portfolio{
@@ -26,7 +25,7 @@
 
 @media (min-width:821px){
   .page-portfolio{
-    --top-gap: calc(var(--nav-h,80px) + 44px);
+    --top-gap: calc(var(--nav-h,80px) - 60px);
   }
 }
 
@@ -52,9 +51,9 @@
   inset:0;
   z-index:0;
   background:
-    radial-gradient(45% 35% at 18% 18%, rgba(171, 77, 255, 0.14) 0%, transparent 70%),
-    radial-gradient(40% 30% at 82% 20%, rgba(99, 50, 255, 0.12) 0%, transparent 70%),
-    radial-gradient(40% 32% at 50% 75%, rgba(255, 90, 160, 0.06) 0%, transparent 72%);
+    radial-gradient(45% 35% at 18% 18%, rgba(171,77,255,.14) 0%, transparent 70%),
+    radial-gradient(40% 30% at 82% 20%, rgba(99,50,255,.12) 0%, transparent 70%),
+    radial-gradient(40% 32% at 50% 75%, rgba(255,90,160,.06) 0%, transparent 72%);
   pointer-events:none;
 }
 
@@ -78,7 +77,7 @@
 }
 
 .portfolio-hero__inner{
-  max-width:980px;
+  max-width:1120px;
 }
 
 .portfolio-kicker{
@@ -89,19 +88,68 @@
   text-transform:uppercase;
 }
 
-.portfolio-hero h1{
+/* =========================================================
+   HERO TITLE — FROM SOUND / TO IMAGE
+========================================================= */
+
+.portfolio-hero .portfolio-title{
+  display:flex;
+  flex-direction:column;
+  gap:.02em;
   margin:0;
-  font-size:clamp(3.5rem, 9vw, 8rem);
-  line-height:.92;
+  line-height:.84;
   font-weight:900;
-  letter-spacing:-.055em;
+  letter-spacing:-.06em;
+  text-transform:uppercase;
 }
 
-.portfolio-hero h1 span{
-  background:linear-gradient(90deg, #ffffff 0%, #ddb4ff 48%, #8d43ff 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+/* Both title lines */
+.portfolio-hero .portfolio-title__line{
+  display:flex;
+  align-items:baseline;
+  gap:.18em;
+  white-space:nowrap;
+  background:none !important;
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  filter:none !important;
+}
+
+/* FROM SOUND */
+.portfolio-hero .portfolio-title__line--top{
+  font-size:clamp(4rem, 8.8vw, 9.2rem);
+}
+
+/* TO IMAGE */
+.portfolio-hero .portfolio-title__line--bottom{
+  font-size:clamp(4.5rem, 10vw, 11rem);
+}
+
+/* Kill inherited gradient on all normal spans */
+.portfolio-hero .portfolio-title span:not(.portfolio-title__image){
+  background:none !important;
+  background-image:none !important;
+  -webkit-background-clip:border-box !important;
+  background-clip:border-box !important;
+  color:#fff !important;
+  -webkit-text-fill-color:#fff !important;
+  filter:none !important;
+}
+
+/* Only IMAGE gets the premium gradient */
+.portfolio-hero .portfolio-title__image{
+  background:linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #f3e5ff 30%,
+    #c985ff 58%,
+    #7d00ff 100%
+  ) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  color:transparent !important;
+  -webkit-text-fill-color:transparent !important;
+  filter:drop-shadow(0 18px 48px rgba(125,0,255,.30)) !important;
 }
 
 .portfolio-hero__sub{
@@ -126,17 +174,17 @@
   min-height:48px;
   padding:0 18px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,.10);
   color:#f5f5f7;
   text-decoration:none;
-  background:rgba(255,255,255,0.03);
+  background:rgba(255,255,255,.03);
   transition:transform .25s ease, border-color .25s ease, background .25s ease;
 }
 
 .portfolio-anchor-nav a:hover{
   transform:translateY(-2px);
-  border-color:rgba(186, 110, 255, 0.35);
-  background:rgba(168, 83, 255, 0.08);
+  border-color:rgba(186,110,255,.35);
+  background:rgba(168,83,255,.08);
 }
 
 .portfolio-hero__quote{
@@ -144,14 +192,14 @@
   justify-self:end;
   max-width:320px;
   padding:26px 24px;
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,.08);
   border-radius:28px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+  background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
   backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);
   box-shadow:
-    0 18px 40px rgba(0,0,0,0.20),
-    inset 0 1px 0 rgba(255,255,255,0.04);
+    0 18px 40px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .portfolio-hero__quote p{
@@ -167,7 +215,7 @@
 
 .portfolio-chapter{
   position:relative;
-  padding:56px 8vw 34px;
+  padding:12px 8vw 34px;
 }
 
 .chapter-side{
@@ -188,7 +236,7 @@
   display:inline-block;
   writing-mode:vertical-rl;
   transform:rotate(180deg);
-  color:rgba(255,255,255,0.22);
+  color:rgba(255,255,255,.22);
   font-size:.74rem;
   letter-spacing:.26em;
   text-transform:uppercase;
@@ -223,10 +271,10 @@
 
 .chapter-text h2{
   margin:0;
-  font-size:clamp(3rem, 6vw, 6.2rem);
-  line-height:.92;
+  font-size:clamp(2.6rem, 5vw, 5.1rem);
+  line-height:.94;
   font-weight:800;
-  letter-spacing:-.05em;
+  letter-spacing:-.045em;
   max-width:none;
 }
 
@@ -259,11 +307,11 @@
   aspect-ratio:4 / 5;
   overflow:hidden;
   border-radius:20px;
-  border:1px solid rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,.08);
   background:#09090d;
   box-shadow:
-    0 14px 34px rgba(0,0,0,0.22),
-    inset 0 1px 0 rgba(255,255,255,0.03);
+    0 14px 34px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.03);
   transition:
     transform .35s ease,
     border-color .35s ease,
@@ -275,8 +323,8 @@
   position:absolute;
   inset:0;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)),
-    radial-gradient(circle at 84% 14%, rgba(164, 75, 255, 0.12), transparent 26%);
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0)),
+    radial-gradient(circle at 84% 14%, rgba(164,75,255,.12), transparent 26%);
   opacity:0;
   transition:opacity .35s ease;
   pointer-events:none;
@@ -285,10 +333,10 @@
 
 .chapter-card:hover{
   transform:translateY(-6px) scale(1.01);
-  border-color:rgba(193, 126, 255, 0.22);
+  border-color:rgba(193,126,255,.22);
   box-shadow:
-    0 18px 44px rgba(0,0,0,0.28),
-    0 0 0 1px rgba(164, 75, 255, 0.06);
+    0 18px 44px rgba(0,0,0,.28),
+    0 0 0 1px rgba(164,75,255,.06);
 }
 
 .chapter-card:hover::before{
@@ -364,16 +412,16 @@
   text-decoration:none;
   color:#fff;
   font-weight:700;
-  border:1px solid rgba(186, 110, 255, 0.30);
-  background:rgba(168, 83, 255, 0.08);
-  box-shadow:0 0 0 1px rgba(255,255,255,0.03) inset;
+  border:1px solid rgba(186,110,255,.30);
+  background:rgba(168,83,255,.08);
+  box-shadow:0 0 0 1px rgba(255,255,255,.03) inset;
   transition:transform .28s ease, border-color .28s ease, background .28s ease;
 }
 
 .portfolio-cta__button:hover{
   transform:translateY(-2px);
-  border-color:rgba(186, 110, 255, 0.48);
-  background:rgba(168, 83, 255, 0.14);
+  border-color:rgba(186,110,255,.48);
+  background:rgba(168,83,255,.14);
 }
 
 /* =========================================================
@@ -390,6 +438,7 @@
 ========================================================= */
 
 @media (max-width:768px){
+
   .portfolio-hero{
     min-height:auto;
     grid-template-columns:1fr;
@@ -416,10 +465,20 @@
     line-height:1.35;
   }
 
-  .portfolio-hero h1{
-    font-size:clamp(3.3rem, 15vw, 5.2rem);
-    line-height:.9;
-    letter-spacing:-.05em;
+  .portfolio-hero .portfolio-title{
+    gap:.05em;
+  }
+
+  .portfolio-hero .portfolio-title__line{
+    gap:.14em;
+  }
+
+  .portfolio-hero .portfolio-title__line--top{
+    font-size:clamp(2.8rem, 13vw, 4.8rem);
+  }
+
+  .portfolio-hero .portfolio-title__line--bottom{
+    font-size:clamp(3rem, 14vw, 5.2rem);
   }
 
   .portfolio-hero__sub{
@@ -477,36 +536,12 @@
   }
 
   .chapter-text h2{
-    max-width:none;
-    font-size:clamp(2.2rem, 9vw, 3.8rem);
-    line-height:.94;
-    text-align:center;
-  }
-
-  .chapter-grid{
-    gap:10px;
-  }
-
-  .chapter-card{
-    border-radius:14px;
-  }
-
-  .portfolio-break{
-    padding-top:14px;
-    padding-bottom:14px;
-  }
-
-  .portfolio-break p{
-    font-size:clamp(1rem, 6vw, 1.5rem);
-  }
-
-  .portfolio-cta{
-    padding-top:52px;
-    padding-bottom:60px;
-  }
+  max-width:none;
+  font-size:clamp(2rem, 8vw, 3.2rem);
+  line-height:.96;
+  text-align:center;
 }
-/* mobile only: ignore desktop row grouping */
-@media (max-width:768px){
+
   .chapter-grid{
     display:grid;
     grid-template-columns:repeat(3, minmax(0, 1fr));
@@ -524,4 +559,56 @@
     aspect-ratio:4 / 5;
     border-radius:14px;
   }
+
+  .portfolio-break{
+    padding-top:14px;
+    padding-bottom:14px;
+  }
+
+  .portfolio-break p{
+    font-size:clamp(1rem, 6vw, 1.5rem);
+  }
+
+  .portfolio-cta{
+    padding-top:52px;
+    padding-bottom:60px;
+  }
+}
+/* =========================================================
+   PORTFOLIO HERO — Lift hero title closer to header
+========================================================= */
+
+@media (min-width:821px){
+
+  .portfolio-hero{
+    align-items:start !important;
+    min-height:68vh !important;
+    padding-top: calc(var(--nav-h,80px) + 10px) !important;
+  }
+
+  .portfolio-hero__inner{
+    transform: translateY(5px);
+  }
+}
+
+/* =========================================================
+   PORTFOLIO — Tighten hero to first chapter gap
+========================================================= */
+
+@media (min-width:821px){
+
+  .portfolio-hero{
+    min-height: 58vh !important;
+    padding-bottom: 0 !important;
+  }
+
+  .portfolio-chapter{
+    padding-top: 0 !important;
+    margin-top: -20px !important;
+  }
+
+  .chapter-text{
+    margin-bottom: 24px;
+  }
+
 }

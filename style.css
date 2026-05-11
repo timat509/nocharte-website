@@ -290,12 +290,18 @@ body.home .headline .hword{
 }
 
 body.home .headline .gradient{
-  background:linear-gradient(180deg,#d400ff,#7400ff);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  color:transparent;
-  filter:drop-shadow(0 18px 40px rgba(116,0,255,.30));
+  background: linear-gradient(
+    90deg,
+    #d400ff 0%,
+    #b600ff 35%,
+    #8a00ff 70%,
+    #ffffff 115%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 18px 48px rgba(125,0,255,.35));
 }
 
 body.home .ind-1{

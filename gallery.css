@@ -229,3 +229,288 @@
 .page-gallery .floor .card:first-child{
   box-shadow: 0 22px 40px rgba(212,3,224,.50);
 }
+
+
+/* =========================================================
+   GALLERY HERO — Premium title
+========================================================= */
+
+.page-gallery .gallery-hero{
+  padding-top: clamp(20px, 4vw, 46px);
+  margin-bottom: clamp(28px, 4vw, 56px);
+}
+
+.page-gallery .gallery-hero__eyebrow{
+  margin: 0 0 10px;
+  font-size: clamp(11px, .9vw, 14px);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.58);
+}
+
+.page-gallery .gallery-hero__title{
+  margin: 0;
+  font-size: clamp(76px, 15vw, 175px);
+  line-height: .78;
+  font-weight: 900;
+  letter-spacing: -.06em;
+  text-transform: uppercase;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #f3e5ff 34%,
+    #c985ff 62%,
+    #7d00ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  filter: drop-shadow(0 18px 48px rgba(125,0,255,.28));
+}
+
+.page-gallery .gallery-hero__subtitle{
+  max-width: 620px;
+  margin: clamp(14px, 1.6vw, 24px) 0 0;
+  font-size: clamp(16px, 1.5vw, 24px);
+  line-height: 1.35;
+  color: rgba(255,255,255,.76);
+}
+
+/* Hide old hero-head styling if still present somewhere */
+.page-gallery .hero-head{
+  display:none;
+}
+
+/* Year titles after the new hero */
+.page-gallery .year-title{
+  margin: 0 0 12px;
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* Pull the first carousel closer to the year title */
+.page-gallery .year-title + .coverflow{
+  margin-top: 20px;
+}
+
+/* =========================================================
+   GALLERY HERO — Mobile
+========================================================= */
+
+@media (max-width: 820px){
+
+  .page-gallery .gallery-hero{
+    padding-top: 22px;
+    margin-bottom: 34px;
+  }
+
+  .page-gallery .gallery-hero__eyebrow{
+    font-size: 10px;
+    letter-spacing: .24em;
+    margin-bottom: 8px;
+  }
+
+  .page-gallery .gallery-hero__title{
+    font-size: clamp(64px, 21vw, 104px);
+    line-height: .82;
+    letter-spacing: -.055em;
+  }
+
+  .page-gallery .gallery-hero__subtitle{
+    max-width: 30ch;
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  .page-gallery .year-title{
+    font-size: 34px;
+    margin-bottom: 8px;
+  }
+
+  .page-gallery .year-title + .coverflow{
+    margin-top: 8px;
+  }
+}
+
+/* iPhone Max / Plus */
+@media (min-width: 431px) and (max-width: 480px){
+
+  .page-gallery .gallery-hero{
+    padding-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  .page-gallery .gallery-hero__title{
+    font-size: clamp(78px, 20vw, 112px);
+  }
+
+  .page-gallery .gallery-hero__subtitle{
+    font-size: 15px;
+  }
+
+  .page-gallery .year-title + .coverflow{
+    margin-top: 4px;
+  }
+}
+
+/* iPhone Normal */
+@media (min-width: 391px) and (max-width: 430px){
+
+  .page-gallery .gallery-hero{
+    padding-top: 18px;
+    margin-bottom: 28px;
+  }
+
+  .page-gallery .gallery-hero__title{
+    font-size: clamp(72px, 20vw, 100px);
+  }
+
+  .page-gallery .year-title + .coverflow{
+    margin-top: 4px;
+  }
+}
+
+/* iPhone Mini / SE */
+@media (max-width: 390px){
+
+  .page-gallery .gallery-hero{
+    padding-top: 16px;
+    margin-bottom: 26px;
+  }
+
+  .page-gallery .gallery-hero__title{
+    font-size: clamp(62px, 19vw, 86px);
+  }
+
+  .page-gallery .gallery-hero__subtitle{
+    font-size: 14px;
+  }
+
+  .page-gallery .year-title{
+    font-size: 30px;
+  }
+}
+
+/* =========================================================
+   GALLERY HERO — Reduce top gap under nav
+========================================================= */
+
+@media (min-width: 821px){
+  .page-gallery{
+    --top-gap: calc(var(--nav-h, 80px) + 12px);
+  }
+
+  .page-gallery .gallery-hero{
+    padding-top: 0;
+  }
+}
+
+.page-gallery .gallery-hint{
+  margin: -4px 0 8px;
+  font-size: .9rem;
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.46);
+}
+
+.page-gallery .year-title{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.page-gallery .year-title::after{
+  content:"";
+  width:90px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#d400ff,transparent);
+  box-shadow:0 0 18px rgba(212,0,255,.45);
+}
+
+/* =========================================================
+   GALLERY — Premium polish
+========================================================= */
+
+.page-gallery .year-title{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  margin-top: 8px;
+}
+
+.page-gallery .year-title::after{
+  content:"";
+  width:90px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#d400ff,transparent);
+  box-shadow:0 0 18px rgba(212,0,255,.45);
+}
+
+.page-gallery .coverflow::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(620px, 70vw);
+  height:260px;
+  transform:translate(-50%, -42%);
+  background:radial-gradient(circle, rgba(212,0,255,.18), transparent 68%);
+  filter:blur(18px);
+  pointer-events:none;
+  z-index:-1;
+}
+
+.page-gallery .card.is-active{
+  box-shadow:
+    0 24px 46px rgba(212,3,224,.48),
+    0 0 0 1px rgba(255,255,255,.08);
+}
+
+.page-gallery .card .meta{
+  padding:18px 18px 20px;
+}
+
+.page-gallery .card .meta h3{
+  font-size:1.08rem;
+  line-height:1.05;
+  text-shadow:0 6px 18px rgba(0,0,0,.8);
+}
+
+.page-gallery .card .meta p{
+  font-size:.9rem;
+  color:rgba(255,255,255,.82);
+}
+
+@media (max-width:820px){
+  .page-gallery .year-title::after{
+    width:54px;
+  }
+
+  .page-gallery .coverflow::before{
+    width:90vw;
+    height:220px;
+  }
+}
+
+@media (min-width: 821px){
+
+  .page-gallery .coverflow{
+    margin-top: -22px;
+  }
+
+  .page-gallery .stage{
+    transform: translateY(-55px);
+  }
+
+  .page-gallery .floor{
+    margin-bottom: -52px;
+  }
+
+}
