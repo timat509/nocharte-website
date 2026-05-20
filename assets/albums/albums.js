@@ -116,4 +116,22 @@ window.ALBUMS = [
     cover: "assets/albums/black_party-09-04-26/cover.jpg",
     href: "album.html?slug=black_party-09-04-26"
   },
+  {
+  slug: "roony_arlene-17-04-26",
+  title: "Roony GTA & Arlene — 17 Abr 2026",
+  date: "2026-04-17",
+  category: "Clubs",
+  count: 125,
+  cover: "assets/albums/roony_arlene-17-04-26/cover.jpg",
+  href: "album.html?album=roony_arlene-17-04-26&skip-intro=1"
+},
+  {
+    slug: "frequencies_v1-16-05-26", 
+    title: "Frequencies V1 Santi & Marco — 16 May 2026",
+    date: "2026-05-16",
+    category: "Clubs",
+    count: 97,
+    cover: "assets/albums/frequencies_v1/cover.jpg",
+    href: "album.html?slug=frequencies_v1-16-05-26"
+  },
 ];
