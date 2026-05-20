@@ -131,7 +131,7 @@ window.ALBUMS = [
     date: "2026-05-16",
     category: "Clubs",
     count: 97,
-    cover: "assets/albums/frequencies_v1/cover.jpg",
+    cover: "assets/albums/frequencies_v1-16-05-26/cover.jpg",
     href: "album.html?slug=frequencies_v1-16-05-26"
   },
 ];
