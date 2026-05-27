@@ -1391,3 +1391,62 @@ body.home .scrolldown span{
   object-fit: cover;
   object-position: center 35%;
 }
+
+/* =========================================================
+   DAYLIGHT DESIGN 
+========================================================= */
+/* =========================================================
+   DAYLIGHT NAV PILL
+========================================================= */
+
+.links a.nav-daylight{
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 22px;
+  border-radius: 999px;
+
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: .03em;
+
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+  border: 1px solid rgba(0, 224, 255, .45);
+
+  box-shadow:
+    0 0 18px rgba(0, 224, 255, .20),
+    inset 0 0 12px rgba(255,255,255,.06);
+
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* blue/purple glow inside the pill */
+.links a.nav-daylight::before{
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+
+  background:
+    radial-gradient(circle at 20% 50%, rgba(0,224,255,.38), transparent 34%),
+    radial-gradient(circle at 85% 50%, rgba(180,0,255,.28), transparent 38%);
+  opacity: .75;
+}
+
+/* remove the normal purple underline only for Daylight */
+.links a.nav-daylight::after{
+  display: none !important;
+}
+
+.links a.nav-daylight:hover{
+  transform: translateY(-1px);
+  border-color: rgba(0, 224, 255, .7);
+  box-shadow:
+    0 0 24px rgba(0, 224, 255, .32),
+    0 0 18px rgba(180, 0, 255, .18),
+    inset 0 0 14px rgba(255,255,255,.08);
+}

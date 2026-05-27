@@ -83,7 +83,7 @@
     </button>
 
     <nav class="links" role="navigation" aria-label="Main">
-      <a href="index.html" data-nav="home">Home</a>
+      <a href="daylight/" class="nav-daylight">Daylight</a>
       <a href="gallery.html" data-nav="gallery">Gallery</a>
       <a href="portfolio.html" data-nav="portfolio" >Portfolio</a>
       <a href="about.html" data-nav="about">About</a>
@@ -99,13 +99,15 @@
         <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
-    <nav class="nav-pop__nav" aria-label="Main">
-  <a href="/index.html">Home</a>
+    
+  <nav class="nav-pop__nav" aria-label="Main">
+  <a href="/daylight/">Daylight</a>
   <a href="/gallery.html">Gallery</a>
   <a href="/portfolio.html">Portfolio</a>
   <a href="/about.html">About</a>
   <a href="/contact.html">Contact</a>
 </nav>
+
     </div>
   </div>
 
@@ -165,8 +167,8 @@
     <!-- VISION -->
     <article class="vm-row vm-row--vision">
       <div class="vm-media vm-media--split">
-  <img src="assets/web/vision-1.webp" alt="NOCHARTE nightlife crowd" />
-  <img src="assets/web/vision-2.webp" alt="NOCHARTE nightlife portrait" />
+<img src="assets/web/vision-1.webp" alt="NOCHARTE nightlife crowd" loading="lazy" decoding="async" />
+<img src="assets/web/vision-2.webp" alt="NOCHARTE nightlife portrait" loading="lazy" decoding="async" />
 </div>
 
       <div class="vm-copy">
@@ -202,7 +204,7 @@
   </div>
   <div class="vm-media">
     <div class="vm-art">
-      <img src="assets/web/mission.webp" alt="Nightlife portrait in blue corset">
+      <img src="assets/web/mission.webp" alt="Nightlife portrait in blue corset" loading="lazy" decoding="async">
     </div>
   </div>
 </div>
@@ -350,7 +352,8 @@
             </footer>
 
   <!-- ======= ALBUM DATA + HOME STRIP LOGIC ======= -->
-  <script src="assets/albums/albums.js"></script>
-  <script src="assets/web/home-albums-strip.js"></script>
+  <script src="assets/albums/albums.js" defer></script>
+<script src="assets/web/home-albums-strip.js" defer></script>
+
 </body>
 </html>
