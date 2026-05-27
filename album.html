@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XE42Q9T6EF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XE42Q9T6EF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XE42Q9T6EF');
+  </script>
 
-  gtag('config', 'G-XE42Q9T6EF');
-</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050506" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <title>NOCHARTE — Album</title>
+
   <!-- Favicons -->
   <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
   <link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
@@ -22,722 +29,596 @@
   <meta property="og:title" content="NOCHARTE — We Frame the Feeling">
   <meta property="og:description" content="Nightlife & event photography. Fast, precise, on brand.">
   <meta property="og:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
-  <meta property="og:image:width" content="1250">
-  <meta property="og:image:height" content="1250">
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NOCHARTE — We Frame the Feeling">
-  <meta name="twitter:description" content="Nightlife & event photography. Fast, precise, on brand.">
-  <meta name="twitter:image" content="https://nocharte.com/websitelogo/weblogo1250px.png">
+  <!-- Font -->
+  <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet">
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>NOCHARTE — Album</title>
-
-  <!-- Skip intro when coming from internal pages -->
-  <script>
-    (function(){try{
-      localStorage.setItem('nocharte_intro_seen','1');
-      sessionStorage.setItem('nocharte_intro_played','1');
-    }catch(e){}})();
-  </script>
-
-  <!-- Fonts & global CSS -->
-  <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css?v=2025-09-16-2" />
-  <link rel="stylesheet" href="/album.css?v=fix-grid-2" />
-  <link rel="stylesheet" href="/mobile/responsive.css?v=2025-09-16-2" />
-  <script src="/mobile/mobile.js?v=2025-09-16-2" defer></script>
-
-  <!-- Page-specific spacing override (tweak +56px as needed) -->
-  <style>
-    @media (min-width:821px){
-      :root{ --album-top-gap: calc(var(--nav-h) + 56px); }
-      .page-album .wrap{ padding-top: var(--album-top-gap) !important; }
-    }
-    @media (max-width:820px){
-      .page-album .wrap{
-        padding-top: calc(var(--mobile-header-h) + 16px) !important;
-      }
-    }
-    /* tiny safeguard: hide obviously broken img nodes */
-    img:where([src=""],[src="#"],[src="null"],[src="undefined"]){ display:none !important; }
-  </style>
+  <!-- CSS -->
+  <link rel="stylesheet" href="/album.css?v=new-album-hero-1">
 </head>
-<body class="page-album">
+
+<body class="album-page">
   <!-- HEADER -->
-  <header class="nav" role="banner">
-    <a class="logo" href="/index.html" aria-label="NOCHARTE Home">
-      <img src="/assets/web/logohome.png" alt="NOCHARTE" />
+  <header class="album-nav" role="banner">
+    <a href="/index.html?skip-intro=1" class="album-logo" aria-label="NOCHARTE Home">
+      <img src="/websitelogo/weblogo.svg" alt="NOCHARTE">
     </a>
 
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <button class="album-nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
 
-    <nav class="links" role="navigation" aria-label="Main">
-      <a href="index.html" data-nav="home">Home</a>
-      <a href="gallery.html" data-nav="gallery">Gallery</a>
-      <a href="portfolio.html" data-nav="portfolio" >Portfolio</a>
-      <a href="about.html" data-nav="about">About</a>
-      <a href="contact.html" data-nav="contact">Contact</a>
+    <nav class="album-links" aria-label="Main navigation">
+      <a href="/index.html?skip-intro=1">Home</a>
+      <a href="/gallery.html?skip-intro=1" class="active">Gallery</a>
+      <a href="/portfolio.html?skip-intro=1">Portfolio</a>
+      <a href="/about.html?skip-intro=1">About</a>
+      <a href="/contact.html?skip-intro=1">Contact</a>
     </nav>
   </header>
 
-  <main class="wrap">
-    <div class="album-head">
-      <a class="back" href="/gallery.html">Back</a>
-      <div>
-        <h1 id="albumTitle" class="album-title">Loading…</h1>
-        <p id="albumMeta" class="album-meta"></p>
-      </div>
-    </div>
+  <!-- MOBILE MENU -->
+  <div id="albumMobileMenu" class="album-mobile-menu" hidden>
+    <button class="album-mobile-close" aria-label="Close menu">✕</button>
+    <nav>
+      <a href="/index.html?skip-intro=1">Home</a>
+      <a href="/gallery.html?skip-intro=1">Gallery</a>
+      <a href="/portfolio.html?skip-intro=1">Portfolio</a>
+      <a href="/about.html?skip-intro=1">About</a>
+      <a href="/contact.html?skip-intro=1">Contact</a>
+    </nav>
+  </div>
 
-  <!-- HERO CARD -->
-<section class="album-hero" aria-label="Album highlights">
-  <div class="album-hero__card">
-    <!-- HIGHLIGHTS (autoplay carousel) -->
-    <section id="highlights" class="highlights" aria-label="Highlights" hidden>
-      <div class="highlights-frame">
-        <img id="hi-a" class="hi-img is-on" alt="Album highlight" decoding="async" />
-        <img id="hi-b" class="hi-img" alt="" decoding="async" />
-        <div class="hi-dots" id="hi-dots" aria-hidden="true"></div>
+  <main>
+    <!-- FULLSCREEN ALBUM HERO -->
+    <section class="album-hero" aria-label="Album highlights">
+      <div class="album-hero-bg" id="albumHeroBg"></div>
+
+      <div class="album-slider" id="albumSlider" aria-hidden="true">
+        <img id="hero-img-a" class="album-hero-img is-on" alt="">
+        <img id="hero-img-b" class="album-hero-img" alt="">
       </div>
+
+      <div class="album-overlay"></div>
+
+      <a href="/gallery.html?skip-intro=1" class="album-back">← Back</a>
+
+      <div class="album-hero-content">
+        <p class="album-eyebrow">NOCHARTE EVENTS</p>
+        <h1 id="albumTitle">Loading…</h1>
+        <p id="albumMeta"></p>
+        <a href="#photo-grid" class="album-btn">View Photos</a>
+      </div>
+
+      <div class="album-dots" id="albumDots" aria-hidden="true"></div>
+
+      <a href="#photo-grid" class="album-scroll" aria-label="Scroll to photos">
+        <span></span>
+        Scroll
+      </a>
     </section>
 
-    <div class="hero-meta">
-      <div class="hero-meta__label"><span>Highlights</span></div>
-    </div>
-  </div>
-</section>
+    <!-- PHOTO GRID -->
+    <section class="album-photos-section">
+      <div class="album-section-head">
+        <p>Album photos</p>
+        <h2>Moments captured</h2>
+      </div>
 
-    <section id="photo-grid" class="grid" aria-live="polite"></section>
-    <p id="emptyMsg" class="empty" style="display:none">No photos found for this album.</p>
+      <section id="photo-grid" class="album-grid" aria-live="polite"></section>
+      <p id="emptyMsg" class="album-empty" style="display:none">No photos found for this album.</p>
+    </section>
   </main>
 
-  <!-- POPUP MENU (required for the mobile menu to work) -->
-<div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
-  <div class="nav-pop__overlay" data-close></div>
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="album-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button type="button" id="lb-close" class="album-lb-close" aria-label="Close">✕</button>
+    <button type="button" id="lb-prev" class="album-lb-btn album-lb-prev" aria-label="Previous">❮</button>
+    <button type="button" id="lb-next" class="album-lb-btn album-lb-next" aria-label="Next">❯</button>
 
-  <!-- Close (X) -->
-  <button class="nav-pop__close" aria-label="Close menu" data-close>
-    <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
-      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  </button>
-
-  <div class="nav-pop__sheet" role="document">
-    <nav class="nav-pop__nav" aria-label="Main">
-  <a href="/index.html">Home</a>
-  <a href="/gallery.html">Gallery</a>
-  <a href="/portfolio.html">Portfolio</a>
-  <a href="/about.html">About</a>
-  <a href="/contact.html">Contact</a>
-</nav>
-  </div>
-</div>
-
-<script>
-// Underline "Gallery" when we're on /album.html
-(function () {
-  const isAlbum = /\/album\.html(?:$|[?#])/.test(location.pathname + location.search);
-  if (!isAlbum) return;
-
-  // Header links (desktop)
-  document.querySelectorAll('.links a[data-nav="gallery"], .links a[href$="/gallery.html"]')
-    .forEach(a => { a.setAttribute('aria-current', 'page'); a.classList.add('active'); });
-
-  // Popup menu links (mobile)
-  document.querySelectorAll('#nav-pop a[data-nav="gallery"], #nav-pop a[href$="/gallery.html"]')
-    .forEach(a => { a.setAttribute('aria-current', 'page'); a.classList.add('active'); });
-})();
-</script>
-
-<!-- Lightbox -->
-<div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Image viewer">
-  <div class="lb-backdrop" aria-hidden="true"></div>
-
-  <button type="button" id="lb-prev" class="lb-btn lb-prev" aria-label="Previous (←)">❮</button>
-  <button type="button" id="lb-next" class="lb-btn lb-next" aria-label="Next (→)">❯</button>
-  <button type="button" id="lb-close" class="lb-close" aria-label="Close (Esc)">✕</button>
-
-  <div class="lb-inner">
-   <div class="lb-media">
-  <div class="lb-stage">
-    <img id="lb-img-a" class="lb-img is-on" alt="" />
-    <img id="lb-img-b" class="lb-img" alt="" />
-  </div>
-
-      <div id="lb-actions" class="lb-actions">
-        <button type="button" id="lb-download" class="lb-download" aria-label="Download photo">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          <span>Download</span>
-        </button>
-      </div>
+    <div class="album-lb-stage">
+      <img id="lb-img-a" class="album-lb-img is-on" alt="">
+      <img id="lb-img-b" class="album-lb-img" alt="">
     </div>
+
+    <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
+      Download
+    </button>
   </div>
 
-  <div id="lb-swipebar" class="lb-swipebar" aria-hidden="true"></div>
-  <div id="lb-cap" class="lb-cap"></div>
-</div>
-
-
-  <!-- Album loader + Lightbox -->
   <script>
-  (function(){
-    const params = new URLSearchParams(location.search);
-    const slug = (params.get('slug') || params.get('album') || '').trim();
-    const titleEl = document.getElementById('albumTitle');
-    const metaEl  = document.getElementById('albumMeta');
-    const gridEl  = document.getElementById('photo-grid');
-    const emptyEl = document.getElementById('emptyMsg');
-    if (!slug){ titleEl.textContent='Album not specified'; emptyEl.style.display='block'; return; }
+    (function () {
+      try {
+        localStorage.setItem('nocharte_intro_seen', '1');
+        sessionStorage.setItem('nocharte_intro_played', '1');
+      } catch (e) {}
 
-    const base = `/assets/albums/${slug}`;
+      const params = new URLSearchParams(location.search);
+      const slug = (params.get('slug') || params.get('album') || '').trim();
 
-    function toWebp(filename){
-  return String(filename).replace(/\.(jpe?g|png)$/i, '.webp');
-}
+      const titleEl = document.getElementById('albumTitle');
+      const metaEl = document.getElementById('albumMeta');
+      const gridEl = document.getElementById('photo-grid');
+      const emptyEl = document.getElementById('emptyMsg');
 
-function webSrc(src){
-  if (!src) return '';
-  if (/^https?:\/\//i.test(src) || src.startsWith('/')) return src;
-  const clean = src.replace(/^photos\//, '');
-  return `${base}/web/${toWebp(clean)}`;
-}
+      const heroA = document.getElementById('hero-img-a');
+      const heroB = document.getElementById('hero-img-b');
+      const dotsEl = document.getElementById('albumDots');
+      const heroBg = document.getElementById('albumHeroBg');
 
-function fullSrc(src){
-  if (!src) return '';
-  if (/^https?:\/\//i.test(src) || src.startsWith('/')) return src;
-  const clean = src.replace(/^photos\//, '');
-  return `${base}/full/${toWebp(clean)}`;
-}
-
-    let files = [];   // [{src, alt}]
-    let current = 0;
-
-    // Load the per-album list
-    const s = document.createElement('script');
-    s.src = `${base}/photos.js`;
-    s.onload = render;
-    s.onerror = () => { titleEl.textContent='Album not found'; emptyEl.style.display='block'; };
-    document.head.appendChild(s);
-let lastRaw = [];
-let highlightsTried = false;
-
-function maybeSetupHighlights(){
-  if (highlightsTried) return;
-  // if highlights.js loaded, window.HIGHLIGHTS should exist (array)
-  // if highlights.js missing, we still want fallback -> call anyway
-  highlightsTried = true;
-  setupHighlights(lastRaw);
-}
-
-// Load optional highlights list (per album)
-const hs = document.createElement('script');
-hs.src = `${base}/highlights.js`;
-hs.onload = () => {
-  // highlights are now available -> use them
-  maybeSetupHighlights();
-};
-hs.onerror = () => {
-  // no highlights file -> allow fallback
-  maybeSetupHighlights();
-};
-document.head.appendChild(hs);
-
-
-    // Helpers
-    function normalize(list){
-  return (list || []).map(item => {
-    if (typeof item === 'string') {
-      return {
-        src: webSrc(item),
-        full: fullSrc(item),
-        alt: ''
-      };
-    }
-
-    if (item && typeof item === 'object') {
-      const src = item.src || item.file || item.path || '';
-      return {
-        src: webSrc(src),
-        full: fullSrc(src),
-        alt: item.alt || ''
-      };
-    }
-
-    return null;
-  }).filter(Boolean);
-}
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-    }
-
-  // Turn filenames into absolute URLs
-async function render(){
-  let raw = [];
-  if (Array.isArray(window.PHOTOS)) raw = window.PHOTOS;
-  else if (Array.isArray(window.photos)) raw = window.photos;
-  else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) raw = window.NOCH_PHOTOS[slug];
-
-  lastRaw = raw;
-
-  files = normalize(raw);
-
-  const isIOSSafari =
-  /iP(hone|od|ad)/.test(navigator.platform) ||
-  (/Mac/.test(navigator.platform) && navigator.maxTouchPoints > 1);
-
-const loadingAttr = isIOSSafari ? "eager" : "lazy";
-
-  titleEl.textContent = slugToTitle(slug);
-  metaEl.textContent  = `${files.length} photos`;
-
- // If highlights.js already finished loading (or failed), we can init now.
-// Otherwise hs.onload/hs.onerror will call it.
-if (highlightsTried) {
-  setupHighlights(lastRaw);
-}
-
-
-  // Render grid
-  gridEl.innerHTML = files.map((f,i) => `
-    <figure class="photo-card" data-idx="${i}" role="button" tabindex="0" style="position:relative; cursor:zoom-in;">
-      <img loading="${loadingAttr}" decoding="async" src="${f.src}" alt="${escapeHtml(f.alt)}">
-      <button class="download-btn" onclick="event.stopPropagation(); downloadImage('${f.full || f.src}')" aria-label="Download photo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="7 10 12 15 17 10"/>
-          <line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
-      </button>
-    </figure>
-  `).join('');
-
-  // Portrait detection (adds .portrait)
-  gridEl.querySelectorAll('figure').forEach(fig => {
-    const img = fig.querySelector('img');
-    if (!img) return;
-
-    const apply = () => {
-      if (img.naturalHeight > img.naturalWidth) fig.classList.add('portrait');
-    };
-
-    if (img.complete) apply();
-    else img.addEventListener('load', apply, { once:true });
-  });
-
-  // Click to zoom + keyboard
-  gridEl.querySelectorAll('figure[data-idx]').forEach(fig => {
-    fig.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      openLightbox(Number(fig.dataset.idx));
-    });
-
-    fig.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openLightbox(Number(fig.dataset.idx));
+      if (!slug) {
+        titleEl.textContent = 'Album not specified';
+        metaEl.textContent = 'Open this page from the gallery.';
+        emptyEl.style.display = 'block';
+        return;
       }
-    });
-  });
+
+      const base = `/assets/albums/${slug}`;
+
+      let files = [];
+      let rawPhotos = [];
+      let current = 0;
+
+      function toWebp(filename) {
+        return String(filename).replace(/\.(jpe?g|png)$/i, '.webp');
+      }
+
+      function cleanSrc(src) {
+        return String(src || '').replace(/^photos\//, '');
+      }
+
+      function webSrc(src) {
+        if (!src) return '';
+
+        const value = cleanSrc(src);
+
+        if (/^https?:\/\//i.test(value)) return value;
+        if (value.startsWith('/')) return value;
+        if (value.startsWith('assets/')) return `/${value}`;
+
+        return `${base}/web/${toWebp(value)}`;
+      }
+
+     function fullSrc(src) {
+  if (!src) return '';
+
+  const value = cleanSrc(src);
+
+  if (/^https?:\/\//i.test(value)) return value;
+  if (value.startsWith('/')) return value;
+  if (value.startsWith('assets/')) return `/${value}`;
+
+  return `${base}/original/${value}`;
 }
 
-function normalizeHighlights(list){
-  return (list || []).map(src => {
-    if (!src) return null;
-    const s = (typeof src === "string") ? src : (src.src || src.file || src.path || "");
-    if (!s) return null;
-    return webSrc(s);
-  }).filter(Boolean);
-}
+      function normalize(list) {
+        return (list || []).map(item => {
+          if (typeof item === 'string') {
+            return {
+              src: webSrc(item),
+              full: fullSrc(item),
+              alt: ''
+            };
+          }
 
+          if (item && typeof item === 'object') {
+            const src = item.src || item.file || item.path || '';
+            return {
+              src: webSrc(src),
+              full: fullSrc(src),
+              alt: item.alt || ''
+            };
+          }
 
-function setupHighlights(rawList){
-  const wrap = document.getElementById('highlights');
-  const a = document.getElementById('hi-a');
-  const b = document.getElementById('hi-b');
-  const dotsEl = document.getElementById('hi-dots');
+          return null;
+        }).filter(Boolean);
+      }
 
-  if (!wrap || !a || !b || !dotsEl) return;
+      function normalizeHighlights(list) {
+        return (list || []).map(item => {
+          const src = typeof item === 'string'
+            ? item
+            : (item?.src || item?.file || item?.path || '');
 
-let hiRaw = (Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length)
-  ? window.HIGHLIGHTS
-  : [];
+          return src ? webSrc(src) : null;
+        }).filter(Boolean);
+      }
 
+      function slugToTitle(s) {
+  const parts = s.split('-');
+  const words = [];
 
-  // fallback: first 4 photos
-  if (!hiRaw.length){
-    hiRaw = (rawList || [])
-      .slice(0,4)
-      .map(x => (typeof x === "string" ? x : x?.src))
-      .filter(Boolean);
+  for (const p of parts) {
+    if (!/^\d+$/.test(p)) words.push(p);
   }
 
-  const hi = normalizeHighlights(hiRaw).slice(0,4);
-  
-  if (!hi.length) return;
+  return words
+    .join(' ')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
 
-  wrap.hidden = false;
+function slugToDate(s) {
+  const parts = s.split('-');
+  const nums = parts.filter(p => /^\d+$/.test(p));
 
-  document.body.style.setProperty('--album-bg-url', `url("${hi[0]}")`);
+  if (nums.length < 3) return '';
 
+  const day = nums[0];
+  const month = nums[1];
+  let year = nums[2];
 
-  // Use the highlight image as the blurred page background
-document.documentElement.style.setProperty('--album-bg', `url("${hi[0]}")`);
+  if (year.length === 2) year = `20${year}`;
 
+  const date = new Date(`${year}-${month}-${day}`);
 
-  // premium "lines" indicators
-  dotsEl.innerHTML = hi.map((_,i)=>`<span class="hi-dot" data-i="${i}"></span>`).join('');
-  const dots = [...dotsEl.querySelectorAll('.hi-dot')];
-
-  let idx = 0;
-  let showingA = true;
-  let timer = null;
-
-  // set frame ratio depending on current image (landscape 16:9, portrait 4:5)
-  function setRatioByImage(img){
-    const frame = wrap.querySelector('.highlights-frame');
-    if (!frame || !img?.naturalWidth || !img?.naturalHeight) return;
-    const isPortrait = img.naturalHeight > img.naturalWidth;
-    frame.classList.toggle('is-portrait', isPortrait);
+  if (Number.isNaN(date.getTime())) {
+    return `${day}.${month}.${year}`;
   }
 
-  function paintDots(){
-    dots.forEach((d,k)=>d.classList.toggle('on', k===idx));
-  }
-
-  function show(i){
-    idx = (i + hi.length) % hi.length;
-    const nextSrc = hi[idx];
-
-    document.body.style.setProperty('--album-bg-url', `url("${nextSrc}")`);
-    document.documentElement.style.setProperty('--album-bg', `url("${nextSrc}")`);
-
-
-    const top = showingA ? a : b;
-    const under = showingA ? b : a;
-
-    // load into under first, then crossfade
-    under.classList.remove('is-on');
-    under.src = nextSrc;
-
-    under.onload = () => {
-      setRatioByImage(under);
-
-      // crossfade
-      under.classList.add('is-on');
-      top.classList.remove('is-on');
-
-      showingA = !showingA;
-      paintDots();
-    };
-
-    under.onerror = () => {
-      // if a highlight image breaks, skip it
-      show(idx + 1);
-    };
-  }
-
-  function start(){
-    stop();
-    timer = setInterval(()=> show(idx + 1), 3600);
-  }
-  function stop(){
-    if (timer) clearInterval(timer);
-    timer = null;
-  }
-
-  // init
-  a.classList.add('is-on');
-  b.classList.remove('is-on');
-  show(0);
-  start();
-
-  // swipe (mobile)
-  let sx=0, sy=0;
-  wrap.addEventListener('touchstart', (e)=>{
-    const t=e.changedTouches[0];
-    sx=t.clientX; sy=t.clientY;
-    stop();
-  }, { passive:true });
-
-  wrap.addEventListener('touchend', (e)=>{
-    const t=e.changedTouches[0];
-    const dx=t.clientX - sx;
-    const dy=t.clientY - sy;
-    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2){
-      if (dx < 0) show(idx + 1);
-      else show(idx - 1);
-    }
-    start();
-  }, { passive:true });
+  return date.toLocaleDateString('en-US', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).toUpperCase();
 }
 
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, m => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m]));
+      }
 
-    // ---------- Lightbox ----------
-    const lb = document.getElementById('lightbox');
-    const lbA = document.getElementById('lb-img-a');
-const lbB = document.getElementById('lb-img-b');
-const lbBackdrop = lb.querySelector('.lb-backdrop');
+      function loadScript(src, onload, onerror) {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = onload;
+        s.onerror = onerror;
+        document.head.appendChild(s);
+      }
 
-let showingA = true;
-    const lbCap = document.getElementById('lb-cap');
-    const btnPrev = document.getElementById('lb-prev');
-    const btnNext = document.getElementById('lb-next');
-    const btnClose= document.getElementById('lb-close');
-    const lbDownload = document.getElementById('lb-download');
+      function setPageTitle() {
+        const albumName = slugToTitle(slug);
+        document.title = `NOCHARTE — ${albumName}`;
+        titleEl.textContent = albumName;
+      }
 
-    const swipeBar = document.getElementById('lb-swipebar');
+      loadScript(`${base}/photos.js`, () => {
+        if (Array.isArray(window.PHOTOS)) {
+          rawPhotos = window.PHOTOS;
+        } else if (Array.isArray(window.photos)) {
+          rawPhotos = window.photos;
+        } else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) {
+          rawPhotos = window.NOCH_PHOTOS[slug];
+        }
 
-function showSwipeBarOnce(){
-  const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-  if (!isTouch) return;
+        files = normalize(rawPhotos);
+        renderAlbum();
 
-  if (sessionStorage.getItem('nocharte_swipebar_shown') === '1') return;
-  sessionStorage.setItem('nocharte_swipebar_shown', '1');
+        loadScript(`${base}/highlights.js`, () => {
+          setupHero();
+        }, () => {
+          setupHero();
+        });
+      }, () => {
+        titleEl.textContent = 'Album not found';
+        metaEl.textContent = slug;
+        emptyEl.style.display = 'block';
+      });
 
-  if (!swipeBar) return;
+      function renderAlbum() {
+        setPageTitle();
+        const albumDate = slugToDate(slug);
+metaEl.textContent = albumDate
+  ? `${albumDate} | ${files.length} PHOTOS`
+  : `${files.length} PHOTOS`;
 
-  swipeBar.classList.remove('is-hide');
-  swipeBar.classList.add('is-show');
+        if (!files.length) {
+          emptyEl.style.display = 'block';
+          return;
+        }
 
-  setTimeout(() => {
-    swipeBar.classList.remove('is-show');
-    swipeBar.classList.add('is-hide');
-  }, 2300);
-}
+        const isIOSSafari =
+          /iP(hone|od|ad)/.test(navigator.platform) ||
+          (/Mac/.test(navigator.platform) && navigator.maxTouchPoints > 1);
 
+        const loadingAttr = isIOSSafari ? 'eager' : 'lazy';
 
-    lbDownload.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  if (files[current]) downloadImage(files[current].full || files[current].src);
-});
+        gridEl.innerHTML = files.map((f, i) => `
+          <figure class="album-photo-card" data-idx="${i}" role="button" tabindex="0">
+            <img
+              src="${f.src}"
+              alt="${escapeHtml(f.alt)}"
+              loading="${i < 6 ? 'eager' : loadingAttr}"
+              decoding="async"
+            >
+            <button class="album-download-btn" type="button" data-download="${i}" aria-label="Download photo">
+              ↓
+            </button>
+          </figure>
+        `).join('');
 
+        gridEl.querySelectorAll('.album-photo-card').forEach(card => {
+          card.addEventListener('click', () => {
+            openLightbox(Number(card.dataset.idx));
+          });
 
-    btnPrev.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); prev(); });
-btnNext.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); next(); });
-btnClose.addEventListener('click', (e) => { 
-  e.preventDefault(); 
-  e.stopPropagation(); 
-  closeLightbox(); 
-});
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openLightbox(Number(card.dataset.idx));
+            }
+          });
+        });
 
-    function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
+        gridEl.querySelectorAll('.album-download-btn').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const i = Number(btn.dataset.download);
+            downloadDirect(files[i].full || files[i].src);
+          });
+        });
+      }
 
-    function closeLightbox(){
-  lb.classList.remove('open');
-  lb.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('lb-open');
-  removeEvents();
-}
+      function setupHero() {
+        let hiRaw = Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length
+          ? window.HIGHLIGHTS
+          : rawPhotos
+              .slice(0, 4)
+              .map(x => typeof x === 'string' ? x : (x?.src || x?.file || x?.path))
+              .filter(Boolean);
 
-   function openLightbox(i){
-  current = clamp(i, 0, files.length - 1);
+        const highlights = normalizeHighlights(hiRaw).slice(0, 4);
 
-  // Prevent browser scroll jump
-  const scrollY = window.scrollY;
+        if (!highlights.length) return;
 
-  lb.classList.add('open');
-  lb.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('lb-open');
+        heroA.src = highlights[0];
+        heroA.loading = 'eager';
+        heroA.fetchPriority = 'high';
+        heroBg.style.backgroundImage = `url("${highlights[0]}")`;
 
-  showSwipeBarOnce();
+        dotsEl.innerHTML = highlights
+          .map((_, i) => `<span class="album-dot ${i === 0 ? 'on' : ''}" data-i="${i}"></span>`)
+          .join('');
 
+        const dots = Array.from(dotsEl.querySelectorAll('.album-dot'));
 
-  addEvents();
+        let idx = 0;
+        let showingA = true;
 
+        function paintDots() {
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('on', i === idx);
+          });
+        }
 
-  // IMPORTANT: always use show() so next/prev works
-  show(current);
+        function showHero(nextIndex) {
+          idx = (nextIndex + highlights.length) % highlights.length;
+          const nextSrc = highlights[idx];
 
-  window.scrollTo(0, scrollY);
-}
+          heroBg.style.backgroundImage = `url("${nextSrc}")`;
 
-    function show(i){
-  if (!files.length) return;
-  current = clamp(i, 0, files.length-1);
-  const f = files[current];
+          const top = showingA ? heroA : heroB;
+          const under = showingA ? heroB : heroA;
 
-  const top = showingA ? lbA : lbB;
-  const under = showingA ? lbB : lbA;
+          under.classList.remove('is-on');
+          under.src = nextSrc;
 
-  // load into the hidden one first
-  under.classList.remove('is-on');
-  under.alt = f.alt || '';
+          under.onload = () => {
+            under.classList.add('is-on');
+            top.classList.remove('is-on');
+            showingA = !showingA;
+            paintDots();
+          };
+        }
 
-  // start loading new src
-  under.src = f.full || f.src;
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            showHero(Number(dot.dataset.i));
+          });
+        });
 
-  under.onload = () => {
-    // crossfade
-    under.classList.add('is-on');
-    top.classList.remove('is-on');
-    showingA = !showingA;
+        setInterval(() => {
+          showHero(idx + 1);
+        }, 4200);
+      }
 
-    lbCap.textContent = f.alt || '';
-  };
+      /* ================= LIGHTBOX ================= */
 
-  // prefetch neighbors
-  const n1 = (current + 1) % files.length;
-  const n2 = (current - 1 + files.length) % files.length;
-  [n1,n2].forEach(k => {
-  const im = new Image();
-  im.src = files[k].full || files[k].src;
-});
-}
+      const lb = document.getElementById('lightbox');
+      const lbA = document.getElementById('lb-img-a');
+      const lbB = document.getElementById('lb-img-b');
+      const closeBtn = document.getElementById('lb-close');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+      const downloadBtn = document.getElementById('lb-download');
 
-    function next(){ if (files.length) show((current + 1) % files.length); }
-    function prev(){ if (files.length) show((current - 1 + files.length) % files.length); }
+      let lbShowingA = true;
+      let startX = 0;
+      let startY = 0;
 
-    function onKey(e){
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowRight') next();
-      else if (e.key === 'ArrowLeft')  prev();
-    }
+      function openLightbox(i) {
+        current = Math.max(0, Math.min(i, files.length - 1));
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('album-lb-open');
+        showLightbox(current);
+      }
 
- function onBackdrop(e){
-  if (!lb.classList.contains('open')) return;
+      function closeLightbox() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('album-lb-open');
+      }
 
-  const clickedImage = e.target.closest('#lb-img-a, #lb-img-b');
-  const clickedActions = e.target.closest('#lb-actions');
-  const clickedNavBtn = e.target.closest('.lb-btn');
-  const clickedClose = e.target.closest('#lb-close');
+      function showLightbox(i) {
+        if (!files.length) return;
 
-  if (clickedImage || clickedActions || clickedNavBtn || clickedClose) return;
+        current = (i + files.length) % files.length;
+        const f = files[current];
 
-  closeLightbox();
-}
+        const top = lbShowingA ? lbA : lbB;
+        const under = lbShowingA ? lbB : lbA;
 
+        under.classList.remove('is-on');
+        under.alt = f.alt || '';
+        under.src = f.full || f.src;
 
-    // --- Swipe support (mobile) ---
-let startX = 0, startY = 0;
+        under.onload = () => {
+          under.classList.add('is-on');
+          top.classList.remove('is-on');
+          lbShowingA = !lbShowingA;
+        };
 
-function onTouchStart(e){
-  if (!lb.classList.contains('open')) return;
-  const t = e.changedTouches[0];
-  startX = t.clientX;
-  startY = t.clientY;
-}
+        preloadNeighbor(current + 1);
+        preloadNeighbor(current - 1);
+      }
 
-function onTouchEnd(e){
-  if (!lb.classList.contains('open')) return;
-  const t = e.changedTouches[0];
-  const dx = t.clientX - startX;
-  const dy = t.clientY - startY;
+      function preloadNeighbor(i) {
+        if (!files.length) return;
+        const index = (i + files.length) % files.length;
+        const im = new Image();
+        im.src = files[index].full || files[index].src;
+      }
 
-  // horizontal swipe only (ignore vertical)
-  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2){
-    if (dx < 0) next();  // swipe left => next
-    else prev();         // swipe right => prev
-  }
-}
+      function next() {
+        showLightbox(current + 1);
+      }
 
-function addEvents(){
-  document.addEventListener('keydown', onKey);
-  lb.addEventListener('click', onBackdrop);
-  if (lbBackdrop) lbBackdrop.addEventListener('click', closeLightbox);
+      function prev() {
+        showLightbox(current - 1);
+      }
 
-  // mobile swipe
-  lb.addEventListener('touchstart', onTouchStart, { passive: true });
-  lb.addEventListener('touchend', onTouchEnd, { passive: true });
-}
+    async function downloadDirect(src) {
+  const logoSrc = '/assets/web/logo.png';
 
-function removeEvents(){
-  document.removeEventListener('keydown', onKey);
-  lb.removeEventListener('click', onBackdrop);
-if (lbBackdrop) lbBackdrop.removeEventListener('click', closeLightbox);
-  // mobile swipe
-  lb.removeEventListener('touchstart', onTouchStart);
-  lb.removeEventListener('touchend', onTouchEnd);
-}
-    // Title helper
-    function slugToTitle(s){
-      const parts = s.split('-'); const words=[], nums=[];
-      for(const p of parts){ (/^\d+$/.test(p)?nums:words).push(p); }
-      const name = words.map(w=>w[0].toUpperCase()+w.slice(1)).join(' ');
-      return name + (nums.length ? ' — ' + nums.join(' ') : '');
-    }
-  })();
-  </script>
-
-  <!-- Watermark download -->
-  <script>
-  async function downloadImage(imgSrc) {
-    const logoSrc = '/assets/web/logo.png';
-    const img = await loadImage(imgSrc);
+  try {
+    const img = await loadImage(src);
     const logo = await loadImage(logoSrc);
 
     const canvas = document.createElement('canvas');
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = img.naturalWidth || img.width;
+    canvas.height = img.naturalHeight || img.height;
+
     const ctx = canvas.getContext('2d');
 
-    ctx.drawImage(img, 0, 0);
+    // Draw original photo
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    const aspect = img.width / img.height;
-    let logoWidth = aspect > 1.4 ? img.width*0.12 : aspect < 0.9 ? img.width*0.22 : img.width*0.18;
-
+    // Watermark size
+    const logoWidth = canvas.width * 0.32
     const logoHeight = logo.height * (logoWidth / logo.width);
-    ctx.globalAlpha = 0.6;
-    ctx.drawImage(logo, img.width - logoWidth - 20, img.height - logoHeight - 20, logoWidth, logoHeight);
-    ctx.globalAlpha = 1;
 
-    const link = document.createElement('a');
-    link.download = 'nocharte-photo.jpg';
-    link.href = canvas.toDataURL('image/jpeg', 0.95);
-    link.click();
-  }
-  function loadImage(src){
-    return new Promise((res, rej)=>{
-      const i = new Image();
-      i.crossOrigin = 'anonymous';
-      i.onload = ()=>res(i);
-      i.onerror = rej;
-      i.src = src;
-    });
-  }
-  </script>
+    // Bottom center position
+    const x = (canvas.width - logoWidth) / 2;
+    const y = canvas.height - logoHeight - canvas.height * 0.035;
 
-  <!-- Mark current link + carry ?skip-intro=1 -->
-  <script>
-    (function(){
-      try{
-        const here = (location.pathname.replace(/\/+$/, '') || '/album.html').toLowerCase();
-        const mark = scope => scope && scope.querySelectorAll('a[href]').forEach(a=>{
-          const p = new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/, '').toLowerCase();
-          if (p === here) a.setAttribute('aria-current','page');
+    // Purple glow + logo
+    ctx.save();
+    ctx.shadowColor = 'rgba(95, 0, 150, 0.85)';
+    ctx.shadowBlur = canvas.width * 0.025;
+    ctx.globalAlpha = 0.95;
+    ctx.drawImage(logo, x, y, logoWidth, logoHeight);
+    ctx.restore();
+
+    // Download as JPG with watermark
+    const originalName = src.split('/').pop() || 'nocharte-photo.jpg';
+    const cleanName = originalName.replace(/\.(png|jpe?g|webp)$/i, '');
+    const downloadName = `${cleanName}-nocharte.jpg`;
+
+    const a = document.createElement('a');
+    a.download = downloadName;
+    a.href = canvas.toDataURL('image/jpeg', 0.95);
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  } catch (err) {
+    console.error('Watermark download failed:', err);
+
+    // Fallback: direct original download
+    const a = document.createElement('a');
+    a.href = src;
+    a.download = src.split('/').pop() || 'nocharte-photo';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+}
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+      closeBtn.addEventListener('click', closeLightbox);
+      nextBtn.addEventListener('click', next);
+      prevBtn.addEventListener('click', prev);
+
+      downloadBtn.addEventListener('click', () => {
+        if (files[current]) {
+          downloadDirect(files[current].full || files[current].src);
+        }
+      });
+
+      lb.addEventListener('click', e => {
+        if (e.target === lb) closeLightbox();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      });
+
+      lb.addEventListener('touchstart', e => {
+        const t = e.changedTouches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+      }, { passive: true });
+
+      lb.addEventListener('touchend', e => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          if (dx < 0) next();
+          else prev();
+        }
+      }, { passive: true });
+
+      /* ================= MOBILE MENU ================= */
+
+      const toggle = document.querySelector('.album-nav-toggle');
+      const mobileMenu = document.getElementById('albumMobileMenu');
+      const closeMobile = document.querySelector('.album-mobile-close');
+
+      if (toggle && mobileMenu) {
+        toggle.addEventListener('click', () => {
+          mobileMenu.hidden = false;
+          toggle.setAttribute('aria-expanded', 'true');
         });
-        mark(document.querySelector('.links'));
-        mark(document.getElementById('nav-pop'));
-      }catch(e){}
-      document.addEventListener('click', function (e) {
-        const a = e.target.closest('a[href]');
-        if (!a) return;
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        if (a.target === '_blank') return;
-        const href = a.getAttribute('href') || '';
-        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
-        const url = new URL(href, location.href);
-        if (url.origin !== location.origin) return;
-        e.preventDefault();
-        url.searchParams.set('skip-intro','1');
-        location.assign(url.href);
-      }, { capture: true });
+      }
+
+      if (closeMobile && mobileMenu) {
+        closeMobile.addEventListener('click', () => {
+          mobileMenu.hidden = true;
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
     })();
   </script>
 </body>

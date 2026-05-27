@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050506" />
+  <title>NOCHARTE — Album Beta</title>
+
+  <!-- Favicons -->
+  <link rel="icon" href="/websitelogo/weblogo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="/websitelogo/weblogo250px.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/websitelogo/weblogo250px.png" sizes="180x180">
+
+  <!-- Font -->
+  <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="ga.css">
+</head>
+
+<body class="ga-album-page">
+  <!-- HEADER -->
+  <header class="ga-nav" role="banner">
+    <a href="/index.html?skip-intro=1" class="ga-logo" aria-label="NOCHARTE Home">
+      <img src="/websitelogo/weblogo.svg" alt="NOCHARTE">
+    </a>
+
+    <nav class="ga-links" aria-label="Main navigation">
+      <a href="/index.html?skip-intro=1">Home</a>
+      <a href="/gallery.html?skip-intro=1" class="active">Gallery</a>
+      <a href="/portfolio.html?skip-intro=1">Portfolio</a>
+      <a href="/about.html?skip-intro=1">About</a>
+      <a href="/contact.html?skip-intro=1">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- FULLSCREEN ALBUM HERO -->
+    <section class="ga-hero" aria-label="Album highlights">
+      <div class="ga-hero-bg" id="gaHeroBg"></div>
+
+      <div class="ga-slider" id="gaSlider" aria-hidden="true">
+        <img id="ga-hi-a" class="ga-hi-img is-on" alt="">
+        <img id="ga-hi-b" class="ga-hi-img" alt="">
+      </div>
+
+      <div class="ga-overlay"></div>
+
+      <a href="/gallery.html?skip-intro=1" class="ga-back">← Back</a>
+
+      <div class="ga-hero-content">
+        <p class="ga-eyebrow">NOCHARTE EVENTS</p>
+        <h1 id="albumTitle">Loading…</h1>
+        <p id="albumMeta"></p>
+        <a href="#photo-grid" class="ga-btn">View Photos</a>
+      </div>
+
+      <div class="ga-dots" id="gaDots" aria-hidden="true"></div>
+
+      <a href="#photo-grid" class="ga-scroll" aria-label="Scroll to photos">
+        <span></span>
+        Scroll
+      </a>
+    </section>
+
+    <!-- PHOTO GRID -->
+    <section class="ga-photos-section">
+      <div class="ga-section-head">
+        <p>Album photos</p>
+        <h2>Moments captured</h2>
+      </div>
+
+      <section id="photo-grid" class="ga-grid" aria-live="polite"></section>
+      <p id="emptyMsg" class="ga-empty" style="display:none">No photos found for this album.</p>
+    </section>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="ga-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button type="button" id="lb-close" class="ga-lb-close" aria-label="Close">✕</button>
+    <button type="button" id="lb-prev" class="ga-lb-btn ga-lb-prev" aria-label="Previous">❮</button>
+    <button type="button" id="lb-next" class="ga-lb-btn ga-lb-next" aria-label="Next">❯</button>
+
+    <div class="ga-lb-stage">
+      <img id="lb-img-a" class="ga-lb-img is-on" alt="">
+      <img id="lb-img-b" class="ga-lb-img" alt="">
+    </div>
+
+    <button type="button" id="lb-download" class="ga-lb-download" aria-label="Download photo">
+      Download
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      try {
+        localStorage.setItem('nocharte_intro_seen', '1');
+        sessionStorage.setItem('nocharte_intro_played', '1');
+      } catch (e) {}
+
+      const params = new URLSearchParams(location.search);
+      const slug = (params.get('slug') || params.get('album') || '').trim();
+
+      const titleEl = document.getElementById('albumTitle');
+      const metaEl = document.getElementById('albumMeta');
+      const gridEl = document.getElementById('photo-grid');
+      const emptyEl = document.getElementById('emptyMsg');
+
+      const heroA = document.getElementById('ga-hi-a');
+      const heroB = document.getElementById('ga-hi-b');
+      const dotsEl = document.getElementById('gaDots');
+      const heroBg = document.getElementById('gaHeroBg');
+
+      if (!slug) {
+        titleEl.textContent = 'Album not specified';
+        emptyEl.style.display = 'block';
+        return;
+      }
+
+      const base = `/assets/albums/${slug}`;
+      let files = [];
+      let rawPhotos = [];
+      let current = 0;
+
+      function toWebp(filename) {
+        return String(filename).replace(/\.(jpe?g|png)$/i, '.webp');
+      }
+
+      function cleanSrc(src) {
+        return String(src || '').replace(/^photos\//, '');
+      }
+
+      function webSrc(src) {
+        if (!src) return '';
+        if (/^https?:\/\//i.test(src) || src.startsWith('/')) return src;
+        return `${base}/web/${toWebp(cleanSrc(src))}`;
+      }
+
+      function fullSrc(src) {
+        if (!src) return '';
+        if (/^https?:\/\//i.test(src) || src.startsWith('/')) return src;
+        return `${base}/full/${toWebp(cleanSrc(src))}`;
+      }
+
+      function normalize(list) {
+        return (list || []).map(item => {
+          if (typeof item === 'string') {
+            return {
+              src: webSrc(item),
+              full: fullSrc(item),
+              alt: ''
+            };
+          }
+
+          if (item && typeof item === 'object') {
+            const src = item.src || item.file || item.path || '';
+            return {
+              src: webSrc(src),
+              full: fullSrc(src),
+              alt: item.alt || ''
+            };
+          }
+
+          return null;
+        }).filter(Boolean);
+      }
+
+      function normalizeHighlights(list) {
+        return (list || []).map(item => {
+          const src = typeof item === 'string' ? item : (item?.src || item?.file || item?.path || '');
+          return src ? webSrc(src) : null;
+        }).filter(Boolean);
+      }
+
+      function slugToTitle(s) {
+        const parts = s.split('-');
+        const words = [];
+        const nums = [];
+
+        for (const p of parts) {
+          if (/^\d+$/.test(p)) nums.push(p);
+          else words.push(p);
+        }
+
+        const name = words
+          .join(' ')
+          .replace(/_/g, ' ')
+          .replace(/\b\w/g, c => c.toUpperCase());
+
+        return name + (nums.length ? ' — ' + nums.join(' ') : '');
+      }
+
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, m => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        }[m]));
+      }
+
+      function loadScript(src, onload, onerror) {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = onload;
+        s.onerror = onerror;
+        document.head.appendChild(s);
+      }
+
+      loadScript(`${base}/photos.js`, () => {
+        if (Array.isArray(window.PHOTOS)) rawPhotos = window.PHOTOS;
+        else if (Array.isArray(window.photos)) rawPhotos = window.photos;
+        else if (window.NOCH_PHOTOS && Array.isArray(window.NOCH_PHOTOS[slug])) rawPhotos = window.NOCH_PHOTOS[slug];
+
+        files = normalize(rawPhotos);
+        renderAlbum();
+
+        loadScript(`${base}/highlights.js`, () => {
+          setupHero();
+        }, () => {
+          setupHero();
+        });
+      }, () => {
+        titleEl.textContent = 'Album not found';
+        emptyEl.style.display = 'block';
+      });
+
+      function renderAlbum() {
+        titleEl.textContent = slugToTitle(slug);
+        metaEl.textContent = `${files.length} photos`;
+
+        if (!files.length) {
+          emptyEl.style.display = 'block';
+          return;
+        }
+
+        const isIOSSafari =
+          /iP(hone|od|ad)/.test(navigator.platform) ||
+          (/Mac/.test(navigator.platform) && navigator.maxTouchPoints > 1);
+
+        const loadingAttr = isIOSSafari ? 'eager' : 'lazy';
+
+        gridEl.innerHTML = files.map((f, i) => `
+          <figure class="ga-photo-card" data-idx="${i}" role="button" tabindex="0">
+            <img
+              src="${f.src}"
+              alt="${escapeHtml(f.alt)}"
+              loading="${i < 6 ? 'eager' : loadingAttr}"
+              decoding="async"
+            >
+            <button class="ga-download-btn" type="button" data-download="${i}" aria-label="Download photo">
+              ↓
+            </button>
+          </figure>
+        `).join('');
+
+        gridEl.querySelectorAll('.ga-photo-card').forEach(card => {
+          card.addEventListener('click', () => openLightbox(Number(card.dataset.idx)));
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openLightbox(Number(card.dataset.idx));
+            }
+          });
+        });
+
+        gridEl.querySelectorAll('.ga-download-btn').forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.stopPropagation();
+            const i = Number(btn.dataset.download);
+            downloadDirect(files[i].full || files[i].src);
+          });
+        });
+      }
+
+      function setupHero() {
+        let hiRaw = Array.isArray(window.HIGHLIGHTS) && window.HIGHLIGHTS.length
+          ? window.HIGHLIGHTS
+          : rawPhotos.slice(0, 4).map(x => typeof x === 'string' ? x : (x?.src || x?.file || x?.path)).filter(Boolean);
+
+        const highlights = normalizeHighlights(hiRaw).slice(0, 4);
+
+        if (!highlights.length) return;
+
+        heroA.src = highlights[0];
+        heroA.loading = 'eager';
+        heroA.fetchPriority = 'high';
+        heroBg.style.backgroundImage = `url("${highlights[0]}")`;
+
+        dotsEl.innerHTML = highlights.map((_, i) => `<span class="ga-dot ${i === 0 ? 'on' : ''}" data-i="${i}"></span>`).join('');
+
+        const dots = Array.from(dotsEl.querySelectorAll('.ga-dot'));
+
+        let idx = 0;
+        let showingA = true;
+
+        function paintDots() {
+          dots.forEach((dot, i) => dot.classList.toggle('on', i === idx));
+        }
+
+        function showHero(nextIndex) {
+          idx = (nextIndex + highlights.length) % highlights.length;
+          const nextSrc = highlights[idx];
+
+          heroBg.style.backgroundImage = `url("${nextSrc}")`;
+
+          const top = showingA ? heroA : heroB;
+          const under = showingA ? heroB : heroA;
+
+          under.classList.remove('is-on');
+          under.src = nextSrc;
+
+          under.onload = () => {
+            under.classList.add('is-on');
+            top.classList.remove('is-on');
+            showingA = !showingA;
+            paintDots();
+          };
+        }
+
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => showHero(Number(dot.dataset.i)));
+        });
+
+        setInterval(() => {
+          showHero(idx + 1);
+        }, 4200);
+      }
+
+      /* LIGHTBOX */
+      const lb = document.getElementById('lightbox');
+      const lbA = document.getElementById('lb-img-a');
+      const lbB = document.getElementById('lb-img-b');
+      const closeBtn = document.getElementById('lb-close');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+      const downloadBtn = document.getElementById('lb-download');
+
+      let lbShowingA = true;
+      let startX = 0;
+      let startY = 0;
+
+      function openLightbox(i) {
+        current = Math.max(0, Math.min(i, files.length - 1));
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('ga-lb-open');
+        showLightbox(current);
+      }
+
+      function closeLightbox() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('ga-lb-open');
+      }
+
+      function showLightbox(i) {
+        if (!files.length) return;
+
+        current = (i + files.length) % files.length;
+        const f = files[current];
+
+        const top = lbShowingA ? lbA : lbB;
+        const under = lbShowingA ? lbB : lbA;
+
+        under.classList.remove('is-on');
+        under.alt = f.alt || '';
+        under.src = f.full || f.src;
+
+        under.onload = () => {
+          under.classList.add('is-on');
+          top.classList.remove('is-on');
+          lbShowingA = !lbShowingA;
+        };
+
+        preloadNeighbor(current + 1);
+        preloadNeighbor(current - 1);
+      }
+
+      function preloadNeighbor(i) {
+        const index = (i + files.length) % files.length;
+        const im = new Image();
+        im.src = files[index].full || files[index].src;
+      }
+
+      function next() {
+        showLightbox(current + 1);
+      }
+
+      function prev() {
+        showLightbox(current - 1);
+      }
+
+      function downloadDirect(src) {
+        const a = document.createElement('a');
+        a.href = src;
+        a.download = 'nocharte-photo.webp';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }
+
+      closeBtn.addEventListener('click', closeLightbox);
+      nextBtn.addEventListener('click', next);
+      prevBtn.addEventListener('click', prev);
+
+      downloadBtn.addEventListener('click', () => {
+        if (files[current]) downloadDirect(files[current].full || files[current].src);
+      });
+
+      lb.addEventListener('click', e => {
+        if (e.target === lb) closeLightbox();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') next();
+        if (e.key === 'ArrowLeft') prev();
+      });
+
+      lb.addEventListener('touchstart', e => {
+        const t = e.changedTouches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+      }, { passive: true });
+
+      lb.addEventListener('touchend', e => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          if (dx < 0) next();
+          else prev();
+        }
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>

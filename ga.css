@@ -1,5 +1,5 @@
 /* =========================================================
-   NOCHARTE — New Album Page
+   GA — Beta Album Page
 ========================================================= */
 
 * {
@@ -23,7 +23,7 @@ body {
   overflow-x: hidden;
 }
 
-body.album-lb-open {
+body.ga-lb-open {
   overflow: hidden;
 }
 
@@ -33,7 +33,7 @@ img {
 
 /* ================= HEADER ================= */
 
-.album-nav {
+.ga-nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -57,26 +57,26 @@ img {
     );
 }
 
-.album-logo {
+.ga-logo {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
 }
 
-.album-logo img {
+.ga-logo img {
   width: 58px;
   height: auto;
   display: block;
   filter: drop-shadow(0 0 20px rgba(178, 0, 255, 0.46));
 }
 
-.album-links {
+.ga-links {
   display: flex;
   align-items: center;
   gap: 42px;
 }
 
-.album-links a {
+.ga-links a {
   position: relative;
   color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
@@ -86,12 +86,12 @@ img {
   transition: color 0.2s ease;
 }
 
-.album-links a:hover,
-.album-links a.active {
+.ga-links a:hover,
+.ga-links a.active {
   color: #fff;
 }
 
-.album-links a.active::after {
+.ga-links a.active::after {
   content: "";
   position: absolute;
   left: 0;
@@ -103,67 +103,9 @@ img {
   box-shadow: 0 0 18px rgba(189, 0, 255, 0.85);
 }
 
-.album-nav-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.album-nav-toggle span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  margin: 5px auto;
-  background: #fff;
-  border-radius: 999px;
-}
-
-/* ================= MOBILE MENU ================= */
-
-.album-mobile-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  background: rgba(0,0,0,.94);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.album-mobile-close {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  font-size: 20px;
-}
-
-.album-mobile-menu nav {
-  min-height: 100vh;
-  display: grid;
-  place-content: center;
-  gap: 24px;
-  text-align: center;
-}
-
-.album-mobile-menu a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 30px;
-  font-weight: 900;
-  letter-spacing: .08em;
-}
-
 /* ================= FULLSCREEN HERO ================= */
 
-.album-hero {
+.ga-hero {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -175,7 +117,7 @@ img {
   background: #050506;
 }
 
-.album-hero-bg {
+.ga-hero-bg {
   position: absolute;
   inset: -40px;
   z-index: 0;
@@ -190,14 +132,14 @@ img {
   transition: background-image 0.4s ease;
 }
 
-.album-slider {
+.ga-slider {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: #050506;
 }
 
-.album-hero-img {
+.ga-hi-img {
   position: absolute;
   inset: 0;
 
@@ -216,11 +158,11 @@ img {
   transition: opacity 900ms ease;
 }
 
-.album-hero-img.is-on {
+.ga-hi-img.is-on {
   opacity: 1;
 }
 
-.album-overlay {
+.ga-overlay {
   position: absolute;
   inset: 0;
   z-index: 3;
@@ -232,7 +174,7 @@ img {
   pointer-events: none;
 }
 
-.album-hero::after {
+.ga-hero::after {
   content: "";
   position: absolute;
   left: 0;
@@ -245,7 +187,7 @@ img {
   pointer-events: none;
 }
 
-.album-back {
+.ga-back {
   position: absolute;
   left: 7vw;
   top: 118px;
@@ -269,24 +211,24 @@ img {
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
 
-.album-back:hover {
+.ga-back:hover {
   color: #fff;
   border-color: rgba(255,255,255,.42);
   background: rgba(255,255,255,.08);
 }
 
-.album-hero-content {
+.ga-hero-content {
   position: relative;
   z-index: 8;
 
-  width: min(92vw, 980px);
+  width: min(92vw, 940px);
   padding: 0 22px;
 
   text-align: center;
   transform: translateY(12px);
 }
 
-.album-eyebrow {
+.ga-eyebrow {
   margin: 0 0 18px;
 
   color: rgba(255,255,255,.78);
@@ -298,7 +240,7 @@ img {
   text-shadow: 0 8px 28px rgba(0,0,0,.7);
 }
 
-.album-hero-content h1 {
+.ga-hero-content h1 {
   margin: 0;
 
   font-size: clamp(46px, 8.3vw, 118px);
@@ -316,7 +258,7 @@ img {
     0 0 40px rgba(189,0,255,.18);
 }
 
-.album-hero-content p#albumMeta {
+.ga-hero-content p#albumMeta {
   margin: 18px 0 0;
 
   color: rgba(255,255,255,.72);
@@ -326,7 +268,7 @@ img {
   text-transform: uppercase;
 }
 
-.album-btn {
+.ga-btn {
   margin-top: 30px;
 
   display: inline-flex;
@@ -350,13 +292,13 @@ img {
   transition: transform .22s ease, background .22s ease, box-shadow .22s ease;
 }
 
-.album-btn:hover {
+.ga-btn:hover {
   transform: translateY(-3px);
   background: #fff;
   box-shadow: 0 22px 58px rgba(0,0,0,.42);
 }
 
-.album-dots {
+.ga-dots {
   position: absolute;
   left: 50%;
   bottom: 118px;
@@ -369,7 +311,7 @@ img {
   gap: 9px;
 }
 
-.album-dot {
+.ga-dot {
   width: 32px;
   height: 3px;
   border-radius: 999px;
@@ -380,12 +322,12 @@ img {
   transition: background .25s ease, width .25s ease;
 }
 
-.album-dot.on {
+.ga-dot.on {
   width: 54px;
   background: rgba(255,255,255,.92);
 }
 
-.album-scroll {
+.ga-scroll {
   position: absolute;
   left: 50%;
   bottom: 34px;
@@ -407,15 +349,15 @@ img {
   text-transform: uppercase;
 }
 
-.album-scroll span {
+.ga-scroll span {
   width: 1px;
   height: 34px;
   display: block;
   background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.78));
-  animation: albumScroll 1.8s ease-in-out infinite;
+  animation: gaScroll 1.8s ease-in-out infinite;
 }
 
-@keyframes albumScroll {
+@keyframes gaScroll {
   0% { transform: scaleY(.35); opacity: .4; }
   50% { transform: scaleY(1); opacity: 1; }
   100% { transform: scaleY(.35); opacity: .4; }
@@ -423,7 +365,7 @@ img {
 
 /* ================= PHOTOS SECTION ================= */
 
-.album-photos-section {
+.ga-photos-section {
   position: relative;
   z-index: 10;
 
@@ -434,7 +376,7 @@ img {
   padding: 90px 7vw 130px;
 }
 
-.album-section-head {
+.ga-section-head {
   max-width: 1220px;
   margin: 0 auto 36px;
   padding-bottom: 24px;
@@ -442,7 +384,7 @@ img {
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 
-.album-section-head p {
+.ga-section-head p {
   margin: 0 0 9px;
 
   color: rgba(255,255,255,.48);
@@ -452,7 +394,7 @@ img {
   text-transform: uppercase;
 }
 
-.album-section-head h2 {
+.ga-section-head h2 {
   margin: 0;
 
   font-size: clamp(34px, 4vw, 58px);
@@ -461,7 +403,7 @@ img {
 }
 
 /* Masonry desktop */
-.album-grid {
+.ga-grid {
   max-width: 1220px;
   margin: 0 auto;
 
@@ -469,7 +411,7 @@ img {
   column-gap: 10px;
 }
 
-.album-photo-card {
+.ga-photo-card {
   position: relative;
   break-inside: avoid;
   margin: 0 0 10px;
@@ -490,14 +432,14 @@ img {
   transition: transform .18s ease, box-shadow .18s ease, outline-color .18s ease;
 }
 
-.album-photo-card img {
+.ga-photo-card img {
   width: 100%;
   height: auto;
   display: block;
 }
 
-.album-photo-card:hover,
-.album-photo-card:focus-within {
+.ga-photo-card:hover,
+.ga-photo-card:focus-within {
   transform: scale(.985);
   outline-color: rgba(170, 76, 255, .55);
   box-shadow:
@@ -505,7 +447,7 @@ img {
     0 0 0 2px rgba(170, 76, 255, .22);
 }
 
-.album-download-btn {
+.ga-download-btn {
   position: absolute;
   right: 10px;
   bottom: 10px;
@@ -535,13 +477,13 @@ img {
   transition: opacity .18s ease, transform .18s ease, background .18s ease;
 }
 
-.album-photo-card:hover .album-download-btn,
-.album-photo-card:focus-within .album-download-btn {
+.ga-photo-card:hover .ga-download-btn,
+.ga-photo-card:focus-within .ga-download-btn {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-.album-empty {
+.ga-empty {
   max-width: 1220px;
   margin: 0 auto;
   padding: 40px 0;
@@ -550,7 +492,7 @@ img {
 
 /* ================= LIGHTBOX ================= */
 
-.album-lightbox {
+.ga-lightbox {
   position: fixed;
   inset: 0;
   z-index: 9999;
@@ -563,11 +505,11 @@ img {
   padding: 24px;
 }
 
-.album-lightbox.open {
+.ga-lightbox.open {
   display: flex;
 }
 
-.album-lb-stage {
+.ga-lb-stage {
   position: relative;
 
   width: min(1200px, 100vw);
@@ -576,7 +518,7 @@ img {
   overflow: hidden;
 }
 
-.album-lb-img {
+.ga-lb-img {
   position: absolute;
   inset: 0;
 
@@ -589,11 +531,11 @@ img {
   transition: opacity 420ms ease;
 }
 
-.album-lb-img.is-on {
+.ga-lb-img.is-on {
   opacity: 1;
 }
 
-.album-lb-close {
+.ga-lb-close {
   position: fixed;
   top: 18px;
   right: 18px;
@@ -618,7 +560,7 @@ img {
   -webkit-backdrop-filter: blur(10px);
 }
 
-.album-lb-btn {
+.ga-lb-btn {
   position: fixed;
   top: 50%;
   z-index: 10000;
@@ -638,15 +580,15 @@ img {
   cursor: pointer;
 }
 
-.album-lb-prev {
+.ga-lb-prev {
   left: 18px;
 }
 
-.album-lb-next {
+.ga-lb-next {
   right: 18px;
 }
 
-.album-lb-download {
+.ga-lb-download {
   position: fixed;
   left: 50%;
   bottom: 28px;
@@ -679,104 +621,110 @@ img {
 /* ================= RESPONSIVE ================= */
 
 @media (max-width: 1200px) {
-  .album-grid {
+  .ga-grid {
     column-count: 4;
   }
 }
 
 @media (max-width: 980px) {
-  .album-nav {
+  .ga-nav {
     padding: 0 28px;
   }
 
-  .album-links {
+  .ga-links {
     gap: 26px;
   }
 
-  .album-grid {
+  .ga-grid {
     column-count: 3;
   }
 }
 
 @media (max-width: 820px) {
-  .album-nav {
+  .ga-nav {
     height: 74px;
     padding: 0 20px;
   }
 
-  .album-logo img {
+  .ga-logo img {
     width: 46px;
   }
 
-  .album-links {
+  .ga-links {
+    gap: 18px;
+  }
+
+  .ga-links a {
+    font-size: 12px;
+  }
+
+  .ga-links a:nth-child(3),
+  .ga-links a:nth-child(4),
+  .ga-links a:nth-child(5) {
     display: none;
   }
 
-  .album-nav-toggle {
-    display: block;
-  }
-
-  .album-hero {
+  .ga-hero {
     min-height: 92vh;
   }
 
-  .album-back {
+  .ga-back {
     top: 92px;
     left: 20px;
     padding: 11px 17px;
     font-size: 12px;
   }
 
-  .album-hero-content {
+  .ga-hero-content {
     transform: translateY(4px);
   }
 
-  .album-eyebrow {
+  .ga-eyebrow {
     font-size: 10px;
     letter-spacing: .25em;
   }
 
-  .album-hero-content h1 {
+  .ga-hero-content h1 {
     font-size: clamp(38px, 12vw, 68px);
     letter-spacing: .075em;
     text-indent: .075em;
   }
 
-  .album-hero-content p#albumMeta {
+  .ga-hero-content p#albumMeta {
     font-size: 12px;
   }
 
-  .album-btn {
+  .ga-btn {
     min-width: 176px;
     height: 50px;
     font-size: 11px;
   }
 
-  .album-dots {
+  .ga-dots {
     bottom: 104px;
   }
 
-  .album-hero-img,
-  .album-hero-bg {
+  .ga-hi-img,
+  .ga-hero-bg {
     object-position: center center;
     background-position: center center;
   }
 
-  .album-photos-section {
+  .ga-photos-section {
     padding: 70px 18px 96px;
   }
 
-  .album-lb-btn {
+  .ga-lb-btn {
     display: none;
   }
 
-  .album-lb-stage {
+  .ga-lb-stage {
     height: calc(100vh - 210px);
   }
 }
 
 @media (max-width: 560px) {
-  .album-grid {
+  .ga-grid {
     column-count: initial;
     column-gap: initial;
 
@@ -785,34 +733,16 @@ img {
     gap: 6px;
   }
 
-  .album-photo-card {
+  .ga-photo-card {
     margin: 0;
     border-radius: 12px;
   }
 
-  .album-download-btn {
+  .ga-download-btn {
     opacity: 0;
   }
 
-  .album-section-head h2 {
+  .ga-section-head h2 {
     font-size: 34px;
   }
-}
-/* =========================================================
-   ALBUM PAGE — Logo only header
-========================================================= */
-
-.album-page .album-nav {
-  justify-content: flex-start;
-  background: transparent;
-  pointer-events: none;
-}
-
-.album-page .album-logo {
-  pointer-events: auto;
-}
-
-.album-page .album-links,
-.album-page .album-nav-toggle {
-  display: none !important;
 }
