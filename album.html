@@ -123,10 +123,47 @@
       <img id="lb-img-b" class="album-lb-img" alt="">
     </div>
 
-    <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
+    <div class="album-lb-actions">
+  <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
+    Download
+  </button>
+
+  <button type="button" id="lb-download-clean" class="album-lb-download-clean" aria-label="Download without watermark">
+    Download without watermark
+  </button>
+</div>
+
       Download
     </button>
   </div>
+
+  <div id="pinModal" class="pin-modal" hidden>
+  <div class="pin-modal__card">
+    <button type="button" id="pinClose" class="pin-modal__close" aria-label="Close">✕</button>
+
+    <p class="pin-modal__eyebrow">CLIENT ACCESS</p>
+    <h2>Enter your 4-digit PIN</h2>
+    <p class="pin-modal__text">Use the PIN provided by NOCHARTE to download without watermark.</p>
+
+    <input
+      id="pinInput"
+      class="pin-modal__input"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="••••"
+      autocomplete="off"
+    >
+
+    <p id="pinError" class="pin-modal__error" hidden>Incorrect PIN. Try again.</p>
+
+    <button type="button" id="pinSubmit" class="pin-modal__submit">
+      Unlock download
+    </button>
+  </div>
+</div>
+
+<script src="/assets/albums/album-pins.js"></script>
 
   <script>
     (function () {
@@ -438,6 +475,14 @@ metaEl.textContent = albumDate
       const prevBtn = document.getElementById('lb-prev');
       const nextBtn = document.getElementById('lb-next');
       const downloadBtn = document.getElementById('lb-download');
+      const cleanDownloadBtn = document.getElementById('lb-download-clean');
+const pinModal = document.getElementById('pinModal');
+const pinInput = document.getElementById('pinInput');
+const pinError = document.getElementById('pinError');
+const pinSubmit = document.getElementById('pinSubmit');
+const pinClose = document.getElementById('pinClose');
+
+let pendingCleanDownloadSrc = '';
 
       let lbShowingA = true;
       let startX = 0;
@@ -561,6 +606,76 @@ function loadImage(src) {
   });
 }
 
+function getAlbumPin() {
+  return window.ALBUM_PINS && window.ALBUM_PINS[slug]
+    ? String(window.ALBUM_PINS[slug])
+    : '';
+}
+
+function isAlbumUnlocked() {
+  return sessionStorage.getItem(`nocharte_unlocked_${slug}`) === '1';
+}
+
+function unlockAlbum() {
+  sessionStorage.setItem(`nocharte_unlocked_${slug}`, '1');
+}
+
+function downloadOriginalDirect(src) {
+  const a = document.createElement('a');
+  a.href = src;
+
+  const filename = src.split('/').pop() || 'nocharte-original-photo';
+  a.download = filename;
+
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function openPinModal(src) {
+  pendingCleanDownloadSrc = src;
+
+  if (isAlbumUnlocked()) {
+    downloadOriginalDirect(src);
+    return;
+  }
+
+  pinInput.value = '';
+  pinError.hidden = true;
+  pinModal.hidden = false;
+
+  setTimeout(() => {
+    pinInput.focus();
+  }, 80);
+}
+
+function closePinModal() {
+  pinModal.hidden = true;
+  pendingCleanDownloadSrc = '';
+}
+
+function submitPin() {
+  const correctPin = getAlbumPin();
+  const enteredPin = pinInput.value.trim();
+
+  if (!correctPin) {
+    pinError.textContent = 'No client PIN is set for this album.';
+    pinError.hidden = false;
+    return;
+  }
+
+  if (enteredPin === correctPin) {
+    unlockAlbum();
+    closePinModal();
+    downloadOriginalDirect(pendingCleanDownloadSrc);
+  } else {
+    pinError.textContent = 'Incorrect PIN. Try again.';
+    pinError.hidden = false;
+    pinInput.value = '';
+    pinInput.focus();
+  }
+}
+
       closeBtn.addEventListener('click', closeLightbox);
       nextBtn.addEventListener('click', next);
       prevBtn.addEventListener('click', prev);
@@ -570,6 +685,30 @@ function loadImage(src) {
           downloadDirect(files[current].full || files[current].src);
         }
       });
+
+      cleanDownloadBtn.addEventListener('click', () => {
+  if (files[current]) {
+    openPinModal(files[current].full || files[current].src);
+  }
+});
+
+pinSubmit.addEventListener('click', submitPin);
+
+pinClose.addEventListener('click', closePinModal);
+
+pinInput.addEventListener('input', () => {
+  pinInput.value = pinInput.value.replace(/\D/g, '').slice(0, 4);
+  pinError.hidden = true;
+});
+
+pinInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitPin();
+  if (e.key === 'Escape') closePinModal();
+});
+
+pinModal.addEventListener('click', e => {
+  if (e.target === pinModal) closePinModal();
+});
 
       lb.addEventListener('click', e => {
         if (e.target === lb) closeLightbox();

@@ -816,3 +816,204 @@ img {
 .album-page .album-nav-toggle {
   display: none !important;
 }
+
+/* =========================================================
+   CLIENT PIN DOWNLOAD
+========================================================= */
+
+.album-lb-actions {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 10000;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.album-lb-actions .album-lb-download {
+  position: static;
+  transform: none;
+}
+
+.album-lb-download-clean {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 18px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(189, 0, 255, .42);
+
+  color: #fff;
+  background: rgba(120, 0, 180, .34);
+
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .04em;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 12px 32px rgba(0,0,0,.45),
+    0 0 26px rgba(189,0,255,.22);
+}
+
+.album-lb-download-clean:hover {
+  background: rgba(150, 0, 220, .46);
+}
+
+.pin-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+
+  display: grid;
+  place-items: center;
+
+  padding: 22px;
+
+  background: rgba(0,0,0,.76);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.pin-modal[hidden] {
+  display: none !important;
+}
+
+.pin-modal__card {
+  position: relative;
+
+  width: min(420px, 94vw);
+
+  padding: 34px 28px 28px;
+  border-radius: 28px;
+
+  text-align: center;
+
+  background:
+    radial-gradient(circle at top center, rgba(189,0,255,.18), rgba(10,10,12,.96) 46%),
+    rgba(10,10,12,.96);
+
+  border: 1px solid rgba(255,255,255,.14);
+
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.62),
+    0 0 50px rgba(189,0,255,.18);
+}
+
+.pin-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+
+  color: #fff;
+  background: rgba(255,255,255,.08);
+
+  cursor: pointer;
+}
+
+.pin-modal__eyebrow {
+  margin: 0 0 10px;
+
+  color: rgba(255,255,255,.56);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .26em;
+}
+
+.pin-modal__card h2 {
+  margin: 0;
+
+  font-size: 30px;
+  line-height: 1;
+}
+
+.pin-modal__text {
+  margin: 14px auto 22px;
+
+  max-width: 300px;
+
+  color: rgba(255,255,255,.64);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.pin-modal__input {
+  width: 170px;
+  height: 58px;
+
+  text-align: center;
+
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+
+  color: #fff;
+  background: rgba(255,255,255,.08);
+
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: .22em;
+
+  outline: none;
+}
+
+.pin-modal__input:focus {
+  border-color: rgba(189,0,255,.72);
+  box-shadow: 0 0 0 4px rgba(189,0,255,.14);
+}
+
+.pin-modal__error {
+  margin: 14px 0 0;
+
+  color: #ff6b6b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.pin-modal__submit {
+  width: 100%;
+  height: 52px;
+
+  margin-top: 20px;
+
+  border: 0;
+  border-radius: 999px;
+
+  color: #050506;
+  background: #fff;
+
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .album-lb-actions {
+    bottom: 22px;
+    width: calc(100% - 36px);
+  }
+
+  .album-lb-actions button {
+    width: 100%;
+  }
+}
