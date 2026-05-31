@@ -113,29 +113,26 @@
   </main>
 
   <!-- LIGHTBOX -->
-  <div id="lightbox" class="album-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-    <button type="button" id="lb-close" class="album-lb-close" aria-label="Close">✕</button>
-    <button type="button" id="lb-prev" class="album-lb-btn album-lb-prev" aria-label="Previous">❮</button>
-    <button type="button" id="lb-next" class="album-lb-btn album-lb-next" aria-label="Next">❯</button>
+<div id="lightbox" class="album-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+  <button type="button" id="lb-close" class="album-lb-close" aria-label="Close">✕</button>
+  <button type="button" id="lb-prev" class="album-lb-btn album-lb-prev" aria-label="Previous">❮</button>
+  <button type="button" id="lb-next" class="album-lb-btn album-lb-next" aria-label="Next">❯</button>
 
-    <div class="album-lb-stage">
-      <img id="lb-img-a" class="album-lb-img is-on" alt="">
-      <img id="lb-img-b" class="album-lb-img" alt="">
-    </div>
+  <div class="album-lb-stage">
+    <img id="lb-img-a" class="album-lb-img is-on" alt="">
+    <img id="lb-img-b" class="album-lb-img" alt="">
+  </div>
 
-    <div class="album-lb-actions">
-  <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
-    Download
-  </button>
-
-  <button type="button" id="lb-download-clean" class="album-lb-download-clean" aria-label="Download without watermark">
-    Download without watermark
-  </button>
-</div>
-
+  <div class="album-lb-actions">
+    <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
       Download
     </button>
+
+    <button type="button" id="lb-download-clean" class="album-lb-download-clean" aria-label="Download without watermark">
+      Download without watermark
+    </button>
   </div>
+</div>
 
   <div id="pinModal" class="pin-modal" hidden>
   <div class="pin-modal__card">
@@ -513,7 +510,7 @@ let pendingCleanDownloadSrc = '';
 
         under.classList.remove('is-on');
         under.alt = f.alt || '';
-        under.src = f.full || f.src;
+        under.src = f.src;
 
         under.onload = () => {
           under.classList.add('is-on');
