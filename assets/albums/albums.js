@@ -134,4 +134,13 @@ window.ALBUMS = [
     cover: "assets/albums/frequencies_v1-16-05-26/cover.webp",
     href: "album.html?slug=frequencies_v1-16-05-26"
   },
+  {
+    slug: "the_trip-30-05-26", 
+    title: "The Trip — 30 May 2026",
+    date: "2026-05-30",
+    category: "Clubs",
+    count: 73,
+    cover: "assets/albums/the_trip-30-05-26/cover.webp",
+    href: "album.html?slug=the_trip-30-05-26"
+  },
 ];

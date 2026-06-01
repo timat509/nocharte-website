@@ -100,16 +100,23 @@
       </a>
     </section>
 
-    <!-- PHOTO GRID -->
-    <section class="album-photos-section">
-      <div class="album-section-head">
-        <p>Album photos</p>
-        <h2>Moments captured</h2>
-      </div>
 
-      <section id="photo-grid" class="album-grid" aria-live="polite"></section>
-      <p id="emptyMsg" class="album-empty" style="display:none">No photos found for this album.</p>
-    </section>
+   <!-- PHOTO GRID -->
+<section class="album-photos-section">
+  <div class="album-section-head">
+    <div>
+      <p>Album photos</p>
+      <h2>Moments captured</h2>
+    </div>
+
+    <button type="button" id="downloadAlbumZip" class="album-download-zip">
+      Download full album
+    </button>
+  </div>
+
+  <section id="photo-grid" class="album-grid" aria-live="polite"></section>
+  <p id="emptyMsg" class="album-empty" style="display:none">No photos found for this album.</p>
+</section>
   </main>
 
   <!-- LIGHTBOX -->
@@ -334,7 +341,6 @@ function slugToDate(s) {
 
         files = normalize(rawPhotos);
         renderAlbum();
-
         loadScript(`${base}/highlights.js`, () => {
           setupHero();
         }, () => {
@@ -345,7 +351,21 @@ function slugToDate(s) {
         metaEl.textContent = slug;
         emptyEl.style.display = 'block';
       });
-
+function photoCardHTML(f, i, loadingAttr) {
+  return `
+    <figure class="album-photo-card" data-idx="${i}" role="button" tabindex="0">
+      <img
+        src="${f.src}"
+        alt="${escapeHtml(f.alt)}"
+        loading="${i < 6 ? 'eager' : loadingAttr}"
+        decoding="async"
+      >
+      <button class="album-download-btn" type="button" data-download="${i}" aria-label="Download photo">
+        ↓
+      </button>
+    </figure>
+  `;
+}
       function renderAlbum() {
         setPageTitle();
         const albumDate = slugToDate(slug);
@@ -364,19 +384,15 @@ metaEl.textContent = albumDate
 
         const loadingAttr = isIOSSafari ? 'eager' : 'lazy';
 
-        gridEl.innerHTML = files.map((f, i) => `
-          <figure class="album-photo-card" data-idx="${i}" role="button" tabindex="0">
-            <img
-              src="${f.src}"
-              alt="${escapeHtml(f.alt)}"
-              loading="${i < 6 ? 'eager' : loadingAttr}"
-              decoding="async"
-            >
-            <button class="album-download-btn" type="button" data-download="${i}" aria-label="Download photo">
-              ↓
-            </button>
-          </figure>
-        `).join('');
+        gridEl.innerHTML = `
+  <div class="album-grid-col">
+    ${files.map((f, i) => i % 2 === 0 ? photoCardHTML(f, i, loadingAttr) : '').join('')}
+  </div>
+
+  <div class="album-grid-col">
+    ${files.map((f, i) => i % 2 !== 0 ? photoCardHTML(f, i, loadingAttr) : '').join('')}
+  </div>
+`;
 
         gridEl.querySelectorAll('.album-photo-card').forEach(card => {
           card.addEventListener('click', () => {
@@ -473,6 +489,7 @@ metaEl.textContent = albumDate
       const nextBtn = document.getElementById('lb-next');
       const downloadBtn = document.getElementById('lb-download');
       const cleanDownloadBtn = document.getElementById('lb-download-clean');
+      const downloadAlbumZipBtn = document.getElementById('downloadAlbumZip');
 const pinModal = document.getElementById('pinModal');
 const pinInput = document.getElementById('pinInput');
 const pinError = document.getElementById('pinError');
@@ -526,7 +543,7 @@ let pendingCleanDownloadSrc = '';
         if (!files.length) return;
         const index = (i + files.length) % files.length;
         const im = new Image();
-        im.src = files[index].full || files[index].src;
+        im.src = files[index].src;
       }
 
       function next() {
@@ -617,16 +634,52 @@ function unlockAlbum() {
   sessionStorage.setItem(`nocharte_unlocked_${slug}`, '1');
 }
 
-function downloadOriginalDirect(src) {
-  const a = document.createElement('a');
-  a.href = src;
+async function downloadOriginalDirect(src) {
+  // For big ZIP files, do NOT use fetch.
+  // Direct browser download is much safer.
+  if (src.toLowerCase().endsWith('.zip')) {
+    const a = document.createElement('a');
+    a.href = src;
+    a.download = src.split('/').pop() || 'nocharte-album.zip';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    return;
+  }
 
-  const filename = src.split('/').pop() || 'nocharte-original-photo';
-  a.download = filename;
+  // For individual photos, keep the safety check.
+  try {
+    const response = await fetch(src, { cache: 'no-store' });
+    const contentType = response.headers.get('content-type') || '';
 
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+    if (!response.ok || contentType.includes('text/html')) {
+      alert('File not found. Check the ZIP/photo path and filename.');
+      console.error('Download failed:', src, response.status, contentType);
+      return;
+    }
+
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = src.split('/').pop() || 'nocharte-download';
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(blobUrl);
+  } catch (err) {
+    console.error('Download failed:', err);
+    alert('Download failed. Check if the file exists.');
+  }
+}
+
+function getAlbumZipSrc() {
+  const zipPath = `${base}/downloads/${slug}.zip`;
+  console.log('ZIP PATH:', zipPath);
+  return zipPath;
 }
 
 function openPinModal(src) {
@@ -687,6 +740,10 @@ function submitPin() {
   if (files[current]) {
     openPinModal(files[current].full || files[current].src);
   }
+});
+
+downloadAlbumZipBtn.addEventListener('click', () => {
+  openPinModal(getAlbumZipSrc());
 });
 
 pinSubmit.addEventListener('click', submitPin);
