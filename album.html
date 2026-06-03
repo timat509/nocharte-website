@@ -34,7 +34,7 @@
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="/album.css?v=new-album-hero-1">
+  <link rel="stylesheet" href="/album.css?v=watermark-download-fix-1">
 </head>
 
 <body class="album-page">
@@ -100,111 +100,112 @@
       </a>
     </section>
 
+    <!-- PHOTO GRID -->
+    <section class="album-photos-section">
+      <div class="album-section-head">
+        <div>
+          <p>Album photos</p>
+          <h2>Moments captured</h2>
+        </div>
 
-   <!-- PHOTO GRID -->
-<section class="album-photos-section">
-  <div class="album-section-head">
-    <div>
-      <p>Album photos</p>
-      <h2>Moments captured</h2>
-    </div>
+        <button type="button" id="downloadAlbumZip" class="album-download-zip">
+          Download full album
+        </button>
+      </div>
 
-    <button type="button" id="downloadAlbumZip" class="album-download-zip">
-      Download full album
-    </button>
-  </div>
-
-  <section id="photo-grid" class="album-grid" aria-live="polite"></section>
-  <p id="emptyMsg" class="album-empty" style="display:none">No photos found for this album.</p>
-</section>
+      <section id="photo-grid" class="album-grid" aria-live="polite"></section>
+      <p id="emptyMsg" class="album-empty" style="display:none">No photos found for this album.</p>
+    </section>
   </main>
 
   <!-- LIGHTBOX -->
-<div id="lightbox" class="album-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-  <button type="button" id="lb-close" class="album-lb-close" aria-label="Close">✕</button>
-  <button type="button" id="lb-prev" class="album-lb-btn album-lb-prev" aria-label="Previous">❮</button>
-  <button type="button" id="lb-next" class="album-lb-btn album-lb-next" aria-label="Next">❯</button>
+  <div id="lightbox" class="album-lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button type="button" id="lb-close" class="album-lb-close" aria-label="Close">✕</button>
+    <button type="button" id="lb-prev" class="album-lb-btn album-lb-prev" aria-label="Previous">❮</button>
+    <button type="button" id="lb-next" class="album-lb-btn album-lb-next" aria-label="Next">❯</button>
 
-  <div class="album-lb-stage">
-    <img id="lb-img-a" class="album-lb-img is-on" alt="">
-    <img id="lb-img-b" class="album-lb-img" alt="">
+    <div class="album-lb-stage">
+      <img id="lb-img-a" class="album-lb-img is-on" alt="">
+      <img id="lb-img-b" class="album-lb-img" alt="">
+    </div>
+
+    <div class="album-lb-actions">
+      <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
+        Download
+      </button>
+
+      <button type="button" id="lb-download-clean" class="album-lb-download-clean" aria-label="Download without watermark">
+        Download without watermark
+      </button>
+    </div>
   </div>
 
-  <div class="album-lb-actions">
-    <button type="button" id="lb-download" class="album-lb-download" aria-label="Download photo">
-      Download
-    </button>
-
-    <button type="button" id="lb-download-clean" class="album-lb-download-clean" aria-label="Download without watermark">
-      Download without watermark
-    </button>
-  </div>
-</div>
-
+  <!-- PIN MODAL -->
   <div id="pinModal" class="pin-modal" hidden>
-  <div class="pin-modal__card">
-    <button type="button" id="pinClose" class="pin-modal__close" aria-label="Close">✕</button>
+    <div class="pin-modal__card">
+      <button type="button" id="pinClose" class="pin-modal__close" aria-label="Close">✕</button>
 
-    <p class="pin-modal__eyebrow">CLIENT ACCESS</p>
-    <h2>Enter your 4-digit PIN</h2>
-    <p class="pin-modal__text">Use the PIN provided by NOCHARTE to download without watermark.</p>
+      <p class="pin-modal__eyebrow">CLIENT ACCESS</p>
+      <h2>Enter your 4-digit PIN</h2>
+      <p class="pin-modal__text">Use the PIN provided by NOCHARTE to download without watermark.</p>
 
-    <input
-      id="pinInput"
-      class="pin-modal__input"
-      type="password"
-      inputmode="numeric"
-      maxlength="4"
-      placeholder="••••"
-      autocomplete="off"
-    >
+      <input
+        id="pinInput"
+        class="pin-modal__input"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="••••"
+        autocomplete="off"
+      >
 
-    <p id="pinError" class="pin-modal__error" hidden>Incorrect PIN. Try again.</p>
+      <p id="pinError" class="pin-modal__error" hidden>Incorrect PIN. Try again.</p>
 
-    <button type="button" id="pinSubmit" class="pin-modal__submit">
-      Unlock download
-    </button>
+      <button type="button" id="pinSubmit" class="pin-modal__submit">
+        Unlock download
+      </button>
+    </div>
   </div>
-</div>
 
-<div id="emailAlbumModal" class="pin-modal" hidden aria-hidden="true">
-  <div class="pin-modal__card">
-    <button type="button" id="emailAlbumClose" class="pin-modal__close" aria-label="Close">×</button>
+  <!-- EMAIL FULL ALBUM MODAL -->
+  <div id="emailAlbumModal" class="pin-modal" hidden aria-hidden="true">
+    <div class="pin-modal__card">
+      <button type="button" id="emailAlbumClose" class="pin-modal__close" aria-label="Close">×</button>
 
-    <p class="pin-modal__eyebrow">FULL ALBUM</p>
-    <h2>Send download link</h2>
+      <p class="pin-modal__eyebrow">FULL ALBUM</p>
+      <h2>Send download link</h2>
 
-    <p class="pin-modal__text">
-      Enter your email and client PIN. We’ll send you the full album download link.
-    </p>
+      <p class="pin-modal__text">
+        Enter your email and client PIN. We’ll send you the full album download link.
+      </p>
 
-    <input
-      id="emailAlbumInput"
-      class="pin-modal__input email-album-input"
-      type="email"
-      placeholder="your@email.com"
-      autocomplete="email"
-    />
+      <input
+        id="emailAlbumInput"
+        class="pin-modal__input email-album-input"
+        type="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+      />
 
-    <input
-      id="emailAlbumPin"
-      class="pin-modal__input"
-      type="password"
-      inputmode="numeric"
-      maxlength="4"
-      placeholder="PIN"
-      autocomplete="off"
-    />
+      <input
+        id="emailAlbumPin"
+        class="pin-modal__input"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="PIN"
+        autocomplete="off"
+      />
 
-    <p id="emailAlbumError" class="pin-modal__error" hidden></p>
+      <p id="emailAlbumError" class="pin-modal__error" hidden></p>
 
-    <button type="button" id="emailAlbumSubmit" class="pin-modal__submit">
-      Send link
-    </button>
+      <button type="button" id="emailAlbumSubmit" class="pin-modal__submit">
+        Send link
+      </button>
+    </div>
   </div>
-</div>
 
-<script src="/assets/albums/album-pins.js"></script>
+  <script src="/assets/albums/album-pins.js"></script>
 
   <script>
     (function () {
@@ -259,17 +260,17 @@
         return `${base}/web/${toWebp(value)}`;
       }
 
-     function fullSrc(src) {
-  if (!src) return '';
+      function fullSrc(src) {
+        if (!src) return '';
 
-  const value = cleanSrc(src);
+        const value = cleanSrc(src);
 
-  if (/^https?:\/\//i.test(value)) return value;
-  if (value.startsWith('/')) return value;
-  if (value.startsWith('assets/')) return `/${value}`;
+        if (/^https?:\/\//i.test(value)) return value;
+        if (value.startsWith('/')) return value;
+        if (value.startsWith('assets/')) return `/${value}`;
 
-  return `${base}/original/${value}`;
-}
+        return `${base}/original/${value}`;
+      }
 
       function normalize(list) {
         return (list || []).map(item => {
@@ -305,43 +306,43 @@
       }
 
       function slugToTitle(s) {
-  const parts = s.split('-');
-  const words = [];
+        const parts = s.split('-');
+        const words = [];
 
-  for (const p of parts) {
-    if (!/^\d+$/.test(p)) words.push(p);
-  }
+        for (const p of parts) {
+          if (!/^\d+$/.test(p)) words.push(p);
+        }
 
-  return words
-    .join(' ')
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
-}
+        return words
+          .join(' ')
+          .replace(/_/g, ' ')
+          .replace(/\b\w/g, c => c.toUpperCase());
+      }
 
-function slugToDate(s) {
-  const parts = s.split('-');
-  const nums = parts.filter(p => /^\d+$/.test(p));
+      function slugToDate(s) {
+        const parts = s.split('-');
+        const nums = parts.filter(p => /^\d+$/.test(p));
 
-  if (nums.length < 3) return '';
+        if (nums.length < 3) return '';
 
-  const day = nums[0];
-  const month = nums[1];
-  let year = nums[2];
+        const day = nums[0];
+        const month = nums[1];
+        let year = nums[2];
 
-  if (year.length === 2) year = `20${year}`;
+        if (year.length === 2) year = `20${year}`;
 
-  const date = new Date(`${year}-${month}-${day}`);
+        const date = new Date(`${year}-${month}-${day}`);
 
-  if (Number.isNaN(date.getTime())) {
-    return `${day}.${month}.${year}`;
-  }
+        if (Number.isNaN(date.getTime())) {
+          return `${day}.${month}.${year}`;
+        }
 
-  return date.toLocaleDateString('en-US', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric'
-  }).toUpperCase();
-}
+        return date.toLocaleDateString('en-US', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }).toUpperCase();
+      }
 
       function escapeHtml(str) {
         return String(str).replace(/[&<>"']/g, m => ({
@@ -378,6 +379,7 @@ function slugToDate(s) {
 
         files = normalize(rawPhotos);
         renderAlbum();
+
         loadScript(`${base}/highlights.js`, () => {
           setupHero();
         }, () => {
@@ -388,27 +390,31 @@ function slugToDate(s) {
         metaEl.textContent = slug;
         emptyEl.style.display = 'block';
       });
-function photoCardHTML(f, i, loadingAttr) {
-  return `
-    <figure class="album-photo-card" data-idx="${i}" role="button" tabindex="0">
-      <img
-        src="${f.src}"
-        alt="${escapeHtml(f.alt)}"
-        loading="${i < 6 ? 'eager' : loadingAttr}"
-        decoding="async"
-      >
-      <button class="album-download-btn" type="button" data-download="${i}" aria-label="Download photo">
-        ↓
-      </button>
-    </figure>
-  `;
-}
+
+      function photoCardHTML(f, i, loadingAttr) {
+        return `
+          <figure class="album-photo-card" data-idx="${i}" role="button" tabindex="0">
+            <img
+              src="${f.src}"
+              alt="${escapeHtml(f.alt)}"
+              loading="${i < 6 ? 'eager' : loadingAttr}"
+              decoding="async"
+            >
+            <button class="album-download-btn" type="button" data-download="${i}" aria-label="Download photo">
+              ↓
+            </button>
+          </figure>
+        `;
+      }
+
       function renderAlbum() {
         setPageTitle();
+
         const albumDate = slugToDate(slug);
-metaEl.textContent = albumDate
-  ? `${albumDate} | ${files.length} PHOTOS`
-  : `${files.length} PHOTOS`;
+
+        metaEl.textContent = albumDate
+          ? `${albumDate} | ${files.length} PHOTOS`
+          : `${files.length} PHOTOS`;
 
         if (!files.length) {
           emptyEl.style.display = 'block';
@@ -422,14 +428,14 @@ metaEl.textContent = albumDate
         const loadingAttr = isIOSSafari ? 'eager' : 'lazy';
 
         gridEl.innerHTML = `
-  <div class="album-grid-col">
-    ${files.map((f, i) => i % 2 === 0 ? photoCardHTML(f, i, loadingAttr) : '').join('')}
-  </div>
+          <div class="album-grid-col">
+            ${files.map((f, i) => i % 2 === 0 ? photoCardHTML(f, i, loadingAttr) : '').join('')}
+          </div>
 
-  <div class="album-grid-col">
-    ${files.map((f, i) => i % 2 !== 0 ? photoCardHTML(f, i, loadingAttr) : '').join('')}
-  </div>
-`;
+          <div class="album-grid-col">
+            ${files.map((f, i) => i % 2 !== 0 ? photoCardHTML(f, i, loadingAttr) : '').join('')}
+          </div>
+        `;
 
         gridEl.querySelectorAll('.album-photo-card').forEach(card => {
           card.addEventListener('click', () => {
@@ -448,7 +454,10 @@ metaEl.textContent = albumDate
           btn.addEventListener('click', e => {
             e.stopPropagation();
             const i = Number(btn.dataset.download);
-            downloadDirect(files[i].full || files[i].src);
+
+            if (files[i]) {
+              downloadDirect(files[i].full || files[i].src);
+            }
           });
         });
       }
@@ -528,21 +537,20 @@ metaEl.textContent = albumDate
       const cleanDownloadBtn = document.getElementById('lb-download-clean');
       const downloadAlbumZipBtn = document.getElementById('downloadAlbumZip');
 
-const pinModal = document.getElementById('pinModal');
-const pinInput = document.getElementById('pinInput');
-const pinError = document.getElementById('pinError');
-const pinSubmit = document.getElementById('pinSubmit');
-const pinClose = document.getElementById('pinClose');
+      const pinModal = document.getElementById('pinModal');
+      const pinInput = document.getElementById('pinInput');
+      const pinError = document.getElementById('pinError');
+      const pinSubmit = document.getElementById('pinSubmit');
+      const pinClose = document.getElementById('pinClose');
 
-const emailAlbumModal = document.getElementById('emailAlbumModal');
-const emailAlbumClose = document.getElementById('emailAlbumClose');
-const emailAlbumInput = document.getElementById('emailAlbumInput');
-const emailAlbumPin = document.getElementById('emailAlbumPin');
-const emailAlbumError = document.getElementById('emailAlbumError');
-const emailAlbumSubmit = document.getElementById('emailAlbumSubmit');
+      const emailAlbumModal = document.getElementById('emailAlbumModal');
+      const emailAlbumClose = document.getElementById('emailAlbumClose');
+      const emailAlbumInput = document.getElementById('emailAlbumInput');
+      const emailAlbumPin = document.getElementById('emailAlbumPin');
+      const emailAlbumError = document.getElementById('emailAlbumError');
+      const emailAlbumSubmit = document.getElementById('emailAlbumSubmit');
 
-let pendingCleanDownloadSrc = '';
-
+      let pendingCleanDownloadSrc = '';
       let lbShowingA = true;
       let startX = 0;
       let startY = 0;
@@ -586,6 +594,7 @@ let pendingCleanDownloadSrc = '';
 
       function preloadNeighbor(i) {
         if (!files.length) return;
+
         const index = (i + files.length) % files.length;
         const im = new Image();
         im.src = files[index].src;
@@ -599,272 +608,316 @@ let pendingCleanDownloadSrc = '';
         showLightbox(current - 1);
       }
 
-    async function downloadDirect(src) {
-  const logoSrc = '/assets/web/logo.png';
+      /* ================= SAFE WATERMARK DOWNLOAD FIX ================= */
 
-  try {
-    const img = await loadImage(src);
-    const logo = await loadImage(logoSrc);
+      async function downloadDirect(src) {
+        const logoSrc = '/assets/web/logohome.png';
 
-    const canvas = document.createElement('canvas');
-    canvas.width = img.naturalWidth || img.width;
-    canvas.height = img.naturalHeight || img.height;
+        try {
+          const img = await loadImageSafe(src);
+          const logo = await loadImageSafe(logoSrc);
 
-    const ctx = canvas.getContext('2d');
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth || img.width;
+          canvas.height = img.naturalHeight || img.height;
 
-    // Draw original photo
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          if (!canvas.width || !canvas.height) {
+            throw new Error('Photo loaded with empty size.');
+          }
 
-    // Watermark size
-    const logoWidth = canvas.width * 0.32
-    const logoHeight = logo.height * (logoWidth / logo.width);
+          const ctx = canvas.getContext('2d');
 
-    // Bottom center position
-    const x = (canvas.width - logoWidth) / 2;
-    const y = canvas.height - logoHeight - canvas.height * 0.035;
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    // Purple glow + logo
-    ctx.save();
-    ctx.shadowColor = 'rgba(95, 0, 150, 0.85)';
-    ctx.shadowBlur = canvas.width * 0.025;
-    ctx.globalAlpha = 0.95;
-    ctx.drawImage(logo, x, y, logoWidth, logoHeight);
-    ctx.restore();
+          const logoWidth = canvas.width * 0.32;
+          const logoHeight = (logo.naturalHeight || logo.height) * (logoWidth / (logo.naturalWidth || logo.width));
 
-    // Download as JPG with watermark
-    const originalName = src.split('/').pop() || 'nocharte-photo.jpg';
-    const cleanName = originalName.replace(/\.(png|jpe?g|webp)$/i, '');
-    const downloadName = `${cleanName}-nocharte.jpg`;
+          const x = (canvas.width - logoWidth) / 2;
+          const y = canvas.height - logoHeight - canvas.height * 0.035;
 
-    const a = document.createElement('a');
-    a.download = downloadName;
-    a.href = canvas.toDataURL('image/jpeg', 0.95);
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  } catch (err) {
-    console.error('Watermark download failed:', err);
+          ctx.save();
+          ctx.shadowColor = 'rgba(95, 0, 150, 0.85)';
+          ctx.shadowBlur = canvas.width * 0.025;
+          ctx.globalAlpha = 0.95;
+          ctx.drawImage(logo, x, y, logoWidth, logoHeight);
+          ctx.restore();
 
-    // Fallback: direct original download
-    const a = document.createElement('a');
-    a.href = src;
-    a.download = src.split('/').pop() || 'nocharte-photo';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-}
+          const originalName = src.split('/').pop() || 'nocharte-photo.jpg';
+          const cleanName = originalName.replace(/\.(png|jpe?g|webp)$/i, '');
+          const downloadName = `${cleanName}-nocharte.jpg`;
 
-function loadImage(src) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
-  });
-}
+          canvas.toBlob((blob) => {
+            if (!blob || blob.size < 1000) {
+              alert('Download failed: the generated image is empty or corrupted.');
+              console.error('Canvas blob failed:', blob);
+              return;
+            }
 
-function getAlbumPin() {
-  return window.ALBUM_PINS && window.ALBUM_PINS[slug]
-    ? String(window.ALBUM_PINS[slug])
-    : '';
-}
+            const blobUrl = URL.createObjectURL(blob);
 
-function isAlbumUnlocked() {
-  return sessionStorage.getItem(`nocharte_unlocked_${slug}`) === '1';
-}
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = downloadName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
 
-function unlockAlbum() {
-  sessionStorage.setItem(`nocharte_unlocked_${slug}`, '1');
-}
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+          }, 'image/jpeg', 0.95);
 
-async function downloadOriginalDirect(src) {
-  // For big ZIP files, do NOT use fetch.
-  // Direct browser download is much safer.
-  if (src.toLowerCase().endsWith('.zip')) {
-    const a = document.createElement('a');
-    a.href = src;
-    a.download = src.split('/').pop() || 'nocharte-album.zip';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    return;
-  }
+        } catch (err) {
+          console.error('Watermark download failed:', err);
+          alert('Watermark download failed. Check that the photo and logo paths exist.');
+        }
+      }
 
-  // For individual photos, keep the safety check.
-  try {
-    const response = await fetch(src, { cache: 'no-store' });
-    const contentType = response.headers.get('content-type') || '';
+      async function loadImageSafe(src) {
+        const response = await fetch(src, { cache: 'no-store' });
+        const contentType = response.headers.get('content-type') || '';
 
-    if (!response.ok || contentType.includes('text/html')) {
-      alert('File not found. Check the ZIP/photo path and filename.');
-      console.error('Download failed:', src, response.status, contentType);
-      return;
-    }
+        if (!response.ok) {
+          throw new Error(`File not found: ${src} — status ${response.status}`);
+        }
 
-    const blob = await response.blob();
-    const blobUrl = URL.createObjectURL(blob);
+        if (!contentType.startsWith('image/')) {
+          throw new Error(`Not an image: ${src} — content-type: ${contentType}`);
+        }
 
-    const a = document.createElement('a');
-    a.href = blobUrl;
-    a.download = src.split('/').pop() || 'nocharte-download';
+        const blob = await response.blob();
 
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+        if (!blob || blob.size < 1000) {
+          throw new Error(`Image file is empty or too small: ${src}`);
+        }
 
-    URL.revokeObjectURL(blobUrl);
-  } catch (err) {
-    console.error('Download failed:', err);
-    alert('Download failed. Check if the file exists.');
-  }
-}
+        const blobUrl = URL.createObjectURL(blob);
 
-function getAlbumZipSrc() {
-  const zipPath = `${base}/downloads/${slug}.zip`;
-  console.log('ZIP PATH:', zipPath);
-  return zipPath;
-}
+        return new Promise((resolve, reject) => {
+          const img = new Image();
 
-function openPinModal(src) {
-  pendingCleanDownloadSrc = src;
+          img.onload = () => {
+            URL.revokeObjectURL(blobUrl);
+            resolve(img);
+          };
 
-  if (isAlbumUnlocked()) {
-    downloadOriginalDirect(src);
-    return;
-  }
+          img.onerror = () => {
+            URL.revokeObjectURL(blobUrl);
+            reject(new Error(`Image could not load: ${src}`));
+          };
 
-  pinInput.value = '';
-  pinError.hidden = true;
-  pinModal.hidden = false;
+          img.src = blobUrl;
+        });
+      }
 
-  setTimeout(() => {
-    pinInput.focus();
-  }, 80);
-}
+      /* ================= CLEAN DOWNLOAD WITH PIN ================= */
 
-function closePinModal() {
-  pinModal.hidden = true;
-  pendingCleanDownloadSrc = '';
-}
+      function getAlbumPin() {
+        return window.ALBUM_PINS && window.ALBUM_PINS[slug]
+          ? String(window.ALBUM_PINS[slug])
+          : '';
+      }
 
-function submitPin() {
-  const correctPin = getAlbumPin();
-  const enteredPin = pinInput.value.trim();
+      function isAlbumUnlocked() {
+        return sessionStorage.getItem(`nocharte_unlocked_${slug}`) === '1';
+      }
 
-  if (!correctPin) {
-    pinError.textContent = 'No client PIN is set for this album.';
-    pinError.hidden = false;
-    return;
-  }
+      function unlockAlbum() {
+        sessionStorage.setItem(`nocharte_unlocked_${slug}`, '1');
+      }
 
-  if (enteredPin === correctPin) {
-    unlockAlbum();
-    closePinModal();
-    downloadOriginalDirect(pendingCleanDownloadSrc);
-  } else {
-    pinError.textContent = 'Incorrect PIN. Try again.';
-    pinError.hidden = false;
-    pinInput.value = '';
-    pinInput.focus();
-  }
-}
+      async function downloadOriginalDirect(src) {
+        if (src.toLowerCase().endsWith('.zip')) {
+          const a = document.createElement('a');
+          a.href = src;
+          a.download = src.split('/').pop() || 'nocharte-album.zip';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          return;
+        }
 
-function openEmailAlbumModal() {
-  emailAlbumModal.hidden = false;
-  emailAlbumModal.setAttribute('aria-hidden', 'false');
+        try {
+          const response = await fetch(src, { cache: 'no-store' });
+          const contentType = response.headers.get('content-type') || '';
 
-  emailAlbumError.textContent = '';
-  emailAlbumError.hidden = true;
-  emailAlbumError.classList.remove('success');
+          if (!response.ok || contentType.includes('text/html')) {
+            alert('File not found. Check the photo path and filename.');
+            console.error('Download failed:', src, response.status, contentType);
+            return;
+          }
 
-  emailAlbumInput.value = '';
-  emailAlbumPin.value = '';
-  emailAlbumSubmit.textContent = 'Send link';
-  emailAlbumSubmit.classList.remove('is-loading');
+          if (!contentType.startsWith('image/')) {
+            alert('This file is not a valid image.');
+            console.error('Invalid content type:', src, contentType);
+            return;
+          }
 
-  setTimeout(() => {
-    emailAlbumInput.focus();
-  }, 100);
-}
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
 
-function closeEmailAlbumModal() {
-  emailAlbumModal.hidden = true;
-  emailAlbumModal.setAttribute('aria-hidden', 'true');
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = src.split('/').pop() || 'nocharte-download';
 
-  emailAlbumError.textContent = '';
-  emailAlbumError.hidden = true;
-  emailAlbumError.classList.remove('success');
-}
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
 
-function showEmailAlbumMessage(message, type = 'error') {
-  emailAlbumError.textContent = message;
-  emailAlbumError.hidden = false;
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        } catch (err) {
+          console.error('Download failed:', err);
+          alert('Download failed. Check if the file exists.');
+        }
+      }
 
-  if (type === 'success') {
-    emailAlbumError.classList.add('success');
-  } else {
-    emailAlbumError.classList.remove('success');
-  }
-}
+      function getAlbumZipSrc() {
+        const zipPath = `${base}/downloads/${slug}.zip`;
+        console.log('ZIP PATH:', zipPath);
+        return zipPath;
+      }
 
-async function sendAlbumDownloadEmail() {
-  const email = emailAlbumInput.value.trim();
-  const pin = emailAlbumPin.value.trim();
+      function openPinModal(src) {
+        pendingCleanDownloadSrc = src;
 
-  if (!email || !email.includes('@') || !email.includes('.')) {
-    showEmailAlbumMessage('Enter a valid email.');
-    return;
-  }
+        if (isAlbumUnlocked()) {
+          downloadOriginalDirect(src);
+          return;
+        }
 
-  if (!pin) {
-    showEmailAlbumMessage('Enter the client PIN.');
-    return;
-  }
+        pinInput.value = '';
+        pinError.hidden = true;
+        pinModal.hidden = false;
 
-  emailAlbumSubmit.classList.add('is-loading');
-  emailAlbumSubmit.textContent = 'Sending...';
-  showEmailAlbumMessage('', 'error');
-  emailAlbumError.hidden = true;
+        setTimeout(() => {
+          pinInput.focus();
+        }, 80);
+      }
 
-  try {
-    const response = await fetch('/.netlify/functions/send-album-link', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        slug,
-        pin,
-        email
-      })
-    });
+      function closePinModal() {
+        pinModal.hidden = true;
+        pendingCleanDownloadSrc = '';
+      }
 
-    const data = await response.json();
+      function submitPin() {
+        const correctPin = getAlbumPin();
+        const enteredPin = pinInput.value.trim();
 
-    if (!response.ok) {
-      showEmailAlbumMessage(data.message || 'Could not send link.');
-      return;
-    }
+        if (!correctPin) {
+          pinError.textContent = 'No client PIN is set for this album.';
+          pinError.hidden = false;
+          return;
+        }
 
-    showEmailAlbumMessage('Download link sent. Check your email.', 'success');
-    emailAlbumSubmit.textContent = 'Sent';
+        if (enteredPin === correctPin) {
+          unlockAlbum();
+          const srcToDownload = pendingCleanDownloadSrc;
+          closePinModal();
+          downloadOriginalDirect(srcToDownload);
+        } else {
+          pinError.textContent = 'Incorrect PIN. Try again.';
+          pinError.hidden = false;
+          pinInput.value = '';
+          pinInput.focus();
+        }
+      }
 
-    setTimeout(() => {
-      closeEmailAlbumModal();
-    }, 1800);
-  } catch (error) {
-    console.error('Email download error:', error);
-    showEmailAlbumMessage('Server error. Try again.');
-  } finally {
-    emailAlbumSubmit.classList.remove('is-loading');
+      /* ================= EMAIL FULL ALBUM ================= */
 
-    if (emailAlbumSubmit.textContent !== 'Sent') {
-      emailAlbumSubmit.textContent = 'Send link';
-    }
-  }
-}
+      function openEmailAlbumModal() {
+        emailAlbumModal.hidden = false;
+        emailAlbumModal.setAttribute('aria-hidden', 'false');
+
+        emailAlbumError.textContent = '';
+        emailAlbumError.hidden = true;
+        emailAlbumError.classList.remove('success');
+
+        emailAlbumInput.value = '';
+        emailAlbumPin.value = '';
+        emailAlbumSubmit.textContent = 'Send link';
+        emailAlbumSubmit.classList.remove('is-loading');
+
+        setTimeout(() => {
+          emailAlbumInput.focus();
+        }, 100);
+      }
+
+      function closeEmailAlbumModal() {
+        emailAlbumModal.hidden = true;
+        emailAlbumModal.setAttribute('aria-hidden', 'true');
+
+        emailAlbumError.textContent = '';
+        emailAlbumError.hidden = true;
+        emailAlbumError.classList.remove('success');
+      }
+
+      function showEmailAlbumMessage(message, type = 'error') {
+        emailAlbumError.textContent = message;
+        emailAlbumError.hidden = false;
+
+        if (type === 'success') {
+          emailAlbumError.classList.add('success');
+        } else {
+          emailAlbumError.classList.remove('success');
+        }
+      }
+
+      async function sendAlbumDownloadEmail() {
+        const email = emailAlbumInput.value.trim();
+        const pin = emailAlbumPin.value.trim();
+
+        if (!email || !email.includes('@') || !email.includes('.')) {
+          showEmailAlbumMessage('Enter a valid email.');
+          return;
+        }
+
+        if (!pin) {
+          showEmailAlbumMessage('Enter the client PIN.');
+          return;
+        }
+
+        emailAlbumSubmit.classList.add('is-loading');
+        emailAlbumSubmit.textContent = 'Sending...';
+        showEmailAlbumMessage('', 'error');
+        emailAlbumError.hidden = true;
+
+        try {
+          const response = await fetch('/.netlify/functions/send-album-link', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              slug,
+              pin,
+              email
+            })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            showEmailAlbumMessage(data.message || 'Could not send link.');
+            return;
+          }
+
+          showEmailAlbumMessage('Download link sent. Check your email.', 'success');
+          emailAlbumSubmit.textContent = 'Sent';
+
+          setTimeout(() => {
+            closeEmailAlbumModal();
+          }, 1800);
+        } catch (error) {
+          console.error('Email download error:', error);
+          showEmailAlbumMessage('Server error. Try again.');
+        } finally {
+          emailAlbumSubmit.classList.remove('is-loading');
+
+          if (emailAlbumSubmit.textContent !== 'Sent') {
+            emailAlbumSubmit.textContent = 'Send link';
+          }
+        }
+      }
+
+      /* ================= EVENT LISTENERS ================= */
 
       closeBtn.addEventListener('click', closeLightbox);
       nextBtn.addEventListener('click', next);
@@ -877,30 +930,29 @@ async function sendAlbumDownloadEmail() {
       });
 
       cleanDownloadBtn.addEventListener('click', () => {
-  if (files[current]) {
-    openPinModal(files[current].full || files[current].src);
-  }
-});
+        if (files[current]) {
+          openPinModal(files[current].full || files[current].src);
+        }
+      });
 
-downloadAlbumZipBtn.addEventListener('click', openEmailAlbumModal);
+      downloadAlbumZipBtn.addEventListener('click', openEmailAlbumModal);
 
-pinSubmit.addEventListener('click', submitPin);
+      pinSubmit.addEventListener('click', submitPin);
+      pinClose.addEventListener('click', closePinModal);
 
-pinClose.addEventListener('click', closePinModal);
+      pinInput.addEventListener('input', () => {
+        pinInput.value = pinInput.value.replace(/\D/g, '').slice(0, 4);
+        pinError.hidden = true;
+      });
 
-pinInput.addEventListener('input', () => {
-  pinInput.value = pinInput.value.replace(/\D/g, '').slice(0, 4);
-  pinError.hidden = true;
-});
+      pinInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') submitPin();
+        if (e.key === 'Escape') closePinModal();
+      });
 
-pinInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') submitPin();
-  if (e.key === 'Escape') closePinModal();
-});
-
-pinModal.addEventListener('click', e => {
-  if (e.target === pinModal) closePinModal();
-});
+      pinModal.addEventListener('click', e => {
+        if (e.target === pinModal) closePinModal();
+      });
 
       lb.addEventListener('click', e => {
         if (e.target === lb) closeLightbox();
@@ -932,26 +984,26 @@ pinModal.addEventListener('click', e => {
       }, { passive: true });
 
       emailAlbumClose.addEventListener('click', closeEmailAlbumModal);
-emailAlbumSubmit.addEventListener('click', sendAlbumDownloadEmail);
+      emailAlbumSubmit.addEventListener('click', sendAlbumDownloadEmail);
 
-emailAlbumInput.addEventListener('keydown', e => {
-  if (e.key === 'Enter') sendAlbumDownloadEmail();
-  if (e.key === 'Escape') closeEmailAlbumModal();
-});
+      emailAlbumInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter') sendAlbumDownloadEmail();
+        if (e.key === 'Escape') closeEmailAlbumModal();
+      });
 
-emailAlbumPin.addEventListener('input', () => {
-  emailAlbumPin.value = emailAlbumPin.value.replace(/\D/g, '').slice(0, 4);
-  emailAlbumError.hidden = true;
-});
+      emailAlbumPin.addEventListener('input', () => {
+        emailAlbumPin.value = emailAlbumPin.value.replace(/\D/g, '').slice(0, 4);
+        emailAlbumError.hidden = true;
+      });
 
-emailAlbumPin.addEventListener('keydown', e => {
-  if (e.key === 'Enter') sendAlbumDownloadEmail();
-  if (e.key === 'Escape') closeEmailAlbumModal();
-});
+      emailAlbumPin.addEventListener('keydown', e => {
+        if (e.key === 'Enter') sendAlbumDownloadEmail();
+        if (e.key === 'Escape') closeEmailAlbumModal();
+      });
 
-emailAlbumModal.addEventListener('click', e => {
-  if (e.target === emailAlbumModal) closeEmailAlbumModal();
-});
+      emailAlbumModal.addEventListener('click', e => {
+        if (e.target === emailAlbumModal) closeEmailAlbumModal();
+      });
 
       /* ================= MOBILE MENU ================= */
 
