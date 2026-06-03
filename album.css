@@ -1355,3 +1355,75 @@ img {
     color: #fff;
   }
 }
+
+/* =========================================================
+   FULL ALBUM EMAIL MODAL
+========================================================= */
+
+.email-album-input {
+  width: min(100%, 320px) !important;
+  letter-spacing: 0 !important;
+  font-size: 16px !important;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+#emailAlbumPin {
+  margin-top: 0;
+}
+
+.pin-modal__submit.is-loading {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.pin-modal__error.success {
+  color: #9cffb3;
+}
+
+/* Mobile cleanup */
+@media (max-width: 560px) {
+  #emailAlbumModal .pin-modal__card {
+    width: min(360px, calc(100vw - 36px)) !important;
+    padding: 30px 22px 24px !important;
+    border-radius: 26px !important;
+  }
+
+  #emailAlbumModal .pin-modal__card h2 {
+    font-size: 30px !important;
+    line-height: 1.05 !important;
+    max-width: 290px !important;
+    margin: 0 auto !important;
+  }
+
+  #emailAlbumModal .pin-modal__text {
+    margin: 14px auto 20px !important;
+    max-width: 285px !important;
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+  }
+
+  #emailAlbumModal .email-album-input {
+    width: 100% !important;
+    height: 54px !important;
+    font-size: 15px !important;
+    border-radius: 18px !important;
+    margin-bottom: 10px !important;
+  }
+
+  #emailAlbumPin {
+    width: 190px !important;
+    height: 56px !important;
+    font-size: 22px !important;
+    letter-spacing: 0.18em !important;
+    border-radius: 18px !important;
+  }
+
+  #emailAlbumSubmit {
+    height: 52px !important;
+    margin-top: 18px !important;
+    border-radius: 999px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.16em !important;
+  }
+}

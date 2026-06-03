@@ -167,6 +167,43 @@
   </div>
 </div>
 
+<div id="emailAlbumModal" class="pin-modal" hidden aria-hidden="true">
+  <div class="pin-modal__card">
+    <button type="button" id="emailAlbumClose" class="pin-modal__close" aria-label="Close">×</button>
+
+    <p class="pin-modal__eyebrow">FULL ALBUM</p>
+    <h2>Send download link</h2>
+
+    <p class="pin-modal__text">
+      Enter your email and client PIN. We’ll send you the full album download link.
+    </p>
+
+    <input
+      id="emailAlbumInput"
+      class="pin-modal__input email-album-input"
+      type="email"
+      placeholder="your@email.com"
+      autocomplete="email"
+    />
+
+    <input
+      id="emailAlbumPin"
+      class="pin-modal__input"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="PIN"
+      autocomplete="off"
+    />
+
+    <p id="emailAlbumError" class="pin-modal__error" hidden></p>
+
+    <button type="button" id="emailAlbumSubmit" class="pin-modal__submit">
+      Send link
+    </button>
+  </div>
+</div>
+
 <script src="/assets/albums/album-pins.js"></script>
 
   <script>
@@ -490,11 +527,19 @@ metaEl.textContent = albumDate
       const downloadBtn = document.getElementById('lb-download');
       const cleanDownloadBtn = document.getElementById('lb-download-clean');
       const downloadAlbumZipBtn = document.getElementById('downloadAlbumZip');
+
 const pinModal = document.getElementById('pinModal');
 const pinInput = document.getElementById('pinInput');
 const pinError = document.getElementById('pinError');
 const pinSubmit = document.getElementById('pinSubmit');
 const pinClose = document.getElementById('pinClose');
+
+const emailAlbumModal = document.getElementById('emailAlbumModal');
+const emailAlbumClose = document.getElementById('emailAlbumClose');
+const emailAlbumInput = document.getElementById('emailAlbumInput');
+const emailAlbumPin = document.getElementById('emailAlbumPin');
+const emailAlbumError = document.getElementById('emailAlbumError');
+const emailAlbumSubmit = document.getElementById('emailAlbumSubmit');
 
 let pendingCleanDownloadSrc = '';
 
@@ -726,6 +771,101 @@ function submitPin() {
   }
 }
 
+function openEmailAlbumModal() {
+  emailAlbumModal.hidden = false;
+  emailAlbumModal.setAttribute('aria-hidden', 'false');
+
+  emailAlbumError.textContent = '';
+  emailAlbumError.hidden = true;
+  emailAlbumError.classList.remove('success');
+
+  emailAlbumInput.value = '';
+  emailAlbumPin.value = '';
+  emailAlbumSubmit.textContent = 'Send link';
+  emailAlbumSubmit.classList.remove('is-loading');
+
+  setTimeout(() => {
+    emailAlbumInput.focus();
+  }, 100);
+}
+
+function closeEmailAlbumModal() {
+  emailAlbumModal.hidden = true;
+  emailAlbumModal.setAttribute('aria-hidden', 'true');
+
+  emailAlbumError.textContent = '';
+  emailAlbumError.hidden = true;
+  emailAlbumError.classList.remove('success');
+}
+
+function showEmailAlbumMessage(message, type = 'error') {
+  emailAlbumError.textContent = message;
+  emailAlbumError.hidden = false;
+
+  if (type === 'success') {
+    emailAlbumError.classList.add('success');
+  } else {
+    emailAlbumError.classList.remove('success');
+  }
+}
+
+async function sendAlbumDownloadEmail() {
+  const email = emailAlbumInput.value.trim();
+  const pin = emailAlbumPin.value.trim();
+
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    showEmailAlbumMessage('Enter a valid email.');
+    return;
+  }
+
+  if (!pin) {
+    showEmailAlbumMessage('Enter the client PIN.');
+    return;
+  }
+
+  emailAlbumSubmit.classList.add('is-loading');
+  emailAlbumSubmit.textContent = 'Sending...';
+  showEmailAlbumMessage('', 'error');
+  emailAlbumError.hidden = true;
+
+  try {
+    const response = await fetch('/.netlify/functions/send-album-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        slug,
+        pin,
+        email
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      showEmailAlbumMessage(data.message || 'Could not send link.');
+      return;
+    }
+
+    showEmailAlbumMessage('Download link sent. Check your email.', 'success');
+    emailAlbumSubmit.textContent = 'Sent';
+
+    setTimeout(() => {
+      closeEmailAlbumModal();
+    }, 1800);
+  } catch (error) {
+    console.error('Email download error:', error);
+    showEmailAlbumMessage('Server error. Try again.');
+  } finally {
+    emailAlbumSubmit.classList.remove('is-loading');
+
+    if (emailAlbumSubmit.textContent !== 'Sent') {
+      emailAlbumSubmit.textContent = 'Send link';
+    }
+  }
+}
+
       closeBtn.addEventListener('click', closeLightbox);
       nextBtn.addEventListener('click', next);
       prevBtn.addEventListener('click', prev);
@@ -742,9 +882,7 @@ function submitPin() {
   }
 });
 
-downloadAlbumZipBtn.addEventListener('click', () => {
-  openPinModal(getAlbumZipSrc());
-});
+downloadAlbumZipBtn.addEventListener('click', openEmailAlbumModal);
 
 pinSubmit.addEventListener('click', submitPin);
 
@@ -792,6 +930,28 @@ pinModal.addEventListener('click', e => {
           else prev();
         }
       }, { passive: true });
+
+      emailAlbumClose.addEventListener('click', closeEmailAlbumModal);
+emailAlbumSubmit.addEventListener('click', sendAlbumDownloadEmail);
+
+emailAlbumInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendAlbumDownloadEmail();
+  if (e.key === 'Escape') closeEmailAlbumModal();
+});
+
+emailAlbumPin.addEventListener('input', () => {
+  emailAlbumPin.value = emailAlbumPin.value.replace(/\D/g, '').slice(0, 4);
+  emailAlbumError.hidden = true;
+});
+
+emailAlbumPin.addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendAlbumDownloadEmail();
+  if (e.key === 'Escape') closeEmailAlbumModal();
+});
+
+emailAlbumModal.addEventListener('click', e => {
+  if (e.target === emailAlbumModal) closeEmailAlbumModal();
+});
 
       /* ================= MOBILE MENU ================= */
 
