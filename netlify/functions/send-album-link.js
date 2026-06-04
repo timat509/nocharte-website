@@ -69,11 +69,11 @@ exports.handler = async function (event) {
           </h1>
 
           <p style="font-size:16px;line-height:1.6;color:#ddd;margin:0 0 24px;">
-            Your download link for <strong>${album.title}</strong> is ready.
+            Your album folder for <strong>${album.title}</strong> is ready.
           </p>
 
           <a href="${album.zipUrl}" target="_blank" style="display:inline-block;background:#ffffff;color:#000000;text-decoration:none;padding:15px 24px;border-radius:999px;font-weight:bold;letter-spacing:.5px;">
-            Download full album
+            Open album folder
           </a>
 
           <p style="font-size:13px;line-height:1.6;color:#888;margin:28px 0 0;">
