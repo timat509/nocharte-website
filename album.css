@@ -1448,3 +1448,122 @@ img {
   -webkit-user-select: none;
   -webkit-touch-callout: none;
 }
+
+/* =========================================================
+   PUBLIC PREVIEW WATERMARKS
+   Subtle on grid, stronger on zoom
+========================================================= */
+
+/* Make sure overlays stay inside the photo cards */
+.album-photo-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle watermark on gallery grid */
+.album-photo-card::after {
+  content: "NOCHARTE";
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  z-index: 4;
+  pointer-events: none;
+
+  font-family: 'Glacial Indifference', system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.42);
+  text-shadow: 0 0 14px rgba(0, 0, 0, 0.75);
+}
+
+/* Keep the small download button above the watermark */
+.album-download-btn {
+  z-index: 6;
+}
+
+/* Lightbox stage needs position for the overlay */
+.album-lb-stage {
+  position: relative;
+}
+
+/* Stronger watermark when photo is opened/zoomed */
+.album-lb-stage::after {
+  content: "NOCHARTE";
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+
+  font-family: 'Glacial Indifference', system-ui, sans-serif;
+  font-size: clamp(18px, 2.4vw, 42px);
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  color: rgba(255, 255, 255, 0.62);
+  text-shadow:
+    0 0 18px rgba(95, 0, 150, 0.9),
+    0 0 36px rgba(0, 0, 0, 0.8);
+  mix-blend-mode: screen;
+}
+
+/* Mobile: keep it clean but visible */
+@media (max-width: 560px) {
+  .album-photo-card::after {
+    right: 9px;
+    bottom: 8px;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.38);
+  }
+
+  .album-lb-stage::after {
+    bottom: 18px;
+    font-size: 18px;
+    letter-spacing: 0.22em;
+  }
+}
+/* =========================================================
+   LIGHTBOX PREVIEW WATERMARK — CLEAN LOGO
+========================================================= */
+
+.album-lb-stage {
+  position: relative;
+}
+
+/* remove any old square/background style */
+.album-lb-stage::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 20;
+  pointer-events: none;
+
+  width: clamp(125px, 10.5vw, 190px);
+height: clamp(125px, 10.5vw, 190px);
+
+  background-image: url("/assets/web/logohome.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  opacity: 0.88;
+
+  /* clean glow, no box */
+  filter:
+    drop-shadow(0 0 14px rgba(145, 0, 255, 0.65))
+    drop-shadow(0 0 26px rgba(0, 0, 0, 0.75));
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .album-lb-stage::after {
+    bottom: 24px;
+    width: 100px;
+    height: 100px;
+    opacity: 0.9;
+  }
+}
