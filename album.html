@@ -784,49 +784,67 @@ async function loadImageSafe(src) {
       }
 
       async function downloadOriginalDirect(src) {
-        if (src.toLowerCase().endsWith('.zip')) {
-          const a = document.createElement('a');
-          a.href = src;
-          a.download = src.split('/').pop() || 'nocharte-album.zip';
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          return;
+  if (src.toLowerCase().endsWith('.zip')) {
+    const a = document.createElement('a');
+    a.href = src;
+    a.download = src.split('/').pop() || 'nocharte-album.zip';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    return;
+  }
+
+  try {
+    const candidates = getPhotoCandidates(src);
+
+    let response = null;
+    let finalSrc = '';
+
+    for (const candidate of candidates) {
+      try {
+        console.log('Trying clean download path:', candidate);
+
+        const testResponse = await fetch(candidate, { cache: 'no-store' });
+        const contentType = testResponse.headers.get('content-type') || '';
+
+        if (testResponse.ok && contentType.startsWith('image/')) {
+          response = testResponse;
+          finalSrc = candidate;
+          break;
         }
 
-        try {
-          const response = await fetch(src, { cache: 'no-store' });
-          const contentType = response.headers.get('content-type') || '';
-
-          if (!response.ok || contentType.includes('text/html')) {
-            alert('File not found. Check the photo path and filename.');
-            console.error('Download failed:', src, response.status, contentType);
-            return;
-          }
-
-          if (!contentType.startsWith('image/')) {
-            alert('This file is not a valid image.');
-            console.error('Invalid content type:', src, contentType);
-            return;
-          }
-
-          const blob = await response.blob();
-          const blobUrl = URL.createObjectURL(blob);
-
-          const a = document.createElement('a');
-          a.href = blobUrl;
-          a.download = src.split('/').pop() || 'nocharte-download';
-
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-        } catch (err) {
-          console.error('Download failed:', err);
-          alert('Download failed. Check if the file exists.');
-        }
+        console.warn('Clean path failed:', candidate, testResponse.status, contentType);
+      } catch (err) {
+        console.warn('Clean path error:', candidate, err);
       }
+    }
+
+    if (!response) {
+      alert('File not found. Check the photo path and filename.');
+      console.error('All clean download paths failed:', candidates);
+      return;
+    }
+
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+
+    const originalName = finalSrc.split('/').pop() || 'nocharte-download';
+    const decodedName = decodeURIComponent(originalName);
+
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = decodedName;
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+  } catch (err) {
+    console.error('Clean download failed:', err);
+    alert('Download failed. Check if the file exists.');
+  }
+}
 
       function getAlbumZipSrc() {
         const zipPath = `${base}/downloads/${slug}.zip`;
