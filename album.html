@@ -1081,6 +1081,43 @@ async function loadImageSafe(src) {
       emailAlbumModal.addEventListener('click', e => {
         if (e.target === emailAlbumModal) closeEmailAlbumModal();
       });
+/* ================= BASIC IMAGE PROTECTION ================= */
+
+document.addEventListener('contextmenu', e => {
+  if (
+    e.target.closest('.album-photo-card') ||
+    e.target.closest('.album-lb-stage') ||
+    e.target.tagName === 'IMG'
+  ) {
+    e.preventDefault();
+  }
+});
+
+document.addEventListener('dragstart', e => {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+  }
+});
+
+document.addEventListener('selectstart', e => {
+  if (
+    e.target.closest('.album-photo-card') ||
+    e.target.closest('.album-lb-stage')
+  ) {
+    e.preventDefault();
+  }
+});
+
+document.addEventListener('keydown', e => {
+  const blockedKeys = ['s', 'u', 'p'];
+
+  if (
+    (e.metaKey || e.ctrlKey) &&
+    blockedKeys.includes(e.key.toLowerCase())
+  ) {
+    e.preventDefault();
+  }
+});
 
       /* ================= MOBILE MENU ================= */
 
