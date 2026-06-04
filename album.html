@@ -611,102 +611,161 @@
       /* ================= SAFE WATERMARK DOWNLOAD FIX ================= */
 
       async function downloadDirect(src) {
-        const logoSrc = '/assets/web/logohome.png';
+  try {
+    const img = await loadFirstWorkingImage(getPhotoCandidates(src));
 
-        try {
-          const img = await loadImageSafe(src);
-          const logo = await loadImageSafe(logoSrc);
+    let logo = null;
 
-          const canvas = document.createElement('canvas');
-          canvas.width = img.naturalWidth || img.width;
-          canvas.height = img.naturalHeight || img.height;
+    try {
+      logo = await loadFirstWorkingImage([
+        '/assets/web/logohome.png',
+        '/assets/web/logo.png',
+        '/websitelogo/weblogo250px.png',
+        '/websitelogo/weblogo1250px.png'
+      ]);
+    } catch (logoErr) {
+      console.warn('Logo not found. Text watermark will be used instead.', logoErr);
+    }
 
-          if (!canvas.width || !canvas.height) {
-            throw new Error('Photo loaded with empty size.');
-          }
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth || img.width;
+    canvas.height = img.naturalHeight || img.height;
 
-          const ctx = canvas.getContext('2d');
+    if (!canvas.width || !canvas.height) {
+      throw new Error('Photo loaded with empty size.');
+    }
 
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const ctx = canvas.getContext('2d');
 
-          const logoWidth = canvas.width * 0.32;
-          const logoHeight = (logo.naturalHeight || logo.height) * (logoWidth / (logo.naturalWidth || logo.width));
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-          const x = (canvas.width - logoWidth) / 2;
-          const y = canvas.height - logoHeight - canvas.height * 0.035;
+    if (logo) {
+      const logoWidth = canvas.width * 0.32;
+      const logoHeight = (logo.naturalHeight || logo.height) * (logoWidth / (logo.naturalWidth || logo.width));
 
-          ctx.save();
-          ctx.shadowColor = 'rgba(95, 0, 150, 0.85)';
-          ctx.shadowBlur = canvas.width * 0.025;
-          ctx.globalAlpha = 0.95;
-          ctx.drawImage(logo, x, y, logoWidth, logoHeight);
-          ctx.restore();
+      const x = (canvas.width - logoWidth) / 2;
+      const y = canvas.height - logoHeight - canvas.height * 0.035;
 
-          const originalName = src.split('/').pop() || 'nocharte-photo.jpg';
-          const cleanName = originalName.replace(/\.(png|jpe?g|webp)$/i, '');
-          const downloadName = `${cleanName}-nocharte.jpg`;
+      ctx.save();
+      ctx.shadowColor = 'rgba(95, 0, 150, 0.85)';
+      ctx.shadowBlur = canvas.width * 0.025;
+      ctx.globalAlpha = 0.95;
+      ctx.drawImage(logo, x, y, logoWidth, logoHeight);
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.font = `700 ${Math.round(canvas.width * 0.045)}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(255,255,255,0.92)';
+      ctx.shadowColor = 'rgba(95, 0, 150, 0.9)';
+      ctx.shadowBlur = canvas.width * 0.025;
+      ctx.fillText('NOCHARTE', canvas.width / 2, canvas.height * 0.93);
+      ctx.restore();
+    }
 
-          canvas.toBlob((blob) => {
-            if (!blob || blob.size < 1000) {
-              alert('Download failed: the generated image is empty or corrupted.');
-              console.error('Canvas blob failed:', blob);
-              return;
-            }
+    const originalName = src.split('/').pop() || 'nocharte-photo.jpg';
+    const cleanName = originalName.replace(/\.(png|jpe?g|webp)$/i, '');
+    const downloadName = `${cleanName}-nocharte.jpg`;
 
-            const blobUrl = URL.createObjectURL(blob);
-
-            const a = document.createElement('a');
-            a.href = blobUrl;
-            a.download = downloadName;
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-
-            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
-          }, 'image/jpeg', 0.95);
-
-        } catch (err) {
-          console.error('Watermark download failed:', err);
-          alert('Watermark download failed. Check that the photo and logo paths exist.');
-        }
+    canvas.toBlob((blob) => {
+      if (!blob || blob.size < 1000) {
+        alert('Download failed: the generated image is empty.');
+        console.error('Canvas blob failed:', blob);
+        return;
       }
 
-      async function loadImageSafe(src) {
-        const response = await fetch(src, { cache: 'no-store' });
-        const contentType = response.headers.get('content-type') || '';
+      const blobUrl = URL.createObjectURL(blob);
 
-        if (!response.ok) {
-          throw new Error(`File not found: ${src} — status ${response.status}`);
-        }
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = downloadName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
 
-        if (!contentType.startsWith('image/')) {
-          throw new Error(`Not an image: ${src} — content-type: ${contentType}`);
-        }
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+    }, 'image/jpeg', 0.95);
 
-        const blob = await response.blob();
+  } catch (err) {
+    console.error('Watermark download failed:', err);
+    alert('Watermark download failed. Check Console for the missing original photo path.');
+  }
+}
 
-        if (!blob || blob.size < 1000) {
-          throw new Error(`Image file is empty or too small: ${src}`);
-        }
+function getPhotoCandidates(src) {
+  const candidates = [src];
 
-        const blobUrl = URL.createObjectURL(blob);
+  if (src.includes('/original/')) {
+    const webWebp = src
+      .replace('/original/', '/web/')
+      .replace(/\.(jpe?g|png)$/i, '.webp');
 
-        return new Promise((resolve, reject) => {
-          const img = new Image();
+    const webJpg = src
+      .replace('/original/', '/web/')
+      .replace(/\.(png|webp)$/i, '.jpg');
 
-          img.onload = () => {
-            URL.revokeObjectURL(blobUrl);
-            resolve(img);
-          };
+    const originalJPG = src.replace(/\.jpg$/i, '.JPG');
+    const originalJPEG = src.replace(/\.jpg$/i, '.jpeg');
+    const originalJPEGCaps = src.replace(/\.jpg$/i, '.JPEG');
 
-          img.onerror = () => {
-            URL.revokeObjectURL(blobUrl);
-            reject(new Error(`Image could not load: ${src}`));
-          };
+    candidates.push(originalJPG, originalJPEG, originalJPEGCaps, webWebp, webJpg);
+  }
 
-          img.src = blobUrl;
-        });
-      }
+  return [...new Set(candidates)];
+}
+
+async function loadFirstWorkingImage(paths) {
+  let lastError = null;
+
+  for (const path of paths) {
+    try {
+      console.log('Trying image path:', path);
+      return await loadImageSafe(path);
+    } catch (err) {
+      lastError = err;
+      console.warn('Image path failed:', path, err.message);
+    }
+  }
+
+  throw lastError || new Error('No working image path found.');
+}
+
+async function loadImageSafe(src) {
+  const response = await fetch(src, { cache: 'no-store' });
+  const contentType = response.headers.get('content-type') || '';
+
+  if (!response.ok) {
+    throw new Error(`File not found: ${src} — status ${response.status}`);
+  }
+
+  if (!contentType.startsWith('image/')) {
+    throw new Error(`Not an image: ${src} — content-type: ${contentType}`);
+  }
+
+  const blob = await response.blob();
+
+  if (!blob || blob.size < 1000) {
+    throw new Error(`Image file is empty or too small: ${src}`);
+  }
+
+  const blobUrl = URL.createObjectURL(blob);
+
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+
+    img.onload = () => {
+      URL.revokeObjectURL(blobUrl);
+      resolve(img);
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(blobUrl);
+      reject(new Error(`Image could not load: ${src}`));
+    };
+
+    img.src = blobUrl;
+  });
+}
 
       /* ================= CLEAN DOWNLOAD WITH PIN ================= */
 
