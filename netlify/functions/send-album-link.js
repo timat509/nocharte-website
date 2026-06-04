@@ -33,7 +33,7 @@ exports.handler = async function (event) {
       };
     }
 
-    if (pin !== album.pin) {
+    if (String(pin).trim() !== String(album.pin || '').trim()) {
       return {
         statusCode: 401,
         body: JSON.stringify({ message: "Incorrect PIN." }),
