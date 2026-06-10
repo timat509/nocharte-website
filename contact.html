@@ -114,89 +114,111 @@
 
     <!-- QUICK CONTACT -->
     <section class="cards" aria-label="Quick contact options">
-      <a class="card" href="mailto:nocharte@gmail.com">
-        <div class="card-title">Email</div>
-        <div class="card-sub">nocharte@gmail.com</div>
-        <div class="card-foot">Open email →</div>
-      </a>
-
+    
       <a class="card" href="https://instagram.com/nocharte_entertainment" target="_blank" rel="noopener">
         <div class="card-title">Instagram</div>
         <div class="card-sub">@nocharte_entertainment</div>
         <div class="card-foot">DM us →</div>
       </a>
 
-      <a class="card" href="tel:+18294753799">
-        <div class="card-title">Phone</div>
-        <div class="card-sub">+1 829 475 3799</div>
-        <div class="card-foot">Call us →</div>
-      </a>
+      <a class="card" href="https://wa.me/18294753799" target="_blank" rel="noopener">
+  <div class="card-title">WhatsApp</div>
+  <div class="card-sub">+1 829 475 3799</div>
+  <div class="card-foot">Message us →</div>
+</a>
     </section>
 
     <!-- FORM -->
-    <section class="contact-form" aria-label="Booking form">
-      <h2 class="form-title">Book NOCHARTE</h2>
+   <!-- FORM -->
+<section class="contact-form" aria-label="Booking form">
+  <h2 class="form-title">Book NOCHARTE</h2>
+  <p class="form-intro">
+    Tell us what you need. We’ll prepare the shoot and reply directly on WhatsApp.
+  </p>
 
-      <form id="bookingForm" class="form" method="post" action="" enctype="multipart/form-data" novalidate>
-        <!-- spam trap -->
-        <input type="text" name="website" class="hp" autocomplete="off" tabindex="-1" aria-hidden="true"/>
+  <form id="bookingForm" class="form" method="post" action="" novalidate>
+    <!-- spam trap -->
+    <input type="text" name="website" class="hp" autocomplete="off" tabindex="-1" aria-hidden="true"/>
 
-        <div class="grid">
-          <label class="field">
-            <span>Name*</span>
-            <input type="text" name="name" required placeholder="Your name" autocomplete="name"/>
+    <div class="grid">
+      <label class="field">
+        <span>First name*</span>
+        <input type="text" name="firstName" required placeholder="Your first name" autocomplete="given-name"/>
+      </label>
+
+      <label class="field">
+        <span>Last name*</span>
+        <input type="text" name="lastName" required placeholder="Your last name" autocomplete="family-name"/>
+      </label>
+
+      <label class="field span-2">
+        <span>Company name</span>
+        <input type="text" name="company" placeholder="Club, brand, agency... optional" autocomplete="organization"/>
+      </label>
+
+      <label class="field">
+        <span>Email*</span>
+        <input type="email" name="email" required placeholder="you@email.com" autocomplete="email"/>
+      </label>
+
+      <label class="field">
+        <span>Phone / WhatsApp*</span>
+        <input type="tel" name="phone" required placeholder="+1 829 000 0000" autocomplete="tel"/>
+      </label>
+
+      <label class="field">
+        <span>Event date*</span>
+        <input type="date" name="date" required inputmode="none"/>
+      </label>
+
+      <label class="field">
+        <span>Event time*</span>
+        <input type="time" name="time" required/>
+      </label>
+
+      <label class="field span-2">
+        <span>Venue / City*</span>
+        <input type="text" name="venue" required placeholder="Club, venue, city..." autocomplete="organization"/>
+      </label>
+
+      <fieldset class="field service-field span-2">
+        <legend>What do you need?*</legend>
+
+        <div class="service-options">
+          <label class="service-option">
+            <input type="radio" name="service" value="Photo" required>
+            <span>Photo</span>
           </label>
 
-          <label class="field">
-            <span>Email*</span>
-            <input type="email" name="email" required placeholder="you@email.com" autocomplete="email"/>
+          <label class="service-option">
+            <input type="radio" name="service" value="Video" required>
+            <span>Video</span>
           </label>
 
-          <label class="field">
-            <span>Event Date</span>
-            <input type="date" name="date" inputmode="none"/>
-          </label>
-
-          <label class="field">
-            <span>Budget (approx.)</span>
-            <select name="budget">
-              <option value="">Select</option>
-              <option>Under €300</option>
-              <option>€300–€600</option>
-              <option>€600–€1,000</option>
-              <option>€1,000+</option>
-            </select>
-          </label>
-
-          <label class="field span-2">
-            <span>Venue / City</span>
-            <input type="text" name="venue" placeholder="Club or location" autocomplete="organization"/>
-          </label>
-
-          <label class="field span-2">
-            <span>Message*</span>
-            <textarea name="message" rows="6" required placeholder="Tell us the vibe, timings, and must-capture moments..."></textarea>
-          </label>
-
-          <label class="field file-field">
-            <span>Attachment (moodboard, brief)</span>
-            <input type="file" name="file" accept=".pdf,.jpg,.jpeg,.png"/>
-          </label>
-
-          <label class="check">
-            <input type="checkbox" name="consent" required />
-            <span>I agree to be contacted about this request.</span>
+          <label class="service-option">
+            <input type="radio" name="service" value="Photo + Video" required>
+            <span>Both</span>
           </label>
         </div>
+      </fieldset>
 
-        <button class="btn" type="submit">Send Request</button>
-        <p class="mailto-fallback">
-          Prefer email?
-          <a href="mailto:nocharte@gmail.com?subject=Booking%20Inquiry%20-%20NOCHARTE">nocharte@gmail.com</a>
-        </p>
-        <p id="formStatus" class="status" role="status" aria-live="polite"></p>
-      </form>
-    </section>
+      <label class="field span-2">
+        <span>More info*</span>
+        <textarea name="moreInfo" rows="6" required placeholder="Tell us the vibe, schedule, type of event, number of guests, must-capture moments, delivery needs..."></textarea>
+      </label>
+
+      <label class="check">
+        <input type="checkbox" name="consent" required />
+        <span>I agree to be contacted about this request.</span>
+      </label>
+    </div>
+
+    <button class="btn" type="submit">Send request on WhatsApp →</button>
+
+    
+    <p id="formStatus" class="status" role="status" aria-live="polite"></p>
+  </form>
+</section>
   </main>
 
   <!-- Floating vertical “CONTACT” outline -->
@@ -229,135 +251,164 @@
   </div>
 
   <!-- Page JS -->
-  <script>
-    // Booking form validation + email generation
-    (function(){
-      const form = document.getElementById('bookingForm');
-      const status = document.getElementById('formStatus');
-      if (!form) return;
+  
+  <!-- Page JS -->
+<script>
+  // Booking form validation + WhatsApp message generation
+  (function(){
+    const form = document.getElementById('bookingForm');
+    const status = document.getElementById('formStatus');
+    if (!form) return;
 
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        status.textContent = '';
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      status.textContent = '';
 
-        // Honeypot: if filled, it's a bot → do nothing
-        if (form.website && form.website.value) return;
+      // Honeypot: if filled, it's a bot → do nothing
+      if (form.website && form.website.value) return;
 
-        // Required fields
-        const required = ['name','email','message','consent'];
-        for (const key of required) {
-          const el = form.querySelector(`[name="${key}"]`);
-          if (!el) continue;
+      // Required fields
+      const required = [
+        'firstName',
+        'lastName',
+        'email',
+        'phone',
+        'date',
+        'time',
+        'venue',
+        'service',
+        'moreInfo',
+        'consent'
+      ];
 
-          if (key === 'consent') {
-            if (!el.checked) {
-              el.focus();
-              status.textContent = 'Please agree to be contacted.';
-              return;
-            }
-          } else if (!el.value.trim()) {
-            el.focus();
-            status.textContent = 'Please fill the required fields.';
+      for (const key of required) {
+        const el = form.querySelector(`[name="${key}"]`);
+
+        if (key === 'consent') {
+          if (!el || !el.checked) {
+            if (el) el.focus();
+            status.textContent = 'Please agree to be contacted.';
             return;
           }
-        }
-
-        // Email format
-        const email = form.email.value.trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          form.email.focus();
-          status.textContent = 'Enter a valid email.';
+        } else if (key === 'service') {
+          const selectedService = form.querySelector('[name="service"]:checked');
+          if (!selectedService) {
+            status.textContent = 'Please select Photo, Video, or Both.';
+            return;
+          }
+        } else if (!el || !el.value.trim()) {
+          if (el) el.focus();
+          status.textContent = 'Please fill the required fields.';
           return;
         }
+      }
 
-        // Collect data
-        const data = {
-          name:   form.name.value.trim(),
-          email:  email,
-          date:   form.date.value || 'Not specified',
-          budget: form.budget.value || 'Not specified',
-          venue:  (form.venue?.value || '').trim() || 'Not specified',
-          message: form.message.value.trim()
-        };
+      // Email format
+      const email = form.email.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        form.email.focus();
+        status.textContent = 'Enter a valid email.';
+        return;
+      }
 
-        // Build email
-        const subject = 'ORDER';
-        const bodyLines = [
-          `Client name: ${data.name}`,
-          `Email: ${data.email}`,
-          `Event date: ${data.date}`,
-          `Budget: ${data.budget}`,
-          `Venue / City: ${data.venue}`,
-          '',
-          'Message:',
-          data.message || '—'
-        ];
-        const body = bodyLines.join('\n');
-
-        const to = 'nocharte@gmail.com';
-
-        const mailtoUrl =
-          `mailto:${encodeURIComponent(to)}` +
-          `?subject=${encodeURIComponent(subject)}` +
-          `&body=${encodeURIComponent(body)}`;
-
-        // Open user's email client
-        window.location.href = mailtoUrl;
-
-        form.reset();
-        status.textContent = 'Your email app is opening with all details pre-filled.';
-      });
-    })();
-
-    // Rotating tagline
-    (function(){
-      const el = document.getElementById('heroTag');
-      if(!el) return;
-      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const phrases = (()=>{ try { return JSON.parse(el.dataset.phrases || '[]'); } catch(_){ return []; } })();
-      if(!phrases.length || reduce) return;
-      let i = 0;
-      const show = (t)=>{
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(6px)';
-        setTimeout(()=>{
-          el.textContent = t;
-          el.style.opacity = 1;
-          el.style.transform = 'translateY(0)';
-        },220);
+      // Collect data
+      const data = {
+        firstName: form.firstName.value.trim(),
+        lastName: form.lastName.value.trim(),
+        company: (form.company?.value || '').trim() || 'Not specified',
+        email: email,
+        phone: form.phone.value.trim(),
+        date: form.date.value,
+        time: form.time.value,
+        venue: form.venue.value.trim(),
+        service: form.querySelector('[name="service"]:checked')?.value || 'Not specified',
+        moreInfo: form.moreInfo.value.trim()
       };
-      setInterval(()=>{
-        i = (i + 1) % phrases.length;
-        show(phrases[i]);
-      },3600);
-    })();
 
-    // Mark current link in header + popup, and append skip-intro to internal links
-    (function(){
-      try {
-        const here = (location.pathname.replace(/\/+$/, '') || '/contact.html').toLowerCase();
-        const mark = scope => scope && scope.querySelectorAll('a[href]').forEach(a=>{
-          const p = new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/, '').toLowerCase();
-          if (p === here) a.setAttribute('aria-current','page');
-        });
-        mark(document.querySelector('.links'));
-        mark(document.getElementById('nav-pop'));
-      } catch(e) {}
+      // Your WhatsApp number in international format, no +, no spaces
+      const whatsappNumber = '18294753799';
 
-      document.addEventListener('click', function (e) {
-        const a = e.target.closest('a[href]');
-        if (!a) return;
-        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-        if (a.target === '_blank') return;
-        const href = a.getAttribute('href') || '';
-        if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
-        const url = new URL(href, location.href);
-        if (url.origin !== location.origin) return;
-        e.preventDefault();
-        url.searchParams.set('skip-intro','1');
-        location.assign(url.href);
-      }, { capture: true });
-    })();
-  </script>
+      // Build organized WhatsApp message
+      const whatsappText = [
+        '🔥 NEW NOCHARTE BOOKING REQUEST',
+        '',
+        `Name: ${data.firstName} ${data.lastName}`,
+        `Company: ${data.company}`,
+        '',
+        `Email: ${data.email}`,
+        `Phone / WhatsApp: ${data.phone}`,
+        '',
+        `Event date: ${data.date}`,
+        `Event time: ${data.time}`,
+        `Venue / City: ${data.venue}`,
+        '',
+        `Service needed: ${data.service}`,
+        '',
+        'More info:',
+        data.moreInfo || '—',
+        '',
+        'Sent from nocharte.com'
+      ].join('\n');
+
+      const whatsappUrl =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`;
+
+      // Open WhatsApp with all details pre-filled
+      window.open(whatsappUrl, '_blank', 'noopener');
+
+      status.textContent = 'WhatsApp is opening with your request ready to send.';
+    });
+  })();
+
+  // Rotating tagline
+  (function(){
+    const el = document.getElementById('heroTag');
+    if(!el) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const phrases = (()=>{ try { return JSON.parse(el.dataset.phrases || '[]'); } catch(_){ return []; } })();
+    if(!phrases.length || reduce) return;
+    let i = 0;
+    const show = (t)=>{
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(6px)';
+      setTimeout(()=>{
+        el.textContent = t;
+        el.style.opacity = 1;
+        el.style.transform = 'translateY(0)';
+      },220);
+    };
+    setInterval(()=>{
+      i = (i + 1) % phrases.length;
+      show(phrases[i]);
+    },3600);
+  })();
+
+  // Mark current link in header + popup, and append skip-intro to internal links
+  (function(){
+    try {
+      const here = (location.pathname.replace(/\/+$/, '') || '/contact.html').toLowerCase();
+      const mark = scope => scope && scope.querySelectorAll('a[href]').forEach(a=>{
+        const p = new URL(a.getAttribute('href'), location.origin).pathname.replace(/\/+$/, '').toLowerCase();
+        if (p === here) a.setAttribute('aria-current','page');
+      });
+      mark(document.querySelector('.links'));
+      mark(document.getElementById('nav-pop'));
+    } catch(e) {}
+
+    document.addEventListener('click', function (e) {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target === '_blank') return;
+      const href = a.getAttribute('href') || '';
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript:')) return;
+      const url = new URL(href, location.href);
+      if (url.origin !== location.origin) return;
+      e.preventDefault();
+      url.searchParams.set('skip-intro','1');
+      location.assign(url.href);
+    }, { capture: true });
+  })();
+</script>
 </body>
 </html>
