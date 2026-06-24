@@ -1,15 +1,17 @@
 .DS_Store
 **/.DS_Store
 
-# Do not push original/full photo folders
 **/full/
 **/original/
 **/raw/
+**/downloads/
 
-# Do not push camera RAW files
 *.CR2
 *.CR3
 *.ARW
 *.DNG
 *.NEF
 *.RAF
+*.MOV
+*.MP4
+*.zip
