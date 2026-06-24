@@ -191,3 +191,345 @@
     font-size:clamp(24px, 8vw, 40px);
   }
 }
+/* ==============================
+   DAYLIGHT — HEADER STYLE
+   ============================== */
+
+.daylight-page .nav{
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.daylight-page .logo img{
+  filter:
+    drop-shadow(0 0 10px rgba(0,229,255,.22))
+    drop-shadow(0 0 16px rgba(190,0,255,.14));
+}
+
+/* Nav links */
+.daylight-page .links a{
+  position:relative;
+  color:rgba(255,255,255,.88);
+  font-weight:800;
+  transition:color .2s ease, text-shadow .2s ease;
+}
+
+/* Remove old purple underline behavior */
+.daylight-page .links a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-10px;
+  width:0;
+  height:4px;
+  border-radius:999px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg, #00e5ff, #35a7ff, #c000ff);
+  box-shadow:
+    0 0 12px rgba(0,229,255,.45),
+    0 0 16px rgba(192,0,255,.35);
+  transition:width .22s ease;
+}
+
+/* Hover underline */
+.daylight-page .links a:hover{
+  color:#fff;
+  text-shadow:0 0 14px rgba(0,229,255,.25);
+}
+
+.daylight-page .links a:hover::after{
+  width:70%;
+}
+
+/* Active page underline */
+.daylight-page .links a[aria-current="page"]{
+  color:#fff;
+}
+
+.daylight-page .links a[aria-current="page"]::after{
+  width:70%;
+}
+
+/* Make Portfolio active manually if needed */
+.daylight-page .links a[href*="portfolio"]::after{
+  width:70%;
+}
+
+.daylight-page .links a[href*="portfolio"]{
+  color:#fff;
+}
+
+/* Mobile header */
+@media (max-width:900px){
+  .daylight-page .nav{
+    background:rgba(0,0,0,.82);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+
+  .daylight-page .nav-toggle span{
+    background:#fff;
+    box-shadow:0 0 10px rgba(0,229,255,.35);
+  }
+}
+/* ==============================
+   DAYLIGHT — LOGO
+   ============================== */
+
+.daylight-page .logo.daylight-logo img{
+  width:110px;
+  height:auto;
+  object-fit:contain;
+  filter:
+    drop-shadow(0 0 10px rgba(0,229,255,.30))
+    drop-shadow(0 0 16px rgba(255,255,255,.18));
+}
+
+.daylight-page .logo.daylight-logo{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Mobile logo size */
+@media (max-width:900px){
+  .daylight-page .logo.daylight-logo img{
+    width:64px;
+  }
+}
+/* ==============================
+   DAYLIGHT — LIGHT PREMIUM MODE
+   ============================== */
+
+.daylight-page{
+  background:#f6f7fb;
+  color:#0b0b0f;
+}
+
+/* Header: white glass */
+.daylight-page .nav{
+  background:rgba(255,255,255,.76);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 30px rgba(0,0,0,.04);
+}
+
+/* Nav text dark */
+.daylight-page .links a{
+  color:rgba(10,10,15,.72);
+  text-shadow:none;
+}
+
+.daylight-page .links a:hover,
+.daylight-page .links a[aria-current="page"],
+.daylight-page .links a[href*="portfolio"]{
+  color:#050507;
+}
+
+/* Daylight underline */
+.daylight-page .links a::after{
+  background:linear-gradient(90deg, #00d9ff, #3aa7ff, #b000ff);
+  box-shadow:
+    0 0 14px rgba(0,217,255,.35),
+    0 0 18px rgba(176,0,255,.22);
+}
+
+/* Background: clean daylight glow */
+.daylight-page .daylight-hero{
+  background:
+    radial-gradient(circle at 18% 22%, rgba(0,217,255,.18), transparent 34%),
+    radial-gradient(circle at 82% 28%, rgba(176,0,255,.12), transparent 34%),
+    radial-gradient(circle at 50% 92%, rgba(255,255,255,.9), transparent 38%),
+    linear-gradient(135deg, #ffffff 0%, #f2f6fb 42%, #eef3f8 100%);
+}
+
+/* If you have a separate background layer */
+.daylight-page .daylight-bg{
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,217,255,.20), transparent 34%),
+    radial-gradient(circle at 80% 35%, rgba(176,0,255,.13), transparent 36%),
+    linear-gradient(135deg, rgba(255,255,255,.94), rgba(242,246,251,.92));
+  opacity:1;
+}
+
+/* Badge */
+.daylight-page .daylight-badge{
+  color:#1b1d24;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(0,190,230,.35);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.06),
+    0 0 24px rgba(0,217,255,.16);
+}
+
+/* Main title */
+.daylight-page .daylight-content h1{
+  color:#09090d;
+  text-shadow:none;
+}
+
+.daylight-page .daylight-content h1 span{
+  background:linear-gradient(90deg, #00d9ff 0%, #22b8ff 38%, #6b67ff 68%, #b000ff 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 10px 28px rgba(0,217,255,.14));
+}
+
+/* Paragraph */
+.daylight-page .daylight-content p{
+  color:rgba(10,10,15,.68);
+}
+
+/* Coming soon */
+.daylight-page .daylight-coming{
+  color:#111118;
+  text-shadow:
+    0 8px 24px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.14);
+}
+
+/* Button */
+.daylight-page .daylight-btn{
+  color:#08080b;
+  background:rgba(255,255,255,.75);
+  border:2px solid transparent;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(90deg, #00d9ff, #3aa7ff, #b000ff);
+  background-origin:border-box;
+  background-clip:padding-box, border-box;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.16);
+}
+
+.daylight-page .daylight-btn:hover{
+  color:#fff;
+  background-image:
+    linear-gradient(90deg, #00d9ff, #3aa7ff, #b000ff),
+    linear-gradient(90deg, #00d9ff, #3aa7ff, #b000ff);
+  transform:translateY(-2px);
+}
+
+/* Logo on white header */
+.daylight-page .logo.daylight-logo img{
+  filter:
+    drop-shadow(0 0 8px rgba(0,217,255,.35))
+    drop-shadow(0 8px 18px rgba(0,0,0,.10));
+}
+
+/* Mobile */
+@media (max-width:900px){
+  .daylight-page .nav{
+    background:rgba(255,255,255,.82);
+  }
+
+  .daylight-page .nav-toggle span{
+    background:#111118;
+    box-shadow:none;
+  }
+
+  .daylight-page .daylight-hero{
+    background:
+      radial-gradient(circle at 20% 20%, rgba(0,217,255,.18), transparent 36%),
+      radial-gradient(circle at 85% 30%, rgba(176,0,255,.12), transparent 38%),
+      linear-gradient(135deg, #ffffff 0%, #f3f7fb 100%);
+  }
+}
+/* ==============================
+   MAIN NAV — NIGHTLIFE PILL
+   ============================== */
+
+/* Make the Nightlife/Home link a NOCHARTE pill */
+.nav .links a[href*="index"],
+.nav .links a[data-nav="home"],
+.nav .links a:first-child{
+  padding:10px 22px;
+  border-radius:999px;
+  background:
+    linear-gradient(rgba(255,255,255,.06), rgba(255,255,255,.06)) padding-box,
+    linear-gradient(90deg, #ff00ff, #7d00ff, #ff00ff) border-box;
+  border:1px solid transparent;
+  color:#fff;
+  box-shadow:
+    0 0 18px rgba(255,0,255,.28),
+    inset 0 0 18px rgba(255,255,255,.04);
+  text-shadow:0 0 12px rgba(255,0,255,.22);
+}
+
+/* Remove normal underline from the pill */
+.nav .links a[href*="index"]::after,
+.nav .links a[data-nav="home"]::after,
+.nav .links a:first-child::after{
+  display:none !important;
+}
+
+/* Hover effect */
+.nav .links a[href*="index"]:hover,
+.nav .links a[data-nav="home"]:hover,
+.nav .links a:first-child:hover{
+  background:
+    linear-gradient(rgba(255,255,255,.11), rgba(255,255,255,.08)) padding-box,
+    linear-gradient(90deg, #ff00ff, #9b35ff, #7d00ff) border-box;
+  box-shadow:
+    0 0 24px rgba(255,0,255,.38),
+    0 0 34px rgba(125,0,255,.22),
+    inset 0 0 18px rgba(255,255,255,.05);
+  transform:translateY(-1px);
+}
+
+/* Keep spacing clean */
+.nav .links{
+  align-items:center;
+}
+
+/* Mobile: do not force pill inside popup unless you like it */
+@media (max-width:900px){
+  .nav-pop__nav a[href*="index"],
+  .nav-pop__nav a[data-nav="home"],
+  .nav-pop__nav a:first-child{
+    border-radius:999px;
+    background:
+      linear-gradient(rgba(255,255,255,.08), rgba(255,255,255,.06)) padding-box,
+      linear-gradient(90deg, #ff00ff, #7d00ff) border-box;
+    border:1px solid transparent;
+    box-shadow:0 0 18px rgba(255,0,255,.22);
+  }
+}
+/* ==============================
+   DAYLIGHT — CLEAN 3-LINK HEADER
+   ============================== */
+
+.daylight-page .links.daylight-links{
+  gap:42px;
+}
+
+/* Nightlife switch pill */
+.daylight-page .links.daylight-links .nav-nightlife{
+  padding:10px 22px;
+  border-radius:999px;
+  color:#fff !important;
+  background:
+    linear-gradient(90deg, #ff00ff, #9b35ff, #7d00ff) padding-box,
+    linear-gradient(90deg, #ff00ff, #7d00ff) border-box;
+  border:1px solid transparent;
+  box-shadow:
+    0 0 18px rgba(255,0,255,.25),
+    0 12px 26px rgba(125,0,255,.14);
+}
+
+.daylight-page .links.daylight-links .nav-nightlife::after{
+  display:none !important;
+}
+
+/* Other links stay clean */
+.daylight-page .links.daylight-links a:not(.nav-nightlife){
+  color:rgba(8,11,18,.68);
+}
+
+.daylight-page .links.daylight-links a:not(.nav-nightlife):hover{
+  color:#080b12;
+}

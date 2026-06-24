@@ -143,4 +143,13 @@ window.ALBUMS = [
     cover: "assets/albums/the_trip-30-05-26/cover.webp",
     href: "album.html?slug=the_trip-30-05-26"
   },
+  {
+    slug: "light_out-20-06-26", 
+    title: "Light Out  — 20 Juin 2026",
+    date: "2026-06-20",
+    category: "Clubs",
+    count: 97,
+    cover: "assets/albums/light_out-20-06-26/cover.webp",
+    href: "album.html?slug=light_out-20-06-26"
+  },
 ];

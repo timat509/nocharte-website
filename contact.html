@@ -113,7 +113,19 @@
     </section>
 
     <!-- QUICK CONTACT -->
-    <section class="cards" aria-label="Quick contact options">
+<section class="cards cards-2" aria-label="Quick contact options">
+  <a class="card" href="https://instagram.com/nocharte_entertainment" target="_blank" rel="noopener">
+    <div class="card-title">Instagram</div>
+    <div class="card-sub">@nocharte_entertainment</div>
+    <div class="card-foot">DM us →</div>
+  </a>
+
+  <a class="card" href="https://wa.me/18294753799" target="_blank" rel="noopener">
+    <div class="card-title">WhatsApp</div>
+    <div class="card-sub">+1 829 475 3799</div>
+    <div class="card-foot">Message us →</div>
+  </a>
+    </section>
     
       <a class="card" href="https://instagram.com/nocharte_entertainment" target="_blank" rel="noopener">
         <div class="card-title">Instagram</div>
@@ -408,6 +420,69 @@
       url.searchParams.set('skip-intro','1');
       location.assign(url.href);
     }, { capture: true });
+  })();
+</script>
+
+<script>
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    const isDaylight = params.get('theme') === 'daylight';
+
+    if (!isDaylight) return;
+
+    document.body.classList.add('theme-daylight');
+
+    /* Switch logo to Daylight logo */
+    const logo = document.querySelector('.logo img');
+    if (logo) {
+      logo.src = '/assets/web/daylight-logo.png';
+      logo.alt = 'NOCHARTE Daylight logo';
+    }
+
+    /* Logo goes to Daylight home */
+    const logoLink = document.querySelector('.logo');
+    if (logoLink) {
+      logoLink.href = '/daylight/index.html?skip-intro=1';
+    }
+
+    /* Replace desktop nav with clean Daylight nav */
+    const desktopNav = document.querySelector('.links');
+    if (desktopNav) {
+      desktopNav.classList.add('daylight-inner-links');
+
+      desktopNav.innerHTML = `
+        <a href="/daylight/index.html?skip-intro=1" data-daylight-nav="home">Home</a>
+        <a href="/daylight/gallery.html?skip-intro=1" data-daylight-nav="gallery">Gallery</a>
+        <a href="/contact.html?skip-intro=1&theme=daylight" data-daylight-nav="contact">Contact</a>
+      `;
+    }
+
+    /* Replace mobile popup nav too */
+    const mobileNav = document.querySelector('.nav-pop__nav');
+    if (mobileNav) {
+      mobileNav.innerHTML = `
+        <a href="/daylight/index.html?skip-intro=1" data-daylight-nav="home">Home</a>
+        <a href="/daylight/gallery.html?skip-intro=1" data-daylight-nav="gallery">Gallery</a>
+        <a href="/contact.html?skip-intro=1&theme=daylight" data-daylight-nav="contact">Contact</a>
+      `;
+    }
+
+    /* Mark current page */
+    const path = window.location.pathname.toLowerCase();
+
+    document.querySelectorAll('[data-daylight-nav]').forEach(link => {
+      link.removeAttribute('aria-current');
+
+      const type = link.dataset.daylightNav;
+
+      if (
+        (type === 'home' && path.includes('/daylight/')) ||
+        (type === 'gallery' && path.includes('/daylight/gallery.html')) ||
+        (type === 'contact' && path.includes('contact.html'))
+      ) {
+        link.setAttribute('aria-current', 'page');
+      }
+    });
   })();
 </script>
 </body>

@@ -438,3 +438,187 @@
   /* Make sure spans render inline on desktop */
   .page-about .tagline span{ display: inline; }
 }
+/* =========================================================
+   ABOUT — DAYLIGHT THEME
+   Applies when URL has ?theme=daylight
+========================================================= */
+
+body.theme-daylight.page-about{
+  background:
+    radial-gradient(circle at 16% 18%, rgba(0,217,255,.16), transparent 34%),
+    radial-gradient(circle at 88% 20%, rgba(139,61,255,.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%) !important;
+  color:#080b12 !important;
+}
+
+/* Main about hero */
+body.theme-daylight .about-hero,
+body.theme-daylight .about-main,
+body.theme-daylight main{
+  background:transparent !important;
+  color:#080b12 !important;
+}
+
+/* Big “WHO WE ARE?” title */
+body.theme-daylight .about-hero h1,
+body.theme-daylight .about-title,
+body.theme-daylight h1{
+  color:#080b12 !important;
+  text-shadow:none !important;
+}
+
+/* Purple word becomes Daylight gradient */
+body.theme-daylight .about-hero h1 span,
+body.theme-daylight .about-title span,
+body.theme-daylight .gradient-text{
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  filter:drop-shadow(0 12px 28px rgba(0,217,255,.16)) !important;
+}
+
+/* Huge ghost text behind */
+body.theme-daylight .about-ghost,
+body.theme-daylight .about-bg-title,
+body.theme-daylight .about-hero::before{
+  color:rgba(0,160,210,.08) !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}
+
+/* Subtitle / tagline */
+body.theme-daylight .about-kicker,
+body.theme-daylight .about-subtitle,
+body.theme-daylight .about-hero p{
+  color:rgba(8,11,18,.62) !important;
+}
+
+/* Camera collage / image side */
+body.theme-daylight .about-camera,
+body.theme-daylight .about-visual,
+body.theme-daylight .about-media{
+  filter:
+    drop-shadow(0 22px 40px rgba(0,0,0,.12))
+    drop-shadow(0 0 28px rgba(0,217,255,.08)) !important;
+}
+
+/* Purple round buttons */
+body.theme-daylight .about-btn,
+body.theme-daylight .about-scroll-btn,
+body.theme-daylight .circle-btn,
+body.theme-daylight .about-link-icon{
+  color:#080b12 !important;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box !important;
+  border:2px solid transparent !important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.16) !important;
+}
+
+/* Button text */
+body.theme-daylight .about-actions a,
+body.theme-daylight .about-nav-label,
+body.theme-daylight .about-link-text{
+  color:#080b12 !important;
+}
+
+/* Sections below hero */
+body.theme-daylight .about-section,
+body.theme-daylight .story-section,
+body.theme-daylight .work-section,
+body.theme-daylight .vm-section,
+body.theme-daylight #about.vm-section{
+  background:transparent !important;
+  color:#080b12 !important;
+}
+
+/* Vision / Mission cards */
+body.theme-daylight #about .vm-row,
+body.theme-daylight .vm-row{
+  background:
+    radial-gradient(circle at top left, rgba(0,217,255,.14), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(139,61,255,.10), transparent 48%),
+    rgba(255,255,255,.76) !important;
+  border:1px solid rgba(0,160,210,.14) !important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.06),
+    0 0 28px rgba(0,217,255,.08) !important;
+}
+
+/* Vision / Mission titles */
+body.theme-daylight #about .vm-title,
+body.theme-daylight .vm-title{
+  color:#080b12 !important;
+  text-shadow:none !important;
+}
+
+/* Vision / Mission text */
+body.theme-daylight #about .vm-text,
+body.theme-daylight .vm-text{
+  color:rgba(8,11,18,.66) !important;
+}
+
+/* Eyebrow text */
+body.theme-daylight #about .eyebrow,
+body.theme-daylight .eyebrow{
+  color:rgba(8,11,18,.48) !important;
+}
+
+/* Pills */
+body.theme-daylight .vm-pill{
+  color:#080b12 !important;
+  background:rgba(255,255,255,.72) !important;
+  border:1px solid rgba(0,160,210,.18) !important;
+  box-shadow:0 0 18px rgba(0,217,255,.08) !important;
+}
+
+/* Images */
+body.theme-daylight .vm-art,
+body.theme-daylight #about .vm-art{
+  background:#ffffff !important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.08) !important;
+}
+
+body.theme-daylight .vm-art img,
+body.theme-daylight .vm-media img,
+body.theme-daylight #about .vm-art img{
+  filter:brightness(1.04) saturate(1.02) !important;
+}
+
+/* Partners heading */
+body.theme-daylight .partners-heading__eyebrow{
+  color:rgba(8,11,18,.44) !important;
+}
+
+body.theme-daylight .partners-heading__title{
+  color:#080b12 !important;
+}
+
+/* Footer daylight */
+body.theme-daylight .site-footer{
+  background:
+    radial-gradient(circle at top, rgba(0,217,255,.12), transparent 55%),
+    #f7fbff !important;
+  border-top:1px solid rgba(0,160,210,.12) !important;
+  color:#080b12 !important;
+}
+
+body.theme-daylight .footer-text,
+body.theme-daylight .footer-copy{
+  color:rgba(8,11,18,.62) !important;
+}
+
+/* Mobile */
+@media (max-width:820px){
+  body.theme-daylight .vm-row{
+    background:
+      radial-gradient(circle at top left, rgba(0,217,255,.14), transparent 48%),
+      radial-gradient(circle at bottom right, rgba(139,61,255,.10), transparent 48%),
+      rgba(255,255,255,.78) !important;
+  }
+}

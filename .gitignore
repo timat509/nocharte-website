@@ -1,7 +1,15 @@
 .DS_Store
-assets/albums/*/original/
+**/.DS_Store
 
-assets/albums/*/downloads/*.zip
-assets/albums/*/downloads/*.zip
-assets/albums/*/downloads/*.zip
-assets/albums/*/downloads/*.zip
+# Do not push original/full photo folders
+**/full/
+**/original/
+**/raw/
+
+# Do not push camera RAW files
+*.CR2
+*.CR3
+*.ARW
+*.DNG
+*.NEF
+*.RAF

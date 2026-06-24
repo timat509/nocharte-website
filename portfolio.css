@@ -611,3 +611,390 @@
     margin-bottom: 24px;
   }
 }
+/* =========================================================
+   PORTFOLIO — DAYLIGHT THEME
+   Applies when URL has ?theme=daylight
+========================================================= */
+
+body.theme-daylight.page-portfolio{
+  background:
+    radial-gradient(circle at 16% 18%, rgba(0,217,255,.16), transparent 34%),
+    radial-gradient(circle at 88% 20%, rgba(139,61,255,.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%) !important;
+  color:#080b12 !important;
+}
+
+/* Hero: remove the heavy dark nightlife mood */
+body.theme-daylight .portfolio-hero,
+body.theme-daylight .portfolio-main,
+body.theme-daylight main{
+  background:transparent !important;
+  color:#080b12 !important;
+}
+
+/* If your portfolio hero uses background image overlays */
+body.theme-daylight .portfolio-hero::before,
+body.theme-daylight .portfolio-hero::after,
+body.theme-daylight .portfolio-bg,
+body.theme-daylight .portfolio-vignette{
+  opacity:.16 !important;
+  filter:grayscale(.1) brightness(1.25) saturate(.9) !important;
+}
+
+/* Main title */
+body.theme-daylight .portfolio-hero h1,
+body.theme-daylight .portfolio-title,
+body.theme-daylight h1{
+  color:#080b12 !important;
+  text-shadow:none !important;
+}
+
+body.theme-daylight .portfolio-hero h1 span,
+body.theme-daylight .portfolio-title span{
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+}
+
+/* Big section title like “The DJ everyone heard...” */
+body.theme-daylight .portfolio-section-title,
+body.theme-daylight .portfolio-copy h2,
+body.theme-daylight h2{
+  color:#080b12 !important;
+  text-shadow:none !important;
+}
+
+/* Small vertical text / labels */
+body.theme-daylight .portfolio-label,
+body.theme-daylight .portfolio-eyebrow,
+body.theme-daylight .portfolio-kicker,
+body.theme-daylight .eyebrow{
+  color:rgba(8,11,18,.52) !important;
+}
+
+/* Paragraphs */
+body.theme-daylight .portfolio-copy p,
+body.theme-daylight p{
+  color:rgba(8,11,18,.66) !important;
+}
+
+/* Category pills: DJ / Artist / Crowd / Sponsors */
+body.theme-daylight .portfolio-tabs button,
+body.theme-daylight .portfolio-filters button,
+body.theme-daylight .filter-pill,
+body.theme-daylight .pill{
+  color:#080b12 !important;
+  background:rgba(255,255,255,.74) !important;
+  border:1px solid rgba(0,160,210,.18) !important;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.06),
+    0 0 18px rgba(0,217,255,.08) !important;
+}
+
+body.theme-daylight .portfolio-tabs button:hover,
+body.theme-daylight .portfolio-filters button:hover,
+body.theme-daylight .filter-pill:hover,
+body.theme-daylight .pill:hover{
+  background:#fff !important;
+  border-color:rgba(0,217,255,.36) !important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.16) !important;
+}
+
+/* Portfolio image cards */
+body.theme-daylight .portfolio-card,
+body.theme-daylight .portfolio-grid article,
+body.theme-daylight .work-card{
+  background:rgba(255,255,255,.76) !important;
+  border:1px solid rgba(0,160,210,.14) !important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.08),
+    0 0 28px rgba(0,217,255,.08) !important;
+}
+
+/* Keep photo captions readable */
+body.theme-daylight .portfolio-card h3,
+body.theme-daylight .work-card h3{
+  color:#080b12 !important;
+}
+
+body.theme-daylight .portfolio-card p,
+body.theme-daylight .work-card p{
+  color:rgba(8,11,18,.62) !important;
+}
+
+/* Image treatment: brighter, more daylight */
+body.theme-daylight .portfolio-card img,
+body.theme-daylight .work-card img,
+body.theme-daylight .portfolio-grid img{
+  filter:brightness(1.06) saturate(1.02) !important;
+}
+
+/* Any purple lines become daylight blue */
+body.theme-daylight .portfolio-line,
+body.theme-daylight .accent-line,
+body.theme-daylight hr{
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) !important;
+  border:0 !important;
+}
+/* =========================================================
+   PORTFOLIO — TEMPORARY COMING SOON MODE
+   Keep full portfolio structure, but hide it for now.
+========================================================= */
+
+body.portfolio-demo{
+  background:#000;
+}
+
+/* Hide the current portfolio structure without deleting it */
+body.portfolio-demo .portfolio-hero,
+body.portfolio-demo .portfolio-main,
+body.portfolio-demo main:not(.portfolio-coming-soon),
+body.portfolio-demo .portfolio-section,
+body.portfolio-demo .portfolio-grid,
+body.portfolio-demo .portfolio-showcase{
+  display:none !important;
+}
+
+/* Temporary page */
+.portfolio-coming-soon{
+  position:relative;
+  min-height:100vh;
+  width:100%;
+  display:grid;
+  place-items:center;
+  padding:calc(var(--nav-h, 90px) + 70px) 24px 90px;
+  overflow:hidden;
+  isolation:isolate;
+  background:#000;
+}
+
+.portfolio-coming-bg{
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:
+    radial-gradient(circle at 18% 24%, rgba(212,0,255,.28), transparent 34%),
+    radial-gradient(circle at 82% 28%, rgba(116,0,255,.22), transparent 36%),
+    radial-gradient(circle at 50% 88%, rgba(255,255,255,.08), transparent 34%),
+    linear-gradient(135deg, #050005 0%, #08000f 45%, #000 100%);
+}
+
+.portfolio-coming-bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.46));
+  pointer-events:none;
+}
+
+.portfolio-coming-content{
+  width:min(980px, 92vw);
+  text-align:center;
+  color:#fff;
+}
+
+.portfolio-coming-kicker{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 20px;
+  border-radius:999px;
+  margin-bottom:28px;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.88);
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:
+    0 0 24px rgba(212,0,255,.18),
+    inset 0 0 18px rgba(255,255,255,.04);
+}
+
+.portfolio-coming-content h1{
+  margin:0;
+  font-size:clamp(56px, 10vw, 150px);
+  line-height:.9;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.portfolio-coming-content h1 span{
+  background:linear-gradient(90deg, #ff00ff, #9b35ff, #7400ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 18px 40px rgba(125,0,255,.32));
+}
+
+.portfolio-coming-text{
+  max-width:760px;
+  margin:30px auto 0;
+  font-size:clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height:1.55;
+  color:rgba(255,255,255,.78);
+}
+
+.portfolio-coming-subtext{
+  margin:12px auto 0;
+  color:rgba(255,255,255,.56);
+  font-size:1rem;
+}
+
+.portfolio-coming-actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-top:34px;
+}
+
+.portfolio-coming-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:150px;
+  padding:14px 24px;
+  border-radius:999px;
+  font-weight:900;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.portfolio-coming-btn.primary{
+  color:#fff;
+  background:
+    linear-gradient(#080008, #080008) padding-box,
+    linear-gradient(90deg, #ff00ff, #7400ff) border-box;
+  border:2px solid transparent;
+  box-shadow:0 14px 34px rgba(125,0,255,.34);
+}
+
+.portfolio-coming-btn.secondary{
+  color:#fff;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+}
+
+.portfolio-coming-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 18px 42px rgba(125,0,255,.36),
+    0 0 24px rgba(255,0,255,.18);
+}
+
+/* =========================================================
+   PORTFOLIO DEMO — DAYLIGHT VERSION
+========================================================= */
+
+body.theme-daylight.portfolio-demo{
+  background:#f7fbff !important;
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-soon{
+  background:
+    radial-gradient(circle at 16% 18%, rgba(0,217,255,.16), transparent 34%),
+    radial-gradient(circle at 88% 20%, rgba(139,61,255,.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%) !important;
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-bg{
+  background:
+    radial-gradient(circle at 18% 24%, rgba(0,217,255,.22), transparent 34%),
+    radial-gradient(circle at 82% 28%, rgba(139,61,255,.14), transparent 36%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%) !important;
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-bg::after{
+  background:linear-gradient(rgba(255,255,255,.10), rgba(255,255,255,.28));
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-content{
+  color:#080b12;
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-kicker{
+  color:#080b12;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(0,160,210,.18);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.06),
+    0 0 24px rgba(0,217,255,.12);
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-content h1{
+  color:#080b12 !important;
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-content h1 span{
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 14px 34px rgba(0,217,255,.16));
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-text{
+  color:rgba(8,11,18,.68);
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-subtext{
+  color:rgba(8,11,18,.50);
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-btn.primary{
+  color:#080b12;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box;
+  border:2px solid transparent;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.16);
+}
+
+body.theme-daylight.portfolio-demo .portfolio-coming-btn.secondary{
+  color:#080b12;
+  background:rgba(255,255,255,.68);
+  border:1px solid rgba(0,160,210,.18);
+}
+
+/* Mobile */
+@media (max-width:820px){
+  .portfolio-coming-soon{
+    min-height:100svh;
+    padding:calc(var(--mobile-header-h, 90px) + 44px) 20px 70px;
+  }
+
+  .portfolio-coming-content{
+    text-align:left;
+  }
+
+  .portfolio-coming-kicker{
+    margin-bottom:22px;
+    font-size:.7rem;
+  }
+
+  .portfolio-coming-content h1{
+    font-size:clamp(48px, 17vw, 84px);
+  }
+
+  .portfolio-coming-text{
+    margin-top:24px;
+    font-size:1.05rem;
+  }
+
+  .portfolio-coming-actions{
+    justify-content:flex-start;
+  }
+
+  .portfolio-coming-btn{
+    width:100%;
+  }
+}

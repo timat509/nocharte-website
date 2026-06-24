@@ -1450,3 +1450,279 @@ body.home .scrolldown span{
     0 0 18px rgba(180, 0, 255, .18),
     inset 0 0 14px rgba(255,255,255,.08);
 }
+
+/* =========================================================
+   GLOBAL DAYLIGHT THEME — BLUE PALETTE
+   Applies when body has .theme-daylight
+========================================================= */
+
+body.theme-daylight{
+  --day-bg:#f7fbff;
+  --day-bg-2:#eef8ff;
+  --day-ink:#080b12;
+  --day-muted:rgba(8,11,18,.62);
+  --day-cyan:#00d9ff;
+  --day-blue:#2fa8ff;
+  --day-purple:#8b3dff;
+
+  background:
+    radial-gradient(circle at 14% 18%, rgba(0,217,255,.18), transparent 34%),
+    radial-gradient(circle at 88% 18%, rgba(139,61,255,.12), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f6fbff 45%, #eef6ff 100%) !important;
+  color:var(--day-ink) !important;
+}
+
+/* Header */
+body.theme-daylight .nav{
+  background:rgba(255,255,255,.88) !important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.06) !important;
+  box-shadow:0 10px 32px rgba(0,0,0,.045) !important;
+}
+
+/* Logo */
+body.theme-daylight .logo img{
+  filter:
+    drop-shadow(0 0 10px rgba(0,217,255,.28))
+    drop-shadow(0 8px 18px rgba(0,0,0,.08)) !important;
+}
+
+/* Nav links */
+body.theme-daylight .links a{
+  color:rgba(8,11,18,.68) !important;
+  text-shadow:none !important;
+}
+
+body.theme-daylight .links a:hover,
+body.theme-daylight .links a[aria-current="page"]{
+  color:var(--day-ink) !important;
+}
+
+/* Active underline */
+body.theme-daylight .links a::after{
+  background:linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) !important;
+  box-shadow:
+    0 0 12px rgba(0,217,255,.35),
+    0 0 16px rgba(47,168,255,.24) !important;
+}
+
+/* First link pill — Daylight blue version */
+body.theme-daylight .links a:first-child,
+body.theme-daylight .links a[data-nav="home"]{
+  padding:10px 22px !important;
+  border-radius:999px !important;
+  color:#fff !important;
+  background:
+    linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) padding-box,
+    linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) border-box !important;
+  border:1px solid transparent !important;
+  box-shadow:
+    0 0 18px rgba(0,217,255,.28),
+    0 12px 28px rgba(47,168,255,.16) !important;
+}
+
+body.theme-daylight .links a:first-child::after,
+body.theme-daylight .links a[data-nav="home"]::after{
+  display:none !important;
+}
+
+/* Global page background */
+body.theme-daylight main,
+body.theme-daylight .wrap{
+  background:transparent !important;
+  color:var(--day-ink) !important;
+}
+
+/* Hide dark gallery effects in daylight mode */
+body.theme-daylight .gal-bg,
+body.theme-daylight .gal-vignette,
+body.theme-daylight .gal-stars{
+  display:none !important;
+}
+
+/* Gallery page daylight background */
+body.theme-daylight.page-gallery{
+  background:
+    radial-gradient(circle at 16% 18%, rgba(0,217,255,.14), transparent 34%),
+    radial-gradient(circle at 86% 22%, rgba(139,61,255,.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 50%, #eef6ff 100%) !important;
+}
+
+/* Gallery hero */
+body.theme-daylight .gallery-hero__eyebrow{
+  color:rgba(8,11,18,.42) !important;
+}
+
+body.theme-daylight .gallery-hero__title{
+  color:var(--day-ink) !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+  background:linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+}
+
+body.theme-daylight .gallery-hero__subtitle{
+  color:var(--day-muted) !important;
+}
+
+/* Gallery year titles */
+body.theme-daylight .year-title{
+  color:var(--day-ink) !important;
+  opacity:1 !important;
+  text-shadow:none !important;
+}
+
+body.theme-daylight .year-title::after{
+  background:linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) !important;
+  box-shadow:0 0 18px rgba(0,217,255,.22) !important;
+}
+
+body.theme-daylight .gallery-hint{
+  color:var(--day-muted) !important;
+}
+
+/* Coverflow arrows */
+body.theme-daylight .float-arrow{
+  background:rgba(255,255,255,.78) !important;
+  color:var(--day-ink) !important;
+  border:1px solid rgba(0,160,210,.18) !important;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.08),
+    0 0 18px rgba(0,217,255,.10) !important;
+}
+
+body.theme-daylight .float-arrow:hover{
+  background:#fff !important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.10),
+    0 0 24px rgba(0,217,255,.20) !important;
+}
+
+/* Keep album text readable on photos */
+body.theme-daylight .stage .card .meta,
+body.theme-daylight .card .meta{
+  color:#fff !important;
+  text-shadow:0 2px 10px rgba(0,0,0,.65) !important;
+}
+
+body.theme-daylight .stage .card .meta h3,
+body.theme-daylight .stage .card .meta p{
+  color:#fff !important;
+}
+
+/* Contact / cards / panels */
+body.theme-daylight .card,
+body.theme-daylight .contact-form,
+body.theme-daylight .gallery-card,
+body.theme-daylight .portfolio-card,
+body.theme-daylight .about-card{
+  background:rgba(255,255,255,.78) !important;
+  border:1px solid rgba(0,160,210,.14) !important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.06),
+    0 0 28px rgba(0,217,255,.08) !important;
+}
+
+/* Generic text */
+body.theme-daylight h1,
+body.theme-daylight h2,
+body.theme-daylight h3,
+body.theme-daylight h4,
+body.theme-daylight .form-title,
+body.theme-daylight .card-title{
+  color:var(--day-ink) !important;
+  text-shadow:none !important;
+}
+
+body.theme-daylight p,
+body.theme-daylight .muted,
+body.theme-daylight .card-sub,
+body.theme-daylight .card-foot,
+body.theme-daylight .form-intro,
+body.theme-daylight .field span,
+body.theme-daylight .hero-tag{
+  color:var(--day-muted) !important;
+}
+
+/* Inputs */
+body.theme-daylight input,
+body.theme-daylight textarea,
+body.theme-daylight select{
+  background:rgba(255,255,255,.9) !important;
+  color:var(--day-ink) !important;
+  border:1px solid rgba(0,160,210,.18) !important;
+}
+
+body.theme-daylight input::placeholder,
+body.theme-daylight textarea::placeholder{
+  color:rgba(8,11,18,.42) !important;
+}
+
+/* Buttons */
+body.theme-daylight .btn,
+body.theme-daylight button[type="submit"]{
+  color:var(--day-ink) !important;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) border-box !important;
+  border:2px solid transparent !important;
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.15) !important;
+}
+
+body.theme-daylight .btn:hover,
+body.theme-daylight button[type="submit"]:hover{
+  color:#fff !important;
+  background:
+    linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) padding-box,
+    linear-gradient(90deg, var(--day-cyan), var(--day-blue), var(--day-purple)) border-box !important;
+}
+
+/* Mobile */
+@media (max-width:900px){
+  body.theme-daylight .nav{
+    background:rgba(255,255,255,.92) !important;
+  }
+
+  body.theme-daylight .nav-toggle span{
+    background:var(--day-ink) !important;
+    box-shadow:none !important;
+  }
+
+  body.theme-daylight .nav-pop__sheet{
+    background:rgba(255,255,255,.95) !important;
+    color:var(--day-ink) !important;
+  }
+
+  body.theme-daylight .nav-pop__nav a{
+    color:var(--day-ink) !important;
+  }
+}
+/* =========================================================
+   DAYLIGHT THEME — REMOVE HOME PILL ON INNER PAGES
+========================================================= */
+
+body.theme-daylight .links a:first-child,
+body.theme-daylight .links a[data-nav="home"]{
+  padding:6px 2px !important;
+  border-radius:0 !important;
+  color:rgba(8,11,18,.68) !important;
+  background:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.theme-daylight .links a:first-child:hover,
+body.theme-daylight .links a[data-nav="home"]:hover{
+  color:var(--day-ink, #080b12) !important;
+}
+
+/* No underline on Home unless you are actually on Daylight home */
+body.theme-daylight .links a:first-child::after,
+body.theme-daylight .links a[data-nav="home"]::after{
+  display:none !important;
+}

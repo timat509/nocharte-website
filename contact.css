@@ -637,3 +637,309 @@
     font-size:.95rem;
   }
 }
+/* =========================================================
+   CONTACT — DAYLIGHT THEME FINAL OVERRIDE
+   Applies when URL has ?theme=daylight
+========================================================= */
+
+body.theme-daylight.page-contact{
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0,217,255,.16), transparent 34%),
+    radial-gradient(circle at 90% 22%, rgba(139,61,255,.10), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%) !important;
+  color:#080b12 !important;
+}
+
+/* Main wrapper */
+body.theme-daylight.page-contact .wrap{
+  background:transparent !important;
+}
+
+/* Hero card: make it Daylight, not Nightlife */
+body.theme-daylight.page-contact .contact-hero.v2{
+  background:
+    radial-gradient(circle at 18% 26%, rgba(0,217,255,.18), transparent 38%),
+    radial-gradient(circle at 88% 28%, rgba(139,61,255,.12), transparent 38%),
+    linear-gradient(135deg, rgba(255,255,255,.86), rgba(245,251,255,.78)) !important;
+  border:1px solid rgba(0,160,210,.14) !important;
+  box-shadow:
+    0 22px 50px rgba(0,0,0,.06),
+    0 0 34px rgba(0,217,255,.10) !important;
+}
+
+/* Remove dark hero layers */
+body.theme-daylight.page-contact .contact-hero .bg-gradient,
+body.theme-daylight.page-contact .contact-hero .bg-light{
+  opacity:0 !important;
+  display:none !important;
+}
+
+/* Hero title */
+body.theme-daylight.page-contact .hero-title span{
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) !important;
+  -webkit-background-clip:text !important;
+  background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+  filter:drop-shadow(0 14px 32px rgba(0,217,255,.16)) !important;
+  text-shadow:none !important;
+}
+
+/* Hero text */
+body.theme-daylight.page-contact .hero-tag{
+  color:rgba(8,11,18,.64) !important;
+}
+
+body.theme-daylight.page-contact .breadcrumbs,
+body.theme-daylight.page-contact .breadcrumbs a{
+  color:rgba(8,11,18,.68) !important;
+}
+
+/* Floating CONTACT accent */
+body.theme-daylight.page-contact .contact-floating-accent{
+  opacity:.12 !important;
+  filter:none !important;
+}
+
+body.theme-daylight.page-contact .contact-floating-accent text{
+  stroke:rgba(0,160,210,.35) !important;
+}
+
+/* Quick contact cards */
+body.theme-daylight.page-contact .card{
+  background:rgba(255,255,255,.78) !important;
+  border:1px solid rgba(0,160,210,.14) !important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.06),
+    0 0 28px rgba(0,217,255,.08) !important;
+}
+
+body.theme-daylight.page-contact .card:hover{
+  background:#fff !important;
+  border-color:rgba(0,217,255,.30) !important;
+  box-shadow:
+    0 20px 46px rgba(0,0,0,.08),
+    0 0 28px rgba(0,217,255,.18) !important;
+}
+
+body.theme-daylight.page-contact .card-title{
+  color:#080b12 !important;
+}
+
+body.theme-daylight.page-contact .card-sub,
+body.theme-daylight.page-contact .card-foot{
+  color:rgba(8,11,18,.62) !important;
+}
+
+/* Booking form card */
+body.theme-daylight.page-contact .contact-form{
+  background:rgba(255,255,255,.80) !important;
+  border:1px solid rgba(0,160,210,.14) !important;
+  box-shadow:
+    0 22px 52px rgba(0,0,0,.06),
+    0 0 32px rgba(0,217,255,.08) !important;
+}
+
+body.theme-daylight.page-contact .form-title{
+  color:#080b12 !important;
+}
+
+body.theme-daylight.page-contact .form-intro{
+  color:rgba(8,11,18,.62) !important;
+}
+
+/* Labels */
+body.theme-daylight.page-contact .field span,
+body.theme-daylight.page-contact .service-field legend,
+body.theme-daylight.page-contact .check{
+  color:rgba(8,11,18,.66) !important;
+}
+
+/* Inputs */
+body.theme-daylight.page-contact .field input,
+body.theme-daylight.page-contact .field select,
+body.theme-daylight.page-contact .field textarea{
+  background:rgba(255,255,255,.92) !important;
+  color:#080b12 !important;
+  border:1px solid rgba(0,160,210,.18) !important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55) !important;
+}
+
+body.theme-daylight.page-contact .field input:focus,
+body.theme-daylight.page-contact .field select:focus,
+body.theme-daylight.page-contact .field textarea:focus{
+  border-color:#00d9ff !important;
+  box-shadow:
+    0 0 0 3px rgba(0,217,255,.16),
+    inset 0 0 0 1px rgba(255,255,255,.65) !important;
+}
+
+body.theme-daylight.page-contact input::placeholder,
+body.theme-daylight.page-contact textarea::placeholder{
+  color:rgba(8,11,18,.42) !important;
+}
+
+/* Photo / Video / Both buttons */
+body.theme-daylight.page-contact .service-option span{
+  background:rgba(255,255,255,.88) !important;
+  color:#080b12 !important;
+  border:1px solid rgba(0,160,210,.18) !important;
+}
+
+body.theme-daylight.page-contact .service-option:hover span{
+  background:#fff !important;
+  border-color:rgba(0,217,255,.35) !important;
+}
+
+body.theme-daylight.page-contact .service-option input:checked + span{
+  border-color:#00d9ff !important;
+  background:
+    linear-gradient(rgba(255,255,255,.92), rgba(255,255,255,.92)) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box !important;
+  box-shadow:
+    0 0 0 3px rgba(0,217,255,.14),
+    0 14px 32px rgba(0,217,255,.12) !important;
+}
+
+/* Submit button */
+body.theme-daylight.page-contact .btn{
+  color:#080b12 !important;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box !important;
+  border:2px solid transparent !important;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.16) !important;
+}
+
+body.theme-daylight.page-contact .btn:hover{
+  color:#fff !important;
+  background:
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box !important;
+}
+
+/* Status message */
+body.theme-daylight.page-contact .status{
+  color:#078f77 !important;
+}
+
+/* Mobile */
+@media (max-width:900px){
+  body.theme-daylight.page-contact .contact-hero.v2{
+    background:
+      radial-gradient(circle at 18% 26%, rgba(0,217,255,.20), transparent 40%),
+      radial-gradient(circle at 88% 30%, rgba(139,61,255,.12), transparent 40%),
+      rgba(255,255,255,.84) !important;
+  }
+}
+/* =========================================================
+   QUICK CONTACT — FORCE SIDE BY SIDE
+========================================================= */
+
+.page-contact .cards.cards-2{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  gap:24px !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:22px 0 36px !important;
+}
+
+.page-contact .cards.cards-2 .card{
+  width:100% !important;
+  min-width:0 !important;
+  flex:none !important;
+  order:initial !important;
+}
+
+/* Daylight contact version */
+body.theme-daylight.page-contact .cards.cards-2{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  gap:24px !important;
+}
+
+/* Mobile: still side by side */
+@media (max-width:900px){
+  .page-contact .cards.cards-2,
+  body.theme-daylight.page-contact .cards.cards-2{
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:12px !important;
+    margin:22px 0 28px !important;
+  }
+
+  .page-contact .cards.cards-2 .card{
+    min-height:128px !important;
+    padding:18px 14px 16px !important;
+    border-radius:18px !important;
+  }
+
+  .page-contact .cards.cards-2 .card-title{
+    font-size:1rem !important;
+  }
+
+  .page-contact .cards.cards-2 .card-sub{
+    font-size:.86rem !important;
+    line-height:1.25 !important;
+    word-break:break-word !important;
+  }
+
+  .page-contact .cards.cards-2 .card-foot{
+    font-size:.92rem !important;
+    margin-top:10px !important;
+  }
+}
+/* =========================================================
+   CONTACT — FORCE QUICK CARDS SIDE BY SIDE
+========================================================= */
+
+body.page-contact .cards.cards-2{
+  display:grid !important;
+  grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+  gap:24px !important;
+  width:100% !important;
+  max-width:none !important;
+}
+
+body.page-contact .cards.cards-2 .card{
+  width:100% !important;
+  min-width:0 !important;
+  flex:none !important;
+  order:initial !important;
+}
+
+/* Mobile side-by-side */
+@media (max-width:900px){
+  body.page-contact .cards.cards-2{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:12px !important;
+    margin:22px 0 28px !important;
+  }
+
+  body.page-contact .cards.cards-2 .card{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:128px !important;
+    padding:18px 14px 16px !important;
+    border-radius:18px !important;
+    flex:none !important;
+    order:initial !important;
+  }
+
+  body.page-contact .cards.cards-2 .card-title{
+    font-size:1rem !important;
+  }
+
+  body.page-contact .cards.cards-2 .card-sub{
+    font-size:.86rem !important;
+    line-height:1.25 !important;
+    word-break:break-word !important;
+  }
+
+  body.page-contact .cards.cards-2 .card-foot{
+    font-size:.92rem !important;
+    margin-top:10px !important;
+  }
+}
