@@ -2,9 +2,13 @@
 **/.DS_Store
 
 **/full/
+**/full*/
 **/original/
+**/original*/
 **/raw/
+**/raw*/
 **/downloads/
+**/downloads*/
 
 *.CR2
 *.CR3
