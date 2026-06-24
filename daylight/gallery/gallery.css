@@ -1,0 +1,563 @@
+/* =========================================================
+   NOCHARTE DAYLIGHT — GALLERY PAGE
+========================================================= */
+
+.daylight-gallery-page{
+  background:
+    radial-gradient(circle at 14% 20%, rgba(0,217,255,.18), transparent 34%),
+    radial-gradient(circle at 88% 24%, rgba(139,61,255,.12), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%);
+  color:#080b12;
+}
+
+/* Page layout */
+.daylight-gallery{
+  min-height:100vh;
+  padding:calc(var(--nav-h, 90px) + 70px) 24px 90px;
+  width:min(1180px, 92vw);
+  margin:0 auto;
+}
+
+/* Hero */
+.daylight-gallery-hero{
+  max-width:900px;
+}
+
+.daylight-kicker{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 20px;
+  border-radius:999px;
+  margin-bottom:28px;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#080b12;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(0,160,210,.18);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.06),
+    0 0 24px rgba(0,217,255,.12);
+}
+
+.daylight-gallery-hero h1{
+  margin:0;
+  font-size:clamp(58px, 10vw, 150px);
+  line-height:.9;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  font-weight:900;
+  color:#080b12;
+}
+
+.daylight-gallery-hero h1 span{
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 14px 34px rgba(0,217,255,.16));
+}
+
+.daylight-gallery-hero p{
+  max-width:760px;
+  margin:28px 0 0;
+  font-size:clamp(1.05rem, 1.5vw, 1.28rem);
+  line-height:1.55;
+  color:rgba(8,11,18,.66);
+}
+
+/* Feature event */
+.daylight-feature{
+  margin-top:44px;
+}
+
+.daylight-event-card{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:32px;
+  align-items:center;
+  padding:24px;
+  border-radius:34px;
+  background:rgba(255,255,255,.76);
+  border:1px solid rgba(0,160,210,.14);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.08),
+    0 0 34px rgba(0,217,255,.10);
+}
+
+.daylight-event-media{
+  position:relative;
+  overflow:hidden;
+  border-radius:26px;
+  min-height:380px;
+  background:#eef8ff;
+}
+
+.daylight-event-media img{
+  width:100%;
+  height:100%;
+  min-height:380px;
+  object-fit:cover;
+  border-radius:26px;
+  filter:brightness(1.04) saturate(1.04);
+}
+
+.daylight-event-placeholder{
+  min-height:380px;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0,217,255,.26), transparent 34%),
+    radial-gradient(circle at 85% 35%, rgba(139,61,255,.16), transparent 36%),
+    linear-gradient(135deg, #ffffff 0%, #eef8ff 100%);
+}
+
+.daylight-event-placeholder span{
+  font-size:clamp(36px, 6vw, 80px);
+  font-weight:900;
+  letter-spacing:.04em;
+  color:#080b12;
+  opacity:.9;
+}
+
+.daylight-event-info{
+  padding:10px 8px;
+}
+
+.daylight-event-label{
+  margin:0 0 14px;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.20em;
+  color:#2fa8ff;
+}
+
+.daylight-event-info h2{
+  margin:0;
+  font-size:clamp(34px, 4vw, 64px);
+  line-height:.95;
+  color:#080b12;
+  text-transform:uppercase;
+}
+
+.daylight-event-info p{
+  margin:18px 0 0;
+  max-width:520px;
+  line-height:1.55;
+  color:rgba(8,11,18,.64);
+}
+
+.daylight-gallery-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:28px;
+  padding:14px 24px;
+  border-radius:999px;
+  font-weight:900;
+  color:#080b12;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box;
+  border:2px solid transparent;
+  box-shadow:
+    0 14px 34px rgba(0,0,0,.08),
+    0 0 24px rgba(0,217,255,.16);
+  transition:transform .2s ease, box-shadow .2s ease, color .2s ease, background .2s ease;
+}
+
+.daylight-gallery-btn:hover{
+  transform:translateY(-2px);
+  color:#fff;
+  background:
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) padding-box,
+    linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff) border-box;
+}
+
+/* Mobile */
+@media (max-width:900px){
+  .daylight-gallery{
+    min-height:100svh;
+    padding:calc(var(--mobile-header-h, 90px) + 44px) 18px 70px;
+  }
+
+  .daylight-kicker{
+    margin-bottom:22px;
+    font-size:.68rem;
+  }
+
+  .daylight-gallery-hero h1{
+    font-size:clamp(52px, 17vw, 86px);
+  }
+
+  .daylight-gallery-hero p{
+    margin-top:22px;
+    font-size:1.03rem;
+  }
+
+  .daylight-feature{
+    margin-top:30px;
+  }
+
+  .daylight-event-card{
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:18px;
+    border-radius:26px;
+  }
+
+  .daylight-event-media,
+  .daylight-event-media img,
+  .daylight-event-placeholder{
+    min-height:260px;
+    border-radius:22px;
+  }
+
+  .daylight-event-info h2{
+    font-size:clamp(34px, 11vw, 54px);
+  }
+
+  .daylight-gallery-btn{
+    width:100%;
+  }
+}
+/* =========================================================
+   DAYLIGHT GALLERY — SCROLL FIX
+========================================================= */
+
+html,
+body{
+  height:auto !important;
+  min-height:100% !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+}
+
+body.daylight-gallery-page{
+  height:auto !important;
+  min-height:100vh !important;
+  overflow-y:auto !important;
+}
+
+/* Make sure the page content can grow naturally */
+.daylight-gallery{
+  height:auto !important;
+  min-height:100vh !important;
+  overflow:visible !important;
+  padding-bottom:120px !important;
+}
+
+/* Prevent any inherited locked hero behavior */
+.daylight-gallery-page .daylight-hero,
+.daylight-gallery-page .daylight-content,
+.daylight-gallery-page main{
+  overflow:visible !important;
+}
+
+/* Feature card spacing */
+.daylight-feature{
+  margin-bottom:80px !important;
+}
+/* =========================================================
+   DAYLIGHT GALLERY — HEADER FIX
+========================================================= */
+
+.daylight-gallery-page .nav{
+  position:fixed !important;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--nav-h, 90px);
+  background:rgba(255,255,255,.88) !important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 32px rgba(0,0,0,.045);
+  z-index:5000;
+}
+
+/* Keep the logo clean */
+.daylight-gallery-page .logo.daylight-logo img{
+  width:78px;
+  height:auto;
+  filter:
+    drop-shadow(0 0 10px rgba(0,217,255,.30))
+    drop-shadow(0 8px 18px rgba(0,0,0,.08));
+}
+
+/* Inner Daylight nav: no Nightlife pill */
+.daylight-gallery-page .links.daylight-inner-links{
+  gap:44px;
+  align-items:center;
+}
+
+.daylight-gallery-page .links.daylight-inner-links a{
+  position:relative;
+  padding:6px 2px !important;
+  border-radius:0 !important;
+  background:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  color:rgba(8,11,18,.68) !important;
+  text-shadow:none !important;
+  font-weight:800;
+}
+
+.daylight-gallery-page .links.daylight-inner-links a:hover,
+.daylight-gallery-page .links.daylight-inner-links a[aria-current="page"]{
+  color:#080b12 !important;
+}
+
+/* Clean blue active underline */
+.daylight-gallery-page .links.daylight-inner-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-8px;
+  height:4px;
+  border-radius:999px;
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+  box-shadow:
+    0 0 12px rgba(0,217,255,.35),
+    0 0 16px rgba(47,168,255,.24);
+  transform:scaleX(0);
+  transform-origin:left;
+  opacity:0;
+  transition:transform .25s ease, opacity .25s ease;
+}
+
+.daylight-gallery-page .links.daylight-inner-links a:hover::after,
+.daylight-gallery-page .links.daylight-inner-links a[aria-current="page"]::after{
+  transform:scaleX(1);
+  opacity:1;
+}
+
+/* Mobile */
+@media (max-width:900px){
+  .daylight-gallery-page .logo.daylight-logo img{
+    width:64px;
+  }
+
+  .daylight-gallery-page .nav{
+    background:rgba(255,255,255,.92) !important;
+  }
+
+  .daylight-gallery-page .nav-toggle span{
+    background:#080b12 !important;
+    box-shadow:none !important;
+  }
+}/* =========================================================
+   DAYLIGHT GALLERY — COMPACT FIRST SCREEN LAYOUT
+========================================================= */
+
+/* Overall page spacing */
+.daylight-gallery{
+  padding-top:calc(var(--nav-h, 90px) + 38px) !important;
+  padding-bottom:70px !important;
+}
+
+/* Move title higher and reduce hero height */
+.daylight-gallery-hero{
+  max-width:880px !important;
+  margin-top:0 !important;
+}
+
+.daylight-kicker{
+  margin-bottom:18px !important;
+  padding:9px 18px !important;
+  font-size:.72rem !important;
+}
+
+.daylight-gallery-hero h1{
+  font-size:clamp(62px, 8.4vw, 118px) !important;
+  line-height:.88 !important;
+  letter-spacing:-.025em !important;
+}
+
+.daylight-gallery-hero p{
+  max-width:740px !important;
+  margin-top:20px !important;
+  font-size:clamp(1rem, 1.25vw, 1.16rem) !important;
+  line-height:1.45 !important;
+}
+
+/* Bring event card closer */
+.daylight-feature{
+  margin-top:32px !important;
+}
+
+/* Make sport event section smaller */
+.daylight-event-card{
+  grid-template-columns:.9fr 1fr !important;
+  gap:26px !important;
+  padding:20px !important;
+  border-radius:30px !important;
+}
+
+/* Smaller image/placeholder */
+.daylight-event-media,
+.daylight-event-media img,
+.daylight-event-placeholder{
+  min-height:300px !important;
+  border-radius:24px !important;
+}
+
+.daylight-event-placeholder span{
+  font-size:clamp(34px, 4.8vw, 68px) !important;
+}
+
+/* Smaller text block */
+.daylight-event-info{
+  padding:4px 4px !important;
+}
+
+.daylight-event-label{
+  margin-bottom:10px !important;
+  font-size:.68rem !important;
+}
+
+.daylight-event-info h2{
+  font-size:clamp(32px, 3.4vw, 54px) !important;
+  line-height:.94 !important;
+}
+
+.daylight-event-info p{
+  margin-top:14px !important;
+  font-size:.98rem !important;
+  line-height:1.45 !important;
+}
+
+.daylight-gallery-btn{
+  margin-top:22px !important;
+  padding:12px 22px !important;
+}
+
+/* Better fit on medium laptop screens */
+@media (max-height:820px) and (min-width:901px){
+  .daylight-gallery{
+    padding-top:calc(var(--nav-h, 90px) + 24px) !important;
+  }
+
+  .daylight-gallery-hero h1{
+    font-size:clamp(56px, 7.4vw, 102px) !important;
+  }
+
+  .daylight-gallery-hero p{
+    margin-top:16px !important;
+    font-size:1rem !important;
+  }
+
+  .daylight-feature{
+    margin-top:24px !important;
+  }
+
+  .daylight-event-media,
+  .daylight-event-media img,
+  .daylight-event-placeholder{
+    min-height:260px !important;
+  }
+
+  .daylight-event-card{
+    padding:18px !important;
+  }
+
+  .daylight-event-info h2{
+    font-size:clamp(30px, 3vw, 46px) !important;
+  }
+}
+
+/* Mobile version */
+@media (max-width:900px){
+  .daylight-gallery{
+    padding-top:calc(var(--mobile-header-h, 90px) + 26px) !important;
+    padding-left:18px !important;
+    padding-right:18px !important;
+    padding-bottom:60px !important;
+  }
+
+  .daylight-kicker{
+    margin-bottom:16px !important;
+    padding:8px 15px !important;
+    font-size:.64rem !important;
+    letter-spacing:.18em !important;
+  }
+
+  .daylight-gallery-hero h1{
+    font-size:clamp(48px, 15vw, 78px) !important;
+    line-height:.9 !important;
+  }
+
+  .daylight-gallery-hero p{
+    margin-top:18px !important;
+    font-size:.98rem !important;
+    line-height:1.42 !important;
+  }
+
+  .daylight-feature{
+    margin-top:24px !important;
+  }
+
+  .daylight-event-card{
+    grid-template-columns:1fr !important;
+    gap:16px !important;
+    padding:14px !important;
+    border-radius:24px !important;
+  }
+
+  .daylight-event-media,
+  .daylight-event-media img,
+  .daylight-event-placeholder{
+    min-height:190px !important;
+    border-radius:20px !important;
+  }
+
+  .daylight-event-placeholder span{
+    font-size:clamp(28px, 10vw, 48px) !important;
+  }
+
+  .daylight-event-info{
+    padding:2px 4px 4px !important;
+  }
+
+  .daylight-event-label{
+    font-size:.62rem !important;
+    margin-bottom:8px !important;
+  }
+
+  .daylight-event-info h2{
+    font-size:clamp(28px, 9vw, 44px) !important;
+    line-height:.95 !important;
+  }
+
+  .daylight-event-info p{
+    margin-top:12px !important;
+    font-size:.94rem !important;
+    line-height:1.4 !important;
+  }
+
+  .daylight-gallery-btn{
+    width:100% !important;
+    margin-top:18px !important;
+    padding:12px 18px !important;
+  }
+}
+
+/* Very small phones */
+@media (max-width:430px){
+  .daylight-gallery{
+    padding-top:calc(var(--mobile-header-h, 90px) + 18px) !important;
+  }
+
+  .daylight-gallery-hero h1{
+    font-size:clamp(44px, 14vw, 64px) !important;
+  }
+
+  .daylight-event-media,
+  .daylight-event-media img,
+  .daylight-event-placeholder{
+    min-height:165px !important;
+  }
+}

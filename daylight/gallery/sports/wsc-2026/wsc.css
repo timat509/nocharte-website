@@ -1,0 +1,397 @@
+/* =========================================================
+   NOCHARTE DAYLIGHT — WSC TOURNAMENT ALBUM
+========================================================= */
+
+html,
+body{
+  min-height:100%;
+  height:auto !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+}
+
+body.lightbox-open{
+  overflow:hidden !important;
+}
+
+.wsc-page{
+  min-height:100vh;
+  color:#080b12;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0,217,255,.18), transparent 34%),
+    radial-gradient(circle at 88% 24%, rgba(139,61,255,.12), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #f7fbff 52%, #eef6ff 100%);
+}
+
+/* Header */
+.wsc-page .nav{
+  position:fixed !important;
+  top:0;
+  left:0;
+  right:0;
+  height:var(--nav-h, 90px);
+  background:rgba(255,255,255,.88) !important;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 32px rgba(0,0,0,.045);
+  z-index:5000;
+}
+
+.wsc-page .logo.daylight-logo img{
+  width:78px;
+  height:auto;
+  filter:
+    drop-shadow(0 0 10px rgba(0,217,255,.30))
+    drop-shadow(0 8px 18px rgba(0,0,0,.08));
+}
+
+.wsc-page .links.daylight-inner-links{
+  gap:44px;
+  align-items:center;
+}
+
+.wsc-page .links.daylight-inner-links a{
+  position:relative;
+  padding:6px 2px !important;
+  border-radius:0 !important;
+  background:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  color:rgba(8,11,18,.68) !important;
+  text-shadow:none !important;
+  font-weight:800;
+}
+
+.wsc-page .links.daylight-inner-links a:hover,
+.wsc-page .links.daylight-inner-links a[aria-current="page"]{
+  color:#080b12 !important;
+}
+
+.wsc-page .links.daylight-inner-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-8px;
+  height:4px;
+  border-radius:999px;
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+  transform:scaleX(0);
+  transform-origin:left;
+  opacity:0;
+  transition:transform .25s ease, opacity .25s ease;
+}
+
+.wsc-page .links.daylight-inner-links a:hover::after,
+.wsc-page .links.daylight-inner-links a[aria-current="page"]::after{
+  transform:scaleX(1);
+  opacity:1;
+}
+
+/* Layout */
+.wsc-wrap{
+  width:min(1280px, 92vw);
+  margin:0 auto;
+  padding:calc(var(--nav-h, 90px) + 44px) 0 90px;
+}
+
+/* Hero */
+.wsc-hero{
+  margin-bottom:42px;
+}
+
+.wsc-eyebrow{
+  margin:0 0 16px;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(8,11,18,.54);
+}
+
+.wsc-hero-row{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) auto;
+  gap:28px;
+  align-items:end;
+}
+
+.wsc-hero h1{
+  margin:0;
+  font-size:clamp(54px, 8vw, 118px);
+  line-height:.86;
+  letter-spacing:-.055em;
+  text-transform:uppercase;
+  color:#080b12;
+}
+
+.wsc-subtitle{
+  max-width:660px;
+  margin:18px 0 0;
+  font-size:clamp(16px, 1.3vw, 21px);
+  line-height:1.42;
+  color:rgba(8,11,18,.62);
+}
+
+.wsc-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  margin-top:18px;
+  color:rgba(8,11,18,.58);
+  font-weight:700;
+}
+
+/* Day selector */
+.wsc-day-picker{
+  min-width:220px;
+  padding:16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(0,160,210,.16);
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.06),
+    0 0 28px rgba(0,217,255,.08);
+}
+
+.wsc-day-picker label{
+  display:block;
+  margin-bottom:8px;
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:rgba(8,11,18,.55);
+}
+
+.wsc-day-picker select{
+  width:100%;
+  min-height:46px;
+  padding:0 14px;
+  border-radius:999px;
+  font-weight:900;
+  color:#080b12;
+  background:#fff;
+  border:1px solid rgba(0,160,210,.20);
+  outline:none;
+}
+
+/* Section heads */
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:18px;
+  margin:34px 0 16px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:clamp(28px, 3vw, 46px);
+  line-height:1;
+  font-weight:900;
+  color:#080b12;
+}
+
+.section-head p{
+  margin:0;
+  color:rgba(8,11,18,.52);
+  font-weight:700;
+}
+
+/* Highlights */
+.wsc-highlights{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:14px;
+}
+
+.highlight-card,
+.photo-card{
+  padding:0;
+  border:0;
+  cursor:pointer;
+  overflow:hidden;
+  background:rgba(255,255,255,.76);
+  border-radius:22px;
+  box-shadow:
+    0 16px 36px rgba(0,0,0,.06),
+    0 0 22px rgba(0,217,255,.06);
+}
+
+.highlight-card{
+  aspect-ratio:4 / 5;
+}
+
+.photo-card{
+  aspect-ratio:4 / 5;
+}
+
+.highlight-card img,
+.photo-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .35s ease, filter .35s ease;
+}
+
+.highlight-card:hover img,
+.photo-card:hover img{
+  transform:scale(1.04);
+  filter:brightness(1.04) saturate(1.05);
+}
+
+/* Main grid */
+.wsc-grid{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:14px;
+}
+
+.empty-state{
+  grid-column:1 / -1;
+  padding:34px;
+  border-radius:26px;
+  background:rgba(255,255,255,.76);
+  border:1px solid rgba(0,160,210,.14);
+  box-shadow:0 18px 44px rgba(0,0,0,.06);
+}
+
+.empty-state h3{
+  margin:0 0 8px;
+  font-size:1.4rem;
+}
+
+.empty-state p{
+  margin:0;
+  color:rgba(8,11,18,.62);
+}
+
+/* Lightbox */
+.wsc-lightbox{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+  background:rgba(0,0,0,.92);
+  backdrop-filter:blur(12px);
+}
+
+.wsc-lightbox[hidden]{
+  display:none;
+}
+
+.wsc-lightbox img{
+  max-width:min(92vw, 1400px);
+  max-height:88vh;
+  object-fit:contain;
+  border-radius:18px;
+  box-shadow:0 24px 80px rgba(0,0,0,.45);
+}
+
+.lightbox-close,
+.lightbox-arrow{
+  position:absolute;
+  border:0;
+  cursor:pointer;
+  color:#fff;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+.lightbox-close{
+  top:24px;
+  right:24px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  font-size:34px;
+  line-height:1;
+}
+
+.lightbox-arrow{
+  top:50%;
+  transform:translateY(-50%);
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  font-size:48px;
+  line-height:1;
+}
+
+.lightbox-arrow.left{
+  left:24px;
+}
+
+.lightbox-arrow.right{
+  right:24px;
+}
+
+/* Mobile */
+@media (max-width:900px){
+  .wsc-page .logo.daylight-logo img{
+    width:64px;
+  }
+
+  .wsc-wrap{
+    width:100%;
+    padding:calc(var(--mobile-header-h, 90px) + 32px) 18px 70px;
+  }
+
+  .wsc-hero-row{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .wsc-hero h1{
+    font-size:clamp(46px, 15vw, 78px);
+  }
+
+  .wsc-subtitle{
+    font-size:15px;
+  }
+
+  .wsc-day-picker{
+    width:100%;
+  }
+
+  .section-head{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .wsc-highlights,
+  .wsc-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:10px;
+  }
+
+  .highlight-card,
+  .photo-card{
+    border-radius:16px;
+  }
+
+  .lightbox-arrow{
+    width:44px;
+    height:44px;
+    font-size:38px;
+  }
+
+  .lightbox-arrow.left{
+    left:10px;
+  }
+
+  .lightbox-arrow.right{
+    right:10px;
+  }
+
+  .lightbox-close{
+    top:14px;
+    right:14px;
+  }
+}

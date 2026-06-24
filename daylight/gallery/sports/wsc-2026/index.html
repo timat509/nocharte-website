@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>NOCHARTE Daylight — WSC Tournament</title>
+  <meta name="description" content="WSC Tournament photo gallery by NOCHARTE Daylight." />
+
+  <!-- Favicons -->
+  <link rel="icon" href="../../../../websitelogo/weblogo.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="../../../../websitelogo/weblogo250px.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="../../../../websitelogo/weblogo250px.png" sizes="180x180">
+
+  <!-- Fonts -->
+  <link href="https://fonts.cdnfonts.com/css/glacial-indifference-2" rel="stylesheet">
+
+  <!-- CSS -->
+  <!-- CSS -->
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/daylight/daylight.css">
+<link rel="stylesheet" href="/mobile/responsive.css">
+<link rel="stylesheet" href="./wsc.css?v=3">
+</head>
+
+<body class="daylight-page wsc-page">
+
+  <header class="nav">
+    <a href="../../../index.html?skip-intro=1" class="logo daylight-logo" aria-label="NOCHARTE Daylight Home">
+      <img src="../../../../assets/web/daylight-logo.png" alt="NOCHARTE Daylight logo">
+    </a>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="links daylight-links daylight-inner-links">
+      <a href="../../../index.html?skip-intro=1">Home</a>
+      <a href="../../index.html?skip-intro=1" aria-current="page">Gallery</a>
+      <a href="../../../../contact.html?skip-intro=1&theme=daylight">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wsc-wrap">
+    <section class="wsc-hero">
+      <p class="wsc-eyebrow">NOCHARTE DAYLIGHT · SPORTS</p>
+
+      <div class="wsc-hero-row">
+        <div>
+          <h1 id="eventTitle">WSC Tournament</h1>
+          <p class="wsc-subtitle" id="eventSubtitle">
+            Select a day and find your photos.
+          </p>
+
+          <div class="wsc-meta">
+            <span id="eventDate">2026-12-12</span>
+            <span id="eventLocation">Instalaciones de Liga la Frarándula — SDQ</span>
+          </div>
+        </div>
+
+        <div class="wsc-day-picker">
+          <label for="daySelect">Select day</label>
+          <select id="daySelect" aria-label="Select WSC day"></select>
+        </div>
+      </div>
+    </section>
+
+    <section class="wsc-highlights-section" id="highlightsSection" hidden>
+      <div class="section-head">
+        <h2>Highlights</h2>
+        <p>Selected frames from this day.</p>
+      </div>
+
+      <div class="wsc-highlights" id="highlightsGrid"></div>
+    </section>
+
+    <section class="wsc-gallery-section">
+      <div class="section-head">
+        <h2>All Photos</h2>
+        <p id="photoCount">Loading photos...</p>
+      </div>
+
+      <div class="wsc-grid" id="photoGrid"></div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="wsc-lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+    <button class="lightbox-arrow left" id="lightboxPrev" aria-label="Previous photo">‹</button>
+    <img id="lightboxImg" alt="">
+    <button class="lightbox-arrow right" id="lightboxNext" aria-label="Next photo">›</button>
+  </div>
+
+  <script src="days.js"></script>
+
+  <script>
+    (function(){
+      const daySelect = document.getElementById("daySelect");
+      const eventTitle = document.getElementById("eventTitle");
+      const eventSubtitle = document.getElementById("eventSubtitle");
+      const eventDate = document.getElementById("eventDate");
+      const eventLocation = document.getElementById("eventLocation");
+      const photoGrid = document.getElementById("photoGrid");
+      const photoCount = document.getElementById("photoCount");
+      const highlightsSection = document.getElementById("highlightsSection");
+      const highlightsGrid = document.getElementById("highlightsGrid");
+
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightboxImg");
+      const lightboxClose = document.getElementById("lightboxClose");
+      const lightboxPrev = document.getElementById("lightboxPrev");
+      const lightboxNext = document.getElementById("lightboxNext");
+
+      let currentPhotos = [];
+      let currentDay = null;
+      let currentIndex = 0;
+
+      if (!Array.isArray(WSC_DAYS) || !WSC_DAYS.length) {
+        photoGrid.innerHTML = "<p>No days available yet.</p>";
+        return;
+      }
+
+      function getDayFromUrl(){
+        const params = new URLSearchParams(window.location.search);
+        return params.get("day") || WSC_EVENT.defaultDay || WSC_DAYS[0].slug;
+      }
+
+      function updateUrl(daySlug){
+        const url = new URL(window.location.href);
+        url.searchParams.set("day", daySlug);
+        url.searchParams.set("skip-intro", "1");
+        history.replaceState({}, "", url);
+      }
+
+      function loadScript(src){
+        return new Promise((resolve, reject) => {
+          const old = document.querySelector(`script[data-dynamic="${src}"]`);
+          if (old) old.remove();
+
+          const script = document.createElement("script");
+          script.src = src + "?v=" + Date.now();
+          script.dataset.dynamic = src;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        });
+      }
+
+      function renderDayOptions(){
+        daySelect.innerHTML = WSC_DAYS.map(day => `
+          <option value="${day.slug}">${day.label}</option>
+        `).join("");
+      }
+
+      function renderPhotos(day, photos){
+        currentPhotos = photos || [];
+        photoGrid.innerHTML = "";
+
+        if (!currentPhotos.length) {
+          photoCount.textContent = "No photos uploaded yet.";
+          photoGrid.innerHTML = `
+            <div class="empty-state">
+              <h3>Photos coming soon</h3>
+              <p>This day is ready, but the photos have not been uploaded yet.</p>
+            </div>
+          `;
+          return;
+        }
+
+        photoCount.textContent = `${currentPhotos.length} photos`;
+
+        photoGrid.innerHTML = currentPhotos.map((name, index) => `
+          <button class="photo-card" type="button" data-index="${index}">
+            <img src="${day.webPath}${name}" loading="lazy" decoding="async" alt="${day.title} photo ${index + 1}">
+          </button>
+        `).join("");
+
+        photoGrid.querySelectorAll(".photo-card").forEach(btn => {
+          btn.addEventListener("click", () => {
+            openLightbox(Number(btn.dataset.index));
+          });
+        });
+      }
+
+      function renderHighlights(day, highlights){
+        const list = Array.isArray(highlights) ? highlights : [];
+
+        if (!list.length) {
+          highlightsSection.hidden = true;
+          highlightsGrid.innerHTML = "";
+          return;
+        }
+
+        highlightsSection.hidden = false;
+
+        highlightsGrid.innerHTML = list.map((name, index) => `
+          <button class="highlight-card" type="button" data-highlight="${name}">
+            <img src="${day.webPath}${name}" loading="lazy" decoding="async" alt="${day.title} highlight ${index + 1}">
+          </button>
+        `).join("");
+
+        highlightsGrid.querySelectorAll(".highlight-card").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const name = btn.dataset.highlight;
+            const index = currentPhotos.indexOf(name);
+            openLightbox(index >= 0 ? index : 0);
+          });
+        });
+      }
+
+      async function loadDay(daySlug){
+        const day = WSC_DAYS.find(d => d.slug === daySlug) || WSC_DAYS[0];
+        currentDay = day;
+
+        daySelect.value = day.slug;
+        updateUrl(day.slug);
+
+        eventTitle.textContent = day.title;
+        eventSubtitle.textContent = "Select a day and find your photos.";
+        eventDate.textContent = day.date;
+        eventLocation.textContent = day.location || WSC_EVENT.location;
+
+        photoGrid.innerHTML = "";
+        photoCount.textContent = "Loading photos...";
+        highlightsGrid.innerHTML = "";
+        highlightsSection.hidden = true;
+
+        window.PHOTOS = [];
+        window.HIGHLIGHTS = [];
+
+        try {
+          await loadScript(day.photos);
+        } catch(e) {
+          console.warn("Photos script missing:", day.photos);
+          window.PHOTOS = [];
+        }
+
+        try {
+          await loadScript(day.highlights);
+        } catch(e) {
+          console.warn("Highlights script missing:", day.highlights);
+          window.HIGHLIGHTS = [];
+        }
+
+        renderPhotos(day, Array.isArray(window.PHOTOS) ? window.PHOTOS : []);
+        renderHighlights(day, Array.isArray(window.HIGHLIGHTS) ? window.HIGHLIGHTS : []);
+      }
+
+      function openLightbox(index){
+        if (!currentPhotos.length || !currentDay) return;
+
+        currentIndex = Math.max(0, Math.min(index, currentPhotos.length - 1));
+        const name = currentPhotos[currentIndex];
+
+        lightboxImg.src = currentDay.webPath + name;
+        lightboxImg.alt = `${currentDay.title} photo ${currentIndex + 1}`;
+        lightbox.hidden = false;
+        document.body.classList.add("lightbox-open");
+      }
+
+      function closeLightbox(){
+        lightbox.hidden = true;
+        lightboxImg.src = "";
+        document.body.classList.remove("lightbox-open");
+      }
+
+      function nextPhoto(){
+        if (!currentPhotos.length) return;
+        currentIndex = (currentIndex + 1) % currentPhotos.length;
+        openLightbox(currentIndex);
+      }
+
+      function prevPhoto(){
+        if (!currentPhotos.length) return;
+        currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+        openLightbox(currentIndex);
+      }
+
+      daySelect.addEventListener("change", () => {
+        loadDay(daySelect.value);
+      });
+
+      lightboxClose.addEventListener("click", closeLightbox);
+      lightboxNext.addEventListener("click", nextPhoto);
+      lightboxPrev.addEventListener("click", prevPhoto);
+
+      document.addEventListener("keydown", e => {
+        if (lightbox.hidden) return;
+
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowRight") nextPhoto();
+        if (e.key === "ArrowLeft") prevPhoto();
+      });
+
+      renderDayOptions();
+      loadDay(getDayFromUrl());
+    })();
+  </script>
+
+  <script src="../../../../mobile/mobile.js"></script>
+</body>
+</html>
