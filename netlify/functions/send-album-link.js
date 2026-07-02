@@ -25,7 +25,7 @@ exports.handler = async function (event) {
 
       "light_out-20-06-26": {
         title: "Light Out — 20-04-26",
-        pin: process.env.ALBUM_THE_LIGHTOUT_PIN,
+        pin: process.env.ALBUM_LIGHT_OUT_PIN,
         zipUrl: process.env.ALBUM_LIGHT_OUT_ZIP_URL,
       },
 
