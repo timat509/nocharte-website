@@ -452,7 +452,7 @@
 
       desktopNav.innerHTML = `
         <a href="/daylight/index.html?skip-intro=1" data-daylight-nav="home">Home</a>
-        <a href="/daylight/gallery.html?skip-intro=1" data-daylight-nav="gallery">Gallery</a>
+        <a href="/daylight/gallery/?skip-intro=1" data-daylight-nav="gallery">Gallery</a>
         <a href="/contact.html?skip-intro=1&theme=daylight" data-daylight-nav="contact">Contact</a>
       `;
     }
@@ -462,7 +462,7 @@
     if (mobileNav) {
       mobileNav.innerHTML = `
         <a href="/daylight/index.html?skip-intro=1" data-daylight-nav="home">Home</a>
-        <a href="/daylight/gallery.html?skip-intro=1" data-daylight-nav="gallery">Gallery</a>
+        <a href="/daylight/gallery/?skip-intro=1" data-daylight-nav="gallery">Gallery</a>
         <a href="/contact.html?skip-intro=1&theme=daylight" data-daylight-nav="contact">Contact</a>
       `;
     }
@@ -477,7 +477,7 @@
 
       if (
         (type === 'home' && path.includes('/daylight/')) ||
-        (type === 'gallery' && path.includes('/daylight/gallery.html')) ||
+        (type === 'gallery' && path.includes('/daylight/gallery/')) ||
         (type === 'contact' && path.includes('contact.html'))
       ) {
         link.setAttribute('aria-current', 'page');
