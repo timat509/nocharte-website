@@ -16,11 +16,10 @@
   <link href="https://fonts.cdnfonts.com/css/glacial-indifference-2" rel="stylesheet">
 
   <!-- CSS -->
-  <!-- CSS -->
-<link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="/daylight/daylight.css">
-<link rel="stylesheet" href="/mobile/responsive.css">
-<link rel="stylesheet" href="./wsc.css?v=3">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/daylight/daylight.css">
+  <link rel="stylesheet" href="/mobile/responsive.css">
+  <link rel="stylesheet" href="./wsc.css?v=4">
 </head>
 
 <body class="daylight-page wsc-page">
@@ -43,47 +42,60 @@
     </nav>
   </header>
 
-  <main class="wsc-wrap">
+  <main>
     <section class="wsc-hero">
-      <p class="wsc-eyebrow">NOCHARTE DAYLIGHT · SPORTS</p>
+      <div class="wsc-hero-bg" id="wscHeroBg"></div>
 
-      <div class="wsc-hero-row">
-        <div>
-          <h1 id="eventTitle">WSC Tournament</h1>
-          <p class="wsc-subtitle" id="eventSubtitle">
-            Select a day and find your photos.
-          </p>
+      <div class="wsc-hero-slider" aria-hidden="true">
+        <img id="wsc-hero-img-a" class="wsc-hero-img is-on" alt="">
+        <img id="wsc-hero-img-b" class="wsc-hero-img" alt="">
+      </div>
 
-          <div class="wsc-meta">
-            <span id="eventDate">2026-12-12</span>
-            <span id="eventLocation">Instalaciones de Liga la Frarándula — SDQ</span>
+      <div class="wsc-hero-overlay"></div>
+
+      <a href="../../index.html?skip-intro=1" class="wsc-back">← Back</a>
+
+      <div class="wsc-hero-content">
+        <p class="wsc-eyebrow">NOCHARTE DAYLIGHT · SPORTS</p>
+
+        <h1 id="eventTitle">WSC Tournament</h1>
+        <p class="wsc-subtitle" id="eventSubtitle">
+          Select a day and find your photos.
+        </p>
+
+        <div class="wsc-meta">
+          <span id="eventDate">2026-12-12</span>
+          <span id="eventLocation">Instalaciones de Liga la Frarándula — SDQ</span>
+        </div>
+
+        <div class="wsc-hero-actions">
+          <div class="wsc-day-picker">
+            <label for="daySelect">Select day</label>
+            <select id="daySelect" aria-label="Select WSC day"></select>
           </div>
-        </div>
 
-        <div class="wsc-day-picker">
-          <label for="daySelect">Select day</label>
-          <select id="daySelect" aria-label="Select WSC day"></select>
+          <a href="#photoGrid" class="wsc-view-btn">View Photos</a>
         </div>
       </div>
+
+      <div class="wsc-dots" id="wscDots" aria-hidden="true"></div>
+
+      <a href="#photoGrid" class="wsc-scroll" aria-label="Scroll to photos">
+        <span></span>
+        Scroll
+      </a>
     </section>
 
-    <section class="wsc-highlights-section" id="highlightsSection" hidden>
-      <div class="section-head">
-        <h2>Highlights</h2>
-        <p>Selected frames from this day.</p>
-      </div>
+    <div class="wsc-wrap">
+      <section class="wsc-gallery-section">
+        <div class="section-head">
+          <h2>All Photos</h2>
+          <p id="photoCount">Loading photos...</p>
+        </div>
 
-      <div class="wsc-highlights" id="highlightsGrid"></div>
-    </section>
-
-    <section class="wsc-gallery-section">
-      <div class="section-head">
-        <h2>All Photos</h2>
-        <p id="photoCount">Loading photos...</p>
-      </div>
-
-      <div class="wsc-grid" id="photoGrid"></div>
-    </section>
+        <div class="wsc-grid" id="photoGrid"></div>
+      </section>
+    </div>
   </main>
 
   <!-- Lightbox -->
@@ -105,8 +117,16 @@
       const eventLocation = document.getElementById("eventLocation");
       const photoGrid = document.getElementById("photoGrid");
       const photoCount = document.getElementById("photoCount");
-      const highlightsSection = document.getElementById("highlightsSection");
-      const highlightsGrid = document.getElementById("highlightsGrid");
+
+      const heroBg = document.getElementById("wscHeroBg");
+      const heroImgA = document.getElementById("wsc-hero-img-a");
+      const heroImgB = document.getElementById("wsc-hero-img-b");
+      const dotsEl = document.getElementById("wscDots");
+
+      let heroTimer = null;
+      let heroPhotos = [];
+      let heroIdx = 0;
+      let heroShowingA = true;
 
       const lightbox = document.getElementById("lightbox");
       const lightboxImg = document.getElementById("lightboxImg");
@@ -155,6 +175,10 @@
         `).join("");
       }
 
+      function toWebSrc(day, name){
+        return day.webPath + name.replace(/\.(jpe?g|png)$/i, '.webp');
+      }
+
       function renderPhotos(day, photos){
         currentPhotos = photos || [];
         photoGrid.innerHTML = "";
@@ -174,7 +198,7 @@
 
         photoGrid.innerHTML = currentPhotos.map((name, index) => `
           <button class="photo-card" type="button" data-index="${index}">
-            <img src="${day.webPath}${name}" loading="lazy" decoding="async" alt="${day.title} photo ${index + 1}">
+            <img src="${toWebSrc(day, name)}" loading="lazy" decoding="async" alt="${day.title} photo ${index + 1}">
           </button>
         `).join("");
 
@@ -185,30 +209,63 @@
         });
       }
 
-      function renderHighlights(day, highlights){
-        const list = Array.isArray(highlights) ? highlights : [];
+      function setupHeroPhotos(day, highlights, photos){
+        clearInterval(heroTimer);
 
-        if (!list.length) {
-          highlightsSection.hidden = true;
-          highlightsGrid.innerHTML = "";
+        const source = highlights.length ? highlights : photos.slice(0, 4);
+        heroPhotos = source.map(name => toWebSrc(day, name));
+
+        if (!heroPhotos.length) {
+          dotsEl.innerHTML = "";
           return;
         }
 
-        highlightsSection.hidden = false;
+        heroIdx = 0;
+        heroShowingA = true;
 
-        highlightsGrid.innerHTML = list.map((name, index) => `
-          <button class="highlight-card" type="button" data-highlight="${name}">
-            <img src="${day.webPath}${name}" loading="lazy" decoding="async" alt="${day.title} highlight ${index + 1}">
-          </button>
-        `).join("");
+        heroImgA.src = heroPhotos[0];
+        heroImgA.classList.add("is-on");
+        heroImgB.classList.remove("is-on");
+        heroBg.style.backgroundImage = `url("${heroPhotos[0]}")`;
 
-        highlightsGrid.querySelectorAll(".highlight-card").forEach(btn => {
-          btn.addEventListener("click", () => {
-            const name = btn.dataset.highlight;
-            const index = currentPhotos.indexOf(name);
-            openLightbox(index >= 0 ? index : 0);
-          });
+        renderHeroDots();
+
+        if (heroPhotos.length > 1) {
+          heroTimer = setInterval(() => showHeroPhoto(heroIdx + 1), 4200);
+        }
+      }
+
+      function renderHeroDots(){
+        dotsEl.innerHTML = heroPhotos.map((_, i) =>
+          `<span class="wsc-dot ${i === 0 ? "on" : ""}" data-i="${i}"></span>`
+        ).join("");
+
+        dotsEl.querySelectorAll(".wsc-dot").forEach(dot => {
+          dot.addEventListener("click", () => showHeroPhoto(Number(dot.dataset.i)));
         });
+      }
+
+      function showHeroPhoto(nextIndex){
+        heroIdx = (nextIndex + heroPhotos.length) % heroPhotos.length;
+        const src = heroPhotos[heroIdx];
+
+        heroBg.style.backgroundImage = `url("${src}")`;
+
+        const top = heroShowingA ? heroImgA : heroImgB;
+        const under = heroShowingA ? heroImgB : heroImgA;
+
+        under.classList.remove("is-on");
+        under.src = src;
+
+        under.onload = () => {
+          under.classList.add("is-on");
+          top.classList.remove("is-on");
+          heroShowingA = !heroShowingA;
+
+          dotsEl.querySelectorAll(".wsc-dot").forEach((dot, i) => {
+            dot.classList.toggle("on", i === heroIdx);
+          });
+        };
       }
 
       async function loadDay(daySlug){
@@ -225,8 +282,6 @@
 
         photoGrid.innerHTML = "";
         photoCount.textContent = "Loading photos...";
-        highlightsGrid.innerHTML = "";
-        highlightsSection.hidden = true;
 
         window.PHOTOS = [];
         window.HIGHLIGHTS = [];
@@ -246,7 +301,11 @@
         }
 
         renderPhotos(day, Array.isArray(window.PHOTOS) ? window.PHOTOS : []);
-        renderHighlights(day, Array.isArray(window.HIGHLIGHTS) ? window.HIGHLIGHTS : []);
+        setupHeroPhotos(
+          day,
+          Array.isArray(window.HIGHLIGHTS) ? window.HIGHLIGHTS : [],
+          Array.isArray(window.PHOTOS) ? window.PHOTOS : []
+        );
       }
 
       function openLightbox(index){
@@ -255,7 +314,7 @@
         currentIndex = Math.max(0, Math.min(index, currentPhotos.length - 1));
         const name = currentPhotos[currentIndex];
 
-        lightboxImg.src = currentDay.webPath + name;
+        lightboxImg.src = toWebSrc(currentDay, name);
         lightboxImg.alt = `${currentDay.title} photo ${currentIndex + 1}`;
         lightbox.hidden = false;
         document.body.classList.add("lightbox-open");
