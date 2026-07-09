@@ -42,6 +42,24 @@
     </nav>
   </header>
 
+  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+    <div class="nav-pop__overlay" data-close></div>
+
+    <button class="nav-pop__close" aria-label="Close menu" data-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="nav-pop__sheet" role="document">
+      <nav class="nav-pop__nav" aria-label="Main">
+        <a href="../../../index.html?skip-intro=1">Home</a>
+        <a href="../../index.html?skip-intro=1" aria-current="page">Gallery</a>
+        <a href="../../../../contact.html?skip-intro=1&theme=daylight">Contact</a>
+      </nav>
+    </div>
+  </div>
+
   <main>
     <section class="wsc-hero">
       <div class="wsc-hero-bg" id="wscHeroBg"></div>
@@ -58,40 +76,36 @@
       <div class="wsc-hero-content">
         <p class="wsc-eyebrow">NOCHARTE DAYLIGHT · SPORTS</p>
 
-        <h1 id="eventTitle">WSC Tournament</h1>
-        <p class="wsc-subtitle" id="eventSubtitle">
-          Select a day and find your photos.
-        </p>
+        <h1 class="wsc-hero-title">
+          <span id="eventTitleMain">WSC Tournament</span>
+          <span id="eventTitleDay" class="wsc-hero-title-day">— Day 01</span>
+        </h1>
 
         <div class="wsc-meta">
           <span id="eventDate">2026-12-12</span>
           <span id="eventLocation">Instalaciones de Liga la Frarándula — SDQ</span>
         </div>
 
-        <div class="wsc-hero-actions">
-          <div class="wsc-day-picker">
-            <label for="daySelect">Select day</label>
-            <select id="daySelect" aria-label="Select WSC day"></select>
-          </div>
-
-          <a href="#photoGrid" class="wsc-view-btn">View Photos</a>
+        <div class="wsc-day-picker">
+          <label for="daySelect">Select day</label>
+          <select id="daySelect" aria-label="Select WSC day"></select>
         </div>
       </div>
 
-      <div class="wsc-dots" id="wscDots" aria-hidden="true"></div>
-
-      <a href="#photoGrid" class="wsc-scroll" aria-label="Scroll to photos">
+      <a href="#gallerySection" class="wsc-scroll" aria-label="Scroll to photos">
         <span></span>
         Scroll
       </a>
     </section>
 
     <div class="wsc-wrap">
-      <section class="wsc-gallery-section">
+      <section class="wsc-gallery-section" id="gallerySection">
         <div class="section-head">
           <h2>All Photos</h2>
           <p id="photoCount">Loading photos...</p>
         </div>
+
+        <div class="wsc-matches" id="matchTabs" hidden></div>
 
         <div class="wsc-grid" id="photoGrid"></div>
       </section>
@@ -111,17 +125,17 @@
   <script>
     (function(){
       const daySelect = document.getElementById("daySelect");
-      const eventTitle = document.getElementById("eventTitle");
-      const eventSubtitle = document.getElementById("eventSubtitle");
+      const eventTitleMain = document.getElementById("eventTitleMain");
+      const eventTitleDay = document.getElementById("eventTitleDay");
       const eventDate = document.getElementById("eventDate");
       const eventLocation = document.getElementById("eventLocation");
       const photoGrid = document.getElementById("photoGrid");
       const photoCount = document.getElementById("photoCount");
+      const matchTabs = document.getElementById("matchTabs");
 
       const heroBg = document.getElementById("wscHeroBg");
       const heroImgA = document.getElementById("wsc-hero-img-a");
       const heroImgB = document.getElementById("wsc-hero-img-b");
-      const dotsEl = document.getElementById("wscDots");
 
       let heroTimer = null;
       let heroPhotos = [];
@@ -136,6 +150,7 @@
 
       let currentPhotos = [];
       let currentDay = null;
+      let currentSource = null;
       let currentIndex = 0;
 
       if (!Array.isArray(WSC_DAYS) || !WSC_DAYS.length) {
@@ -179,8 +194,9 @@
         return day.webPath + name.replace(/\.(jpe?g|png)$/i, '.webp');
       }
 
-      function renderPhotos(day, photos){
+      function renderPhotos(source, photos){
         currentPhotos = photos || [];
+        currentSource = source;
         photoGrid.innerHTML = "";
 
         if (!currentPhotos.length) {
@@ -198,7 +214,7 @@
 
         photoGrid.innerHTML = currentPhotos.map((name, index) => `
           <button class="photo-card" type="button" data-index="${index}">
-            <img src="${toWebSrc(day, name)}" loading="lazy" decoding="async" alt="${day.title} photo ${index + 1}">
+            <img src="${toWebSrc(source, name)}" loading="lazy" decoding="async" alt="${source.title || source.label} photo ${index + 1}">
           </button>
         `).join("");
 
@@ -209,6 +225,62 @@
         });
       }
 
+      async function renderMatchTabs(day){
+        if (!Array.isArray(day.matches) || !day.matches.length) {
+          matchTabs.hidden = true;
+          matchTabs.innerHTML = "";
+          return null;
+        }
+
+        matchTabs.hidden = false;
+
+        matchTabs.innerHTML = day.matches.map((match, i) => `
+          <button type="button" class="wsc-match-tab${i === 0 ? " is-active" : ""}" data-slug="${match.slug}">
+            ${match.label}
+          </button>
+        `).join("");
+
+        matchTabs.querySelectorAll(".wsc-match-tab").forEach(btn => {
+          btn.addEventListener("click", () => {
+            matchTabs.querySelectorAll(".wsc-match-tab").forEach(b => b.classList.remove("is-active"));
+            btn.classList.add("is-active");
+
+            const match = day.matches.find(m => m.slug === btn.dataset.slug);
+            if (match) loadMatch(match);
+          });
+        });
+
+        return loadMatch(day.matches[0]);
+      }
+
+      async function loadMatch(match){
+        photoGrid.innerHTML = "";
+        photoCount.textContent = "Loading photos...";
+
+        window.PHOTOS = [];
+        window.HIGHLIGHTS = [];
+
+        try {
+          await loadScript(match.photos);
+        } catch(e) {
+          console.warn("Match photos script missing:", match.photos);
+          window.PHOTOS = [];
+        }
+
+        try {
+          await loadScript(match.highlights);
+        } catch(e) {
+          window.HIGHLIGHTS = [];
+        }
+
+        const matchPhotos = Array.isArray(window.PHOTOS) ? window.PHOTOS : [];
+        const matchHighlights = Array.isArray(window.HIGHLIGHTS) ? window.HIGHLIGHTS : [];
+
+        renderPhotos(match, matchPhotos);
+
+        return { photos: matchPhotos, highlights: matchHighlights };
+      }
+
       function setupHeroPhotos(day, highlights, photos){
         clearInterval(heroTimer);
 
@@ -216,7 +288,6 @@
         heroPhotos = source.map(name => toWebSrc(day, name));
 
         if (!heroPhotos.length) {
-          dotsEl.innerHTML = "";
           return;
         }
 
@@ -228,21 +299,9 @@
         heroImgB.classList.remove("is-on");
         heroBg.style.backgroundImage = `url("${heroPhotos[0]}")`;
 
-        renderHeroDots();
-
         if (heroPhotos.length > 1) {
           heroTimer = setInterval(() => showHeroPhoto(heroIdx + 1), 4200);
         }
-      }
-
-      function renderHeroDots(){
-        dotsEl.innerHTML = heroPhotos.map((_, i) =>
-          `<span class="wsc-dot ${i === 0 ? "on" : ""}" data-i="${i}"></span>`
-        ).join("");
-
-        dotsEl.querySelectorAll(".wsc-dot").forEach(dot => {
-          dot.addEventListener("click", () => showHeroPhoto(Number(dot.dataset.i)));
-        });
       }
 
       function showHeroPhoto(nextIndex){
@@ -261,10 +320,6 @@
           under.classList.add("is-on");
           top.classList.remove("is-on");
           heroShowingA = !heroShowingA;
-
-          dotsEl.querySelectorAll(".wsc-dot").forEach((dot, i) => {
-            dot.classList.toggle("on", i === heroIdx);
-          });
         };
       }
 
@@ -275,8 +330,9 @@
         daySelect.value = day.slug;
         updateUrl(day.slug);
 
-        eventTitle.textContent = day.title;
-        eventSubtitle.textContent = "Select a day and find your photos.";
+        const [titleMain, titleDay] = day.title.split(" — ");
+        eventTitleMain.textContent = titleMain || day.title;
+        eventTitleDay.textContent = titleDay ? `— ${titleDay}` : "";
         eventDate.textContent = day.date;
         eventLocation.textContent = day.location || WSC_EVENT.location;
 
@@ -300,22 +356,38 @@
           window.HIGHLIGHTS = [];
         }
 
-        renderPhotos(day, Array.isArray(window.PHOTOS) ? window.PHOTOS : []);
-        setupHeroPhotos(
-          day,
-          Array.isArray(window.HIGHLIGHTS) ? window.HIGHLIGHTS : [],
-          Array.isArray(window.PHOTOS) ? window.PHOTOS : []
-        );
+        const dayPhotos = Array.isArray(window.PHOTOS) ? window.PHOTOS : [];
+        const dayHighlights = Array.isArray(window.HIGHLIGHTS) ? window.HIGHLIGHTS : [];
+
+        let heroSource = day;
+        let heroSourcePhotos = dayPhotos;
+        let heroSourceHighlights = dayHighlights;
+
+        if (Array.isArray(day.matches) && day.matches.length) {
+          const firstMatchData = await renderMatchTabs(day);
+
+          if (!dayPhotos.length && !dayHighlights.length && firstMatchData) {
+            heroSource = day.matches[0];
+            heroSourcePhotos = firstMatchData.photos;
+            heroSourceHighlights = firstMatchData.highlights;
+          }
+        } else {
+          matchTabs.hidden = true;
+          matchTabs.innerHTML = "";
+          renderPhotos(day, dayPhotos);
+        }
+
+        setupHeroPhotos(heroSource, heroSourceHighlights, heroSourcePhotos);
       }
 
       function openLightbox(index){
-        if (!currentPhotos.length || !currentDay) return;
+        if (!currentPhotos.length || !currentSource) return;
 
         currentIndex = Math.max(0, Math.min(index, currentPhotos.length - 1));
         const name = currentPhotos[currentIndex];
 
-        lightboxImg.src = toWebSrc(currentDay, name);
-        lightboxImg.alt = `${currentDay.title} photo ${currentIndex + 1}`;
+        lightboxImg.src = toWebSrc(currentSource, name);
+        lightboxImg.alt = `${currentSource.title || currentSource.label} photo ${currentIndex + 1}`;
         lightbox.hidden = false;
         document.body.classList.add("lightbox-open");
       }

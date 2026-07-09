@@ -42,6 +42,24 @@
     </nav>
   </header>
 
+  <div id="nav-pop" class="nav-pop" hidden aria-modal="true" role="dialog">
+    <div class="nav-pop__overlay" data-close></div>
+
+    <button class="nav-pop__close" aria-label="Close menu" data-close>
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <div class="nav-pop__sheet" role="document">
+      <nav class="nav-pop__nav" aria-label="Main">
+        <a href="../../index.html?skip-intro=1">Home</a>
+        <a href="../index.html?skip-intro=1" aria-current="page">Gallery</a>
+        <a href="../../../contact.html?skip-intro=1&theme=daylight">Contact</a>
+      </nav>
+    </div>
+  </div>
+
   <div class="sports-bg"></div>
 
   <main class="sports-wrap">
@@ -215,14 +233,6 @@ createCoverflow({
   arrowR: document.querySelector(".float-arrow.right")
 });
   </script>
-
-  <img
-  src="${cover}"
-  loading="lazy"
-  decoding="async"
-  alt="${album.title}"
-  onerror="this.classList.add('is-broken');"
->
 
   <script src="../../../mobile/mobile.js"></script>
 </body>

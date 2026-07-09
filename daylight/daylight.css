@@ -533,3 +533,53 @@
 .daylight-page .links.daylight-links a:not(.nav-nightlife):hover{
   color:#080b12;
 }
+
+/* ==============================
+   DAYLIGHT — MOBILE POPUP MENU
+   ============================== */
+
+@media (max-width:900px){
+  .daylight-page #nav-pop{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, rgba(0,217,255,.18), transparent 60%),
+      rgba(255,255,255,.94);
+  }
+
+  .daylight-page #nav-pop .nav-pop__sheet::before{
+    background-image:url("/assets/web/daylight-logo.png");
+  }
+
+  .daylight-page #nav-pop .nav-pop__nav a{
+    color:#0a0d12;
+    text-shadow:none;
+  }
+
+  .daylight-page #nav-pop .nav-pop__nav a[aria-current="page"]::after{
+    background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+    box-shadow:0 0 12px rgba(0,217,255,.35);
+  }
+
+  .daylight-page .nav-toggle span{
+    background:#0a0d12;
+    box-shadow:none;
+  }
+
+  /* Only the Nightlife switch link gets the magenta pill; Home/Gallery/Contact stay plain */
+  .daylight-page #nav-pop .nav-pop__nav a:not(.nav-nightlife){
+    background:none !important;
+    border:0 !important;
+    box-shadow:none !important;
+    border-radius:0 !important;
+  }
+
+  .daylight-page #nav-pop .nav-pop__nav a.nav-nightlife{
+    padding:10px 22px;
+    border-radius:999px;
+    color:#fff !important;
+    background:
+      linear-gradient(90deg, #ff00ff, #9b35ff, #7d00ff) padding-box,
+      linear-gradient(90deg, #ff00ff, #7d00ff) border-box;
+    border:1px solid transparent;
+    box-shadow:0 0 18px rgba(255,0,255,.22);
+  }
+}
