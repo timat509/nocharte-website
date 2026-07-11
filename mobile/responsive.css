@@ -411,9 +411,15 @@
      HOME ALBUMS STRIP — MOBILE BASE
   ========================================================= */
 
+  /*
+    Vertical position (margin-top) is set by JS in index.html — it measures
+    the actual gap between the CTA button and the hero's bottom edge, which
+    varies per device height in ways a fixed breakpoint value can't predict.
+    This fallback only matters for the instant before that JS runs.
+  */
   .albums-strip{
     width:100%;
-    margin:-140px auto 40px;
+    margin:-100px auto 32px;
     padding:0 14px;
     position:relative;
     z-index:3;
@@ -695,10 +701,6 @@
     margin-top: 120px;
   }
 
-  .albums-strip{
-    margin: -120px auto 44px;
-  }
-
 }
 
 
@@ -745,7 +747,6 @@
   }
 
   .albums-strip{
-    margin: -140px auto 40px;
     padding: 0 16px;
     z-index: 6;
   }
@@ -822,7 +823,6 @@
   }
 
   .albums-strip{
-    margin: -140px auto 40px;
     padding: 0 14px;
     z-index: 6;
   }
@@ -913,7 +913,6 @@
   }
 
   .albums-strip{
-    margin: -132px auto 36px;
     padding: 0 12px;
     z-index: 6;
   }
@@ -1074,7 +1073,6 @@
   }
 
   .albums-strip{
-    margin: -124px auto 34px;
     padding: 0 11px;
     z-index: 6;
   }

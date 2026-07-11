@@ -1451,6 +1451,23 @@ body.home .scrolldown span{
     inset 0 0 14px rgba(255,255,255,.08);
 }
 
+/* Mobile popup menu — solid Daylight gradient pill, same weight as the
+   Nightlife pill shown on Daylight's own popup menu */
+#nav-pop .nav-pop__nav a.nav-daylight{
+  padding: 10px 22px;
+  border-radius: 999px;
+  color: #fff !important;
+  background:
+    linear-gradient(90deg, #00d9ff, #3aa7ff, #b000ff) padding-box,
+    linear-gradient(90deg, #00d9ff, #b000ff) border-box;
+  border: 1px solid transparent;
+  box-shadow: 0 0 18px rgba(0, 217, 255, .28);
+}
+
+#nav-pop .nav-pop__nav a.nav-daylight::after{
+  display: none !important;
+}
+
 /* =========================================================
    GLOBAL DAYLIGHT THEME — BLUE PALETTE
    Applies when body has .theme-daylight

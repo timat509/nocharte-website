@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>NOCHARTE Daylight</title>
-  <meta name="description" content="NOCHARTE Daylight — Photography for weddings, sports, brands and private events. Coming soon." />
+  <meta name="description" content="NOCHARTE Daylight — photography for weddings, sports, brands and private events. Everything that happens outside the night." />
 
   <!-- Favicons -->
   <link rel="icon" href="../websitelogo/weblogo.svg" type="image/svg+xml">
@@ -18,10 +18,11 @@
   <!-- CSS -->
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="daylight.css">
+  <link rel="stylesheet" href="home.css">
   <link rel="stylesheet" href="../mobile/responsive.css">
 </head>
 
-<body class="daylight-page">
+<body class="daylight-page daylight-home-page">
 
   <header class="nav">
     <a href="../index.html?skip-intro=1" class="logo daylight-logo" aria-label="NOCHARTE Home">
@@ -59,29 +60,158 @@
     </div>
   </div>
 
-  <main class="daylight-hero">
-    <div class="daylight-bg"></div>
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="dl-hero">
+      <div class="dl-hero-bg" id="dlHeroBg"></div>
 
-    <section class="daylight-content">
-      <div class="daylight-badge">NOCHARTE DAYLIGHT</div>
+      <div class="dl-hero-slider" aria-hidden="true">
+        <img id="dl-hero-img-a" class="dl-hero-img is-on" alt="">
+        <img id="dl-hero-img-b" class="dl-hero-img" alt="">
+      </div>
 
-      <h1>
-        Daylight by<br>
-<span>NOCHARTE</span>
-      </h1>
+      <div class="dl-hero-overlay"></div>
 
-      <p>
-        Photography for weddings, sports, brands, private events and everything that happens outside the night.
-      </p>
+      <div class="dl-hero-content">
+        <p class="dl-eyebrow">NOCHARTE DAYLIGHT</p>
 
-      <div class="daylight-coming">Coming Soon</div>
+        <h1 class="dl-hero-title">
+          <span class="dl-hero-title-main">Captured</span>
+          <span class="dl-hero-title-accent">In Daylight</span>
+        </h1>
 
-      <a href="../contact.html?skip-intro=1" class="daylight-btn">
-        Book Early
+        <p class="dl-hero-sub">
+          Weddings, sports, brands and private events — everything that happens outside the night.
+        </p>
+
+        <div class="dl-hero-actions">
+          <a href="gallery/?skip-intro=1" class="dl-btn dl-btn--primary">View Gallery</a>
+          <a href="../contact.html?skip-intro=1&theme=daylight" class="dl-btn dl-btn--ghost">Book a Shoot</a>
+        </div>
+      </div>
+
+      <a href="#coverage" class="dl-scroll" aria-label="Scroll to latest coverage">
+        <span></span>
+        Scroll
       </a>
+    </section>
+
+    <!-- ================= LATEST COVERAGE ================= -->
+    <section class="dl-coverage" id="coverage">
+      <div class="dl-wrap">
+        <div class="dl-section-head">
+          <div>
+            <p class="dl-eyebrow">LATEST COVERAGE</p>
+            <h2>Fresh off the field</h2>
+          </div>
+          <a href="gallery/sports/wsc-2026/index.html?skip-intro=1" class="dl-see-all">See all →</a>
+        </div>
+
+        <div class="dl-coverage-strip">
+          <a class="dl-coverage-card" href="gallery/sports/wsc-2026/index.html?skip-intro=1">
+            <img src="gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4530.webp" alt="WSC Tournament" loading="lazy" decoding="async">
+            <div class="dl-coverage-label">
+              <span class="dl-coverage-name">WSC Tournament</span>
+              <span class="dl-coverage-meta">Dec 2026 · Sports</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= APPROACH ================= -->
+    <section class="dl-approach">
+      <div class="dl-wrap dl-approach-copy">
+        <p class="dl-eyebrow">OUR APPROACH</p>
+        <h2>Same eye. Different light.</h2>
+        <p>
+          NOCHARTE Daylight brings the same precision and speed that defines our nightlife
+          work to everything that happens before the sun goes down — natural light, real
+          moments, and a fast turnaround, every time.
+        </p>
+
+        <div class="dl-pills">
+          <span class="dl-pill">Natural Light</span>
+          <span class="dl-pill">Editorial</span>
+          <span class="dl-pill">Fast Turnaround</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA BAND ================= -->
+    <section class="dl-wrap">
+      <div class="dl-cta-band">
+        <h2>Ready to book your event?</h2>
+        <p>Tell us about your day — we'll take it from there.</p>
+        <a href="../contact.html?skip-intro=1&theme=daylight" class="dl-btn dl-btn--primary">Get in Touch</a>
+      </div>
     </section>
   </main>
 
+  <!-- ================= FOOTER ================= -->
+  <footer class="dl-footer">
+    <div class="dl-wrap dl-footer-inner">
+      <div class="dl-footer-brand">
+        <img src="../assets/web/daylight-logo.png" alt="NOCHARTE Daylight logo">
+        <p class="dl-footer-tagline">Photography, wide awake.</p>
+      </div>
+
+      <nav class="dl-footer-nav" aria-label="Footer navigation">
+        <a href="gallery/?skip-intro=1">Gallery</a>
+        <a href="gallery/sports/index.html?skip-intro=1">Sports</a>
+        <a href="../contact.html?skip-intro=1&theme=daylight">Contact</a>
+        <a href="../index.html?skip-intro=1">Nightlife</a>
+      </nav>
+
+      <p class="dl-footer-copy">© 2026 NOCHARTE Daylight. All rights reserved.</p>
+    </div>
+  </footer>
+
   <script src="../mobile/mobile.js"></script>
+
+  <!-- ================= HERO PHOTO ROTATION ================= -->
+  <script>
+    (function(){
+      const heroBg = document.getElementById("dlHeroBg");
+      const heroImgA = document.getElementById("dl-hero-img-a");
+      const heroImgB = document.getElementById("dl-hero-img-b");
+
+      const photos = [
+        "gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4373.webp",
+        "gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4401.webp",
+        "gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4435.webp",
+        "gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4465.webp"
+      ];
+
+      let idx = 0;
+      let showingA = true;
+
+      heroImgA.src = photos[0];
+      heroBg.style.backgroundImage = `url("${photos[0]}")`;
+
+      function show(nextIndex){
+        idx = (nextIndex + photos.length) % photos.length;
+        const src = photos[idx];
+
+        heroBg.style.backgroundImage = `url("${src}")`;
+
+        const top = showingA ? heroImgA : heroImgB;
+        const under = showingA ? heroImgB : heroImgA;
+
+        under.classList.remove("is-on");
+        under.src = src;
+
+        under.onload = () => {
+          under.classList.add("is-on");
+          top.classList.remove("is-on");
+          showingA = !showingA;
+        };
+      }
+
+      if (photos.length > 1) {
+        setInterval(() => show(idx + 1), 4500);
+      }
+    })();
+  </script>
 </body>
 </html>

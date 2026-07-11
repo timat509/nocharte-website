@@ -101,7 +101,7 @@
     </button>
     
   <nav class="nav-pop__nav" aria-label="Main">
-  <a href="/daylight/">Daylight</a>
+  <a href="/daylight/" class="nav-daylight">Daylight</a>
   <a href="/gallery.html">Gallery</a>
   <a href="/portfolio.html">Portfolio</a>
   <a href="/about.html">About</a>
@@ -361,6 +361,51 @@
   <!-- ======= ALBUM DATA + HOME STRIP LOGIC ======= -->
   <script src="assets/albums/albums.js" defer></script>
 <script src="assets/web/home-albums-strip.js" defer></script>
+
+  <!-- ======= MOBILE HERO: POSITION ALBUMS STRIP RELATIVE TO THE CTA BUTTON =======
+       CSS breakpoints can't reliably predict this gap because the hero's height
+       is viewport-height-based (svh) while the text/button above it is roughly
+       fixed-height, so the leftover space varies by device height, not just
+       width. Measuring the real layout and setting margin-top directly works
+       correctly on every device instead of needing a hand-tuned value per
+       breakpoint. -->
+  <script>
+    (function () {
+      const GAP = 28; // desired space between the button and the album cards
+
+      function positionAlbumsStrip() {
+        const strip = document.querySelector('.albums-strip');
+        const cta = document.querySelector('.cta-hero');
+        if (!strip || !cta) return;
+
+        if (window.innerWidth > 820) {
+          strip.style.marginTop = '';
+          return;
+        }
+
+        strip.style.marginTop = '0px';
+
+        const naturalTop = strip.getBoundingClientRect().top;
+        const ctaBottom = cta.getBoundingClientRect().bottom;
+        const pull = naturalTop - (ctaBottom + GAP);
+
+        strip.style.marginTop = pull > 0 ? `-${Math.round(pull)}px` : '0px';
+      }
+
+      function schedule() {
+        requestAnimationFrame(() => requestAnimationFrame(positionAlbumsStrip));
+      }
+
+      document.addEventListener('DOMContentLoaded', schedule);
+      window.addEventListener('load', schedule);
+      window.addEventListener('resize', schedule);
+      window.addEventListener('orientationchange', () => setTimeout(schedule, 150));
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(schedule);
+      }
+    })();
+  </script>
 
 </body>
 </html>

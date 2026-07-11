@@ -50,8 +50,8 @@ body.lightbox-open{
 }
 
 .wsc-page .logo.daylight-logo img{
-  width:110px;
-  height:auto;
+  height:calc(var(--logo-h) * .8);
+  width:auto;
   filter:
     drop-shadow(0 0 10px rgba(0,217,255,.30))
     drop-shadow(0 8px 18px rgba(0,0,0,.08));
@@ -521,10 +521,6 @@ body.lightbox-open{
 
 /* Mobile */
 @media (max-width:900px){
-  .wsc-page .logo.daylight-logo img{
-    width:64px;
-  }
-
   .wsc-wrap{
     width:100%;
     padding:calc(var(--mobile-header-h, 90px) + 32px) 18px 70px;

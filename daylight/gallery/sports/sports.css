@@ -62,8 +62,8 @@ body{
 }
 
 .sports-page .logo.daylight-logo img{
-  width:110px;
-  height:auto;
+  height:calc(var(--logo-h) * .8);
+  width:auto;
   filter:
     drop-shadow(0 0 10px rgba(0,217,255,.30))
     drop-shadow(0 8px 18px rgba(0,0,0,.08));
@@ -454,10 +454,6 @@ body{
 
   .sports-page .nav{
     background:rgba(255,255,255,.92) !important;
-  }
-
-  .sports-page .logo.daylight-logo img{
-    width:64px;
   }
 
   .sports-page .nav-toggle span{
