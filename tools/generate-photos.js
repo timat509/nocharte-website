@@ -1,6 +1,7 @@
 // tools/generate-photos.js
 const fs = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
 
 const ALBUMS_DIR = path.join(process.cwd(), "assets", "albums");
 const WSC_DIR = path.join(process.cwd(), "daylight", "gallery", "sports", "wsc-2026");
@@ -11,9 +12,37 @@ function listDirs(dir) {
     .filter(d => d.isDirectory()).map(d => d.name);
 }
 
-function makePhotosJS(files) {
-  const quoted = files.map(f => `  "${f}"`).join(",\n");
-  return `window.PHOTOS = [\n${quoted}\n];\n`;
+// Batch-reads pixel dimensions for every file in dir via one ImageMagick
+// `identify` call, so <img width/height> can be set to prevent layout shift.
+function readDimensions(dir, files) {
+  if (!files.length) return {};
+
+  try {
+    const out = execFileSync("identify", ["-format", "%f %wx%h\n", ...files], { cwd: dir })
+      .toString();
+
+    const dims = {};
+    out.trim().split("\n").forEach(line => {
+      const match = line.match(/^(.*) (\d+)x(\d+)$/);
+      if (match) dims[match[1]] = { w: Number(match[2]), h: Number(match[3]) };
+    });
+
+    return dims;
+  } catch (e) {
+    console.warn(`⚠️  Couldn't read image dimensions in ${dir}: ${e.message}`);
+    return {};
+  }
+}
+
+function makePhotosJS(files, dims = {}) {
+  const entries = files.map(f => {
+    const d = dims[f];
+    return d
+      ? `  { src: "${f}", w: ${d.w}, h: ${d.h} }`
+      : `  "${f}"`;
+  }).join(",\n");
+
+  return `window.PHOTOS = [\n${entries}\n];\n`;
 }
 
 function makeHighlightsJS(files) {
@@ -49,13 +78,28 @@ function hasCuratedHighlights(highlightsPath) {
   return /["'][^"']+["']/.test(content);
 }
 
+function toWebp(filename) {
+  return filename.replace(/\.(jpe?g|png)$/i, ".webp");
+}
+
 function generateForAlbum(slug) {
-  const photosDir = path.join(ALBUMS_DIR, slug, "photos");
-  if (!fs.existsSync(photosDir)) return console.warn(`⚠️  Skip ${slug}: no photos/ folder`);
-  const files = listImages(photosDir);
+  const originalDir = path.join(ALBUMS_DIR, slug, "original");
+  const webDir = path.join(ALBUMS_DIR, slug, "web");
+  if (!fs.existsSync(originalDir)) return console.warn(`⚠️  Skip ${slug}: no original/ folder`);
+  const files = listImages(originalDir);
+
+  // Dimensions come from web/ (what's actually displayed), keyed back to the
+  // original/ filenames so photoCardHTML can set width/height and prevent CLS.
+  const webFiles = fs.existsSync(webDir) ? listImages(webDir) : [];
+  const webDims = readDimensions(webDir, webFiles);
+  const dims = {};
+  files.forEach(f => {
+    const d = webDims[toWebp(f)];
+    if (d) dims[f] = d;
+  });
 
   const outPath = path.join(ALBUMS_DIR, slug, "photos.js");
-  fs.writeFileSync(outPath, makePhotosJS(files), "utf8");
+  fs.writeFileSync(outPath, makePhotosJS(files, dims), "utf8");
   console.log(`✅ ${slug}: wrote ${files.length} entries → ${path.relative(process.cwd(), outPath)}`);
 }
 

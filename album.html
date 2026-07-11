@@ -287,7 +287,9 @@
             return {
               src: webSrc(src),
               full: fullSrc(src),
-              alt: item.alt || ''
+              alt: item.alt || '',
+              w: item.w || null,
+              h: item.h || null
             };
           }
 
@@ -392,6 +394,8 @@
       });
 
       function photoCardHTML(f, i, loadingAttr) {
+        const dims = f.w && f.h ? `width="${f.w}" height="${f.h}"` : '';
+
         return `
           <figure class="album-photo-card" data-idx="${i}" role="button" tabindex="0">
             <img
@@ -399,6 +403,7 @@
               alt="${escapeHtml(f.alt)}"
               loading="${i < 6 ? 'eager' : loadingAttr}"
               decoding="async"
+              ${dims}
             >
             <button class="album-download-btn" type="button" data-download="${i}" aria-label="Download photo">
               ↓
