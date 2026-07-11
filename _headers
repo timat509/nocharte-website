@@ -1,8 +1,8 @@
 /*.css
-Cache-Control: no-store
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /*.js
-  Cache-Control: no-store
+  Cache-Control: public, max-age=3600, must-revalidate
 
 /mobile/*
-  Cache-Control: no-store
+  Cache-Control: public, max-age=3600, must-revalidate
