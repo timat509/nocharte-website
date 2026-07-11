@@ -1,0 +1,21 @@
+/* Self-hosted replacement for the fonts.cdnfonts.com "Glacial Indifference"
+   stylesheet — removes a render-blocking third-party request (DNS + TLS +
+   download) on every page, and adds font-display:swap so text renders in a
+   fallback font immediately instead of staying invisible while the font
+   loads. */
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Glacial Indifference'), url('GlacialIndifference-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Glacial Indifference';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Glacial Indifference'), url('GlacialIndifference-Bold.woff') format('woff');
+}
