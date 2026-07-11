@@ -12,6 +12,9 @@
   <link rel="alternate icon" href="../websitelogo/weblogo250px.png" sizes="32x32">
   <link rel="apple-touch-icon" href="../websitelogo/weblogo250px.png" sizes="180x180">
 
+  <!-- Preload hero background image (LCP) -->
+  <link rel="preload" as="image" href="gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4373.webp">
+
   <!-- Fonts -->
   <link href="../assets/fonts/fonts.css" rel="stylesheet">
 
@@ -66,7 +69,7 @@
       <div class="dl-hero-bg" id="dlHeroBg"></div>
 
       <div class="dl-hero-slider" aria-hidden="true">
-        <img id="dl-hero-img-a" class="dl-hero-img is-on" alt="">
+        <img id="dl-hero-img-a" class="dl-hero-img is-on" alt="" src="gallery/sports/wsc-2026/day-05/matches/domilquince-vs-godfathers/web/ACM_4373.webp">
         <img id="dl-hero-img-b" class="dl-hero-img" alt="">
       </div>
 
@@ -186,7 +189,6 @@
       let idx = 0;
       let showingA = true;
 
-      heroImgA.src = photos[0];
       heroBg.style.backgroundImage = `url("${photos[0]}")`;
 
       function show(nextIndex){
