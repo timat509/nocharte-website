@@ -1,8 +1,8 @@
 window.HIGHLIGHTS = [
-  "ACM_4032.webp",
-  "ACM_4068.webp",
-  "ACM_4098.webp",
-  "ACM_4129.webp",
-  "ACM_4188.webp",
-  "ACM_4236.webp"
+  "ACM_6403.webp",
+  "ACM_6496.webp",
+  "ACM_6560.webp",
+  "ACM_6614.webp",
+  "ACM_6669.webp",
+  "ACM_6752.webp"
 ];
