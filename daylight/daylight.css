@@ -22,12 +22,6 @@
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 
-.daylight-page .logo img{
-  filter:
-    drop-shadow(0 0 10px rgba(0,229,255,.22))
-    drop-shadow(0 0 16px rgba(190,0,255,.14));
-}
-
 /* Nav links */
 .daylight-page .links a{
   position:relative;
@@ -98,12 +92,9 @@
    ============================== */
 
 .daylight-page .logo.daylight-logo img{
-  height:calc(var(--logo-h) * .8);
-  width:auto;
+  height:var(--logo-h);
+  width:var(--logo-h);
   object-fit:contain;
-  filter:
-    drop-shadow(0 0 10px rgba(0,229,255,.30))
-    drop-shadow(0 0 16px rgba(255,255,255,.18));
 }
 
 .daylight-page .logo.daylight-logo{
@@ -122,11 +113,11 @@
 
 /* Header: white glass */
 .daylight-page .nav{
-  background:rgba(255,255,255,.76);
+  background:rgba(255,255,255,.88);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
   border-bottom:1px solid rgba(0,0,0,.06);
-  box-shadow:0 10px 30px rgba(0,0,0,.04);
+  box-shadow:0 10px 32px rgba(0,0,0,.043);
 }
 
 /* Nav text dark */
@@ -149,13 +140,6 @@
     0 0 18px rgba(176,0,255,.22);
 }
 
-/* Logo on white header */
-.daylight-page .logo.daylight-logo img{
-  filter:
-    drop-shadow(0 0 8px rgba(0,217,255,.35))
-    drop-shadow(0 8px 18px rgba(0,0,0,.10));
-}
-
 /* Mobile */
 @media (max-width:900px){
   .daylight-page .nav{
@@ -167,66 +151,11 @@
     box-shadow:none;
   }
 }
-/* ==============================
-   MAIN NAV — NIGHTLIFE PILL
-   ============================== */
-
-/* Make the Nightlife/Home link a NOCHARTE pill */
-.nav .links a[href*="index"],
-.nav .links a[data-nav="home"],
-.nav .links a:first-child{
-  padding:10px 22px;
-  border-radius:999px;
-  background:
-    linear-gradient(rgba(255,255,255,.06), rgba(255,255,255,.06)) padding-box,
-    linear-gradient(90deg, #ff00ff, #7d00ff, #ff00ff) border-box;
-  border:1px solid transparent;
-  color:#fff;
-  box-shadow:
-    0 0 18px rgba(255,0,255,.28),
-    inset 0 0 18px rgba(255,255,255,.04);
-  text-shadow:0 0 12px rgba(255,0,255,.22);
-}
-
-/* Remove normal underline from the pill */
-.nav .links a[href*="index"]::after,
-.nav .links a[data-nav="home"]::after,
-.nav .links a:first-child::after{
-  display:none !important;
-}
-
-/* Hover effect */
-.nav .links a[href*="index"]:hover,
-.nav .links a[data-nav="home"]:hover,
-.nav .links a:first-child:hover{
-  background:
-    linear-gradient(rgba(255,255,255,.11), rgba(255,255,255,.08)) padding-box,
-    linear-gradient(90deg, #ff00ff, #9b35ff, #7d00ff) border-box;
-  box-shadow:
-    0 0 24px rgba(255,0,255,.38),
-    0 0 34px rgba(125,0,255,.22),
-    inset 0 0 18px rgba(255,255,255,.05);
-  transform:translateY(-1px);
-}
-
 /* Keep spacing clean */
 .nav .links{
   align-items:center;
 }
 
-/* Mobile: do not force pill inside popup unless you like it */
-@media (max-width:900px){
-  .nav-pop__nav a[href*="index"],
-  .nav-pop__nav a[data-nav="home"],
-  .nav-pop__nav a:first-child{
-    border-radius:999px;
-    background:
-      linear-gradient(rgba(255,255,255,.08), rgba(255,255,255,.06)) padding-box,
-      linear-gradient(90deg, #ff00ff, #7d00ff) border-box;
-    border:1px solid transparent;
-    box-shadow:0 0 18px rgba(255,0,255,.22);
-  }
-}
 /* ==============================
    DAYLIGHT — CLEAN 3-LINK HEADER
    ============================== */
@@ -280,6 +209,10 @@
   .daylight-page #nav-pop .nav-pop__nav a{
     color:#0a0d12;
     text-shadow:none;
+  }
+
+  .daylight-page #nav-pop .nav-pop__close{
+    color:#0a0d12;
   }
 
   .daylight-page #nav-pop .nav-pop__nav a[aria-current="page"]::after{

@@ -62,11 +62,9 @@ body{
 }
 
 .sports-page .logo.daylight-logo img{
-  height:calc(var(--logo-h) * .8);
-  width:auto;
-  filter:
-    drop-shadow(0 0 10px rgba(0,217,255,.30))
-    drop-shadow(0 8px 18px rgba(0,0,0,.08));
+  height:var(--logo-h);
+  width:var(--logo-h);
+  object-fit:contain;
 }
 
 .sports-page .links.daylight-inner-links{

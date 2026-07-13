@@ -105,7 +105,9 @@
           <p id="photoCount">Loading photos...</p>
         </div>
 
-        <div class="wsc-matches" id="matchTabs" hidden></div>
+        <div class="wsc-matches-wrap">
+          <div class="wsc-matches" id="matchTabs" hidden></div>
+        </div>
 
         <div class="wsc-grid" id="photoGrid"></div>
       </section>
@@ -250,8 +252,23 @@
           });
         });
 
+        updateMatchScrollState();
+
         return loadMatch(day.matches[0]);
       }
+
+      // Toggles edge-fade affordances so people can tell the match tabs scroll sideways
+      function updateMatchScrollState(){
+        const wrap = matchTabs.closest(".wsc-matches-wrap");
+        if (!wrap) return;
+
+        const canScroll = matchTabs.scrollWidth > matchTabs.clientWidth + 1;
+        wrap.classList.toggle("can-scroll-right", canScroll && matchTabs.scrollLeft < matchTabs.scrollWidth - matchTabs.clientWidth - 1);
+        wrap.classList.toggle("can-scroll-left", matchTabs.scrollLeft > 1);
+      }
+
+      matchTabs.addEventListener("scroll", updateMatchScrollState);
+      window.addEventListener("resize", updateMatchScrollState);
 
       async function loadMatch(match){
         photoGrid.innerHTML = "";

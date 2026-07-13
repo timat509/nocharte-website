@@ -35,11 +35,9 @@ body{
 }
 
 .daylight-gallery-page .logo.daylight-logo img{
-  height:calc(var(--logo-h) * .8);
-  width:auto;
-  filter:
-    drop-shadow(0 0 10px rgba(0,217,255,.30))
-    drop-shadow(0 8px 18px rgba(0,0,0,.08));
+  height:var(--logo-h);
+  width:var(--logo-h);
+  object-fit:contain;
 }
 
 .daylight-gallery-page .links.daylight-inner-links{
@@ -69,6 +67,7 @@ body{
   position:absolute;
   left:0;
   right:0;
+  width:100%;
   bottom:-8px;
   height:4px;
   border-radius:999px;
@@ -103,23 +102,30 @@ body{
   max-width:880px;
 }
 
-.daylight-kicker{
+.daylight-back{
   display:inline-flex;
   align-items:center;
-  justify-content:center;
-  padding:9px 18px;
+  gap:6px;
+  margin-bottom:22px;
+  padding:10px 18px;
   border-radius:999px;
-  margin-bottom:18px;
-  font-size:.72rem;
-  font-weight:900;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:#080b12;
+  font-size:.8rem;
+  font-weight:800;
+  letter-spacing:.04em;
+  color:rgba(8,11,18,.68);
+  text-decoration:none;
   background:rgba(255,255,255,.72);
   border:1px solid rgba(0,160,210,.18);
   box-shadow:
     0 14px 34px rgba(0,0,0,.06),
     0 0 24px rgba(0,217,255,.12);
+  transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.daylight-back:hover{
+  color:#080b12;
+  border-color:rgba(0,217,255,.4);
+  background:rgba(255,255,255,.92);
 }
 
 .daylight-gallery-hero h1{
@@ -154,7 +160,8 @@ body{
 
 .daylight-feature{
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns:repeat(auto-fit, minmax(280px, 380px));
+  justify-content:center;
   gap:22px;
   margin:32px 0 80px;
 }

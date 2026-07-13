@@ -369,7 +369,29 @@
   }
 
   #nav-pop .nav-pop__close{
-    display:none;
+    position:absolute;
+    top:16px;
+    right:16px;
+    z-index:5;
+    width:48px;
+    height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:none;
+    border:0;
+    padding:0;
+    color:#fff;
+    cursor:pointer;
+  }
+
+  #nav-pop .nav-pop__close svg{
+    width:28px;
+    height:28px;
+  }
+
+  #nav-pop .nav-pop__close svg path{
+    stroke-width:2.4;
   }
 
   /* =========================================================

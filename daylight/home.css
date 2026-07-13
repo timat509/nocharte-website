@@ -22,7 +22,7 @@
 
 .dl-hero{
   position:relative;
-  min-height:100vh;
+  min-height:86vh;
   display:flex;
   align-items:flex-end;
   isolation:isolate;
@@ -74,6 +74,10 @@
     radial-gradient(circle at 88% 12%, rgba(0,217,255,.22), transparent 45%),
     radial-gradient(circle at 8% 8%, rgba(176,0,255,.16), transparent 45%);
   pointer-events:none;
+}
+
+.dl-hero-watermark{
+  display:none;
 }
 
 .dl-hero-content{
@@ -247,7 +251,7 @@
 /* ================= LATEST COVERAGE ================= */
 
 .dl-coverage{
-  padding:90px 0 20px;
+  padding:56px 0 20px;
 }
 
 .dl-coverage-strip{
@@ -448,11 +452,32 @@
 
 @media (max-width:900px){
   .dl-hero{
-    min-height:78vh;
+    min-height:100vh;
+    min-height:100svh;
+  }
+
+  .dl-hero-watermark{
+    display:block;
+    position:absolute;
+    top:14%;
+    left:50%;
+    z-index:3;
+    width:52vw;
+    max-width:230px;
+    opacity:.16;
+    mix-blend-mode:soft-light;
+    pointer-events:none;
+    transform:translateX(-50%);
+  }
+
+  .dl-hero-watermark img{
+    width:100%;
+    height:auto;
+    display:block;
   }
 
   .dl-hero-content{
-    padding:0 22px 44px;
+    padding:0 22px 32px;
   }
 
   .dl-hero-actions{
@@ -474,7 +499,7 @@
   }
 
   .dl-coverage{
-    padding:60px 0 10px;
+    padding:36px 0 10px;
   }
 
   .dl-coverage-card{

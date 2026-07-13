@@ -50,11 +50,9 @@ body.lightbox-open{
 }
 
 .wsc-page .logo.daylight-logo img{
-  height:calc(var(--logo-h) * .8);
-  width:auto;
-  filter:
-    drop-shadow(0 0 10px rgba(0,217,255,.30))
-    drop-shadow(0 8px 18px rgba(0,0,0,.08));
+  height:var(--logo-h);
+  width:var(--logo-h);
+  object-fit:contain;
 }
 
 .wsc-page .links.daylight-inner-links{
@@ -353,6 +351,10 @@ body.lightbox-open{
 }
 
 /* Match tabs — team vs team browser */
+.wsc-matches-wrap{
+  position:relative;
+}
+
 .wsc-matches{
   display:flex;
   flex-wrap:wrap;
@@ -551,13 +553,50 @@ body.lightbox-open{
   .wsc-matches{
     flex-wrap:nowrap;
     overflow-x:auto;
+    overflow-y:hidden;
     gap:22px;
     -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+
+  .wsc-matches::-webkit-scrollbar{
+    display:none;
   }
 
   .wsc-match-tab{
     flex:0 0 auto;
     white-space:nowrap;
+  }
+
+  .wsc-matches-wrap::before,
+  .wsc-matches-wrap::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:18px;
+    width:36px;
+    z-index:2;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .2s ease;
+  }
+
+  .wsc-matches-wrap::before{
+    left:0;
+    background:linear-gradient(to right, #f7fbff, rgba(247,251,255,0));
+  }
+
+  .wsc-matches-wrap::after{
+    right:0;
+    background:linear-gradient(to left, #f7fbff, rgba(247,251,255,0));
+  }
+
+  .wsc-matches-wrap.can-scroll-left::before{
+    opacity:1;
+  }
+
+  .wsc-matches-wrap.can-scroll-right::after{
+    opacity:1;
   }
 
   .wsc-grid{
