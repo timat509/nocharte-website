@@ -1,0 +1,21 @@
+window.PHOTOS = [
+  "ACM_6304.webp",
+  "ACM_6305.webp",
+  "ACM_6306.webp",
+  "ACM_6307.webp",
+  "ACM_6308.webp",
+  "ACM_6310.webp",
+  "ACM_6316.webp",
+  "ACM_6334.webp",
+  "ACM_6335.webp",
+  "ACM_6336.webp",
+  "ACM_6337.webp",
+  "ACM_6338.webp",
+  "ACM_6339.webp",
+  "ACM_6388.webp",
+  "ACM_6392.webp",
+  "ACM_6393.webp",
+  "ACM_6399.webp",
+  "ACM_6468.webp",
+  "ACM_6474.webp"
+];
