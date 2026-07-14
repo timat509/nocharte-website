@@ -547,7 +547,7 @@
           btn.addEventListener("click", () => {
             const matchSlug = btn.dataset.matchSlug;
             selectedMatchLabel = btn.dataset.matchLabel;
-            selectedMatchKey = matchSlug ? `${currentDay.slug}/${matchSlug}` : currentDay.slug;
+            selectedMatchKey = matchSlug ? `${currentDay.slug}/matches/${matchSlug}` : currentDay.slug;
 
             closeWscModal(wscMatchModal);
             openEmailModal();

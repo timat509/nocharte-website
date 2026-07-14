@@ -4,8 +4,9 @@
 const SITE_URL = "https://nocharte.com";
 const WSC_BASE_PATH = "daylight/gallery/sports/wsc-2026";
 
-// day-06/villanos-vs-domilquince -> safe, matches how the frontend builds it
-const MATCH_KEY_PATTERN = /^day-\d{2}\/[a-z0-9-]+$/;
+// day-06/matches/villanos-vs-domilquince (per match) or day-01 (whole day,
+// no match breakdown yet) -> safe, matches how the frontend builds it
+const MATCH_KEY_PATTERN = /^day-\d{2}(\/matches\/[a-z0-9-]+)?$/;
 
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
