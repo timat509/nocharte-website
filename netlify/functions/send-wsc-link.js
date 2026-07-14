@@ -51,15 +51,6 @@ exports.handler = async function (event) {
     const zipUrl = `${SITE_URL}/${WSC_BASE_PATH}/${matchKey}/download.zip`;
     const title = matchLabel ? `WSC — ${matchLabel}` : "WSC Tournament";
 
-    const zipCheck = await fetch(zipUrl, { method: "HEAD" });
-
-    if (!zipCheck.ok) {
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ message: "Download link is not ready for this match yet." }),
-      };
-    }
-
     const resendApiKey = process.env.RESEND_API_KEY;
     const fromEmail = process.env.NOCHARTE_FROM_EMAIL || "NOCHARTE <onboarding@resend.dev>";
 
