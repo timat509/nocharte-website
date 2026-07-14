@@ -115,6 +115,10 @@
         <a href="../../../../contact.html?skip-intro=1&theme=daylight" class="wsc-sponsor-cta">
           Partner with us →
         </a>
+
+        <a href="#gallerySection" id="wscSponsorMore" class="wsc-sponsor-cta">
+          More pictures →
+        </a>
       </div>
     </section>
 
@@ -122,7 +126,7 @@
       <section class="wsc-gallery-section" id="gallerySection">
         <div class="section-head">
           <div class="section-head-title">
-            <h2>All Photos</h2>
+            <h2 id="galleryTitle">All Photos</h2>
             <p id="photoCount">Loading photos...</p>
           </div>
 
@@ -211,6 +215,7 @@
       const eventLocation = document.getElementById("eventLocation");
       const photoGrid = document.getElementById("photoGrid");
       const photoCount = document.getElementById("photoCount");
+      const galleryTitle = document.getElementById("galleryTitle");
       const matchTabs = document.getElementById("matchTabs");
 
       const heroBg = document.getElementById("wscHeroBg");
@@ -348,7 +353,8 @@
       matchTabs.addEventListener("scroll", updateMatchScrollState);
       window.addEventListener("resize", updateMatchScrollState);
 
-      async function loadMatch(match){
+      async function loadMatch(match, title){
+        galleryTitle.textContent = title || "All Photos";
         photoGrid.innerHTML = "";
         photoCount.textContent = "Loading photos...";
 
@@ -627,6 +633,13 @@
       }
 
       wscDownloadBtn.addEventListener("click", openMatchModal);
+
+      document.getElementById("wscSponsorMore").addEventListener("click", e => {
+        e.preventDefault();
+        matchTabs.querySelectorAll(".wsc-match-tab").forEach(b => b.classList.remove("is-active"));
+        loadMatch(wscMatch("day-06", "redbull", "Red Bull"), "Red Bull Pictures");
+        document.getElementById("gallerySection").scrollIntoView({ behavior: "smooth" });
+      });
       wscEmailSubmit.addEventListener("click", sendWscDownloadEmail);
 
       wscEmailPin.addEventListener("keydown", e => {
