@@ -332,7 +332,7 @@ body.lightbox-open{
 .wsc-sponsor{
   position:relative;
   width:min(1280px, 92vw);
-  margin:70px auto 80px;
+  margin:70px auto 16px;
   display:grid;
   grid-template-columns:1fr 1.05fr;
   gap:28px;
@@ -643,7 +643,7 @@ body.lightbox-open{
   .wsc-sponsor{
     grid-template-columns:1fr;
     width:calc(100% - 36px);
-    margin:44px auto 56px;
+    margin:44px auto 16px;
     gap:16px;
   }
 
