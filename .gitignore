@@ -19,3 +19,7 @@
 *.MOV
 *.MP4
 *.zip
+
+# WSC match photo downloads served directly by the site (see
+# tools/generate-wsc-zips.js) — exempt from the blanket *.zip rule above.
+!daylight/gallery/sports/wsc-2026/**/download.zip

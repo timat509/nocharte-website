@@ -121,8 +121,14 @@
     <div class="wsc-wrap">
       <section class="wsc-gallery-section" id="gallerySection">
         <div class="section-head">
-          <h2>All Photos</h2>
-          <p id="photoCount">Loading photos...</p>
+          <div class="section-head-title">
+            <h2>All Photos</h2>
+            <p id="photoCount">Loading photos...</p>
+          </div>
+
+          <button type="button" id="wscDownloadBtn" class="wsc-download-btn">
+            Download match photos
+          </button>
         </div>
 
         <div class="wsc-matches-wrap">
@@ -140,6 +146,58 @@
     <button class="lightbox-arrow left" id="lightboxPrev" aria-label="Previous photo">‹</button>
     <img id="lightboxImg" alt="">
     <button class="lightbox-arrow right" id="lightboxNext" aria-label="Next photo">›</button>
+  </div>
+
+  <!-- SELECT MATCH MODAL -->
+  <div id="wscMatchModal" class="wsc-modal" hidden aria-hidden="true">
+    <div class="wsc-modal__overlay" data-wsc-close></div>
+
+    <div class="wsc-modal__card" role="dialog" aria-label="Select a match">
+      <button type="button" class="wsc-modal__close" data-wsc-close aria-label="Close">×</button>
+
+      <p class="wsc-modal__eyebrow">DOWNLOAD PHOTOS</p>
+      <h2>Select a match</h2>
+      <p class="wsc-modal__text">Choose which match's photos you'd like to download.</p>
+
+      <div class="wsc-modal__matches" id="wscMatchList"></div>
+    </div>
+  </div>
+
+  <!-- EMAIL + PIN MODAL -->
+  <div id="wscEmailModal" class="wsc-modal" hidden aria-hidden="true">
+    <div class="wsc-modal__overlay" data-wsc-close></div>
+
+    <div class="wsc-modal__card" role="dialog" aria-label="Send download link">
+      <button type="button" class="wsc-modal__close" data-wsc-close aria-label="Close">×</button>
+
+      <p class="wsc-modal__eyebrow" id="wscEmailEyebrow">SELECTED MATCH</p>
+      <h2>Send download link</h2>
+      <p class="wsc-modal__text">Enter your email and the tournament PIN. We'll send you the download link.</p>
+
+      <input
+        id="wscEmailInput"
+        class="wsc-modal__input wsc-modal__input--email"
+        type="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+      >
+
+      <input
+        id="wscEmailPin"
+        class="wsc-modal__input"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="PIN"
+        autocomplete="off"
+      >
+
+      <p id="wscEmailError" class="wsc-modal__error" hidden></p>
+
+      <button type="button" id="wscEmailSubmit" class="wsc-modal__submit">
+        Send link
+      </button>
+    </div>
   </div>
 
   <script src="days.js"></script>
@@ -446,6 +504,141 @@
         currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
         openLightbox(currentIndex);
       }
+
+      /* ================= DOWNLOAD MATCH PHOTOS ================= */
+
+      const wscDownloadBtn = document.getElementById("wscDownloadBtn");
+      const wscMatchModal = document.getElementById("wscMatchModal");
+      const wscMatchList = document.getElementById("wscMatchList");
+      const wscEmailModal = document.getElementById("wscEmailModal");
+      const wscEmailEyebrow = document.getElementById("wscEmailEyebrow");
+      const wscEmailInput = document.getElementById("wscEmailInput");
+      const wscEmailPin = document.getElementById("wscEmailPin");
+      const wscEmailError = document.getElementById("wscEmailError");
+      const wscEmailSubmit = document.getElementById("wscEmailSubmit");
+
+      let selectedMatchKey = null;
+      let selectedMatchLabel = "";
+
+      function openWscModal(modal){
+        modal.hidden = false;
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeWscModal(modal){
+        modal.hidden = true;
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      function openMatchModal(){
+        if (!currentDay) return;
+
+        const matches = Array.isArray(currentDay.matches) && currentDay.matches.length
+          ? currentDay.matches
+          : [{ slug: null, label: `${currentDay.label} — All Photos` }];
+
+        wscMatchList.innerHTML = matches.map(m => `
+          <button type="button" class="wsc-modal__match" data-match-slug="${m.slug || ''}" data-match-label="${m.label}">
+            ${m.label}
+          </button>
+        `).join("");
+
+        wscMatchList.querySelectorAll(".wsc-modal__match").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const matchSlug = btn.dataset.matchSlug;
+            selectedMatchLabel = btn.dataset.matchLabel;
+            selectedMatchKey = matchSlug ? `${currentDay.slug}/${matchSlug}` : currentDay.slug;
+
+            closeWscModal(wscMatchModal);
+            openEmailModal();
+          });
+        });
+
+        openWscModal(wscMatchModal);
+      }
+
+      function openEmailModal(){
+        wscEmailEyebrow.textContent = selectedMatchLabel.toUpperCase();
+        wscEmailError.textContent = "";
+        wscEmailError.hidden = true;
+        wscEmailError.classList.remove("success");
+        wscEmailInput.value = "";
+        wscEmailPin.value = "";
+        wscEmailSubmit.textContent = "Send link";
+        wscEmailSubmit.classList.remove("is-loading");
+
+        openWscModal(wscEmailModal);
+
+        setTimeout(() => wscEmailInput.focus(), 100);
+      }
+
+      function showWscEmailMessage(message, type = "error"){
+        wscEmailError.textContent = message;
+        wscEmailError.hidden = false;
+        wscEmailError.classList.toggle("success", type === "success");
+      }
+
+      async function sendWscDownloadEmail(){
+        const email = wscEmailInput.value.trim();
+        const pin = wscEmailPin.value.trim();
+
+        if (!email || !email.includes("@") || !email.includes(".")) {
+          showWscEmailMessage("Enter a valid email.");
+          return;
+        }
+
+        if (!pin) {
+          showWscEmailMessage("Enter the tournament PIN.");
+          return;
+        }
+
+        wscEmailSubmit.classList.add("is-loading");
+        wscEmailSubmit.textContent = "Sending...";
+        wscEmailError.hidden = true;
+
+        try {
+          const response = await fetch("/.netlify/functions/send-wsc-link", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ matchKey: selectedMatchKey, matchLabel: selectedMatchLabel, pin, email })
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            showWscEmailMessage(data.message || "Could not send link.");
+            return;
+          }
+
+          showWscEmailMessage("Download link sent. Check your email.", "success");
+          wscEmailSubmit.textContent = "Sent";
+
+          setTimeout(() => closeWscModal(wscEmailModal), 1800);
+        } catch (error) {
+          console.error("WSC download email error:", error);
+          showWscEmailMessage("Server error. Try again.");
+        } finally {
+          wscEmailSubmit.classList.remove("is-loading");
+
+          if (wscEmailSubmit.textContent !== "Sent") {
+            wscEmailSubmit.textContent = "Send link";
+          }
+        }
+      }
+
+      wscDownloadBtn.addEventListener("click", openMatchModal);
+      wscEmailSubmit.addEventListener("click", sendWscDownloadEmail);
+
+      wscEmailPin.addEventListener("keydown", e => {
+        if (e.key === "Enter") sendWscDownloadEmail();
+      });
+
+      document.querySelectorAll("[data-wsc-close]").forEach(el => {
+        el.addEventListener("click", () => {
+          closeWscModal(wscMatchModal);
+          closeWscModal(wscEmailModal);
+        });
+      });
 
       daySelect.addEventListener("change", () => {
         loadDay(daySelect.value);

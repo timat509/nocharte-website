@@ -458,6 +458,35 @@ body.lightbox-open{
   font-weight:700;
 }
 
+.section-head-title{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.wsc-download-btn{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:13px 24px;
+  border-radius:999px;
+  border:0;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.04em;
+  color:#fff;
+  cursor:pointer;
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+  box-shadow:0 14px 30px rgba(0,0,0,.14);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.wsc-download-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 36px rgba(0,0,0,.18);
+}
+
 /* Match tabs — team vs team browser */
 .wsc-matches-wrap{
   position:relative;
@@ -629,6 +658,171 @@ body.lightbox-open{
   right:24px;
 }
 
+/* ================= DOWNLOAD MODALS ================= */
+
+.wsc-modal{
+  position:fixed;
+  inset:0;
+  z-index:20000;
+  display:grid;
+  place-items:center;
+  padding:22px;
+  background:rgba(8,11,18,.5);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+
+.wsc-modal[hidden]{
+  display:none !important;
+}
+
+.wsc-modal__overlay{
+  position:absolute;
+  inset:0;
+}
+
+.wsc-modal__card{
+  position:relative;
+  width:min(420px, 94vw);
+  padding:36px 30px 30px;
+  border-radius:28px;
+  text-align:center;
+  background:
+    radial-gradient(circle at top center, rgba(0,217,255,.12), rgba(255,255,255,.97) 46%),
+    rgba(255,255,255,.97);
+  border:1px solid rgba(0,160,210,.16);
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.18),
+    0 0 40px rgba(0,217,255,.10);
+}
+
+.wsc-modal__close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:38px;
+  height:38px;
+  border-radius:999px;
+  border:1px solid rgba(0,160,210,.16);
+  color:#080b12;
+  background:rgba(255,255,255,.7);
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
+}
+
+.wsc-modal__eyebrow{
+  margin:0 0 10px;
+  color:#2fa8ff;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+
+.wsc-modal__card h2{
+  margin:0;
+  font-size:28px;
+  line-height:1.1;
+  color:#080b12;
+}
+
+.wsc-modal__text{
+  margin:14px auto 22px;
+  max-width:300px;
+  color:rgba(8,11,18,.6);
+  font-size:14px;
+  line-height:1.5;
+}
+
+.wsc-modal__matches{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-height:280px;
+  overflow-y:auto;
+}
+
+.wsc-modal__match{
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid rgba(0,160,210,.16);
+  background:rgba(0,217,255,.04);
+  color:#080b12;
+  font-size:14px;
+  font-weight:800;
+  text-align:left;
+  cursor:pointer;
+  transition:background .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.wsc-modal__match:hover{
+  background:rgba(0,217,255,.10);
+  border-color:rgba(0,217,255,.4);
+  transform:translateY(-1px);
+}
+
+.wsc-modal__input{
+  width:100%;
+  height:54px;
+  padding:0 18px;
+  margin-bottom:12px;
+  border-radius:16px;
+  border:1px solid rgba(0,160,210,.18);
+  background:rgba(0,217,255,.04);
+  color:#080b12;
+  font-size:16px;
+  font-weight:700;
+  text-align:center;
+  outline:none;
+}
+
+.wsc-modal__input--email{
+  letter-spacing:0;
+}
+
+.wsc-modal__input:focus{
+  border-color:rgba(0,217,255,.5);
+  box-shadow:0 0 0 4px rgba(0,217,255,.12);
+}
+
+.wsc-modal__error{
+  margin:2px 0 0;
+  color:#e0293e;
+  font-size:13px;
+  font-weight:800;
+}
+
+.wsc-modal__error.success{
+  color:#0aa860;
+}
+
+.wsc-modal__submit{
+  width:100%;
+  height:52px;
+  margin-top:16px;
+  border:0;
+  border-radius:999px;
+  color:#fff;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:.04em;
+  cursor:pointer;
+  background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
+  box-shadow:0 14px 30px rgba(0,0,0,.14);
+  transition:transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.wsc-modal__submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 18px 36px rgba(0,0,0,.18);
+}
+
+.wsc-modal__submit.is-loading{
+  opacity:.55;
+  pointer-events:none;
+}
+
 /* Mobile */
 @media (max-width:900px){
   .wsc-wrap{
@@ -672,7 +866,12 @@ body.lightbox-open{
   .section-head{
     align-items:flex-start;
     flex-direction:column;
-    gap:8px;
+    gap:16px;
+  }
+
+  .wsc-download-btn{
+    width:100%;
+    justify-content:center;
   }
 
   .wsc-matches{
