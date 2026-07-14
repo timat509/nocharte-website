@@ -286,7 +286,7 @@ body.lightbox-open{
 .wsc-day-picker select{
   width:100%;
   min-height:44px;
-  padding:0 14px;
+  padding:0 22px 0 16px;
   border-radius:999px;
   font-weight:900;
   color:#0a0d12;
