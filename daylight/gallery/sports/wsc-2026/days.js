@@ -142,7 +142,10 @@ const WSC_DAYS = [
     highlights: "day-08/highlights.js",
     webPath: "day-08/web/",
     fullPath: "day-08/full/",
-    matches: wscMatches("day-08", 4)
+    matches: [
+      wscMatch("day-08", "cimarrones-vs-godfathers", "Cimarrones vs Godfathers"),
+      wscMatch("day-08", "plakata-vs-loti", "Plakata vs Loti")
+    ]
   },
   {
     slug: "day-09",
