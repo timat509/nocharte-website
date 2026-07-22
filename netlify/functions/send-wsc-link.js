@@ -4,7 +4,7 @@
 const SITE_URL = "https://nocharte.com";
 const WSC_BASE_PATH = "daylight/gallery/sports/wsc-2026";
 
-// day-06/matches/villanos-vs-domilquince (per match) or day-01 (whole day,
+// day-07/matches/villanos-vs-domilquince (per match) or day-01 (whole day,
 // no match breakdown yet) -> safe, matches how the frontend builds it
 const MATCH_KEY_PATTERN = /^day-\d{2}(\/matches\/[a-z0-9-]+)?$/;
 

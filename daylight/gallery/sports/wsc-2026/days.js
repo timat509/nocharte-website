@@ -74,13 +74,7 @@ const WSC_DAYS = [
     photos: "day-04/photos.js",
     highlights: "day-04/highlights.js",
     webPath: "day-04/web/",
-    fullPath: "day-04/full/",
-    matches: [
-      wscMatch("day-04", "cartel-vs-godfathers", "Cartel vs Godfathers"),
-      wscMatch("day-04", "loti-vs-agricultores", "Loti vs Agricultores"),
-      wscMatch("day-04", "cimarrones-vs-sueltabate", "Cimarrones vs Sueltabate"),
-      wscMatch("day-04", "villanos-vs-plakata", "Villanos vs Plakata")
-    ]
+    fullPath: "day-04/full/"
   },
   {
     slug: "day-05",
@@ -94,10 +88,10 @@ const WSC_DAYS = [
     webPath: "day-05/web/",
     fullPath: "day-05/full/",
     matches: [
-      wscMatch("day-05", "piantini-vs-agricultores", "Piantini vs Agricultores"),
-      wscMatch("day-05", "loti-vs-lo-villano", "Loti vs Lo Villano"),
-      wscMatch("day-05", "domilquince-vs-godfathers", "Domilquince vs Godfathers"),
-      wscMatch("day-05", "plakata-vs-sueltabate", "Plakata vs Sueltabate")
+      wscMatch("day-05", "cartel-vs-godfathers", "Cartel vs Godfathers"),
+      wscMatch("day-05", "loti-vs-agricultores", "Loti vs Agricultores"),
+      wscMatch("day-05", "cimarrones-vs-sueltabate", "Cimarrones vs Sueltabate"),
+      wscMatch("day-05", "villanos-vs-plakata", "Villanos vs Plakata")
     ]
   },
   {
@@ -112,10 +106,10 @@ const WSC_DAYS = [
     webPath: "day-06/web/",
     fullPath: "day-06/full/",
     matches: [
-      wscMatch("day-06", "sueltabate-vs-agricultores", "Sueltabate vs Agricultores"),
-      wscMatch("day-06", "villanos-vs-domilquince", "Villanos vs Domilquince"),
-      wscMatch("day-06", "loti-vs-godfather", "Loti vs Godfathers"),
-      wscMatch("day-06", "cimarrones-vs-cartel", "Cimarrones vs Cartel")
+      wscMatch("day-06", "piantini-vs-agricultores", "Piantini vs Agricultores"),
+      wscMatch("day-06", "loti-vs-lo-villano", "Loti vs Lo Villano"),
+      wscMatch("day-06", "domilquince-vs-godfathers", "Domilquince vs Godfathers"),
+      wscMatch("day-06", "plakata-vs-sueltabate", "Plakata vs Sueltabate")
     ]
   },
   {
@@ -129,7 +123,12 @@ const WSC_DAYS = [
     highlights: "day-07/highlights.js",
     webPath: "day-07/web/",
     fullPath: "day-07/full/",
-    matches: wscMatches("day-07", 4)
+    matches: [
+      wscMatch("day-07", "sueltabate-vs-agricultores", "Sueltabate vs Agricultores"),
+      wscMatch("day-07", "villanos-vs-domilquince", "Villanos vs Domilquince"),
+      wscMatch("day-07", "loti-vs-godfather", "Loti vs Godfathers"),
+      wscMatch("day-07", "cimarrones-vs-cartel", "Cimarrones vs Cartel")
+    ]
   },
   {
     slug: "day-08",
