@@ -29,10 +29,10 @@ exports.handler = async function (event) {
         zipUrl: process.env.ALBUM_LIGHT_OUT_ZIP_URL,
       },
 
-      "cielo_room-24-07-26": {
-        title: "Cielo Room by Mirage — 24-07-26",
-        pin: process.env.ALBUM_CIELO_ROOM_PIN,
-        zipUrl: process.env.ALBUM_CIELO_ROOM_ZIP_URL,
+      "mirage-24-07-26": {
+        title: "Mirage — 24-07-26",
+        pin: process.env.ALBUM_MIRAGE_PIN,
+        zipUrl: process.env.ALBUM_MIRAGE_ZIP_URL,
       },
 
     };

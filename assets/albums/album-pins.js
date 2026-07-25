@@ -4,5 +4,5 @@ window.ALBUM_PINS = {
   "black_party-09-04-26": "4321",
   "the_trip-30-05-26": "9043",
   "light_out-20-06-26": "7398",
-  "cielo_room-24-07-26": "2525",
+  "mirage-24-07-26": "2525",
 };
