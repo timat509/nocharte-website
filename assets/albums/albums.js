@@ -152,4 +152,13 @@ window.ALBUMS = [
     cover: "assets/albums/light_out-20-06-26/cover.webp",
     href: "album.html?slug=light_out-20-06-26"
   },
+  {
+    slug: "cielo_room-24-07-26", 
+    title: "Cielo Room by Mirage  — 24 July 2026",
+    date: "2026-07-24",
+    category: "Clubs",
+    count: 1,
+    cover: "assets/albums/cielo_room-24-07-26/cover.webp",
+    href: "album.html?slug=cielo_room-24-07-26"
+  },
 ];

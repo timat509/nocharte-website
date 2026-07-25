@@ -29,6 +29,12 @@ exports.handler = async function (event) {
         zipUrl: process.env.ALBUM_LIGHT_OUT_ZIP_URL,
       },
 
+      "cielo_room-24-07-26": {
+        title: "Cielo Room by Mirage — 24-07-26",
+        pin: process.env.ALBUM_CIELO_ROOM_PIN,
+        zipUrl: process.env.ALBUM_CIELO_ROOM_ZIP_URL,
+      },
+
     };
 
     
@@ -78,11 +84,11 @@ exports.handler = async function (event) {
           </h1>
 
           <p style="font-size:16px;line-height:1.6;color:#ddd;margin:0 0 24px;">
-            Your album folder for <strong>${album.title}</strong> is ready.
+            Your ZIP for <strong>${album.title}</strong> is ready to download.
           </p>
 
           <a href="${album.zipUrl}" target="_blank" style="display:inline-block;background:#ffffff;color:#000000;text-decoration:none;padding:15px 24px;border-radius:999px;font-weight:bold;letter-spacing:.5px;">
-            Open album folder
+            Download ZIP
           </a>
 
           <p style="font-size:13px;line-height:1.6;color:#888;margin:28px 0 0;">
