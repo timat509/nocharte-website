@@ -161,4 +161,13 @@ window.ALBUMS = [
     cover: "assets/albums/cielo-24-07-26/cover.webp",
     href: "album.html?slug=cielo-24-07-26"
   },
+  {
+    slug: "gigolo_by_fondoblanco-25-07-26",
+    title: "Gigolo by Fondo Blanco — 25 July 2026",
+    date: "2026-07-25",
+    category: "Clubs",
+    count: 112,
+    cover: "assets/albums/gigolo_by_fondoblanco-25-07-26/cover.webp",
+    href: "album.html?slug=gigolo_by_fondoblanco-25-07-26"
+  },
 ];

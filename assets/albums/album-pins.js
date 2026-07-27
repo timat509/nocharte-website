@@ -5,4 +5,5 @@ window.ALBUM_PINS = {
   "the_trip-30-05-26": "9043",
   "light_out-20-06-26": "7398",
   "cielo-24-07-26": "2525",
+  "gigolo_by_fondoblanco-25-07-26": "5566"
 };

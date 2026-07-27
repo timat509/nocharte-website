@@ -35,6 +35,12 @@ exports.handler = async function (event) {
         zipUrl: process.env.ALBUM_CIELO_JUL_ZIP_URL,
       },
 
+      "gigolo_by_fondoblanco-25-07-26": {
+        title: "Gigolo by Fondo Blanco — 25-07-26",
+        pin: process.env.ALBUM_GIGOLO_PIN,
+        zipUrl: process.env.ALBUM_GIGOLO_ZIP_URL,
+      },
+
     };
 
     
