@@ -730,7 +730,6 @@ async function loadFirstWorkingImage(paths) {
 
   for (const path of paths) {
     try {
-      console.log('Trying image path:', path);
       return await loadImageSafe(path);
     } catch (err) {
       lastError = err;
@@ -813,8 +812,6 @@ async function loadImageSafe(src) {
 
     for (const candidate of candidates) {
       try {
-        console.log('Trying clean download path:', candidate);
-
         const testResponse = await fetch(candidate, { cache: 'no-store' });
         const contentType = testResponse.headers.get('content-type') || '';
 
@@ -856,12 +853,6 @@ async function loadImageSafe(src) {
     alert('Download failed. Check if the file exists.');
   }
 }
-
-      function getAlbumZipSrc() {
-        const zipPath = `${base}/downloads/${slug}.zip`;
-        console.log('ZIP PATH:', zipPath);
-        return zipPath;
-      }
 
       function openPinModal(src) {
         pendingCleanDownloadSrc = src;
