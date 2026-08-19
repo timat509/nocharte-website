@@ -320,8 +320,8 @@
         matchTabs.hidden = false;
 
         matchTabs.innerHTML = day.matches.map((match, i) => `
-          <button type="button" class="wsc-match-tab${i === 0 ? " is-active" : ""}" data-slug="${match.slug}">
-            ${match.label}
+          <button type="button" class="wsc-match-tab${i === 0 ? " is-active" : ""}${match.champion ? " is-champion" : ""}" data-slug="${match.slug}">
+            ${match.champion ? "🏆 " : ""}${match.label}
           </button>
         `).join("");
 

@@ -542,6 +542,22 @@ body.lightbox-open{
   background:linear-gradient(90deg, #00d9ff, #2fa8ff, #8b3dff);
 }
 
+.wsc-match-tab.is-champion{
+  color:#a8791a;
+}
+
+.wsc-match-tab.is-champion:hover{
+  color:#8a6414;
+}
+
+.wsc-match-tab.is-champion.is-active{
+  color:#0d0904;
+}
+
+.wsc-match-tab.is-champion.is-active::after{
+  background:linear-gradient(90deg, #f4d778, #d4a017, #f4d778);
+}
+
 .photo-card{
   padding:0;
   border:0;

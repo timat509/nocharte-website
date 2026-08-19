@@ -157,7 +157,11 @@ const WSC_DAYS = [
     highlights: "day-09/highlights.js",
     webPath: "day-09/web/",
     fullPath: "day-09/full/",
-    matches: wscMatches("day-09", 4)
+    matches: [
+      wscMatch("day-09", "cimarrones-vs-agricultores", "Cimarrones vs Agricultores"),
+      wscMatch("day-09", "villano-vs-sueltabate", "Villano vs Sueltabate"),
+      wscMatch("day-09", "godfather-vs-plakata", "Godfather vs Plakata")
+    ]
   },
   {
     slug: "day-10",
@@ -170,6 +174,11 @@ const WSC_DAYS = [
     highlights: "day-10/highlights.js",
     webPath: "day-10/web/",
     fullPath: "day-10/full/",
-    matches: wscMatches("day-10", 4)
+    matches: [
+      wscMatch("day-10", "sueltabate-vs-godfathers", "Sueltabate vs Godfathers"),
+      wscMatch("day-10", "domilquince-vs-villanos", "Villanos vs Domilquince"),
+      wscMatch("day-10", "grandfinal", "Gran Final"),
+      Object.assign(wscMatch("day-10", "godfathers-campeones", "Godfathers Campeones"), { champion: true })
+    ]
   }
 ];
