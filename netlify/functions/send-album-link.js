@@ -41,6 +41,24 @@ exports.handler = async function (event) {
         zipUrl: process.env.ALBUM_GIGOLO_ZIP_URL,
       },
 
+      "santa_blacklist-12-12-25": {
+        title: "Santa's Blacklist — 12-12-25",
+        pin: process.env.ALBUM_SANTA_BLACKLIST_PIN,
+        zipUrl: process.env.ALBUM_SANTA_BLACKLIST_ZIP_URL,
+      },
+
+      "pill_in_ibiza-23-01-26": {
+        title: "Pill In Ibiza — 23-01-26",
+        pin: process.env.ALBUM_PILL_IN_IBIZA_PIN,
+        zipUrl: process.env.ALBUM_PILL_IN_IBIZA_ZIP_URL,
+      },
+
+      "aj_amazonia-31-10-25": {
+        title: "Halloween A&J Amazonia — 31-10-25",
+        pin: process.env.ALBUM_AJ_AMAZONIA_PIN,
+        zipUrl: process.env.ALBUM_AJ_AMAZONIA_ZIP_URL,
+      },
+
     };
 
     
