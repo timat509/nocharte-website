@@ -170,4 +170,22 @@ window.ALBUMS = [
     cover: "assets/albums/gigolo_by_fondoblanco-25-07-26/cover.webp",
     href: "album.html?slug=gigolo_by_fondoblanco-25-07-26"
   },
+  {
+    slug: "otherside-30-10-26",
+    title: "Otherside — 30 Oct 2026",
+    date: "2026-10-30",
+    category: "Clubs",
+    count: 91,
+    cover: "assets/albums/otherside-30-10-26/cover.webp",
+    href: "album.html?slug=otherside-30-10-26"
+  },
+  {
+    slug: "amazonia-31-10-26",
+    title: "Amazonia — 31 Oct 2026",
+    date: "2026-10-31",
+    category: "Clubs",
+    count: 50,
+    cover: "assets/albums/amazonia-31-10-26/cover.webp",
+    href: "album.html?slug=amazonia-31-10-26"
+  },
 ];
