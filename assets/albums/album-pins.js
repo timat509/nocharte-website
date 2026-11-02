@@ -8,5 +8,7 @@ window.ALBUM_PINS = {
   "gigolo_by_fondoblanco-25-07-26": "7891",
   "santa_blacklist-12-12-25": "7891",
   "pill_in_ibiza-23-01-26": "7891",
-  "aj_amazonia-31-10-25": "7891"
+  "aj_amazonia-31-10-25": "7891",
+  "otherside-30-10-26": "8943",
+  "amazonia-31-10-26": "5478"
 };

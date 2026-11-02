@@ -59,6 +59,18 @@ exports.handler = async function (event) {
         zipUrl: process.env.ALBUM_AJ_AMAZONIA_ZIP_URL,
       },
 
+      "otherside-30-10-26": {
+        title: "Fondo Blanco - Otherside — 30-10-26",
+        pin: process.env.ALBUM_OTHERSIDE_PIN,
+        zipUrl: process.env.ALBUM_OTHERSIDE_ZIP_URL,
+      },
+
+      "amazonia-31-10-26": {
+        title: "Amazonia — 31-10-26",
+        pin: process.env.ALBUM_AMAZONIA_PIN,
+        zipUrl: process.env.ALBUM_AMAZONIA_ZIP_URL,
+      },
+
     };
 
     
