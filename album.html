@@ -364,8 +364,13 @@
         document.head.appendChild(s);
       }
 
+      // Display names that can't be derived from the slug
+      const ALBUM_TITLES = {
+        'otherside-30-10-26': 'Fondo Blanco - Otherside'
+      };
+
       function setPageTitle() {
-        const albumName = slugToTitle(slug);
+        const albumName = ALBUM_TITLES[slug] || slugToTitle(slug);
         document.title = `NOCHARTE — ${albumName}`;
         titleEl.textContent = albumName;
       }

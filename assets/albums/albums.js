@@ -172,7 +172,7 @@ window.ALBUMS = [
   },
   {
     slug: "otherside-30-10-26",
-    title: "Otherside — 30 Oct 2026",
+    title: "Fondo Blanco - Otherside — 30 Oct 2026",
     date: "2026-10-30",
     category: "Clubs",
     count: 91,
