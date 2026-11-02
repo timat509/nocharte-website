@@ -181,7 +181,7 @@ window.ALBUMS = [
   },
   {
     slug: "amazonia-31-10-26",
-    title: "Amazonia — 31 Oct 2026",
+    title: "Scared Fear - Arman — 31 Oct 2026",
     date: "2026-10-31",
     category: "Clubs",
     count: 50,

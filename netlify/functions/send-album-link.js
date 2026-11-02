@@ -66,7 +66,7 @@ exports.handler = async function (event) {
       },
 
       "amazonia-31-10-26": {
-        title: "Amazonia — 31-10-26",
+        title: "Scared Fear - Arman — 31-10-26",
         pin: process.env.ALBUM_AMAZONIA_PIN,
         zipUrl: process.env.ALBUM_AMAZONIA_ZIP_URL,
       },
